@@ -4,11 +4,13 @@ importers:
 
   .:
     specifiers:
+      '@aklinker1/generate-changelog': '*'
       husky: ^8.0.1
       prettier: ^2.7.1
       pretty-quick: ^3.1.3
       turbo: ^1.6.3
     devDependencies:
+      '@aklinker1/generate-changelog': 1.0.0
       husky: 8.0.1
       prettier: 2.7.1
       pretty-quick: 3.1.3_prettier@2.7.1
@@ -76,6 +78,12 @@ importers:
     specifiers: {}
 
 packages:
+
+  /@aklinker1/generate-changelog/1.0.0:
+    resolution: {integrity: sha512-j3eaqKurOTaSNBxciw//1oj/7UN+m/PUix1oYftPGPbJbALvllECJCvhZJ7rEGaUd1P6XUOAl/mE+eWeuWvH5w==}
+    dependencies:
+      commander: 9.4.1
+    dev: true
 
   /@bcoe/v8-coverage/0.2.3:
     resolution: {integrity: sha512-0hYQ8SB4Db5zvZB4axdMHGwEaQjkZzFjQiN9LVYvIFB2nSUHW9tYpxWriPrWDASIxiaXax83REcLxuSdnGPZtw==}
@@ -354,6 +362,11 @@ packages:
   /commander/4.1.1:
     resolution: {integrity: sha512-NOKm8xhkzAjzFx8B2v5OAHT+u5pRQc2UCa2Vq9jYL/31o2wi9mxBA7LIFs3sV5VSC49z6pEhfbMULvShKj26WA==}
     engines: {node: '>= 6'}
+    dev: true
+
+  /commander/9.4.1:
+    resolution: {integrity: sha512-5EEkTNyHNGFPD2H+c/dXXfQZYa/scCKasxWcXJaWnNJ99pnQN9Vnmqow+p+PlFPE63Q6mThaZws1T+HxfpgtPw==}
+    engines: {node: ^12.20.0 || >=14}
     dev: true
 
   /concat-map/0.0.1:

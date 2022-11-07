@@ -1,0 +1,90 @@
+name: Publish Packages
+on: [workflow_dispatch]
+
+permissions:
+  contents: write
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate.yml
+
+  publish:
+    name: Publish
+    needs: [validate]
+    strategy:
+      max-parallel: 1
+      matrix:
+        package: [fake-browser, messaging, storage]
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout Repo
+        uses: actions/checkout@v3
+        with:
+          ref: ${{ github.ref }}
+          fetch-depth: 0
+
+      - name: Pull Latest Releases
+        run: git pull
+
+      - name: Install PNPM
+        uses: pnpm/action-setup@v2.2.4
+        with:
+          version: 7
+
+      - name: Install Node 16
+        uses: actions/setup-node@v3
+        with:
+          node-version: 16
+          cache: 'pnpm'
+
+      - name: Install dependencies
+        run: pnpm install
+
+      - id: changelog
+        name: Generate changelog
+        uses: aklinker1/generate-changelog/.github/actions/generate-changelog@main
+        with:
+          module: ${{ matrix.package }}
+          scopes: ${{ matrix.package }}
+
+      - name: Bump Version
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        run: |
+          node -p -e "
+            const pkg = JSON.parse(\`$(cat package.json)\`);
+            pkg.cliVersion = '${{ steps.changelog.outputs.nextVersion }}';
+            JSON.stringify(pkg, null, 2);
+          " > package.json
+          echo "Updated package.json:"
+          cat package.json
+          git config --global user.email "changelog.action@github.com"
+          git config --global user.name "Changelog Action"
+          git add package.json
+          git commit -m "chore(release): ${{ matrix.package }}-v${{ steps.changelog.outputs.nextVersion }}"
+          git push
+        working-directory: packages/${{ matrix.package }}
+
+      - name: Create Tag
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        run: |
+          git tag "${{ matrix.package }}-v${{ steps.changelog.outputs.nextVersion }}"
+          git push --tags
+
+      - id: create_release
+        name: Create GitHub Release
+        uses: actions/create-release@v1
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        env:
+          GITHUB_TOKEN: ${{ secrets.github_token }}
+        with:
+          tag_name: ${{ matrix.package }}-v${{ steps.changelog.outputs.nextVersion }}
+          release_name: '@webext-core/${{ matrix.package }} v${{ steps.changelog.outputs.nextVersion }}'
+          body: ${{ steps.changelog.outputs.changelog }}
+
+      - name: Publish to NPM
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        run: |
+          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          pnpm build
+          pnpm publish
+        working-directory: packages/${{ matrix.package }}

@@ -1,13 +1,14 @@
-name: Verify Code
+name: Validate
 on:
   push:
     branches: [main]
   pull_request:
+  workflow_call:
 
 jobs:
   root:
     name: root
-    runs-on: ubuntu-latest
+    runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repo
         uses: actions/checkout@v3
