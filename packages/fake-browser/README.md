@@ -3,7 +3,7 @@
 Fake implementation of the `webextension-polyfill` Browser API for testing.
 
 ```bash
-pnpm i @webext-core/fake-browser
+pnpm i -D @webext-core/fake-browser
 ```
 
 ## Usage
