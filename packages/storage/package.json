@@ -1,0 +1,36 @@
+{
+  "name": "@webext-core/storage",
+  "version": "1.0.0",
+  "description": "Local storage based wrapper around the Browser.storage APIs",
+  "type": "module",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
+    "test": "vitest -r src",
+    "test:coverage": "vitest run -r src --coverage",
+    "compile": "tsc --noEmit"
+  },
+  "dependencies": {
+    "webextension-polyfill": "^0.10.0"
+  },
+  "devDependencies": {
+    "@types/webextension-polyfill": "^0.9.1",
+    "@vitest/coverage-c8": "^0.24.5",
+    "tsup": "^6.4.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5",
+    "@webext-core/fake-browser": "workspace:*",
+    "tsconfig": "workspace:*"
+  }
+}
