@@ -4,6 +4,7 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
+    "build": "turbo run build",
     "prepare": "husky install"
   },
   "devDependencies": {
