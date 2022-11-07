@@ -28,6 +28,27 @@ importers:
       typescript: 4.8.4
       vitest: 0.24.5
 
+  packages/messaging:
+    specifiers:
+      '@types/webextension-polyfill': ^0.9.1
+      '@vitest/coverage-c8': ^0.24.5
+      '@webext-core/fake-browser': workspace:*
+      tsconfig: workspace:*
+      tsup: ^6.4.0
+      typescript: ^4.8.4
+      vitest: ^0.24.5
+      webextension-polyfill: ^0.10.0
+    dependencies:
+      webextension-polyfill: 0.10.0
+    devDependencies:
+      '@types/webextension-polyfill': 0.9.1
+      '@vitest/coverage-c8': 0.24.5
+      '@webext-core/fake-browser': link:../fake-browser
+      tsconfig: link:../tsconfig
+      tsup: 6.4.0_typescript@4.8.4
+      typescript: 4.8.4
+      vitest: 0.24.5
+
   packages/storage:
     specifiers:
       '@types/webextension-polyfill': ^0.9.1
