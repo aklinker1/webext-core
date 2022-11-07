@@ -2,7 +2,7 @@
 
 A set of core libraries and tools for building web extensions.
 
-- [ ] `@webext-core/messaging`: A lightweight, **type-safe** wrapper around the messaging API
+- [x] `@webext-core/messaging`: A lightweight, **type-safe** wrapper around the messaging API
 - [x] `@webext-core/storage`: Local storage based, **type-safe** wrappers around the storage API
 - [x] `@webext-core/fake-browser`: An in-memory implementation of the `Browser` APIs for testing
 - [ ] `@webext-core/publish`: A tool for publishing an extension to the various stores

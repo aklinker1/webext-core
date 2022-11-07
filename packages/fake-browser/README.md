@@ -53,6 +53,7 @@ To use the fake object in tests, configure your testing framework to use `fakeBr
 Unimplemented APIs will throw an error when accessed. Open a PR to add an fake implementation!
 
 - [x] alarms
+- [x] runtime (partial)
 - [x] storage
 
 ---
@@ -96,7 +97,7 @@ Unimplemented APIs will throw an error when accessed. Open a PR to add an fake i
 - [ ] pkcs11
 - [ ] privacy
 - [ ] proxy
-- [ ] runtime
+- [ ] runtime (parital)
 - [ ] scripting
 - [ ] search
 - [ ] sessions
