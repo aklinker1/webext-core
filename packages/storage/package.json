@@ -3,6 +3,25 @@
   "version": "1.0.0",
   "description": "Local storage based wrapper around the Browser.storage APIs",
   "license": "MIT",
+  "keywords": [
+    "web-extension",
+    "browser-extension",
+    "chrome-extension",
+    "webext",
+    "web-ext",
+    "web",
+    "chrome",
+    "browser",
+    "extension",
+    "storage",
+    "webextension-polyfill"
+  ],
+  "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/storage",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aklinker1/webext-core",
+    "directory": "packages/storage"
+  },
   "type": "module",
   "publishConfig": {
     "access": "public"
