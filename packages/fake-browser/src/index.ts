@@ -7,7 +7,7 @@ export { FakeBrowser };
 
 export const fakeBrowser: FakeBrowser = {
   async reset() {
-    for (const [name, api] of Object.entries(this)) {
+    for (const [name, api] of Object.entries(fakeBrowser)) {
       if (name !== 'reset') {
         const { reset } = api as any;
         if (reset == null)
