@@ -1,3 +1,4 @@
+import { runtime } from './apis/runtime';
 import { alarms } from './apis/alarms';
 import { storage } from './apis/storage';
 import { FakeBrowser } from './types';
@@ -21,6 +22,7 @@ export const fakeBrowser: FakeBrowser = {
   // Implemented
   alarms,
   storage,
+  runtime,
 
   // Not implemented
   activityLog: notImplementedApi('activityLog'),
@@ -62,7 +64,6 @@ export const fakeBrowser: FakeBrowser = {
   pkcs11: notImplementedApi('pkcs11'),
   privacy: notImplementedApi('privacy'),
   proxy: notImplementedApi('proxy'),
-  runtime: notImplementedApi('runtime'),
   scripting: notImplementedApi('scripting'),
   search: notImplementedApi('search'),
   sessions: notImplementedApi('sessions'),

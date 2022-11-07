@@ -6,9 +6,7 @@ const now = Date.now();
 vi.setSystemTime(now);
 
 describe('Fake Alarms API', () => {
-  beforeEach(() => {
-    fakeBrowser.reset();
-  });
+  beforeEach(fakeBrowser.reset);
 
   it('should allow creating an unnamed alarm', async () => {
     fakeBrowser.alarms.create(undefined, {

@@ -1,6 +1,4 @@
-import { Browser } from 'webextension-polyfill';
-
-export function notImplementedApi<T>(api: keyof Browser): any {
+export function notImplementedApi<T>(api: string): any {
   return new Proxy(
     {},
     {

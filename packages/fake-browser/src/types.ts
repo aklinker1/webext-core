@@ -1,4 +1,4 @@
-import type { Alarms, Browser, Storage } from 'webextension-polyfill';
+import type { Alarms, Browser, Runtime, Storage } from 'webextension-polyfill';
 
 interface BrowserOverrides {
   /**
@@ -15,6 +15,44 @@ interface BrowserOverrides {
        * Trigger an alarm.
        */
       trigger(name: Alarms.Alarm): Promise<void[]>;
+      removeAllListeners(): void;
+    };
+  };
+  runtime: {
+    reset(): void;
+    onSuspend: {
+      /**
+       * Trigger the browser suspend event.
+       */
+      trigger(): Promise<void[]>;
+      removeAllListeners(): void;
+    };
+    onSuspendCanceled: {
+      /**
+       * Trigger the browser suspend canceled event.
+       */
+      trigger(): Promise<void[]>;
+      removeAllListeners(): void;
+    };
+    onStartup: {
+      /**
+       * Trigger the browser startup event.
+       */
+      trigger(): Promise<void[]>;
+      removeAllListeners(): void;
+    };
+    onInstalled: {
+      /**
+       * Trigger the browser installed event.
+       */
+      trigger(details: Runtime.OnInstalledDetailsType): Promise<void[]>;
+      removeAllListeners(): void;
+    };
+    onUpdateAvailable: {
+      /**
+       * Trigger the browser update available event.
+       */
+      trigger(details: Runtime.OnUpdateAvailableDetailsType): Promise<void[]>;
       removeAllListeners(): void;
     };
   };
