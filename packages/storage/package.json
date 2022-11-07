@@ -4,6 +4,9 @@
   "description": "Local storage based wrapper around the Browser.storage APIs",
   "license": "MIT",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "lib"
   ],

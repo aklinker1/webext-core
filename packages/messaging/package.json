@@ -4,6 +4,9 @@
   "description": "Light weight, type-safe wrapper around the extension messaging APIs",
   "license": "MIT",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "lib"
   ],

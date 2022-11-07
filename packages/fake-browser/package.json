@@ -3,6 +3,9 @@
   "version": "1.0.0",
   "description": "In-memory fake of the Browser extension API",
   "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
   "files": [
     "lib"
   ],
