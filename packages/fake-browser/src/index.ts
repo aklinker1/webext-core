@@ -4,7 +4,7 @@ import { storage } from './apis/storage';
 import { FakeBrowser } from './types';
 import { notImplementedApi } from './utils/notImplementedApi';
 
-export { FakeBrowser };
+export type { FakeBrowser };
 
 export const fakeBrowser: FakeBrowser = {
   async reset() {

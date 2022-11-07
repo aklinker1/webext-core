@@ -18,12 +18,14 @@ importers:
     specifiers:
       '@types/webextension-polyfill': ^0.9.1
       '@vitest/coverage-c8': ^0.24.5
+      tsconfig: workspace:*
       tsup: ^6.4.0
       typescript: ^4.8.4
       vitest: ^0.24.5
     devDependencies:
       '@types/webextension-polyfill': 0.9.1
       '@vitest/coverage-c8': 0.24.5
+      tsconfig: link:../tsconfig
       tsup: 6.4.0_typescript@4.8.4
       typescript: 4.8.4
       vitest: 0.24.5

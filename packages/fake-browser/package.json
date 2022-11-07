@@ -26,6 +26,7 @@
     "@vitest/coverage-c8": "^0.24.5",
     "tsup": "^6.4.0",
     "typescript": "^4.8.4",
-    "vitest": "^0.24.5"
+    "vitest": "^0.24.5",
+    "tsconfig": "workspace:*"
   }
 }
