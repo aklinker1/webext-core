@@ -1,5 +1,7 @@
 # webext-core
 
+[![Verify Code](https://github.com/aklinker1/webext-core/actions/workflows/verify-pr.yml/badge.svg)](https://github.com/aklinker1/webext-core/actions/workflows/verify-pr.yml)
+
 A set of core libraries and tools for building web extensions.
 
 - [x] `@webext-core/messaging`: A lightweight, **type-safe** wrapper around the messaging API
