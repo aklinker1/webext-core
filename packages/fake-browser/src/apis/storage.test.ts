@@ -2,9 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { fakeBrowser } from '..';
 
 describe('Fake Storage API', () => {
-  beforeEach(() => {
-    fakeBrowser.reset();
-  });
+  beforeEach(fakeBrowser.reset);
 
   it('should allow getting and setting storage', async () => {
     const key1 = '1';

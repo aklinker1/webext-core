@@ -52,8 +52,12 @@ To use the fake object in tests, configure your testing framework to use `fakeBr
 
 Unimplemented APIs will throw an error when accessed. Open a PR to add an fake implementation!
 
-- [ ] activityLog
 - [x] alarms
+- [x] storage
+
+---
+
+- [ ] activityLog
 - [ ] bookmarks
 - [ ] action
 - [ ] browserAction
@@ -97,7 +101,6 @@ Unimplemented APIs will throw an error when accessed. Open a PR to add an fake i
 - [ ] search
 - [ ] sessions
 - [ ] sidebarAction
-- [x] storage
 - [ ] tabs
 - [ ] theme
 - [ ] topSites
