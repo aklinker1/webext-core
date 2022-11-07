@@ -2,6 +2,28 @@
   "name": "@webext-core/fake-browser",
   "version": "1.0.0",
   "description": "In-memory fake of the Browser extension API",
+  "license": "MIT",
+  "keywords": [
+    "web-extension",
+    "browser-extension",
+    "chrome-extension",
+    "webext",
+    "web-ext",
+    "web",
+    "chrome",
+    "browser",
+    "extension",
+    "testing",
+    "vite",
+    "jest",
+    "webextension-polyfill"
+  ],
+  "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/fake-browser",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aklinker1/webext-core",
+    "directory": "packages/fake-browser"
+  },
   "type": "module",
   "publishConfig": {
     "access": "public"
