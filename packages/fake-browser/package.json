@@ -53,5 +53,6 @@
     "typescript": "^4.8.4",
     "vitest": "^0.24.5",
     "tsconfig": "workspace:*"
-  }
+  },
+  "cliVersion": "1.0.1"
 }
