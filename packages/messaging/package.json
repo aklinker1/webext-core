@@ -3,6 +3,26 @@
   "version": "1.0.0",
   "description": "Light weight, type-safe wrapper around the extension messaging APIs",
   "license": "MIT",
+  "keywords": [
+    "web-extension",
+    "browser-extension",
+    "chrome-extension",
+    "webext",
+    "web-ext",
+    "web",
+    "chrome",
+    "browser",
+    "extension",
+    "message",
+    "messaging",
+    "webextension-polyfill"
+  ],
+  "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/messaging",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aklinker1/webext-core",
+    "directory": "packages/messaging"
+  },
   "type": "module",
   "publishConfig": {
     "access": "public"
