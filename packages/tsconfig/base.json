@@ -12,7 +12,8 @@
     "moduleResolution": "node",
     "skipLibCheck": true,
     "strict": true,
-    "noEmit": true
+    "noEmit": true,
+    "allowSyntheticDefaultImports": true
   },
   "exclude": ["node_modules"]
 }
