@@ -2,6 +2,7 @@
   "name": "@webext-core/storage",
   "version": "1.0.0",
   "description": "Local storage based wrapper around the Browser.storage APIs",
+  "license": "MIT",
   "type": "module",
   "files": [
     "lib"
