@@ -1,0 +1,31 @@
+{
+  "name": "@webext-core/fake-browser",
+  "version": "1.0.0",
+  "description": "In-memory fake of the Browser extension API",
+  "type": "module",
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "compile": "tsc --noEmit"
+  },
+  "devDependencies": {
+    "@types/webextension-polyfill": "^0.9.1",
+    "@vitest/coverage-c8": "^0.24.5",
+    "tsup": "^6.4.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5"
+  }
+}
