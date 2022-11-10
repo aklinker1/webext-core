@@ -172,19 +172,10 @@ export const tabs: FakeBrowser['tabs'] = {
     await onHighlighted.trigger({ tabIds, windowId: window!.id! });
     return window!;
   },
-  // @ts-expect-error
-  update(...args) {
-    throw Error('tabs.update not implemented');
-  },
-  move(tabIds, moveProperties) {
-    throw Error('tabs.move not implemented');
-  },
-  reload(tabId?, reloadProperties?) {
-    throw Error('tabs.reload not implemented');
-  },
-  warmup(tabId) {
-    throw Error('tabs.warmup not implemented');
-  },
+  update: notImplementedApi('tabs.update'),
+  move: notImplementedApi('tabs.move'),
+  reload: notImplementedApi('tabs.reload'),
+  warmup: notImplementedApi('tabs.warmup'),
   async remove(tabIds) {
     const ids = Array.isArray(tabIds) ? tabIds : [tabIds];
     for (const id of ids) {
@@ -197,71 +188,26 @@ export const tabs: FakeBrowser['tabs'] = {
       }
     }
   },
-  discard(tabIds) {
-    throw Error('tabs.discard not implemented');
-  },
-  detectLanguage(tabId?) {
-    throw Error('tabs.detectLanguage not implemented');
-  },
-  toggleReaderMode(tabId?) {
-    throw Error('tabs.toggleReaderMode not implemented');
-  },
-  captureTab(tabId?, options?) {
-    throw Error('tabs.captureTab not implemented');
-  },
-  captureVisibleTab(windowId?, options?) {
-    throw Error('tabs.captureVisibleTab not implemented');
-  },
-  // @ts-expect-error
-  executeScript(...args) {
-    throw Error('tabs.executeScript not implemented');
-  },
-  // @ts-expect-error
-  insertCSS(...args) {
-    throw Error('tabs.insertCSS not implemented');
-  },
-  // @ts-expect-error
-  removeCSS(...args) {
-    throw Error('tabs.removeCSS not implemented');
-  },
-  // @ts-expect-error
-  setZoom(...args) {
-    throw Error('tabs.setZoom not implemented');
-  },
-  getZoom(tabId?) {
-    throw Error('tabs.getZoom not implemented');
-  },
-  // @ts-expect-error
-  setZoomSettings(...args) {
-    throw Error('tabs.setZoomSettings not implemented');
-  },
-  getZoomSettings(tabId?) {
-    throw Error('tabs.getZoomSettings not implemented');
-  },
-  print() {
-    throw Error('tabs.print not implemented');
-  },
-  printPreview() {
-    throw Error('tabs.printPreview not implemented');
-  },
-  saveAsPDF(pageSettings) {
-    throw Error('tabs.saveAsPDF not implemented');
-  },
-  show(tabIds) {
-    throw Error('tabs.show not implemented');
-  },
-  hide(tabIds) {
-    throw Error('tabs.hide not implemented');
-  },
-  moveInSuccession(tabIds, tabId?, options?) {
-    throw Error('tabs.moveInSuccession not implemented');
-  },
-  goForward(tabId?) {
-    throw Error('tabs.getForward not implemented');
-  },
-  goBack(tabId?) {
-    throw Error('tabs.goBack not implemented');
-  },
+  discard: notImplementedApi('tabs.discard'),
+  detectLanguage: notImplementedApi('tabs.detectLanguage'),
+  toggleReaderMode: notImplementedApi('tabs.toggleReaderMode'),
+  captureTab: notImplementedApi('tabs.captureTab'),
+  captureVisibleTab: notImplementedApi('tabs.captureVisibleTab'),
+  executeScript: notImplementedApi('tabs.executeScript'),
+  insertCSS: notImplementedApi('tabs.insertCSS'),
+  removeCSS: notImplementedApi('tabs.removeCSS'),
+  setZoom: notImplementedApi('tabs.setZoom'),
+  getZoom: notImplementedApi('tabs.getZoom'),
+  setZoomSettings: notImplementedApi('tabs.setZoomSettigns'),
+  getZoomSettings: notImplementedApi('tabs.getZoomSettings'),
+  print: notImplementedApi('tabs.print'),
+  printPreview: notImplementedApi('tabs.printPreview'),
+  saveAsPDF: notImplementedApi('tabs.saveAsPDF'),
+  show: notImplementedApi('tabs.show'),
+  hide: notImplementedApi('tabs.hide'),
+  moveInSuccession: notImplementedApi('tabs.moveInSuccession'),
+  goForward: notImplementedApi('tabs.goForward'),
+  goBack: notImplementedApi('tabs.goBack'),
   onCreated,
   onUpdated,
   onMoved,
