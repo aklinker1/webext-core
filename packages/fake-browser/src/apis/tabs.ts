@@ -58,8 +58,20 @@ export function mapTab(tab: InMemoryTab): Tabs.Tab {
 
 export const tabs: FakeBrowser['tabs'] = {
   reset() {
-    tabList.length = 0;
+    tabList.length = 1;
+    tabList[0] = DEFAULT_TAB;
     activeTabId = undefined;
+    nextTabId = DEFAULT_NEXT_TAB_ID;
+    onActivated.removeAllListeners();
+    onCreated.removeAllListeners();
+    onUpdated.removeAllListeners();
+    onMoved.removeAllListeners();
+    onHighlighted.removeAllListeners();
+    onDetached.removeAllListeners();
+    onAttached.removeAllListeners();
+    onRemoved.removeAllListeners();
+    onReplaced.removeAllListeners();
+    onZoomChange.removeAllListeners();
   },
   async get(tabId) {
     const tab = tabList.find(tab => tab.id === tabId);
