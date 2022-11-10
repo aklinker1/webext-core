@@ -1,5 +1,6 @@
-import { Tabs, Windows, windows } from 'webextension-polyfill';
+import { Tabs, Windows } from 'webextension-polyfill';
 import { FakeBrowser } from '../types';
+import { windows } from './windows';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { notImplementedApi } from '../utils/notImplementedApi';
 
