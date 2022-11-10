@@ -1,0 +1,3 @@
+# Generated code
+*.gen.ts linguist-generated
+*.gen.js linguist-generated
