@@ -1,60 +1,35 @@
-import type { Alarms, Browser, Runtime, Storage } from 'webextension-polyfill';
+import type { Alarms, Browser, Runtime, Storage, Windows, Tabs } from 'webextension-polyfill';
+
+interface EventForTesting<TParams extends any[], TReturn = void> {
+  /**
+   * Trigger all listeners for an event and return all their responses.
+   */
+  trigger(...args: TParams): Promise<TReturn[]>;
+  /**
+   * Remove all listeners for the event.
+   */
+  removeAllListeners(): void;
+}
 
 interface BrowserOverrides {
   /**
-   * Reset the fake browser. Remove all listeners and clear all state, like storage.
+   * Reset the fake browser. Remove all listeners and clear all in-memort state, like storage,
+   * windows, and tabs.
+   *
+   * This is often called before each test.
    */
   reset(): void;
   alarms: {
-    /**
-     * Remove all listeners and clear all alarms.
-     */
     reset(): void;
-    onAlarm: {
-      /**
-       * Trigger an alarm.
-       */
-      trigger(name: Alarms.Alarm): Promise<void[]>;
-      removeAllListeners(): void;
-    };
+    onAlarm: EventForTesting<[name: Alarms.Alarm]>;
   };
   runtime: {
     reset(): void;
-    onSuspend: {
-      /**
-       * Trigger the browser suspend event.
-       */
-      trigger(): Promise<void[]>;
-      removeAllListeners(): void;
-    };
-    onSuspendCanceled: {
-      /**
-       * Trigger the browser suspend canceled event.
-       */
-      trigger(): Promise<void[]>;
-      removeAllListeners(): void;
-    };
-    onStartup: {
-      /**
-       * Trigger the browser startup event.
-       */
-      trigger(): Promise<void[]>;
-      removeAllListeners(): void;
-    };
-    onInstalled: {
-      /**
-       * Trigger the browser installed event.
-       */
-      trigger(details: Runtime.OnInstalledDetailsType): Promise<void[]>;
-      removeAllListeners(): void;
-    };
-    onUpdateAvailable: {
-      /**
-       * Trigger the browser update available event.
-       */
-      trigger(details: Runtime.OnUpdateAvailableDetailsType): Promise<void[]>;
-      removeAllListeners(): void;
-    };
+    onSuspend: EventForTesting<[]>;
+    onSuspendCanceled: EventForTesting<[]>;
+    onStartup: EventForTesting<[]>;
+    onInstalled: EventForTesting<[details: Runtime.OnInstalledDetailsType]>;
+    onUpdateAvailable: EventForTesting<[details: Runtime.OnUpdateAvailableDetailsType]>;
   };
   storage: {
     /**
@@ -62,39 +37,25 @@ interface BrowserOverrides {
      */
     reset(): void;
     local: {
-      onChanged: {
-        /**
-         * Trigger a storage change event for the `Browser.storage.local`.
-         */
-        trigger(changes: Storage.StorageAreaOnChangedChangesType): Promise<void[]>;
-        removeAllListeners(): void;
-      };
+      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
     };
     sync: {
-      onChanged: {
-        /**
-         * Trigger a storage change event for the `Browser.storage.sync`.
-         */
-        trigger(changes: Storage.StorageAreaOnChangedChangesType): Promise<void[]>;
-        removeAllListeners(): void;
-      };
+      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
     };
     managed: {
-      onChanged: {
-        /**
-         * Trigger a storage change event for the `Browser.storage.managed`.
-         */
-        trigger(changes: Storage.StorageAreaOnChangedChangesType): Promise<void[]>;
-        removeAllListeners(): void;
-      };
+      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
     };
-    onChanged: {
-      /**
-       * Trigger a storage change event for a specific storage area.
-       */
-      trigger(changes: Record<string, Storage.StorageChange>, areaName: string): Promise<void[]>;
-      removeAllListeners(): void;
-    };
+    onChanged: EventForTesting<[changes: Record<string, Storage.StorageChange>, areaName: string]>;
+  };
+  tabs: {
+    reset(): void;
+    onActivated: EventForTesting<[activeInfo: Tabs.OnActivatedActiveInfoType]>;
+  };
+  windows: {
+    reset(): void;
+    onCreated: EventForTesting<[window: Windows.Window]>;
+    onRemoved: EventForTesting<[windowId: number]>;
+    onFocusChanged: EventForTesting<[windowId: number]>;
   };
 }
 
