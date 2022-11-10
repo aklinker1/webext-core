@@ -1,6 +1,8 @@
 import { runtime } from './apis/runtime';
 import { alarms } from './apis/alarms';
 import { storage } from './apis/storage';
+import { tabs } from './apis/tabs';
+import { windows } from './apis/windows';
 import { FakeBrowser } from './types';
 import { notImplementedApi } from './utils/notImplementedApi';
 
@@ -19,10 +21,13 @@ export const fakeBrowser: FakeBrowser = {
       }
     }
   },
+
   // Implemented
   alarms,
   storage,
   runtime,
+  tabs,
+  windows,
 
   // Not implemented
   activityLog: notImplementedApi('activityLog'),
@@ -68,7 +73,6 @@ export const fakeBrowser: FakeBrowser = {
   search: notImplementedApi('search'),
   sessions: notImplementedApi('sessions'),
   sidebarAction: notImplementedApi('sidebarAction'),
-  tabs: notImplementedApi('tabs'),
   theme: notImplementedApi('theme'),
   topSites: notImplementedApi('topSites'),
   types: notImplementedApi('types'),
@@ -76,5 +80,4 @@ export const fakeBrowser: FakeBrowser = {
   userScripts: notImplementedApi('userScripts'),
   webNavigation: notImplementedApi('webNavigation'),
   webRequest: notImplementedApi('webRequest'),
-  windows: notImplementedApi('windows'),
 };
