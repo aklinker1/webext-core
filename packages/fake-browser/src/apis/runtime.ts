@@ -1,5 +1,4 @@
-import { FakeBrowser } from '../types';
-import { notImplementedApi } from '../utils/notImplementedApi';
+import { BrowserOverrides, FakeBrowser } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { Runtime } from 'webextension-polyfill';
 
@@ -12,8 +11,8 @@ const onSuspendCanceled = defineEventWithTrigger<() => void>();
 const onUpdateAvailable =
   defineEventWithTrigger<(details: Runtime.OnUpdateAvailableDetailsType) => void>();
 
-export const runtime: FakeBrowser['runtime'] = {
-  reset() {
+export const runtime: BrowserOverrides['runtime'] = {
+  resetState() {
     onMessage.removeAllListeners();
     onInstalled.removeAllListeners();
     onStartup.removeAllListeners();
@@ -21,30 +20,13 @@ export const runtime: FakeBrowser['runtime'] = {
     onSuspendCanceled.removeAllListeners();
     onUpdateAvailable.removeAllListeners();
   },
-  connect: notImplementedApi('runtime.connect'),
-  connectNative: notImplementedApi('runtime.connectNative'),
-  getBackgroundPage: notImplementedApi('runtime.getBackgroundPage'),
-  getBrowserInfo: notImplementedApi('runtime.getBrowserInfo'),
-  getFrameId: notImplementedApi('runtime.getFrameId'),
-  getManifest: notImplementedApi('runtime.getManifest'),
-  getPlatformInfo: notImplementedApi('runtime.getPlatformInfo'),
-  getURL: notImplementedApi('runtime.getURL'),
   id: 'test-extension-id',
-  onConnect: notImplementedApi('runtime.onConnect'),
-  onConnectExternal: notImplementedApi('runtime.onConnectExternal'),
   onInstalled,
   onMessage,
   onStartup,
   onSuspend,
   onSuspendCanceled,
   onUpdateAvailable,
-  async openOptionsPage() {
-    // noop
-  },
-  reload() {
-    // noop
-  },
-  requestUpdateCheck: notImplementedApi('runtime.requestUpdateCheck'),
   // @ts-expect-error: Method has overrides :/
   async sendMessage(arg0, arg1, arg2) {
     let extensionId: string | undefined;
@@ -66,9 +48,4 @@ export const runtime: FakeBrowser['runtime'] = {
     const res = await onMessage.trigger(message, sender);
     return res[0];
   },
-  sendNativeMessage: notImplementedApi('runtime.sendNativeMessage'),
-  async setUninstallURL() {
-    // noop
-  },
-  lastError: notImplementedApi('runtime.lastError'),
 };

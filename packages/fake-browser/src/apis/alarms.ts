@@ -1,12 +1,12 @@
 import { Alarms } from 'webextension-polyfill';
-import { FakeBrowser } from '../types';
+import { BrowserOverrides } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
 const alarmList: Alarms.Alarm[] = [];
 const onAlarm = defineEventWithTrigger<(name: Alarms.Alarm) => void>();
 
-export const alarms: FakeBrowser['alarms'] = {
-  reset() {
+export const alarms: BrowserOverrides['alarms'] = {
+  resetState() {
     alarmList.length = 0;
     onAlarm.removeAllListeners();
   },

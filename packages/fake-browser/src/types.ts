@@ -11,7 +11,7 @@ interface EventForTesting<TParams extends any[], TReturn = void> {
   removeAllListeners(): void;
 }
 
-interface BrowserOverrides {
+export interface BrowserOverrides {
   /**
    * Reset the fake browser. Remove all listeners and clear all in-memort state, like storage,
    * windows, and tabs.
@@ -19,23 +19,26 @@ interface BrowserOverrides {
    * This is often called before each test.
    */
   reset(): void;
-  alarms: {
-    reset(): void;
+
+  alarms: Alarms.Static & {
+    resetState(): void;
     onAlarm: EventForTesting<[name: Alarms.Alarm]>;
   };
   runtime: {
-    reset(): void;
+    resetState(): void;
+    id: string;
     onSuspend: EventForTesting<[]>;
     onSuspendCanceled: EventForTesting<[]>;
     onStartup: EventForTesting<[]>;
     onInstalled: EventForTesting<[details: Runtime.OnInstalledDetailsType]>;
     onUpdateAvailable: EventForTesting<[details: Runtime.OnUpdateAvailableDetailsType]>;
+    onMessage: EventForTesting<[message: any, sender: Runtime.MessageSender], void | Promise<any>>;
   };
   storage: {
     /**
      * Remove all listeners and clear in-memory storages.
      */
-    reset(): void;
+    resetState(): void;
     local: {
       onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
     };
@@ -47,12 +50,24 @@ interface BrowserOverrides {
     };
     onChanged: EventForTesting<[changes: Record<string, Storage.StorageChange>, areaName: string]>;
   };
-  tabs: {
-    reset(): void;
+  tabs: Pick<
+    Tabs.Static,
+    'get' | 'getCurrent' | 'create' | 'duplicate' | 'query' | 'highlight' | 'remove'
+  > & {
+    resetState(): void;
+    onCreated: EventForTesting<[tab: Tabs.Tab]>;
+    onUpdated: EventForTesting<
+      [tabId: number, changeInfo: Tabs.OnUpdatedChangeInfoType, tab: Tabs.Tab]
+    >;
+    onHighlighted: EventForTesting<[highlightInfo: Tabs.OnHighlightedHighlightInfoType]>;
     onActivated: EventForTesting<[activeInfo: Tabs.OnActivatedActiveInfoType]>;
+    onRemoved: EventForTesting<[tabId: number, removeInfo: Tabs.OnRemovedRemoveInfoType]>;
   };
-  windows: {
-    reset(): void;
+  windows: Pick<
+    Windows.Static,
+    'get' | 'getAll' | 'create' | 'getCurrent' | 'getLastFocused' | 'remove' | 'update'
+  > & {
+    resetState(): void;
     onCreated: EventForTesting<[window: Windows.Window]>;
     onRemoved: EventForTesting<[windowId: number]>;
     onFocusChanged: EventForTesting<[windowId: number]>;

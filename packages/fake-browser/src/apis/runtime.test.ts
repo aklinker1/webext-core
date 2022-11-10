@@ -103,14 +103,4 @@ describe('Fake Storage API', () => {
     expect(listener).toBeCalledTimes(1);
     expect(listener).toBeCalledWith(input);
   });
-
-  it('should return a test extension id', () => {
-    expect(fakeBrowser.runtime.id).toEqual('test-extension-id');
-  });
-
-  it('should not throw an error running the noop methods', () => {
-    fakeBrowser.runtime.openOptionsPage();
-    fakeBrowser.runtime.reload();
-    fakeBrowser.runtime.setUninstallURL('some-url');
-  });
 });
