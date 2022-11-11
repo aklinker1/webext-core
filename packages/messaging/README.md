@@ -2,7 +2,7 @@
 
 A light weight, type-safe wrapper around the `Browser.runtime.sendMessage` APIs.
 
-Based loosely off [`webext-bridge`](https://github.com/zikaari/webext-bridge). This does nothing other than provide types to the messaging APIs. `webext-bridge` provides things like queuing and caching, **this does not**.
+In addition to adding types, it also includes error handling. Any errors will be returned to where `sendMessage` was called.
 
 ## Usage
 
