@@ -1,5 +1,5 @@
 import { Storage } from 'webextension-polyfill';
-import { FakeBrowser } from '../types';
+import { BrowserOverrides, FakeBrowser } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
 const globalOnChanged =
@@ -8,7 +8,7 @@ const globalOnChanged =
   >();
 
 type StorageAreaWithTrigger = Storage.StorageArea & {
-  reset(): void;
+  resetState(): void;
   onChanged: {
     trigger(changes: Storage.StorageAreaOnChangedChangesType): Promise<void[]>;
     removeAllListeners(): void;
@@ -25,7 +25,7 @@ function defineStorageArea(area: 'local' | 'sync' | 'managed'): StorageAreaWithT
   }
 
   return {
-    reset() {
+    resetState() {
       onChanged.removeAllListeners();
       for (const key of Object.keys(data)) {
         delete data[key];
@@ -102,11 +102,11 @@ const syncStorage = {
   },
 };
 
-export const storage: FakeBrowser['storage'] = {
-  reset() {
-    localStorage.reset();
-    managedStorage.reset();
-    syncStorage.reset();
+export const storage: BrowserOverrides['storage'] = {
+  resetState() {
+    localStorage.resetState();
+    managedStorage.resetState();
+    syncStorage.resetState();
     globalOnChanged.removeAllListeners();
   },
   local: localStorage,

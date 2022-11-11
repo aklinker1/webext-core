@@ -41,18 +41,25 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
+    "build": "pnpm gen && tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "compile": "tsc --noEmit"
+    "compile": "tsc --noEmit",
+    "gen": "tsx scripts/generate-base.ts && prettier --write src/base.gen.ts"
   },
   "devDependencies": {
+    "@types/lodash.merge": "^4.6.7",
     "@types/webextension-polyfill": "^0.9.1",
     "@vitest/coverage-c8": "^0.24.5",
+    "tsconfig": "workspace:*",
     "tsup": "^6.4.0",
+    "tsx": "^3.12.0",
+    "ts-morph": "^16.0.0",
     "typescript": "^4.8.4",
-    "vitest": "^0.24.5",
-    "tsconfig": "workspace:*"
+    "vitest": "^0.24.5"
   },
-  "cliVersion": "1.0.1"
+  "cliVersion": "1.0.1",
+  "dependencies": {
+    "lodash.merge": "^4.6.2"
+  }
 }

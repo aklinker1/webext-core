@@ -1,8 +1,7 @@
 import { Tabs, Windows } from 'webextension-polyfill';
-import { FakeBrowser } from '../types';
+import { BrowserOverrides } from '../types';
 import { windows } from './windows';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
-import { notImplementedApi } from '../utils/notImplementedApi';
 
 type InMemoryTab = Omit<Tabs.Tab, 'active'>;
 
@@ -12,22 +11,12 @@ const onUpdated =
   defineEventWithTrigger<
     (tabId: number, changeInfo: Tabs.OnUpdatedChangeInfoType, tab: Tabs.Tab) => void
   >();
-const onMoved =
-  defineEventWithTrigger<(tabId: number, moveInfo: Tabs.OnMovedMoveInfoType) => void>();
 
 const onHighlighted =
   defineEventWithTrigger<(highlightInfo: Tabs.OnHighlightedHighlightInfoType) => void>();
-const onDetached =
-  defineEventWithTrigger<(tabId: number, detachInfo: Tabs.OnDetachedDetachInfoType) => void>();
-const onAttached =
-  defineEventWithTrigger<(tabId: number, attachInfo: Tabs.OnAttachedAttachInfoType) => void>();
 const onRemoved =
   defineEventWithTrigger<(tabId: number, removeInfo: Tabs.OnRemovedRemoveInfoType) => void>();
-const onReplaced = defineEventWithTrigger<(addedTabId: number, removedTabId: number) => void>();
-const onZoomChange =
-  defineEventWithTrigger<(ZoomChangeInfo: Tabs.OnZoomChangeZoomChangeInfoType) => void>();
 
-const TAB_ID_NONE = -1 as const;
 const DEFAULT_TAB: InMemoryTab = {
   id: 0,
   index: 0,
@@ -57,8 +46,8 @@ export function mapTab(tab: InMemoryTab): Tabs.Tab {
   };
 }
 
-export const tabs: FakeBrowser['tabs'] = {
-  reset() {
+export const tabs: BrowserOverrides['tabs'] = {
+  resetState() {
     tabList.length = 1;
     tabList[0] = DEFAULT_TAB;
     activeTabId = undefined;
@@ -66,13 +55,8 @@ export const tabs: FakeBrowser['tabs'] = {
     onActivated.removeAllListeners();
     onCreated.removeAllListeners();
     onUpdated.removeAllListeners();
-    onMoved.removeAllListeners();
     onHighlighted.removeAllListeners();
-    onDetached.removeAllListeners();
-    onAttached.removeAllListeners();
     onRemoved.removeAllListeners();
-    onReplaced.removeAllListeners();
-    onZoomChange.removeAllListeners();
   },
   async get(tabId) {
     const tab = tabList.find(tab => tab.id === tabId);
@@ -83,8 +67,6 @@ export const tabs: FakeBrowser['tabs'] = {
     if (activeTabId == null) return undefined!;
     return tabs.get(activeTabId);
   },
-  connect: notImplementedApi('tabs.connect'),
-  sendMessage: notImplementedApi('tabs.sendMessage'),
   async create(createProperties) {
     const window = createProperties.windowId
       ? await windows.get(createProperties.windowId, { populate: true })
@@ -173,10 +155,6 @@ export const tabs: FakeBrowser['tabs'] = {
     await onHighlighted.trigger({ tabIds, windowId: window!.id! });
     return window!;
   },
-  update: notImplementedApi('tabs.update'),
-  move: notImplementedApi('tabs.move'),
-  reload: notImplementedApi('tabs.reload'),
-  warmup: notImplementedApi('tabs.warmup'),
   async remove(tabIds) {
     const ids = Array.isArray(tabIds) ? tabIds : [tabIds];
     for (const id of ids) {
@@ -189,35 +167,9 @@ export const tabs: FakeBrowser['tabs'] = {
       }
     }
   },
-  discard: notImplementedApi('tabs.discard'),
-  detectLanguage: notImplementedApi('tabs.detectLanguage'),
-  toggleReaderMode: notImplementedApi('tabs.toggleReaderMode'),
-  captureTab: notImplementedApi('tabs.captureTab'),
-  captureVisibleTab: notImplementedApi('tabs.captureVisibleTab'),
-  executeScript: notImplementedApi('tabs.executeScript'),
-  insertCSS: notImplementedApi('tabs.insertCSS'),
-  removeCSS: notImplementedApi('tabs.removeCSS'),
-  setZoom: notImplementedApi('tabs.setZoom'),
-  getZoom: notImplementedApi('tabs.getZoom'),
-  setZoomSettings: notImplementedApi('tabs.setZoomSettigns'),
-  getZoomSettings: notImplementedApi('tabs.getZoomSettings'),
-  print: notImplementedApi('tabs.print'),
-  printPreview: notImplementedApi('tabs.printPreview'),
-  saveAsPDF: notImplementedApi('tabs.saveAsPDF'),
-  show: notImplementedApi('tabs.show'),
-  hide: notImplementedApi('tabs.hide'),
-  moveInSuccession: notImplementedApi('tabs.moveInSuccession'),
-  goForward: notImplementedApi('tabs.goForward'),
-  goBack: notImplementedApi('tabs.goBack'),
   onCreated,
   onUpdated,
-  onMoved,
   onActivated,
   onHighlighted,
-  onDetached,
-  onAttached,
   onRemoved,
-  onReplaced,
-  onZoomChange,
-  TAB_ID_NONE,
 };

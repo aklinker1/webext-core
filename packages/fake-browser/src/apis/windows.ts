@@ -1,5 +1,5 @@
 import { Windows } from 'webextension-polyfill';
-import { FakeBrowser } from '../types';
+import { BrowserOverrides, FakeBrowser } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { mapTab, tabList } from './tabs';
 
@@ -47,8 +47,8 @@ function mapCreateType(type: Windows.CreateType | undefined): Windows.WindowType
   return type;
 }
 
-export const windows: FakeBrowser['windows'] = {
-  reset() {
+export const windows: BrowserOverrides['windows'] = {
+  resetState() {
     windowList.length = 1;
     windowList[0] = DEFAULT_WINDOW;
     focusedWindowId = undefined;
@@ -110,6 +110,4 @@ export const windows: FakeBrowser['windows'] = {
   onCreated,
   onRemoved,
   onFocusChanged,
-  WINDOW_ID_NONE: -1,
-  WINDOW_ID_CURRENT: -2,
 };
