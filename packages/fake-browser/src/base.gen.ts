@@ -1698,7 +1698,7 @@ Mock the function yourself using your testing framework, or submit a PR with an 
         },
       },
       sources: {},
-      themeName: 'string',
+      themeName: '',
     },
   },
   dns: {
@@ -3733,9 +3733,9 @@ Mock the function yourself using your testing framework, or submit a PR with an 
       },
     },
     lastError: {
-      message: 'string',
+      message: '',
     },
-    id: 'string',
+    id: '',
   },
   scripting: {
     executeScript: () => {

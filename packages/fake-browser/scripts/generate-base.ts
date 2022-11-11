@@ -58,7 +58,7 @@ function generateType(parents: string[], name: string, type: Type<ts.Type> | und
   } else if (type.isLiteral()) {
     w.write(type.getText());
   } else if (type.isString()) {
-    w.write(`"string"`);
+    w.write(`""`);
   } else if (type.isBoolean()) {
     w.write(`false`);
   } else if (type.isNumber()) {

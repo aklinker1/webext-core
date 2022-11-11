@@ -41,7 +41,7 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
+    "build": "pnpm gen && tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "compile": "tsc --noEmit",
