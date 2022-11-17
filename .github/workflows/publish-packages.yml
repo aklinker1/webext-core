@@ -52,7 +52,7 @@ jobs:
         run: |
           node -p -e "
             const pkg = JSON.parse(\`$(cat package.json)\`);
-            pkg.cliVersion = '${{ steps.changelog.outputs.nextVersion }}';
+            pkg.version = '${{ steps.changelog.outputs.nextVersion }}';
             JSON.stringify(pkg, null, 2);
           " > package.json
           echo "Updated package.json:"
