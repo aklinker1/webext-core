@@ -10,8 +10,6 @@ A set of core libraries and tools for building web extensions.
 - [ ] `@webext-core/publish`: A tool for publishing an extension to the various stores
 - [ ] `@webext-core/content-script-ctx`: Stop content scripts when their context is invalidated
 - [ ] `@webext-core/proxy-services`: Write services that can be called from any JS context, but run in the background service worker
-- [ ] `@webext-core/api-server`: Transform your background service worker into a local API the rest of your extension can communicate with
-- [ ] `@webext-core/graphql`: Transform your background service worker into a graphql API
 
 > See `packages/*/README.md` for more details about the individual packages
 
