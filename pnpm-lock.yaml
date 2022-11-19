@@ -96,6 +96,17 @@ importers:
       typescript: 4.8.4
       vitest: 0.24.5
 
+  packages/proxy-service-demo:
+    specifiers:
+      '@webext-core/proxy-service': workspace:*
+      vite: ^3.2.4
+      vite-plugin-web-extension: 2.0.0-alpha5
+    dependencies:
+      '@webext-core/proxy-service': link:../proxy-service
+    devDependencies:
+      vite: 3.2.4
+      vite-plugin-web-extension: 2.0.0-alpha5_vite@3.2.4
+
   packages/storage:
     specifiers:
       '@types/webextension-polyfill': ^0.9.1

@@ -1,0 +1,14 @@
+{
+  "type": "module",
+  "private": true,
+  "scripts": {
+    "dev": "vite build --watch"
+  },
+  "dependencies": {
+    "@webext-core/proxy-service": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^3.2.4",
+    "vite-plugin-web-extension": "2.0.0-alpha5"
+  }
+}
