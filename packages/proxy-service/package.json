@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/proxy-service",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Defer function execution to the background",
   "license": "MIT",
   "keywords": [
