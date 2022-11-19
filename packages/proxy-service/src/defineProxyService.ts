@@ -9,7 +9,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
   name: string,
   init: (...args: TArgs) => TService,
   config?: ProxyServiceConfig,
-): [RegisterService<TService, TArgs>, GetService<TService>] {
+): [registerService: RegisterService<TService, TArgs>, getService: GetService<TService>] {
   let service: TService | undefined;
 
   const messageKey = `proxy-service.${name}`;
