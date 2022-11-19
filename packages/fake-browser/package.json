@@ -42,6 +42,7 @@
   },
   "scripts": {
     "build": "pnpm gen && tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
+    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/fake-browser^...",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
     "compile": "tsc --noEmit",

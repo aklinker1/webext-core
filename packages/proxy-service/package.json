@@ -42,6 +42,7 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
+    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/proxy-service^...",
     "test": "vitest -r src",
     "test:coverage": "vitest run -r src --coverage",
     "compile": "tsc --noEmit"
