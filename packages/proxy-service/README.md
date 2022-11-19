@@ -1,12 +1,65 @@
 # `@webext-core/proxy-service`
 
-Defer service execution to the background service worker (or page).
+Defer function execution to the background service worker (or page).
+
+```bash
+pnpm i @webext-core/proxy-service
+```
+
+## Usage
+
+1. Define the service that will be executed in the background:
+
+   ```ts
+   // MathService.ts
+
+   class MathService {
+     factorial(x) {
+       return x === 1 ? x : this.factorial(x - 1);
+     }
+   }
+
+   export const [registerMathService, getMathService] = defineProxyService(
+     'MathService',
+     () => new MathService(),
+   );
+   ```
+
+2. Register your new service at the beginning of your background script:
+
+   ```ts
+   // background.ts
+
+   import { registerMathService } from './MathService';
+
+   registerMathService();
+   ```
+
+3. Use `getService` to get a proxied instance of your service, and call methods on it like you would with the real service.
+
+   ```ts
+   // popup.ts
+   import { getMathService } from './MathService';
+
+   // getMathService will return a "proxy" service when NOT in the background
+   const mathService = getMathService();
+
+   // Use the proxy just like you would the real service!
+   await mathService.factorial(100);
+   ```
+
+### Another Example: IndexedDB
+
+Since the same IndexedDB database is not available in every JS context of an extension, it's common to use the IndexedDB instance in the background script as a database for browser extensions.
+
+`@webext-core/proxy-service` is perfect for this! Here we're using [`idb`](https://www.npmjs.com/package/idb) to simplify it's usage.
 
 ```ts
-// todos-repo.ts
-import idb from 'idb';
+// TodoRepo.ts
 
-interface TodosRepo {
+import { IDBPDatabase } from 'idb';
+
+interface ITodoRepo {
   getOne: (id: string) => Promise<Todo>;
   getAll: () => Promise<Todo[]>;
   create: (todo: Todo) => Promise<void>;
@@ -14,41 +67,40 @@ interface TodosRepo {
   delete: (todo: Todo) => Promise<void>;
 }
 
-export const [registerTodosRepo, getTodosRepo] = defineProxyService<TodosRepo>(
-  "TodosRepo",
-  (idb: Promise<IDBDatabase>) => ({
-    // Implement the `TodosRepo`
-    getOne: (id) => ...,
-    getAll: () => ...,
-    create: (todo) => ...,
-    update: (todo) => ...,
-    delete: (todo) => ...,
-  })
-);
+function createIdbTodoRepo(idb: Promise<IDBPDatabase>): ITodoRepo {
+  return {
+    getOne: async id => (await idb).get('todos', id),
+    getAll: async () => (await idb).getAll('todos'),
+    create: async todo => (await idb).add('todos', todo),
+    update: async todo => (await idb).put('todos', todo),
+    delete: async todo => (await idb).delete('todos', todo.id),
+  };
+}
+
+const [registerTodoRepo, getTodoRepo] = defineProxyService('TodoRepo', createIdbTodoRepo);
 ```
+
+When registering a service with a dependency, you need to pass that dependency into the `registerService` method:
 
 ```ts
 // background.ts
-import {} from 'idb';
-import { registerTodosRepo, getTodosRepo } from './todos-repo';
 
-const idb = IndexedDB.open(...);
-registerTodosRepo(idb);
+import { registerTodoRepo } from './TodoRepo';
+import { openDB } from 'idb';
 
-// getTodosRepo will return the "real" service when in the background
-const todosRepo = getTodosRepo();
+const idb = openDB(...);
+
+registerTodoRepo(idb);
 ```
+
+Then you can use `getService` to get a instance of the service anywhere thoughout your extension!
 
 ```ts
 // popup.ts
-import { getTodosRepo } from 'todos-repo';
 
-// getTodosRepo will return a "proxy" service when NOT in the background
-const todosRepo = getTodosRepo();
+import { getTodoRepo } from './TodoRepo';
+
+const todoRepo = getTodoRepo();
+
+const todos = await todoRepo.getAll();
 ```
-
-Behind the scenes, the "proxy" service will message the background asking the registered service to perform all the real logic to execute a function.
-
-Here, we're using `IndexedDB` to store Todos. Because standard web storage APIs aren't shared accross all JS contexts of your extension (popup `IndexedDB` does not contain any documents the background's `IndexedDB` contains), we need to always access the database from the background.
-
-`@webext-core/proxy-service` is perfect for this!
