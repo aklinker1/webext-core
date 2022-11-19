@@ -1,6 +1,6 @@
 import Browser, { Runtime } from 'webextension-polyfill';
 
-interface Config {
+export interface ExtensionMessagingConfig {
   logger?: {
     debug(...args: any[]): void;
     log(...args: any[]): void;
@@ -28,7 +28,7 @@ type OnMessageReceived<TProtocolMap, TKey extends keyof TProtocolMap> = (
   message: Message<TProtocolMap, TKey>,
 ) => MaybePromise<GetResponse<TProtocolMap[TKey]>>;
 
-export function defineExtensionMessaging<TProtocolMap>(config?: Config) {
+export function defineExtensionMessaging<TProtocolMap>(config?: ExtensionMessagingConfig) {
   let rootListener:
     | undefined
     | ((message: any, sender: Browser.Runtime.MessageSender) => void | Promise<any>);
