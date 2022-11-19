@@ -15,7 +15,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
   const messageKey = `proxy-service.${name}`;
   const { onMessage, sendMessage } = defineExtensionMessaging<{
     [key: string]: ProtocolWithReturn<{ method: keyof TService; args: any[] }, any>;
-  }>();
+  }>(config);
 
   return [
     function registerService(...args) {
