@@ -7,9 +7,9 @@ A set of core libraries and tools for building web extensions.
 - [x] `@webext-core/messaging`: A lightweight, **type-safe** wrapper around the messaging API
 - [x] `@webext-core/storage`: Local storage based, **type-safe** wrappers around the storage API
 - [x] `@webext-core/fake-browser`: An in-memory implementation of the `Browser` APIs for testing
+- [x] `@webext-core/proxy-services`: Write services that can be called from any JS context, but run in the background service worker
 - [ ] `@webext-core/publish`: A tool for publishing an extension to the various stores
 - [ ] `@webext-core/content-script-ctx`: Stop content scripts when their context is invalidated
-- [ ] `@webext-core/proxy-services`: Write services that can be called from any JS context, but run in the background service worker
 
 > See `packages/*/README.md` for more details about the individual packages
 
