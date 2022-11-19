@@ -36,5 +36,5 @@ jobs:
       - name: Type Check
         run: pnpm -r compile
 
-      - name: Type Check
+      - name: Run Tests
         run: pnpm -r test:coverage
