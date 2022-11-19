@@ -10,9 +10,9 @@ pnpm i @webext-core/proxy-service
 
 1. Define the service that will be executed in the background:
 
-   ```ts
-   // MathService.ts
+   ###### MathService.ts
 
+   ```ts
    class MathService {
      factorial(x) {
        return x === 1 ? x : this.factorial(x - 1);
@@ -27,9 +27,9 @@ pnpm i @webext-core/proxy-service
 
 2. Register your new service at the beginning of your background script:
 
-   ```ts
-   // background.ts
+   ###### background.ts
 
+   ```ts
    import { registerMathService } from './MathService';
 
    registerMathService();
@@ -37,8 +37,9 @@ pnpm i @webext-core/proxy-service
 
 3. Use `getService` to get a proxied instance of your service, and call methods on it like you would with the real service.
 
+   ###### popup.ts
+
    ```ts
-   // popup.ts
    import { getMathService } from './MathService';
 
    // getMathService will return a "proxy" service when NOT in the background
@@ -54,9 +55,9 @@ Since the same IndexedDB database is not available in every JS context of an ext
 
 `@webext-core/proxy-service` is perfect for this! Here we're using [`idb`](https://www.npmjs.com/package/idb) to simplify it's usage.
 
-```ts
-// TodoRepo.ts
+###### TodoRepo.ts
 
+```ts
 import { IDBPDatabase } from 'idb';
 
 interface ITodoRepo {
@@ -82,9 +83,9 @@ const [registerTodoRepo, getTodoRepo] = defineProxyService('TodoRepo', createIdb
 
 When registering a service with a dependency, you need to pass that dependency into the `registerService` method:
 
-```ts
-// background.ts
+###### background.ts
 
+```ts
 import { registerTodoRepo } from './TodoRepo';
 import { openDB } from 'idb';
 
@@ -95,9 +96,9 @@ registerTodoRepo(idb);
 
 Then you can use `getService` to get a instance of the service anywhere thoughout your extension!
 
-```ts
-// popup.ts
+###### popup.ts
 
+```ts
 import { getTodoRepo } from './TodoRepo';
 
 const todoRepo = getTodoRepo();

@@ -8,9 +8,10 @@ In addition to adding types, it also includes error handling. Any errors will be
 
 In your project, create a file that calls `defineExtensionMessaging`, and exports the two functions it returns.
 
+###### messaging.ts
+
 <!-- prettier-ignore -->
 ```ts
-// messaging.ts
 import { defineExtensionMessaging, ProtocolWithReturn } from '@webext-core/messaging';
 
 // This defines the data and return types used for each message
@@ -26,8 +27,9 @@ export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>(
 
 Then import those functions throughout the rest of the extension.
 
+###### src/background.ts
+
 ```ts
-// src/background.ts
 import { onMessage } from './messaging';
 
 onMessage('message4', message => {
@@ -36,8 +38,9 @@ onMessage('message4', message => {
 });
 ```
 
+###### src/popup.ts
+
 ```ts
-// src/popup.ts
 import { sendMessage } from './messaging';
 
 sendMessage('message4', 'data').then(console.log);

@@ -13,14 +13,18 @@ To use the fake object in tests, configure your testing framework to use `fakeBr
 ### Vite
 
 1. Define a global mock for the `webextension-polyfill` package:
-   ```ts
-   // <rootDir>/__mocks__/webextension-polyfill.ts
-   export { fakeBrowser as default } from '@webext-core/fake-browser';
-   ```
-2. In your test file, actually use the mock:
+
+   ###### \<rootDir\>/\_\_mocks\_\_/webextension-polyfill.ts
 
    ```ts
-   // some.test.ts
+   export { fakeBrowser as default } from '@webext-core/fake-browser';
+   ```
+
+2. In your test file, actually use the mock:
+
+   ###### some.test.ts
+
+   ```ts
    import { fakeBrowser } from '@webext-core/fake-browser';
    import { localExtStorage } from '@webext-core/storage';
    import { test, vi } from 'vitest';

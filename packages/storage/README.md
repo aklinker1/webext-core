@@ -18,8 +18,9 @@ const value = await localExtStorage.getItem('some-key');
 
 If you want to define types for your storage, you can use the `defineExtensionStorage` method:
 
+###### storage.ts
+
 ```ts
-// storage.ts
 import Browser from 'webextension-polyfill';
 import { defineExtensionStorage } from '@webext-core/storage';
 
