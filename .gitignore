@@ -6,3 +6,4 @@ coverage
 .env
 .env.*
 .turbo
+.web-extrc.yml
