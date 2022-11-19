@@ -47,7 +47,7 @@ export function defineExtensionMessaging<TProtocolMap>(config?: Config) {
       config?.logger?.debug(
         `[messaging] ${key as string} initialized message listener for this context`,
       );
-      rootListener = async (message, sender) => {
+      rootListener = (message, sender) => {
         if (typeof message.key != 'string' || typeof message.timestamp !== 'number') {
           const err = Error(
             `[messaging] Unknown message format, must include the 'key' & 'timestamp' fields, received: ${JSON.stringify(
@@ -64,25 +64,25 @@ export function defineExtensionMessaging<TProtocolMap>(config?: Config) {
           if (message.key !== key) continue;
           config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ᐊ─`, message);
 
-          try {
-            const res = await listener({
-              data: message.data,
-              sender: sender,
-              timestamp: message.timestamp,
+          const res = listener({
+            data: message.data,
+            sender: sender,
+            timestamp: message.timestamp,
+          });
+          // Return a promise if we find a listener
+          return Promise.resolve(res)
+            .then(res => {
+              config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { res });
+              return { res };
+            })
+            .catch(err => {
+              let errMessage: string;
+              if (err instanceof Error) errMessage = err.message;
+              else errMessage = String(err);
+              config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { err });
+              return { err: errMessage };
             });
-            config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { res });
-            return { res };
-          } catch (err) {
-            let errMessage: string;
-            if (err instanceof Error) errMessage = err.message;
-            else errMessage = String(err);
-            config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { err });
-            return { err: errMessage };
-          }
         }
-
-        // Never respond to messages that this listener doesn't care about
-        await new Promise(() => {});
       };
       Browser.runtime.onMessage.addListener(rootListener);
     }
