@@ -36,7 +36,7 @@ export function defineExtensionMessaging<TProtocolMap>(config?: Config) {
 
   let idSeq = Math.floor(Math.random() * 10000);
   function getNextId(): number {
-    return idSeq + 1;
+    return idSeq++;
   }
 
   function onMessage<TKey extends keyof TProtocolMap>(
