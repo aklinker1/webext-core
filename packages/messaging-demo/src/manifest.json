@@ -1,0 +1,11 @@
+{
+  "name": "Messaging Test",
+  "version": "0.0.0",
+  "manifest_version": 3,
+  "background": {
+    "service_worker": "background.ts"
+  },
+  "action": {
+    "default_popup": "popup.html"
+  }
+}
