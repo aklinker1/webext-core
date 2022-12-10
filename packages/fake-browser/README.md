@@ -10,7 +10,7 @@ pnpm i -D @webext-core/fake-browser
 
 To use the fake object in tests, configure your testing framework to use `fakeBrowser` as the mock for `webextension-polyfill`. Then use `Browser` in production code and `fakeBrowser` to setup tests.
 
-### Vite
+### Vitest
 
 1. Define a global mock for the `webextension-polyfill` package:
 
@@ -54,64 +54,68 @@ To use the fake object in tests, configure your testing framework to use `fakeBr
 
 ## Implemented APIs
 
-Unimplemented APIs will throw an error when accessed. Open a PR to add an fake implementation!
+Implemented APIs will execute listeners when calling methods that would trigger them. For example, calling `Browser.tabs.create(...)` would fire `Browser.tabs.onCreate`.
 
-- [x] alarms
-- [x] runtime (partial)
-- [x] storage
+- alarms
+- runtime (partial)
+- storage
+- tabs
+- windows
 
----
+### Generated Stubs
 
-- [ ] activityLog
-- [ ] bookmarks
-- [ ] action
-- [ ] browserAction
-- [ ] browserSettings
-- [ ] browsingData
-- [ ] captivePortal
-- [ ] clipboard
-- [ ] commands
-- [ ] contentScripts
-- [ ] contextualIdentities
-- [ ] cookies
-- [ ] declarativeContent
-- [ ] devtools
-- [ ] dns
-- [ ] downloads
-- [ ] events
-- [ ] experiments
-- [ ] extension
-- [ ] extensionTypes
-- [ ] find
-- [ ] geckoProfiler
-- [ ] history
-- [ ] i18n
-- [ ] identity
-- [ ] idle
-- [ ] management
-- [ ] manifest
-- [ ] contextMenus
-- [ ] menus
-- [ ] networkStatus
-- [ ] normandyAddonStudy
-- [ ] notifications
-- [ ] omnibox
-- [ ] pageAction
-- [ ] permissions
-- [ ] pkcs11
-- [ ] privacy
-- [ ] proxy
-- [ ] runtime (parital)
-- [ ] scripting
-- [ ] search
-- [ ] sessions
-- [ ] sidebarAction
-- [ ] tabs
-- [ ] theme
-- [ ] topSites
-- [ ] types
-- [ ] urlbar
-- [ ] userScripts
-- [ ] webNavigation
-- [ ] webRequest
-- [ ] windows
+Unimplemented APIs will throw an error when accessed, letting you know they are not implemented and recommending you implement a mock yourself.
+
+Open a PR to add an fake implementation, or just overwrite the functions with your own mocks.
+
+- activityLog
+- bookmarks
+- action
+- browserAction
+- browserSettings
+- browsingData
+- captivePortal
+- clipboard
+- commands
+- contentScripts
+- contextualIdentities
+- cookies
+- declarativeContent
+- devtools
+- dns
+- downloads
+- events
+- experiments
+- extension
+- extensionTypes
+- find
+- geckoProfiler
+- history
+- i18n
+- identity
+- idle
+- management
+- manifest
+- contextMenus
+- menus
+- networkStatus
+- normandyAddonStudy
+- notifications
+- omnibox
+- pageAction
+- permissions
+- pkcs11
+- privacy
+- proxy
+- runtime (parital)
+- scripting
+- search
+- sessions
+- sidebarAction
+- theme
+- topSites
+- types
+- urlbar
+- userScripts
+- webNavigation
+- webRequest
