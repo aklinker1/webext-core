@@ -1,4 +1,8 @@
-# `@webext-core/messaging` Demo Extension
+# `@webext-core/proxy-service` Demo Extension
+
+Demo of the proxy service module. The popup contains some buttons that when clicked, perform math operations. These operations are invoked in the foreground, but executed in the background.
+
+## Running Locally
 
 To startup the demo extension:
 

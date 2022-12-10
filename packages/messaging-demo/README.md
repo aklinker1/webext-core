@@ -1,5 +1,9 @@
 # `@webext-core/messaging` Demo Extension
 
+Demo the messaging module. The popup includes buttons that fire messages while the background listens for those messages and responds.
+
+## Running Locally
+
 To startup the demo extension:
 
 ```bash
