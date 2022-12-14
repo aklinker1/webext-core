@@ -39,6 +39,23 @@ importers:
       typescript: 4.8.4
       vitest: 0.24.5
 
+  packages/content-script-ctx-demo:
+    specifiers:
+      '@types/webextension-polyfill': ^0.9.1
+      '@webext-core/content-script-ctx': workspace:*
+      '@webext-core/storage': workspace:*
+      vite: ^3.2.4
+      vite-plugin-web-extension: 2.0.0-alpha5
+      webextension-polyfill: ^0.10.0
+    dependencies:
+      '@types/webextension-polyfill': 0.9.1
+      '@webext-core/content-script-ctx': link:../content-script-ctx
+      '@webext-core/storage': link:../storage
+      webextension-polyfill: 0.10.0
+    devDependencies:
+      vite: 3.2.4
+      vite-plugin-web-extension: 2.0.0-alpha5_vite@3.2.4
+
   packages/fake-browser:
     specifiers:
       '@types/lodash.merge': ^4.6.7
@@ -420,7 +437,6 @@ packages:
 
   /@types/webextension-polyfill/0.9.1:
     resolution: {integrity: sha512-6aNzPIhqKlAV9t06nwSH3/veAceYE2dS2RVFZI8V1+UXHqsFNB6cRwxNmheiBvEGRc45E/gyZNzH0xAYIC27KA==}
-    dev: true
 
   /@types/yauzl/2.10.0:
     resolution: {integrity: sha512-Cn6WYCm0tXv8p6k+A8PvbDG763EDpBoTzHdA+Q/MF6H3sapGjCm9NzoaJncJS9tUKSuCoDs9XHxYYsQDgxR6kw==}

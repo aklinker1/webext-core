@@ -1,0 +1,15 @@
+{
+  "name": "Content Script Context Test",
+  "version": "0.0.0",
+  "manifest_version": 3,
+  "action": {
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["https://www.google.com/*"],
+      "js": ["content-script.ts"]
+    }
+  ],
+  "permissions": ["storage"]
+}
