@@ -59,8 +59,8 @@ export function defineExtensionMessaging<TProtocolMap>(config?: ExtensionMessagi
         }
 
         config?.logger?.debug('[messaging] Received message', message, sender);
-        const entires = Object.entries(keyListeners) as Array<[keyof TProtocolMap, Function]>;
-        for (const [key, listener] of entires) {
+        const entries = Object.entries(keyListeners) as Array<[keyof TProtocolMap, Function]>;
+        for (const [key, listener] of entries) {
           if (message.key !== key) continue;
           config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ᐊ─`, message);
 
