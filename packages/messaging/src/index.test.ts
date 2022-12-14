@@ -2,10 +2,17 @@ import { describe, it, vi, beforeEach, expect } from 'vitest';
 import { fakeBrowser } from '@webext-core/fake-browser';
 import { ProtocolWithReturn, defineExtensionMessaging } from './index';
 
+/**
+ * This is defined in `@webext-core/fake-browser` when there are no `Browser.runtime.onMessage`
+ * listeners active.
+ */
+const NO_RUNTIME_LISTENERS_ERROR = 'No listeners available';
+
 vi.mock('webextension-polyfill');
 
 interface ProtocolMap {
   getLength: ProtocolWithReturn<string, number>;
+  getHalfLength: ProtocolWithReturn<string, number>;
 }
 
 describe('Messaging Wrapper', () => {
@@ -44,11 +51,32 @@ describe('Messaging Wrapper', () => {
     );
   });
 
-  it('should throw an error when no listeners are available', async () => {
+  it('should throw an error when no listeners have been setup', async () => {
     const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
 
-    await expect(() => sendMessage('getLength', 'test')).rejects.toThrowError(
-      'No listeners available',
+    await expect(sendMessage('getLength', 'test')).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+  });
+
+  it('should fully remove the root listener when all listeners are removed', async () => {
+    const { onMessage, sendMessage } = defineExtensionMessaging<ProtocolMap>();
+    const input = 'test';
+    const expected = 4;
+
+    const removeListener = onMessage('getLength', ({ data }) => data.length);
+    const actual = await sendMessage('getLength', input);
+    removeListener();
+
+    expect(actual).toBe(expected);
+    expect(sendMessage('getLength', input)).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+  });
+
+  it('should throw an error when a listener for a specific message type has not been set yet', async () => {
+    const { onMessage, sendMessage } = defineExtensionMessaging<ProtocolMap>();
+
+    onMessage('getHalfLength', ({ data }) => data.length / 2);
+
+    expect(sendMessage('getLength', 'some-string')).rejects.toThrowError(
+      'Listener not found for message.type="getLength".\n\nDid you forget to call `onMessage("getLength", ...)`?',
     );
   });
 });

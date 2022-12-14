@@ -83,6 +83,10 @@ export function defineExtensionMessaging<TProtocolMap>(config?: ExtensionMessagi
               return { err: errMessage };
             });
         }
+
+        return Promise.resolve({
+          err: `Listener not found for message.type="${message.key}".\n\nDid you forget to call \`onMessage("getLength", ...)\`?`,
+        });
       };
       Browser.runtime.onMessage.addListener(rootListener);
     }
@@ -96,6 +100,15 @@ export function defineExtensionMessaging<TProtocolMap>(config?: ExtensionMessagi
     }
     keyListeners[key] = onReceived;
     config?.logger?.log(`[messaging] Added listener for ${key as string}`);
+
+    return function removeListener(): void {
+      delete keyListeners[key];
+      if (Object.entries(keyListeners).length === 0) {
+        // @ts-expect-error: rootListener's type is not what is expected
+        Browser.runtime.onMessage.removeListener(rootListener);
+        rootListener = undefined;
+      }
+    };
   }
 
   async function sendMessage<TKey extends keyof TProtocolMap>(

@@ -85,7 +85,7 @@ Add a `runtime.onMessage` listener for a specific message type:
 function onMessage(
   type: keyof TProtocolMap,
   onRecieved: (message: Message<TPayload>) => TReturnType,
-);
+): RemoveOnMessage;
 ```
 
 The `onRecieved` callback's `message` includes:
@@ -94,6 +94,13 @@ The `onRecieved` callback's `message` includes:
 - `data: TPayload`: The payload sent when calling `sendMessage`, or `undefined` if no payload was sent.
 - `sender: MessageSender`: The details about who sent the message. See [Chrome's docs on `MessageSender`](https://developer.chrome.com/docs/extensions/reference/runtime/#type-MessageSender) for more details.
 - `timestamp: number`: MS since epoch that the message was sent at.
+
+`onMessage` returns a function that removes the listener you just added. It accepts no arguments and returns void (`() => void`)
+
+```ts
+const removeListener = onMessage("some-type", ...);
+removeListener();
+```
 
 ### `ProtocolMap`
 
