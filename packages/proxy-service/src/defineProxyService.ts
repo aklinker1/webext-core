@@ -33,7 +33,6 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
         return new Proxy<TService>({} as TService, {
           get(_, path) {
             return async (...args: any[]) => {
-              console.log(`Proxy${name}.${path as string}`, { args });
               const res = await sendMessage(messageKey, {
                 method: path as keyof TService,
                 args,
