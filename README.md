@@ -8,6 +8,7 @@ A set of core libraries and tools for building web extensions.
 - [x] `@webext-core/storage`: Local storage based, **type-safe** wrappers around the storage API
 - [x] `@webext-core/fake-browser`: An in-memory implementation of the `Browser` APIs for testing
 - [x] `@webext-core/proxy-service`: Write services that can be called from any JS context, but run in the background service worker
+- [x] `@webext-core/isolated-element`: Isolate content script UIs from the page's styles
 - [ ] `@webext-core/publish`: A tool for publishing an extension to the various stores
 - [ ] `@webext-core/content-script-ctx`: Stop content scripts when their context is invalidated
 

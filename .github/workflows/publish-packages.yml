@@ -14,7 +14,7 @@ jobs:
     strategy:
       max-parallel: 1
       matrix:
-        package: [fake-browser, messaging, storage, proxy-service]
+        package: [fake-browser, messaging, storage, proxy-service, isolated-element]
     runs-on: ubuntu-22.04
     steps:
       - name: Checkout Repo
