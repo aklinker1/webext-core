@@ -19,11 +19,11 @@
     "content-script",
     "webextension-polyfill"
   ],
-  "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/messaging",
+  "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/isolated-element",
   "repository": {
     "type": "git",
     "url": "https://github.com/aklinker1/webext-core",
-    "directory": "packages/messaging"
+    "directory": "packages/isolated-element"
   },
   "type": "module",
   "publishConfig": {
@@ -43,7 +43,7 @@
   },
   "scripts": {
     "build": "tsup src/index.ts --clean --out-dir lib --format esm,cjs --dts",
-    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/messaging^...",
+    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/isolated-element^...",
     "test": "vitest -r src",
     "test:coverage": "vitest run -r src --coverage",
     "compile": "tsc --noEmit"
