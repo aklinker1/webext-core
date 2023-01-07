@@ -8,7 +8,7 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
   isolatedElement: HTMLElement;
   shadow: ShadowRoot;
 }> {
-  const { name, mode = 'closed', tag = 'html', css } = options;
+  const { name, mode = 'closed', css } = options;
 
   // Create the root, parent element
   customElements.define(name, class extends HTMLElement {});
@@ -16,14 +16,10 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
 
   // Create the shadow and isolated nodes
   const shadow = parentElement.attachShadow({ mode });
-  const isolatedElement = document.createElement(tag);
-  let stylesRoot = isolatedElement;
-  if (tag === 'html') {
-    const body = document.createElement('body');
-    const head = document.createElement('head');
-    isolatedElement.append(head, body);
-    stylesRoot = head;
-  }
+  const isolatedElement = document.createElement('html');
+  const body = document.createElement('body');
+  const head = document.createElement('head');
+  console.log({ parentElement, shadow, isolatedElement, body, head });
 
   // Load the UI's stylesheet
   if (css) {
@@ -33,15 +29,19 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
     } else {
       style.textContent = css.textContent;
     }
-    stylesRoot.appendChild(style);
+    head.appendChild(style);
   }
 
+  console.log({ parentElement, shadow, isolatedElement, body, head });
+  isolatedElement.appendChild(head);
+  isolatedElement.appendChild(body);
   // Add the isolated element to the shadow so it shows up once the parentElement is mounted
   shadow.appendChild(isolatedElement);
 
+  console.log({ parentElement, shadow, isolatedElement, body, head });
   return {
     parentElement,
     shadow,
-    isolatedElement,
+    isolatedElement: body,
   };
 }

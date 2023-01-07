@@ -8,6 +8,8 @@ It uses the [`ShadowRoot` API](https://developer.mozilla.org/en-US/docs/Web/API/
 pnpm i @webext-core/isolated-element
 ```
 
+This library doesn't require any of the extension-specific APIs to run, so it can be used outside of web extensions as well.
+
 ## Usage
 
 `createIsolatedElement` returns two elements:
@@ -64,5 +66,4 @@ ReactDOM.createRoot(isolatedElement).render(<App />);
 | :----- | :--------------------------------------------- | :------: | :--------: | :---------------------------------------------------------------------------------------------------------------------- |
 | `name` | `string`                                       |    ✅    |            | A unique tag name used when defining the web component used internally. Don't use the same name twice for different UIs |
 | `css`  | `{ url: string }` or `{ textContent: string }` |          |            | Either the URL to a CSS file of the text contents of a CSS file                                                         |
-| `tag`  | `string`                                       |          |  `"html"`  | The tag to use for the isolated element. If "html", a body and head will be created.                                    |
 | `mode` | `"open"` or `"closed"`                         |          | `"closed"` | See [`ShadowRoot.mode`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/mode)                               |
