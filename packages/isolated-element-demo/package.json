@@ -1,0 +1,18 @@
+{
+  "name": "isolated-element-demo",
+  "private": true,
+  "version": "0.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "pnpm build:dependencies && vite",
+    "build": "pnpm build:dependencies && vite build",
+    "build:dependencies": "cd ../.. && turbo run build --filter=isolated-element-demo^...",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "@webext-core/isolated-element": "workspace:*"
+  },
+  "devDependencies": {
+    "vite": "^4.0.0"
+  }
+}
