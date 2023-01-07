@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/isolated-element",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Isolate content script UI's styles from the parent page",
   "license": "MIT",
   "keywords": [
