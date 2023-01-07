@@ -46,6 +46,7 @@ jobs:
         with:
           module: ${{ matrix.package }}
           scopes: ${{ matrix.package }}
+          changeTemplate: '- {{ message }} ({{ commit.hash }})'
 
       - name: Bump Version
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
