@@ -19,7 +19,6 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
   const isolatedElement = document.createElement('html');
   const body = document.createElement('body');
   const head = document.createElement('head');
-  console.log({ parentElement, shadow, isolatedElement, body, head });
 
   // Load the UI's stylesheet
   if (css) {
@@ -32,13 +31,13 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
     head.appendChild(style);
   }
 
-  console.log({ parentElement, shadow, isolatedElement, body, head });
+  // Add head and body to html element
   isolatedElement.appendChild(head);
   isolatedElement.appendChild(body);
+
   // Add the isolated element to the shadow so it shows up once the parentElement is mounted
   shadow.appendChild(isolatedElement);
 
-  console.log({ parentElement, shadow, isolatedElement, body, head });
   return {
     parentElement,
     shadow,
