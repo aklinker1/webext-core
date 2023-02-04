@@ -86,6 +86,14 @@ export default defineConfig({
               text: 'Get Started',
               link: '/fake-browser/',
             },
+            {
+              text: 'Testing Frameworks',
+              link: '/fake-browser/testing-frameworks',
+            },
+            {
+              text: 'Implemented APIs',
+              link: '/fake-browser/implemented-apis',
+            },
           ],
         },
         packages,
