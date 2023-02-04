@@ -52,7 +52,7 @@ When using a schema, you'll notice that `getItem` returns `T | null`, but `setIt
 
 By default, getting items from storage could always return `null` if a value hasn't been set. But if you type the schema as required fields, you're only be allowed to set non-null values.
 
-If you want a key to be "optional" in storage, add `null` to it's type, then you'll be able to set
+If you want a key to be "optional" in storage, add `null` to it's type, then you'll be able to set the value to `null`.
 
 ```diff
 export interface LocalExtStorageSchema {
