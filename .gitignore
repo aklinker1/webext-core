@@ -7,3 +7,5 @@ coverage
 .env.*
 .turbo
 .web-extrc.yml
+/docs/.vitepress/cache
+.DS_Store
