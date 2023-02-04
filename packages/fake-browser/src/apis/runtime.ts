@@ -11,6 +11,8 @@ const onSuspendCanceled = defineEventWithTrigger<() => void>();
 const onUpdateAvailable =
   defineEventWithTrigger<(details: Runtime.OnUpdateAvailableDetailsType) => void>();
 
+const TEST_ID = 'test-extension-id';
+
 export const runtime: BrowserOverrides['runtime'] = {
   resetState() {
     onMessage.removeAllListeners();
@@ -19,8 +21,9 @@ export const runtime: BrowserOverrides['runtime'] = {
     onSuspend.removeAllListeners();
     onSuspendCanceled.removeAllListeners();
     onUpdateAvailable.removeAllListeners();
+    runtime.id = TEST_ID;
   },
-  id: 'test-extension-id',
+  id: TEST_ID,
   onInstalled,
   onMessage,
   onStartup,
