@@ -2,6 +2,7 @@ import { fakeBrowser } from '@webext-core/fake-browser';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
 import Browser from 'webextension-polyfill';
 import { defineExtensionStorage } from './defineExtensionStorage';
+import { AnySchema, ExtensionStorage } from './types';
 
 vi.mock('webextension-polyfill');
 
@@ -10,11 +11,15 @@ interface TestStorageSchema {
   key2: boolean;
 }
 
-const storage = defineExtensionStorage(Browser.storage.local);
-const typedStorage = defineExtensionStorage<TestStorageSchema>(Browser.storage.local);
+let storage: ExtensionStorage<AnySchema>;
+let typedStorage: ExtensionStorage<TestStorageSchema>;
 
 describe('Storage Wrappers', () => {
-  beforeEach(fakeBrowser.reset);
+  beforeEach(() => {
+    fakeBrowser.reset();
+    storage = defineExtensionStorage(Browser.storage.local);
+    typedStorage = defineExtensionStorage<TestStorageSchema>(Browser.storage.local);
+  });
 
   describe('getItem', () => {
     it('should return the value if present', async () => {
@@ -130,6 +135,80 @@ describe('Storage Wrappers', () => {
       await storage.clear();
 
       expect(await fakeBrowser.storage.local.get()).toEqual({});
+    });
+  });
+
+  describe('onChange', () => {
+    it('should only add a single onChange listener using the browser.storage.onChanged API', async () => {
+      const fn = vi.fn();
+      const addListenerSpy = vi.spyOn(fakeBrowser.storage.onChanged, 'addListener');
+
+      storage.onChange('key1', fn);
+      expect(addListenerSpy).toBeCalledTimes(1);
+
+      storage.onChange('key2', fn);
+      expect(addListenerSpy).toBeCalledTimes(1);
+    });
+
+    it('should remove the browser.storage.onChanged listener when all listeners are removed', async () => {
+      const fn = vi.fn();
+      const removeListenerSpy = vi.spyOn(fakeBrowser.storage.onChanged, 'removeListener');
+
+      const rm1 = storage.onChange('key1', fn);
+      const rm2 = storage.onChange('key2', fn);
+
+      rm2();
+      expect(removeListenerSpy).toBeCalledTimes(0);
+
+      rm1();
+      expect(removeListenerSpy).toBeCalledTimes(1);
+    });
+
+    it('should execute the added listener with the correct values', async () => {
+      const oldValue = 'oldValue';
+      const newValue = 'newValue';
+      const key = 'key';
+
+      const listener = vi.fn();
+      await fakeBrowser.storage.local.set({ [key]: oldValue });
+
+      storage.onChange(key, listener);
+      await fakeBrowser.storage.local.set({ [key]: newValue });
+
+      expect(listener).toBeCalledTimes(1);
+      expect(listener).toBeCalledWith(newValue, oldValue);
+    });
+
+    it('should allow adding multiple listeners for the same key', async () => {
+      const oldValue = 'oldValue2';
+      const newValue = 'newValue2';
+      const key = 'key2';
+
+      const listener1 = vi.fn();
+      const listener2 = vi.fn();
+      await fakeBrowser.storage.local.set({ [key]: oldValue });
+
+      storage.onChange(key, listener1);
+      storage.onChange(key, listener2);
+      await fakeBrowser.storage.local.set({ [key]: newValue });
+
+      expect(listener1).toBeCalledTimes(1);
+      expect(listener1).toBeCalledWith(newValue, oldValue);
+      expect(listener2).toBeCalledTimes(1);
+      expect(listener2).toBeCalledWith(newValue, oldValue);
+    });
+
+    it('should not trigger the listener when the value is the same', async () => {
+      const value = 'value3';
+      const key = 'key3';
+
+      const listener = vi.fn();
+      await fakeBrowser.storage.local.set({ [key]: value });
+
+      storage.onChange(key, listener);
+      await fakeBrowser.storage.local.set({ [key]: value });
+
+      expect(listener).not.toBeCalled();
     });
   });
 });
