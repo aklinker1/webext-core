@@ -38,8 +38,8 @@ features:
   - icon: 🛠️
     title: '@webext-core/fake-browser'
     link: /fake-browser/
-    details: An in-memory implementation of webextension-polyfill for testing with any framework.
+    details: An in-memory implementation of webextension-polyfill for testing.
   - icon: 🚀
     title: 'COMING SOON: @webext-core/publish'
-    details: Publish your extension to the various stores (CWS, FAS).
+    details: Publish your extension to the various stores.
 ---

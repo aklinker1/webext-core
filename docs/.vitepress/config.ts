@@ -110,6 +110,10 @@ export default defineConfig({
               text: 'Get Started',
               link: '/messaging/',
             },
+            {
+              text: 'API',
+              link: '/messaging/api',
+            },
           ],
         },
         packages,

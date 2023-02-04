@@ -2,9 +2,9 @@
 
 ## Overview
 
-Web Ext Core's packages are provided via NPM. Depending on your project's setup, you can use them in different ways:
+`@webext-core`'s packages are provided via NPM. Depending on your project's setup, you can use them in different ways:
 
-- If you're project uses a bundler like Vite or Webpack, see [Bundler Setup](#bundler-setup).
+- If your project uses a bundler like Vite or Webpack, see [Bundler Setup](#bundler-setup).
 - If your project does not use a bundler, see [Vanilla Setup](#non-bundler-setup)
 
 ## Bundler Setup
@@ -31,6 +31,8 @@ const { localExtStorage } = require('@webext-core/storage');
 const value = await localExtStorage.getItem('some-key');
 ```
 
+Everything will just work :+1:
+
 ## Vanilla Setup
 
 If you're not using a bundler, you'll have to download each package and put it inside your project.
@@ -43,7 +45,7 @@ If you're not on MV3 yet, you could use the CDN, but it's still recommended to d
 
 All of `@webext-core` NPM packages include a minified, `lib/index.global.js` file that will create a global variable you can use to access the package's APIs.
 
-Lets say you've put all your files inside a `vendor/` directory, and want to install the `@webext-core/storage` package.
+Lets say you've put all your third-party JS files inside a `vendor/` directory, and want to install the `@webext-core/storage` package.
 
 ```
 .
@@ -70,7 +72,7 @@ You project should now look like this:
 └─ manifest.json
 ```
 
-Now you can include the `vendor/webext-core/storage.js` file in your extension! Each package sets up it's own global, so refer to their docs for the global variable's name. In this case, it's `webExtCoreStorage`.
+Now you can include the `vendor/webext-core/storage.js` file in your extension! Each package sets up it's own global variable, so refer to the individual docs for that variable's name. In this case, it's `webExtCoreStorage`.
 
 ###### HTML Files
 
