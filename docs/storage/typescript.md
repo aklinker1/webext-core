@@ -54,11 +54,11 @@ By default, getting items from storage could always return `null` if a value has
 
 If you want a key to be "optional" in storage, add `null` to it's type, then you'll be able to set the value to `null`.
 
-```diff
+```ts
 export interface LocalExtStorageSchema {
   installDate: number;
-- notificationsEnabled: boolean;
-+ notificationsEnabled: boolean | null;
+  notificationsEnabled: boolean; // [!code --]
+  notificationsEnabled: boolean | null; // [!code ++]
   favoriteUrls: string[];
 }
 ```
@@ -67,11 +67,11 @@ export interface LocalExtStorageSchema {
 
 Missing storage values will always be returned as `null`, never as `undefined`. So you shouldn't use `?:` or `| undefined` since that doesn't represent the actual type of your values.
 
-```diff
+```js
 export interface LocalExtStorageSchema {
-- key1?: number;
-+ key1: number | null;
-- key2: string | undefined;
-+ key2: string | null;
+  key1?: number; // [!code --]
+  key2: string | undefined; // [!code --]
+  key1: number | null; // [!code ++]
+  key2: string | null; // [!code ++]
 }
 ```
