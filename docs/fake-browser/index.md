@@ -1,3 +1,7 @@
+---
+titleTemplate: '@webext-core/fake-browser'
+---
+
 # Get Started
 
 ## Overview
