@@ -29,20 +29,17 @@ export default defineConfig({
     ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
     ['meta', { name: 'twitter:site', content: '@vite_js' }],
     ['meta', { name: 'theme-color', content: '#646cff' }],
+    // <script async defer data-website-id="04aff3ed-57d7-4ee0-9faf-e24a39adeafa" src="https://stats.aklinker1.io/umami.js"></script>
     [
       'script',
       {
-        src: 'https://cdn.usefathom.com/script.js',
-        'data-site': 'CBDFBSLI',
-        'data-spa': 'auto',
+        async: '',
         defer: '',
+        'data-website-id': '04aff3ed-57d7-4ee0-9faf-e24a39adeafa',
+        src: 'https://stats.aklinker1.io/umami.js',
       },
     ],
   ],
-
-  vue: {
-    reactivityTransform: true,
-  },
 
   themeConfig: {
     logo: '/logo.svg',
