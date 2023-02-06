@@ -7,7 +7,7 @@ import { BrowserOverrides, FakeBrowser } from './types';
 import { GeneratedBrowser } from './base.gen';
 import merge from 'lodash.merge';
 
-export type { FakeBrowser };
+export type { FakeBrowser, BrowserOverrides };
 
 const overrides: BrowserOverrides = {
   reset() {

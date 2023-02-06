@@ -1,4 +1,6 @@
 import { defineConfig } from 'vitepress';
+import { generate } from 'ts-to-md';
+import fs from 'node:fs';
 
 const ogDescription = 'Next Generation Frontend Tooling';
 const ogTitle = 'Web Ext Core';
@@ -14,6 +16,22 @@ const packages = {
     { text: 'isolated-element', link: '/isolated-element/' },
   ].sort((l, r) => l.text.localeCompare(r.text)),
 };
+
+function generatePackageDocs(name: string) {
+  console.log(`Generating API docs for ${name}...`);
+  const markdown = generate({
+    inputFile: `packages/${name}/lib/index.d.ts`,
+    prettier: { semi: false, printWidth: 80 },
+  });
+  fs.writeFileSync(`docs/${name}/api.gen.md`, markdown, 'utf-8');
+}
+
+// After a change to one of the packages, it needs to be rebuilt before API changes will show up.
+generatePackageDocs('storage');
+generatePackageDocs('proxy-service');
+generatePackageDocs('isolated-element');
+generatePackageDocs('messaging');
+generatePackageDocs('fake-browser');
 
 export default defineConfig({
   title: `Web Ext Core`,
@@ -102,6 +120,10 @@ export default defineConfig({
             {
               text: 'Get Started',
               link: '/isolated-element/',
+            },
+            {
+              text: 'API',
+              link: '/isolated-element/api',
             },
           ],
         },
