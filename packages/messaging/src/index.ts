@@ -83,7 +83,8 @@ export interface Messenger<TProtocolMap> {
   ): Promise<GetReturnType<TProtocolMap[TType]>>;
 
   /**
-   * Trigger a callback when a message of the requested type is recieved.
+   * Trigger a callback when a message of the requested type is recieved. You cannot setup multiple
+   * listeners for the same message type in the same JS context.
    *
    * To remove the listener, call the returned message.
    *
@@ -94,6 +95,11 @@ export interface Messenger<TProtocolMap> {
     type: TType,
     onReceived: OnMessageReceived<TProtocolMap, TType>,
   ): RemoveListenerCallback;
+
+  /**
+   * Removes all listeners.
+   */
+  removeAllMessageListeners(): void;
 }
 
 /**
@@ -130,6 +136,14 @@ export function defineExtensionMessaging<TProtocolMap>(
   let rootListener:
     | undefined
     | ((message: any, sender: Browser.Runtime.MessageSender) => void | Promise<any>);
+  function cleanupRootListener() {
+    if (Object.entries(keyListeners).length === 0) {
+      // @ts-expect-error: rootListener's type is not what is expected
+      Browser.runtime.onMessage.removeListener(rootListener);
+      rootListener = undefined;
+    }
+  }
+
   let keyListeners: { [type in keyof TProtocolMap]?: Function } = {};
 
   let idSeq = Math.floor(Math.random() * 10000);
@@ -201,11 +215,7 @@ export function defineExtensionMessaging<TProtocolMap>(
 
     return function removeListener(): void {
       delete keyListeners[type];
-      if (Object.entries(keyListeners).length === 0) {
-        // @ts-expect-error: rootListener's type is not what is expected
-        Browser.runtime.onMessage.removeListener(rootListener);
-        rootListener = undefined;
-      }
+      cleanupRootListener();
     };
   }
 
@@ -227,5 +237,13 @@ export function defineExtensionMessaging<TProtocolMap>(
     return res;
   }
 
-  return { onMessage, sendMessage };
+  function removeAllMessageListeners() {
+    Object.keys(keyListeners).forEach(type => {
+      // @ts-expect-error: type is of type string, not `keyof TProtocolMap`
+      delete keyListeners[type];
+    });
+    cleanupRootListener();
+  }
+
+  return { onMessage, sendMessage, removeAllMessageListeners };
 }

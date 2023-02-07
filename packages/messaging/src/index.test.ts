@@ -45,9 +45,10 @@ describe('Messaging Wrapper', () => {
     onMessage('getLength', () => {
       throw Error('Some error');
     });
+    const res = fakeBrowser.runtime.sendMessage('hello');
 
-    await expect(() => fakeBrowser.runtime.sendMessage('hello')).rejects.toThrowError(
-      "[messaging] Unknown message format, must include the 'key' & 'timestamp' fields, received: \"hello\"",
+    await expect(res).rejects.toThrowError(
+      "[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: \"hello\"",
     );
   });
 
@@ -78,5 +79,23 @@ describe('Messaging Wrapper', () => {
     expect(sendMessage('getLength', 'some-string')).rejects.toThrowError(
       'Listener not found for message.type="getLength".\n\nDid you forget to call `onMessage("getLength", ...)`?',
     );
+  });
+
+  it('should fully remove the root listener after removeAllListeners was called', async () => {
+    const {
+      onMessage,
+      sendMessage,
+      removeAllMessageListeners: removeAllListeners,
+    } = defineExtensionMessaging<ProtocolMap>();
+    const input = 'test';
+    const expected = 4;
+
+    onMessage('getLength', ({ data }) => data.length);
+    const actual = await sendMessage('getLength', input);
+    removeAllListeners();
+    const res = sendMessage('getLength', input);
+
+    expect(actual).toBe(expected);
+    await expect(res).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 });
