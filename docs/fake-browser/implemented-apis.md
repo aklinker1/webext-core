@@ -13,6 +13,7 @@ Not all `browser` APIs are implemented. Here's the up-to-date list of what has a
 - `runtime.sendMessage`
 - `storage`
 - `tabs`
+- `webNavigation`
 - `windows`
 
 :::warning
@@ -95,3 +96,8 @@ Generally, you should put a call to `fakeBrowser.reset()` in a `beforeEach` bloc
 
 - Fully implemented.
 - All methods trigger corresponding `tabs` events AND `windows` events depending on what happened (ie: closing the last tab of a window would trigger both `tabs.onRemoved` and `windows.onRemoved`).
+
+## `webNavigation`
+
+- The two functions, `getFrame` and `getAllFrames` are not implemented. You will have to mock their return values yourself.
+- All the event listeners are implemented, but none are triggered automatically. They can be triggered manually by calling `browser.webNavigation.{event}.trigger(...)`

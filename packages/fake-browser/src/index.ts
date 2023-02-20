@@ -2,6 +2,7 @@ import { runtime } from './apis/runtime';
 import { alarms } from './apis/alarms';
 import { storage } from './apis/storage';
 import { tabs } from './apis/tabs';
+import { webNavigation } from './apis/webNavigation';
 import { windows } from './apis/windows';
 import { BrowserOverrides, FakeBrowser } from './types';
 import { GeneratedBrowser } from './base.gen';
@@ -21,6 +22,7 @@ const overrides: BrowserOverrides = {
   storage,
   runtime,
   tabs,
+  webNavigation,
   windows,
 };
 

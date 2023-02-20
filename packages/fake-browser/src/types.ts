@@ -1,4 +1,12 @@
-import type { Alarms, Browser, Runtime, Storage, Windows, Tabs } from 'webextension-polyfill';
+import type {
+  Alarms,
+  Browser,
+  Runtime,
+  Storage,
+  Tabs,
+  WebNavigation,
+  Windows,
+} from 'webextension-polyfill';
 
 interface EventForTesting<TParams extends any[], TReturn = void> {
   /**
@@ -62,6 +70,23 @@ export interface BrowserOverrides {
     onHighlighted: EventForTesting<[highlightInfo: Tabs.OnHighlightedHighlightInfoType]>;
     onActivated: EventForTesting<[activeInfo: Tabs.OnActivatedActiveInfoType]>;
     onRemoved: EventForTesting<[tabId: number, removeInfo: Tabs.OnRemovedRemoveInfoType]>;
+  };
+  webNavigation: {
+    onBeforeNavigate: EventForTesting<[details: WebNavigation.OnBeforeNavigateDetailsType]>;
+    onCommitted: EventForTesting<[details: WebNavigation.OnCommittedDetailsType]>;
+    onDOMContentLoaded: EventForTesting<[details: WebNavigation.OnDOMContentLoadedDetailsType]>;
+    onCompleted: EventForTesting<[details: WebNavigation.OnCompletedDetailsType]>;
+    onErrorOccurred: EventForTesting<[details: WebNavigation.OnErrorOccurredDetailsType]>;
+    onCreatedNavigationTarget: EventForTesting<
+      [details: WebNavigation.OnCreatedNavigationTargetDetailsType]
+    >;
+    onReferenceFragmentUpdated: EventForTesting<
+      [details: WebNavigation.OnReferenceFragmentUpdatedDetailsType]
+    >;
+    onTabReplaced: EventForTesting<[details: WebNavigation.OnTabReplacedDetailsType]>;
+    onHistoryStateUpdated: EventForTesting<
+      [details: WebNavigation.OnHistoryStateUpdatedDetailsType]
+    >;
   };
   windows: Pick<
     Windows.Static,
