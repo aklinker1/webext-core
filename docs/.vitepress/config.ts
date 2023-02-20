@@ -23,7 +23,7 @@ function generatePackageDocs(name: string) {
     inputFile: `packages/${name}/lib/index.d.ts`,
     prettier: { semi: false, printWidth: 80 },
   });
-  fs.writeFileSync(`docs/${name}/api.gen.md`, markdown, 'utf-8');
+  fs.writeFileSync(`docs/${name}/api.md`, markdown, 'utf-8');
 }
 
 // After a change to one of the packages, it needs to be rebuilt before API changes will show up.
