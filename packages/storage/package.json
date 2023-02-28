@@ -1,7 +1,7 @@
 {
   "name": "@webext-core/storage",
   "version": "1.1.1",
-  "description": "Local storage based wrapper around the Browser.storage APIs",
+  "description": "A type-safe, localStorage-esk wrapper around the web extension storage APIs. Supports all browsers (Chrome, Firefox, Safari, etc)",
   "license": "MIT",
   "keywords": [
     "web-extension",
@@ -9,12 +9,12 @@
     "chrome-extension",
     "webext",
     "web-ext",
-    "web",
     "chrome",
+    "firefox",
+    "safari",
     "browser",
     "extension",
-    "storage",
-    "webextension-polyfill"
+    "storage"
   ],
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/storage",
   "repository": {

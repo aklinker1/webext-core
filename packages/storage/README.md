@@ -1,6 +1,6 @@
 # `@webext-core/storage`
 
-A type-safe wrapper around the `Browser.storage` APIs, based off local storage.
+A type-safe, localStorage-esk wrapper around the web extension storage APIs. Supports all browsers (Chrome, Firefox, Safari, etc).
 
 ```bash
 pnpm i @webext-core/storage
