@@ -6,7 +6,7 @@ titleTemplate: '@webext-core/fake-browser'
 
 ## Overview
 
-An in-memory implementation of the `webextension-polyfill` package for testing.
+An in-memory implementation of webextension-polyfill for testing. Supports all test frameworks (Vitest, Jest, etc).
 
 ```ts
 pnpm i -D @webext-core/fake-browser

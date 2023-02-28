@@ -1,7 +1,7 @@
 {
   "name": "@webext-core/fake-browser",
   "version": "1.1.0",
-  "description": "In-memory fake of the Browser extension API",
+  "description": "An in-memory implementation of webextension-polyfill for testing. Supports all test frameworks (Vitest, Jest, etc)",
   "license": "MIT",
   "keywords": [
     "web-extension",
@@ -9,13 +9,16 @@
     "chrome-extension",
     "webext",
     "web-ext",
-    "web",
     "chrome",
+    "firefox",
+    "safari",
     "browser",
     "extension",
     "testing",
     "vite",
     "jest",
+    "mock",
+    "fake",
     "webextension-polyfill"
   ],
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/fake-browser",
