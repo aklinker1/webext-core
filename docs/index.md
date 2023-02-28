@@ -6,7 +6,7 @@ titleTemplate: Web Extensions Made Easy
 
 hero:
   name: Web Ext Core
-  tagline: Core libraries for developing cross-platform web extensions.
+  tagline: Core libraries for developing web extensions for all browsers.
   image:
     src: /logo-with-shadow.png
     alt: Vite
