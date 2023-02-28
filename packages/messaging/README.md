@@ -1,6 +1,6 @@
 # `@webext-core/messaging`
 
-A light-weight, type-safe wrapper around the `browser.runtime` messaging APIs.
+A light-weight, type-safe wrapper around the `browser.runtime` messaging APIs. Supports all browsers (Chrome, Firefox, Safari).
 
 ```ts
 // ./messaging.ts

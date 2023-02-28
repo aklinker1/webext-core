@@ -4,7 +4,7 @@
 
 A set of core libraries and tools for building web extensions. These libraries are built on top of [`webextension-polyfill`](https://www.npmjs.com/package/webextension-polyfill) and support all major browsers.
 
-- [![Messaging NPM](https://img.shields.io/npm/v/@webext-core/messaging?color=%23C12127&label=%40webext-core%2Fmessaging&logo=npm)](https://www.npmjs.com/package/@webext-core/messaging) A lightweight, **type-safe** wrapper around the messaging API
+- [![Messaging NPM](https://img.shields.io/npm/v/@webext-core/messaging?color=%23C12127&label=%40webext-core%2Fmessaging&logo=npm)](https://www.npmjs.com/package/@webext-core/messaging) Light weight, type-safe wrapper around the web extension messaging APIs
 - [![Storage NPM](https://img.shields.io/npm/v/@webext-core/storage?color=%23C12127&label=%40webext-core%2Fstorage&logo=npm)](https://www.npmjs.com/package/@webext-core/storage) Local storage based, **type-safe** wrappers around the storage API
 - [![Fake Browser NPM](https://img.shields.io/npm/v/@webext-core/fake-browser?color=%23C12127&label=%40webext-core%2Ffake-browser&logo=npm)](https://www.npmjs.com/package/@webext-core/fake-browser) An in-memory implementation of `webextension-polyfill` for testing
 - [![Proxy Service NPM](https://img.shields.io/npm/v/@webext-core/proxy-service?color=%23C12127&label=%40webext-core%2Fproxy-service&logo=npm)](https://www.npmjs.com/package/@webext-core/proxy-service) Write services that can be called from any JS context, but run in the background service worker
