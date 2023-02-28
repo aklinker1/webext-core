@@ -8,6 +8,10 @@ titleTemplate: '@webext-core/storage'
 
 `@webext-core/storage` provides a localStorage-like API for interacting with extension storage. It supports all browsers (Chrome, Firefox, Safari, etc).
 
+::: warn
+Requires the `storage` permission.
+:::
+
 ```ts
 const { key: value } = await browser.storage.local.get('key');
 // VS
