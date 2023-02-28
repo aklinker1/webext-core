@@ -1,6 +1,6 @@
 # `@webext-core/proxy-service`
 
-Defer function execution to the background service worker (or page).
+A type-safe wrapper around the web extension messaging APIs that lets you call a function from anywhere, but execute it in the background. Supports all browsers (Chrome, Firefox, Safari, etc).
 
 ```bash
 pnpm i @webext-core/proxy-service
@@ -53,7 +53,7 @@ pnpm i @webext-core/proxy-service
 
 Since the same IndexedDB database is not available in every JS context of an extension, it's common to use the IndexedDB instance in the background script as a database for browser extensions.
 
-`@webext-core/proxy-service` is perfect for this! Here we're using [`idb`](https://www.npmjs.com/package/idb) to simplify it's usage.
+`@webext-core/proxy-service` is perfect for this! Here we're using [`idb`](https://www.npmjs.com/package/idb) to simplify the IndexedDB code.
 
 ###### TodoRepo.ts
 
