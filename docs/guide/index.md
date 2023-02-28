@@ -9,29 +9,24 @@
 
 ## Bundler Setup
 
-First, install any of the NPM packages.
+If you haven't setup a bundler yet, I recommend using [`vite`](https://vitejs.dev/) and [`vite-plugin-web-extension`](https://vite-plugin-web-extension.aklinker1.io/) for the best DX and to support all browsers.
+
+```sh PNPM
+# Bootstrap a new project
+pnpm create vite-plugin-web-extnesion
+```
+
+Install any of the packages and use them normally. Everything will just work :+1:
 
 ```sh
 pnpm i @webext-core/storage
 ```
 
-Then simply import and use the package anywhere in your project:
-
 ```ts
-// ESM
 import { localExtStorage } from '@webext-core/storage';
 
 const value = await localExtStorage.getItem('some-key');
 ```
-
-```ts
-// CommonJS
-const { localExtStorage } = require('@webext-core/storage');
-
-const value = await localExtStorage.getItem('some-key');
-```
-
-Everything will just work :+1:
 
 ## Vanilla Setup
 
@@ -106,4 +101,4 @@ Now you can include the `vendor/webext-core/storage.js` file in your extension! 
 
 ###### MV3 Background
 
-For MV3 background scripts, I recommend just switching to using a bundler since `background.service_worker` only accepts a single script.
+For MV3 background scripts, you need to use a bundler since `background.service_worker` only accepts a single script.

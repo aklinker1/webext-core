@@ -4,6 +4,13 @@ titleTemplate: '@webext-core/fake-browser'
 
 # Get Started
 
+<ChipGroup>
+  <Chip text="MV2" type="manifest" />
+  <Chip text="MV3" type="manifest" />
+  <Chip text="Vitest" type="testing-framework" />
+  <Chip text="Jest" type="testing-framework" />
+</ChipGroup>
+
 ## Overview
 
 An in-memory implementation of webextension-polyfill for testing. Supports all test frameworks (Vitest, Jest, etc).

@@ -1,5 +1,13 @@
 # Get Started
 
+<ChipGroup>
+  <Chip text="MV2" type="manifest" />
+  <Chip text="MV3" type="manifest" />
+  <Chip text="Chrome" type="browser" />
+  <Chip text="Firefox" type="browser" />
+  <Chip text="Safari" type="browser" />
+</ChipGroup>
+
 ## Overview
 
 `@webext-core/isolated-element` uses the [`ShadowRoot` API](https://developer.mozilla.org/en-US/docs/Web/API/Element/shadowRoot) to create a custom element who's CSS is completely separate from the page it's injected into.

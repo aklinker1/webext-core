@@ -4,6 +4,14 @@ titleTemplate: '@webext-core/storage'
 
 # Get Started
 
+<ChipGroup>
+  <Chip text="MV2" type="manifest" />
+  <Chip text="MV3" type="manifest" />
+  <Chip text="Chrome" type="browser" />
+  <Chip text="Firefox" type="browser" />
+  <Chip text="Safari" type="browser" />
+</ChipGroup>
+
 ## Overview
 
 `@webext-core/storage` provides a localStorage-like API for interacting with extension storage. It supports all browsers (Chrome, Firefox, Safari, etc).
