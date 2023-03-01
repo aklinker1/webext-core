@@ -2,7 +2,7 @@
 titleTemplate: '@webext-core/messaging'
 ---
 
-# Get Started
+# Messaging
 
 <ChipGroup>
   <Chip text="MV2" type="manifest" />

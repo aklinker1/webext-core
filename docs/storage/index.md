@@ -2,7 +2,7 @@
 titleTemplate: '@webext-core/storage'
 ---
 
-# Get Started
+# Storage
 
 <ChipGroup>
   <Chip text="MV2" type="manifest" />

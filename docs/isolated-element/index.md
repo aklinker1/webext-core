@@ -1,4 +1,8 @@
-# Get Started
+---
+titleTemplate: '@webext-core/isolated-element'
+---
+
+# Isolated Element
 
 <ChipGroup>
   <Chip text="MV2" type="manifest" />

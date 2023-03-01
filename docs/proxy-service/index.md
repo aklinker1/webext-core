@@ -1,4 +1,8 @@
-# Get Started
+---
+titleTemplate: '@webext-core/proxy-service'
+---
+
+# Proxy Service
 
 <ChipGroup>
   <Chip text="MV2" type="manifest" />

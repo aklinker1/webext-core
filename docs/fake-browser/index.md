@@ -2,7 +2,7 @@
 titleTemplate: '@webext-core/fake-browser'
 ---
 
-# Get Started
+# Fake Browser
 
 <ChipGroup>
   <Chip text="MV2" type="manifest" />
