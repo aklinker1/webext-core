@@ -16,7 +16,9 @@ It's easy! Here are some resources to get started:
 
 Special thanks to all the contributors. I look forward to seeing you in the list!
 
-<ContributorList />
+<ClientOnly>
+    <ContributorList />
+</ClientOnly>
 
 ## Project Goals
 
