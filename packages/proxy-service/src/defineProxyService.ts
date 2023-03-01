@@ -1,14 +1,12 @@
 import { isBackground } from './isBackground';
-import { ProxyServiceConfig, InputService } from './types';
+import { DeepAsync, ProxyServiceConfig, Service } from './types';
 import { defineExtensionMessaging, ProtocolWithReturn } from '@webext-core/messaging';
 import get from 'get-value';
 
-type RegisterService<TService extends InputService, TArgs extends any[]> = (
-  ...args: TArgs
-) => TService;
-type GetService<TService extends InputService> = () => TService;
+type RegisterService<TService extends Service, TArgs extends any[]> = (...args: TArgs) => TService;
+type GetService<TService extends Service> = () => DeepAsync<TService>;
 
-export function defineProxyService<TService extends InputService, TArgs extends any[]>(
+export function defineProxyService<TService extends Service, TArgs extends any[]>(
   name: string,
   init: (...args: TArgs) => TService,
   config?: ProxyServiceConfig,
@@ -24,8 +22,8 @@ export function defineProxyService<TService extends InputService, TArgs extends 
    * Create and returns a "deep" proxy. Every property that is accessed returns another proxy, and
    * when a function is called at any depth (0 to infinity), a message is sent to the background.
    */
-  function createProxy(path?: string): TService {
-    const wrapped = (() => {}) as TService;
+  function createProxy(path?: string): DeepAsync<TService> {
+    const wrapped = (() => {}) as DeepAsync<TService>;
     const proxy = new Proxy(wrapped, {
       // Executed when the object is called as a function
       async apply(_target, _thisArg, args) {
@@ -59,7 +57,7 @@ export function defineProxyService<TService extends InputService, TArgs extends 
       return service;
     },
 
-    function getService() {
+    function getService(): DeepAsync<TService> {
       // Create proxy for non-background
       if (!isBackground()) return createProxy();
 
@@ -69,6 +67,7 @@ export function defineProxyService<TService extends InputService, TArgs extends 
           `Failed to get an instance of ${name}: in background, but registerService has not been called. Did you forget to call registerService?`,
         );
       }
+      // @ts-expect-error
       return service;
     },
   ];

@@ -44,7 +44,7 @@
     "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/proxy-service^...",
     "test": "vitest -r src",
     "test:coverage": "vitest run -r src --coverage",
-    "compile": "tsc --noEmit"
+    "compile": "vitest typecheck"
   },
   "dependencies": {
     "@webext-core/messaging": "workspace:*",
@@ -59,7 +59,7 @@
     "tsconfig": "workspace:*",
     "tsup": "^6.4.0",
     "typescript": "^4.8.4",
-    "vitest": "^0.24.5"
+    "vitest": "0.29.2"
   },
   "peerDependencies": {
     "webextension-polyfill": "^0.10.0"
