@@ -14,7 +14,7 @@ titleTemplate: '@webext-core/storage'
 
 ## Overview
 
-`@webext-core/storage` provides a localStorage-like API for interacting with extension storage. It supports all browsers (Chrome, Firefox, Safari, etc).
+`@webext-core/storage` provides a localStorage-like API for interacting with extension storage.
 
 ::: warn
 Requires the `storage` permission.

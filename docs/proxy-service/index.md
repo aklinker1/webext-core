@@ -14,7 +14,7 @@ titleTemplate: '@webext-core/proxy-service'
 
 ## Overview
 
-`@webext-core/proxy-service` provides a simple, type-safe way to execute code in the extension's background. It works on all browsers, for both MV2 and MV3.
+`@webext-core/proxy-service` provides a simple, type-safe way to execute code in the extension's background.
 
 ::: code-group
 
