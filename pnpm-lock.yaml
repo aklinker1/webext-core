@@ -105,10 +105,12 @@ importers:
 
   packages/proxy-service:
     specifiers:
+      '@types/get-value': ^3.0.3
       '@types/webextension-polyfill': ^0.9.1
       '@vitest/coverage-c8': ^0.24.5
       '@webext-core/fake-browser': workspace:*
       '@webext-core/messaging': workspace:*
+      get-value: ^3.0.1
       tsconfig: workspace:*
       tsup: ^6.4.0
       typescript: ^4.8.4
@@ -116,8 +118,10 @@ importers:
       webextension-polyfill: ^0.10.0
     dependencies:
       '@webext-core/messaging': link:../messaging
+      get-value: 3.0.1
       webextension-polyfill: 0.10.0
     devDependencies:
+      '@types/get-value': 3.0.3
       '@types/webextension-polyfill': 0.9.1
       '@vitest/coverage-c8': 0.24.5
       '@webext-core/fake-browser': link:../fake-browser
@@ -766,6 +770,10 @@ packages:
 
   /@types/chai/4.3.3:
     resolution: {integrity: sha512-hC7OMnszpxhZPduX+m+nrx+uFoLkWOMiR4oa/AZF3MuSETYTZmFfJAHqZEM8MVlvfG7BEUcgvtwoCTxBp6hm3g==}
+    dev: true
+
+  /@types/get-value/3.0.3:
+    resolution: {integrity: sha512-jsTl/XtZumQfYgn50a0fPkpIyF2xvpsyzZmSLrrwXR8NWiDlw4N5XJiGQYrLckZGGUvbIr920Hz2wqmH1ZfjlQ==}
     dev: true
 
   /@types/http-cache-semantics/4.0.1:
@@ -2675,6 +2683,13 @@ packages:
     resolution: {integrity: sha512-X8u8fREiYOE6S8hLbq99PeykTDoLVnxvF4DjWKJmz9xy2nNRdUcV8ZN9tniJFeKyTU3qnC9lL8n4Chd6LmVKHg==}
     dev: true
 
+  /get-value/3.0.1:
+    resolution: {integrity: sha512-mKZj9JLQrwMBtj5wxi6MH8Z5eSKaERpAwjg43dPtlGI1ZVEgH/qC7T8/6R2OBSUA+zzHBZgICsVJaEIV2tKTDA==}
+    engines: {node: '>=6.0'}
+    dependencies:
+      isobject: 3.0.1
+    dev: false
+
   /getpass/0.1.7:
     resolution: {integrity: sha512-0fzj9JxOLfJ+XGLhR8ze3unN0KZCgZwiSSDz168VERjK8Wl8kVSdcu2kspd4s4wtAa1y/qrVRiAA0WclVsu0ng==}
     dependencies:
@@ -3122,6 +3137,11 @@ packages:
   /isexe/2.0.0:
     resolution: {integrity: sha512-RHxMLp9lnKHGHRng9QFhRCMbYAcVpn69smSGcq3f36xjgVVWThj4qqLbTLlq7Ssj8B+fIQ1EuCEGI2lKsyQeIw==}
     dev: true
+
+  /isobject/3.0.1:
+    resolution: {integrity: sha512-WhB9zCku7EGTj/HQQRz5aUQEUeoQZH2bWcltRErOpymJ4boYE6wL9Tbr23krRPSZ+C5zqNSrSw+Cc7sZZ4b7vg==}
+    engines: {node: '>=0.10.0'}
+    dev: false
 
   /isstream/0.1.2:
     resolution: {integrity: sha512-Yljz7ffyPbrLpLngrMtZ7NduUgVvi6wG9RJ9IUcyCd59YQ911PBJphODUcbOVbqYfxe1wuYf/LJ8PauMRwsM/g==}
