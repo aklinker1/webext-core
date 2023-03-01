@@ -2,9 +2,7 @@ import { ExtensionMessagingConfig } from '@webext-core/messaging';
 
 export type Proimsify<T> = T extends Promise<any> ? T : Promise<T>;
 
-type ToAsyncFunction<T extends (...args: any) => any> = (
-  ...args: Parameters<T>
-) => Proimsify<ReturnType<T>>;
+export type Service = ((...args: any[]) => Promise<any>) | { [key: string]: any | Service };
 
 /**
  * Make all functions at all nested levels of an object async
@@ -19,6 +17,8 @@ export type DeepAsync<TService> = TService extends (...args: any) => any
         : never;
     };
 
-export type Service = ((...args: any[]) => Promise<any>) | { [key: string]: any | Service };
+type ToAsyncFunction<T extends (...args: any) => any> = (
+  ...args: Parameters<T>
+) => Proimsify<ReturnType<T>>;
 
 export interface ProxyServiceConfig extends ExtensionMessagingConfig {}
