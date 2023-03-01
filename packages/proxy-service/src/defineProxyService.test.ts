@@ -12,9 +12,8 @@ const isBackgroundMock = vi.mocked(isBackground);
 
 const defineTestService = () =>
   defineProxyService('TestService', (version: number) => ({
-    getVersion: async () => version,
+    getVersion: () => version,
     getNextVersion: () => Promise.resolve(version + 1),
-    a: '',
   }));
 
 describe('defineProxyService', () => {

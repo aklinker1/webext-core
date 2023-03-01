@@ -33,13 +33,13 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
 
       // Executed when accessing a property on an object
       get(target, propertyName, receiver) {
-        if (propertyName === '__proxy') return Reflect.get(target, propertyName, receiver);
-        if (typeof propertyName === 'symbol') return undefined;
-
+        if (propertyName === '__proxy' || typeof propertyName === 'symbol') {
+          return Reflect.get(target, propertyName, receiver);
+        }
         return createProxy(path == null ? propertyName : `${path}.${propertyName}`);
       },
     });
-    // @ts-expect-error: Adding a propert
+    // @ts-expect-error: Adding a hidden property
     proxy.__proxy = true;
     return proxy;
   }
@@ -54,7 +54,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
       return service;
     },
 
-    function getService(): DeepAsync<TService> {
+    function getService() {
       // Create proxy for non-background
       if (!isBackground()) return createProxy();
 
@@ -64,8 +64,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
           `Failed to get an instance of ${name}: in background, but registerService has not been called. Did you forget to call registerService?`,
         );
       }
-      // @ts-expect-error: DeepAsync<TService> makes some fields type change
-      return service;
+      return service as unknown as DeepAsync<TService>;
     },
   ];
 }
