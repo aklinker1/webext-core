@@ -71,6 +71,10 @@ export default defineConfig({
               text: 'Browser Support',
               link: '/guide/browser-support',
             },
+            {
+              text: 'Contributing',
+              link: '/guide/contributing',
+            },
           ],
         },
         packages,
