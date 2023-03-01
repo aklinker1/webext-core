@@ -16,7 +16,7 @@ titleTemplate: '@webext-core/proxy-service'
 
 `@webext-core/proxy-service` provides a simple, type-safe way to execute code in the extension's background.
 
-::: code-group
+:::code-group
 
 ```ts [MathService.ts]
 import { defineProxyService } from '@webext-core/proxy-service';
@@ -83,7 +83,7 @@ Lets look at a more realistic example, IndexedDB! Since the same IndexedDB datab
 
 First, we need to create the a real implementation of our service. In this case, the service will contain CRUD operations for todos in the database:
 
-::: code-group
+:::code-group
 
 ```ts [TodosRepo.ts]
 import { defineProxyService } from '@webext-core/proxy-service';
@@ -115,13 +115,13 @@ export const [registerTodosRepo, getTodosRepo] = defineProxyService('TodosRepo',
 
 :::
 
-::: info
+:::info
 In this example, we're using [`idb`](https://www.npmjs.com/package/idb) to simplify the IndexedDB code.
 :::
 
 Now that you have a service implemented, we need to tell the extension to use it! This needs to happen syncronously when your background script is loaded, so put it as high up as possible.
 
-::: code-group
+:::code-group
 
 ```ts [background.ts]
 import { openDB } from 'idb';
@@ -134,7 +134,7 @@ registerTodosRepo(db);
 
 :::
 
-::: info
+:::info
 This works for both MV2 background pages, and MV3 service works.
 :::
 
@@ -148,7 +148,7 @@ You can follow the pattern of passing `Promise<Dependency>` into your services a
 
 And you're done! You can now access your IndexedDB database from any JS context inside your extension:
 
-::: code-group
+:::code-group
 
 ```html [extension-page.html]
 <script type="module">

@@ -22,7 +22,7 @@ const { key: value } = await browser.storage.local.get('key');
 const value = await localExtStorage.getItem('key');
 ```
 
-::: warning
+:::warning
 Requires the `storage` permission.
 :::
 

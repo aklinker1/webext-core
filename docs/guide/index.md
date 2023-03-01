@@ -32,7 +32,7 @@ const value = await localExtStorage.getItem('some-key');
 
 If you're not using a bundler, you'll have to download each package and put it inside your project.
 
-::: details Why download them?
+:::details Why download them?
 With Manifest V3, Google doesn't approve of extensions using CDN URLs directly, considering it "remotely hosted code" and a security risk. So you will need to download each package and ship them with your extension. See the [MV3 overview](https://developer.chrome.com/docs/extensions/mv3/intro/mv3-overview/#remotely-hosted-code) for more details.
 
 If you're not on MV3 yet, you could use the CDN, but it's still recommended to download it so it loads faster.
