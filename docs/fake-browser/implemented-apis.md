@@ -27,7 +27,7 @@ Or submit a PR to add support :smile:
 When possible, events are triggered based on other calls to other browser APIs. For example:
 
 - Calling `fakeBrowser.runtime.sendMessage()` will trigger the `fakeBrowser.runtime.onMessage` listeners
-- Calling `fakeBrowser.tabs.create()` will trigger the `fakeBroser.tabs.onCreated` listeners
+- Calling `fakeBrowser.tabs.create()` will trigger the `fakeBrowser.tabs.onCreated` listeners
 
 Some events, like `runtime.onInstalled` or `alarms.onAlarm`, can't be triggered as they would be in a real extension.
 
@@ -53,13 +53,13 @@ If you await the call to `trigger`, it will wait for all the listener to finish 
 
 ## Reseting
 
-All of the implemented APIs store state of some kind in memory. When unit testing, we often want to reset all that state before each test so the tests are consistent. There are 3 ways to reset that in-memory state:
+Implemented APIs store state in memory. When unit testing, we often want to reset all that state before each test so each test has a blank state. There are 3 ways to reset that in-memory state:
 
 1. Reset everything: `fakeBrowser.reset()`
 2. Reset just one API: `fakeBrowser.{api}.reset()`
 3. Call `fakeBrowser.{api}.on{Event}.removeAllListeners()` to remove all the listeners setup for an event
 
-::info
+:::info
 All the reset methods are synchronous
 :::
 
@@ -69,7 +69,7 @@ For example, to clear the in-memory stored values for `browser.storage.local`, y
 - `fakeBrowser.storage.reset()`
 - `fakeBrowser.storage.local.reset()`
 
-All these reset methods should show up with type-hints since this package is written in TS.
+All these reset methods should show up in your editor's intelisense.
 
 :::info
 Generally, you should put a call to `fakeBrowser.reset()` in a `beforeEach` block to cleanup the state before every test.
