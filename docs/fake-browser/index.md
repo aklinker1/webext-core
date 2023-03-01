@@ -19,7 +19,7 @@ An in-memory implementation of webextension-polyfill for testing. Supports all t
 pnpm i -D @webext-core/fake-browser
 ```
 
-This package only really works with projects using a testing frame and node, so only the NPM install steps are shown.
+This package only really works with projects using node, so only the NPM install steps are shown.
 
 See [Testing Frameworks](/fake-browser/testing-frameworks) to setup mocks for your testing framework of choice and see a simple example test.
 

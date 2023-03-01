@@ -1,5 +1,11 @@
 # Testing Frameworks
 
+`@webext-core/fake-browser` works with all frameworks. Setup for only a few of the major testing frameworks is listed below.
+
+[[toc]]
+
+> Open a PR to add an example for your framework of choice!
+
 ## Vitest
 
 To tell Vitest to use `@webext-core/fake-browser` instead of `webextension-polyfill`, you need to setup a global mock:
@@ -33,7 +39,7 @@ describe('isXyzEnabled', () => {
 
   it('should return true when enabled', async () => {
     const expected = true;
-    // Use either browser or fakeBrowser to set the state before the test
+    // Use either browser or fakeBrowser to setup your test case
     await browser.storage.local.set({ xyz: expected });
 
     const actual = await isXyzEnabled();
@@ -70,7 +76,7 @@ To tell Jest to use `@webext-core/fake-browser` instead of `webextension-polyfil
 module.exports = require('@webext-core/fake-browser').default;
 ```
 
-Next, we'll use the moduleNameMapper option to point all imports of `webextension-polyfill` to `./__mocks__/webextension-polyfill.js` instead.
+Next, we'll use the `moduleNameMapper` option to point all imports of `webextension-polyfill` to `./__mocks__/webextension-polyfill.js` instead.
 
 ```js
 // ./jest.config.js
@@ -101,7 +107,7 @@ describe('isXyzEnabled', () => {
 
   it('should return true when enabled', async () => {
     const expected = true;
-    // Use either browser or fakeBrowser to set the state before the test
+    // Use either browser or fakeBrowser to setup your test case
     await browser.storage.local.set({ xyz: expected });
 
     const actual = await isXyzEnabled();
