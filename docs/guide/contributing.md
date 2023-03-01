@@ -89,3 +89,44 @@ pnpm test    # Run unit tests in watch mode
 ```
 
 Each directory might have additional scripts you can run. See each `package.json` for a complete list.
+
+## Publishing Packages
+
+Only owners of the repo can publish a new version of the extension. But in summary: other than pressing the button, everything is automated via the "Publish Packages" GitHub action. That includes:
+
+- Bumping the package version
+- Generating release notes
+- Createing a GitHub release
+- Publishing to NPM
+
+The action will run these steps for a set list of packages.
+
+There is no way to filter or prevent a package from being publish when running this command. If there's a `feat` or `fix` unpublished for any package, it will get published. Packages without any features or fixes will be skipped.
+
+### Commit Style
+
+If you are submitting PRs, don't worry about this! A maintainer will squash and merge your PR with a commit message in the correct style.
+
+Each commit's title effects the publishing process. The style is based on conventional commits, but using scoped prefixes. Use the `fix(package-name): ` and `feat(package-name): ` prefixes when commiting a change. For example, the following commit history:
+
+```text
+docs: Fixed typos
+fix(storage): Some change
+feat(proxy-service): Some new feature
+chore: Refactored scripts
+```
+
+Would result in a patch version change for `@webext-core/storage` (like from `1.2.1` &rarr; `1.2.2`), and a minor change for `@webext-core/proxy-service` (like from `1.3.4` &rarr; `1.4.0`).
+
+### Publishing a New Package
+
+When publishing a package for the first time, publish it by hand and create a release manually.
+
+```sh
+cd packages/package-name
+pnpm publish
+```
+
+## Updating Docs
+
+This documentation website is continuously deployed on Vercel. You do not need to run any actions or scripts to publish the docs. Just push changes to `main`.
