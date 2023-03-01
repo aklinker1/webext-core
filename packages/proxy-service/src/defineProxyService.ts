@@ -3,14 +3,11 @@ import { DeepAsync, ProxyServiceConfig, Service } from './types';
 import { defineExtensionMessaging, ProtocolWithReturn } from '@webext-core/messaging';
 import get from 'get-value';
 
-type RegisterService<TService extends Service, TArgs extends any[]> = (...args: TArgs) => TService;
-type GetService<TService extends Service> = () => DeepAsync<TService>;
-
 export function defineProxyService<TService extends Service, TArgs extends any[]>(
   name: string,
   init: (...args: TArgs) => TService,
   config?: ProxyServiceConfig,
-): [registerService: RegisterService<TService, TArgs>, getService: GetService<TService>] {
+): [registerService: (...args: TArgs) => TService, getService: () => DeepAsync<TService>] {
   let service: TService | undefined;
 
   const messageKey = `proxy-service.${name}`;
@@ -67,7 +64,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
           `Failed to get an instance of ${name}: in background, but registerService has not been called. Did you forget to call registerService?`,
         );
       }
-      // @ts-expect-error
+      // @ts-expect-error: DeepAsync<TService> makes some fields type change
       return service;
     },
   ];

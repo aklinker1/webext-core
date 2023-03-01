@@ -16,7 +16,7 @@ export type DeepAsync<TService> = TService extends (...args: any) => any
         ? ToAsyncFunction<TService[fn]>
         : TService[fn] extends { [key: string]: any }
         ? DeepAsync<TService[fn]>
-        : TService[fn];
+        : never;
     };
 
 export type Service = ((...args: any[]) => Promise<any>) | { [key: string]: any | Service };

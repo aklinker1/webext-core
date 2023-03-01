@@ -44,7 +44,7 @@
     "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/proxy-service^...",
     "test": "vitest -r src",
     "test:coverage": "vitest run -r src --coverage",
-    "compile": "vitest typecheck"
+    "compile": "vitest src typecheck"
   },
   "dependencies": {
     "@webext-core/messaging": "workspace:*",
