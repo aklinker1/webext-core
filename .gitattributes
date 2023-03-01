@@ -1,3 +1,4 @@
 # Generated code
 *.gen.ts linguist-generated
 *.gen.js linguist-generated
+pnpm-lock.yaml linguist-generated
