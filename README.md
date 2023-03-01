@@ -12,4 +12,4 @@ A set of core libraries and tools for building web extensions. These libraries a
 
 ## Documentation
 
-To get started with any of these libraries, head over to the [documentation website](https://webext-core.aklinker1.io)!
+To get started, checkout the [documentation website](https://webext-core.aklinker1.io).
