@@ -43,8 +43,9 @@
     "build": "tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreProxyService",
     "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/proxy-service^...",
     "test": "vitest -r src",
+    "test:types": "vitest typecheck --run",
     "test:coverage": "vitest run -r src --coverage",
-    "compile": "vitest typecheck"
+    "compile": "tsc --noEmit"
   },
   "dependencies": {
     "@webext-core/messaging": "workspace:*",
