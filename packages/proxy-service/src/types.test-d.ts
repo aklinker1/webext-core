@@ -5,30 +5,98 @@ import { defineProxyService } from './defineProxyService';
 
 describe('Types', () => {
   describe('getService', () => {
-    function createService(arg: string) {
-      return {
+    describe('with a shallow object', () => {
+      const realService = {
         property: 'a',
-        syncFn(arg: string): number {
-          throw Error('Not implemented');
-        },
-        async asyncFn(): Promise<number> {
-          throw Error('Not implemented');
+        syncFn: (arg: string): number => 1,
+        asyncFn: async (): Promise<number> => 0,
+      };
+      const [_, getService] = defineProxyService('test', () => realService);
+      const service = getService();
+
+      it('should make sync functions async', () => {
+        expectTypeOf(service.syncFn).toEqualTypeOf<(arg: string) => Promise<number>>();
+      });
+
+      it('should not change async functions', () => {
+        expectTypeOf(service.asyncFn).toEqualTypeOf<() => Promise<number>>();
+      });
+
+      it("should make properties never since they can't be accessed synchronously", () => {
+        expectTypeOf(service.property).toBeNever();
+      });
+    });
+
+    describe('with a raw function', () => {
+      it('should make sync functions async', () => {
+        const realService = (arg: string) => {};
+        const [_, getService] = defineProxyService('test', () => realService);
+        const service = getService();
+
+        expectTypeOf(service).toEqualTypeOf<(arg: string) => Promise<void>>();
+      });
+
+      it('should return the same type when the function is already async', () => {
+        const realService = async (arg: string) => 1;
+        const [_, getService] = defineProxyService('test', () => realService);
+        const service = getService();
+
+        expectTypeOf(service).toEqualTypeOf(realService);
+      });
+    });
+
+    describe('with a class instance', () => {
+      class RealService {
+        property = 'a';
+        syncFn(arg: string) {
+          return 1;
+        }
+        async asyncFn() {
+          return 2;
+        }
+      }
+      const [_, getService] = defineProxyService('test', () => new RealService());
+      const service = getService();
+
+      it('should make sync functions async', () => {
+        expectTypeOf(service.syncFn).toEqualTypeOf<(arg: string) => Promise<number>>();
+      });
+
+      it('should not change async functions', () => {
+        expectTypeOf(service.asyncFn).toEqualTypeOf<() => Promise<number>>();
+      });
+
+      it("should make properties never since they can't be accessed synchronously", () => {
+        expectTypeOf(service.property).toBeNever();
+      });
+    });
+
+    describe('with a nested object', () => {
+      const realService = {
+        a: {
+          b: {
+            async fn(arg: string): Promise<string> {
+              return arg;
+            },
+            c: {
+              d: {
+                e: {
+                  fn(arg: boolean): string {
+                    return '';
+                  },
+                },
+              },
+            },
+          },
         },
       };
-    }
-    const [_, getService] = defineProxyService('test', createService);
-    const service = getService();
+      const [_, getService] = defineProxyService('test', () => realService);
+      const service = getService();
 
-    it('should make sync functions async', () => {
-      expectTypeOf(service.syncFn).toEqualTypeOf<(arg: string) => Promise<number>>();
-    });
-
-    it('should not change async functions', () => {
-      expectTypeOf(service.asyncFn).toEqualTypeOf<() => Promise<number>>();
-    });
-
-    it("should make properties never since they can't be accessed synchronously", () => {
-      expectTypeOf(service.property).toBeNever();
+      it('should return the functions at the same depth', () => {
+        expectTypeOf(service.a.b.fn).toEqualTypeOf<(arg: string) => Promise<string>>();
+        expectTypeOf(service.a.b.c.d.e.fn).toEqualTypeOf<(arg: boolean) => Promise<string>>();
+      });
     });
   });
 

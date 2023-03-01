@@ -70,20 +70,27 @@ describe('defineProxyService', () => {
     expect(fn).toBeCalledTimes(1);
   });
 
-  it('should support executing deeply nested functions', async () => {
-    const expected = 5;
-    const fn = vi.fn<[], Promise<number>>().mockResolvedValue(expected);
+  it('should support executing deeply nested functions at multiple depths', async () => {
+    const expected1 = 5;
+    const expected2 = 6;
+    const fn1 = vi.fn<[], Promise<number>>().mockResolvedValue(expected1);
+    const fn2 = vi.fn<[], Promise<number>>().mockResolvedValue(expected2);
     const [registerDeepObject, getDeepObject] = defineProxyService('DeepObject', () => ({
-      path: { to: { fn } },
+      fn1,
+      path: {
+        to: {
+          fn2,
+        },
+      },
     }));
     registerDeepObject();
 
     isBackgroundMock.mockReturnValue(false);
     const deepObject = getDeepObject();
 
-    const actual = await deepObject.path.to.fn();
-
-    expect(actual).toBe(expected);
-    expect(fn).toBeCalledTimes(1);
+    await expect(deepObject.fn1()).resolves.toBe(expected1);
+    expect(fn1).toBeCalledTimes(1);
+    await expect(deepObject.path.to.fn2()).resolves.toBe(expected2);
+    expect(fn2).toBeCalledTimes(1);
   });
 });
