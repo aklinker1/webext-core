@@ -92,6 +92,14 @@ export default defineConfig({
               link: '/fake-browser/testing-frameworks',
             },
             {
+              text: 'Reseting State',
+              link: '/fake-browser/reseting-state',
+            },
+            {
+              text: 'Triggering Events',
+              link: '/fake-browser/triggering-events',
+            },
+            {
               text: 'Implemented APIs',
               link: '/fake-browser/implemented-apis',
             },
