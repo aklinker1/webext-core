@@ -13,8 +13,7 @@ All the reset methods are synchronous
 For example, to clear the in-memory stored values for `browser.storage.local`, you could call any of the following:
 
 - `fakeBrowser.reset()`
-- `fakeBrowser.storage.reset()`
-- `fakeBrowser.storage.local.reset()`
+- `fakeBrowser.storage.resetState()`
 
 All these reset methods should show up in your editor's intelisense.
 
