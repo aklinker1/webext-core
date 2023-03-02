@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/proxy-service",
-  "version": "1.0.3",
+  "version": "1.1.0",
   "description": "A type-safe wrapper around the web extension messaging APIs that lets you call a function from anywhere, but execute it in the background. Supports all browsers (Chrome, Firefox, Safari, etc)",
   "license": "MIT",
   "keywords": [
