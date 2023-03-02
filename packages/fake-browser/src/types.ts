@@ -1,6 +1,7 @@
 import type {
   Alarms,
   Browser,
+  Notifications,
   Runtime,
   Storage,
   Tabs,
@@ -31,6 +32,13 @@ export interface BrowserOverrides {
   alarms: Alarms.Static & {
     resetState(): void;
     onAlarm: EventForTesting<[name: Alarms.Alarm]>;
+  };
+  notifications: Notifications.Static & {
+    resetState(): void;
+    onClosed: EventForTesting<[notificationId: string, byUser: boolean]>;
+    onClicked: EventForTesting<[notificationId: string]>;
+    onButtonClicked: EventForTesting<[notificationId: string, buttonIndex: number]>;
+    onShown: EventForTesting<[notificationId: string]>;
   };
   runtime: {
     resetState(): void;
