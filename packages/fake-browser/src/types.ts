@@ -40,9 +40,8 @@ export interface BrowserOverrides {
     onButtonClicked: EventForTesting<[notificationId: string, buttonIndex: number]>;
     onShown: EventForTesting<[notificationId: string]>;
   };
-  runtime: {
+  runtime: Pick<Runtime.Static, 'id' | 'getURL'> & {
     resetState(): void;
-    id: string;
     onSuspend: EventForTesting<[]>;
     onSuspendCanceled: EventForTesting<[]>;
     onStartup: EventForTesting<[]>;

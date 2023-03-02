@@ -1,4 +1,4 @@
-import { BrowserOverrides, FakeBrowser } from '../types';
+import { BrowserOverrides } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { Runtime } from 'webextension-polyfill';
 
@@ -24,6 +24,9 @@ export const runtime: BrowserOverrides['runtime'] = {
     runtime.id = TEST_ID;
   },
   id: TEST_ID,
+  getURL(path: string) {
+    return `chrome-extension://${runtime.id}/${path.replace(/^\//, '')}`;
+  },
   onInstalled,
   onMessage,
   onStartup,
