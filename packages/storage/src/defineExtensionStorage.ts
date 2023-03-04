@@ -15,22 +15,17 @@ interface RegisteredChangeListener<TSchema extends AnySchema> {
 export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
   storage: Storage.StorageArea,
 ): ExtensionStorage<TSchema> {
-  const area = getStorageName(storage);
-
   /**
    * The singleton callback added and removed from the `browser.storage.onChanged` event. It calls
    * all the listeners added to this storage instance.
    */
-  const onStorageChanged = async (
-    changes: Record<string, Storage.StorageChange>,
-    changedArea: string,
-  ) => {
-    if (area !== changedArea) return;
-
+  const onStorageChanged = async (changes: browser.Storage.StorageAreaOnChangedChangesType) => {
     const work = listeners.map(({ key, cb }) => {
       if (!(key in changes)) return;
 
-      const { newValue, oldValue } = changes[key as string];
+      const { newValue, oldValue } = changes[
+        key as string
+      ] as browser.Storage.StorageAreaOnChangedChangesType;
       if (newValue === oldValue) return;
 
       return cb(newValue, oldValue);
@@ -47,7 +42,7 @@ export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
    */
   function addListener(listener: RegisteredChangeListener<TSchema>) {
     if (listeners.length === 0) {
-      browser.storage.onChanged.addListener(onStorageChanged);
+      storage.onChanged.addListener(onStorageChanged);
     }
 
     listeners.push(listener);
