@@ -1,5 +1,6 @@
-import { runtime } from './apis/runtime';
 import { alarms } from './apis/alarms';
+import { notifications } from './apis/notifications';
+import { runtime } from './apis/runtime';
 import { storage } from './apis/storage';
 import { tabs } from './apis/tabs';
 import { webNavigation } from './apis/webNavigation';
@@ -19,8 +20,9 @@ const overrides: BrowserOverrides = {
 
   // Implemented
   alarms,
-  storage,
+  notifications,
   runtime,
+  storage,
   tabs,
   webNavigation,
   windows,

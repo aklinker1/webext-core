@@ -140,9 +140,9 @@ interface Message<TProtocolMap, TType extends keyof TProtocolMap> {
  *
  * @param config Configure the behavior of the messenger.
  */
-export function defineExtensionMessaging<TProtocolMap>(
-  config?: ExtensionMessagingConfig,
-): Messenger<TProtocolMap> {
+export function defineExtensionMessaging<
+  TProtocolMap = Record<string, ProtocolWithReturn<any, any>>,
+>(config?: ExtensionMessagingConfig): Messenger<TProtocolMap> {
   let rootListener:
     | undefined
     | ((message: any, sender: Browser.Runtime.MessageSender) => void | Promise<any>);

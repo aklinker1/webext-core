@@ -4,18 +4,23 @@
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
-    "docs": "vitepress dev docs",
-    "docs-build": "vitepress build docs",
-    "docs-serve": "vitepress serve docs",
+    "docs:dev": "vitepress dev docs",
+    "docs:build": "vitepress build docs",
+    "docs:serve": "vitepress serve docs",
+    "docs:test": "vitest -r docs",
     "build": "turbo run build",
     "prepare": "husky install"
   },
   "devDependencies": {
     "@aklinker1/generate-changelog": "*",
+    "@types/webextension-polyfill": "^0.9.1",
+    "@webext-core/fake-browser": "workspace:*",
     "husky": "^8.0.1",
     "prettier": "^2.7.1",
     "pretty-quick": "^3.1.3",
     "turbo": "^1.6.3",
-    "vitepress": "1.0.0-alpha.45"
+    "vitepress": "1.0.0-alpha.49",
+    "vitest": "^0.29.2",
+    "webextension-polyfill": "^0.10.0"
   }
 }

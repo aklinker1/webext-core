@@ -141,7 +141,7 @@ describe('Storage Wrappers', () => {
   describe('onChange', () => {
     it('should only add a single onChange listener using the browser.storage.onChanged API', async () => {
       const fn = vi.fn();
-      const addListenerSpy = vi.spyOn(fakeBrowser.storage.onChanged, 'addListener');
+      const addListenerSpy = vi.spyOn(fakeBrowser.storage.local.onChanged, 'addListener');
 
       storage.onChange('key1', fn);
       expect(addListenerSpy).toBeCalledTimes(1);

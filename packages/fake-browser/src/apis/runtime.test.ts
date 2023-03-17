@@ -2,7 +2,7 @@ import { beforeEach, describe, expect, it, vi } from 'vitest';
 import { Runtime } from 'webextension-polyfill';
 import { fakeBrowser } from '..';
 
-describe('Fake Storage API', () => {
+describe('Fake Runtime API', () => {
   beforeEach(fakeBrowser.reset);
 
   describe('messaging', () => {
@@ -102,5 +102,19 @@ describe('Fake Storage API', () => {
 
     expect(listener).toBeCalledTimes(1);
     expect(listener).toBeCalledWith(input);
+  });
+
+  describe('getURL', () => {
+    it('should return an extension URL', () => {
+      expect(fakeBrowser.runtime.getURL('options.html')).toBe(
+        `chrome-extension://test-extension-id/options.html`,
+      );
+    });
+
+    it('should return an extension URL, ignoring leading slashes', () => {
+      expect(fakeBrowser.runtime.getURL('/options.html')).toBe(
+        `chrome-extension://test-extension-id/options.html`,
+      );
+    });
   });
 });
