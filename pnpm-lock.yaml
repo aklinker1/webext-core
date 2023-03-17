@@ -142,12 +142,12 @@ importers:
     specifiers:
       '@webext-core/proxy-service': workspace:*
       vite: ^3.2.4
-      vite-plugin-web-extension: 2.0.0-alpha5
+      vite-plugin-web-extension: 3.0.2
     dependencies:
       '@webext-core/proxy-service': link:../proxy-service
     devDependencies:
       vite: 3.2.4
-      vite-plugin-web-extension: 2.0.0-alpha5_vite@3.2.4
+      vite-plugin-web-extension: 3.0.2_vite@3.2.4
 
   packages/storage:
     specifiers:
@@ -3038,6 +3038,10 @@ packages:
     resolution: {integrity: sha512-H2iMtd0I4Mt5eYiapRdIDjp+XzelXQ0tFE4JS7YFwFevXXMmOp9myNrUvCg0D6ws8iqkRPBfKHgbwig1SmlLfg==}
     dev: true
 
+  /html-escaper/3.0.3:
+    resolution: {integrity: sha512-RuMffC89BOWQoY0WKGpIhn5gX3iI54O6nRA0yC124NYVtzjmFWBIiFd8M0x+ZdX0P9R4lADg1mgP8C7PxGOWuQ==}
+    dev: true
+
   /htmlparser2/8.0.1:
     resolution: {integrity: sha512-4lVbmc1diZC7GUJQtRQ5yBAeUCL1exyMwmForWkRLnwyzWBFxN633SALPMGYaWZvKe9j1pRZJpauvmxENSp/EA==}
     dependencies:
@@ -3455,6 +3459,12 @@ packages:
     resolution: {integrity: sha512-ZClg6AaYvamvYEE82d3Iyd3vSSIjQ+odgjaTzRuO3s7toCdFKczob2i0zCh7JE8kWn17yvAWhUVxvqGwUalsRA==}
     dev: true
 
+  /json5/2.2.3:
+    resolution: {integrity: sha512-XmOWe7eyHYH14cLdVPoyg+GOH3rYX++KpzrylJwSW98t3Nk+U8XOl8FWKOgwtzdb8lXGf6zYwDUzeHMWfxasyg==}
+    engines: {node: '>=6'}
+    hasBin: true
+    dev: true
+
   /jsonc-parser/3.2.0:
     resolution: {integrity: sha512-gfFQZrcTc8CnKXp6Y4/CBT3fTc0OVuDofpre4aEeEpSBPV5X5v4+Vmx+8snU7RLPrNHPKSgLxGo9YuQzz20o+w==}
     dev: true
@@ -3580,6 +3590,16 @@ packages:
   /lines-and-columns/2.0.3:
     resolution: {integrity: sha512-cNOjgCnLB+FnvWWtyRTzmB3POJ+cXxTA81LoW7u8JdmhfXzriropYwpjShnz1QLLWsQwY7nIxoDmcPTwphDK9w==}
     engines: {node: ^12.20.0 || ^14.13.1 || >=16.0.0}
+    dev: true
+
+  /linkedom/0.14.25:
+    resolution: {integrity: sha512-Q5BvQVFzMveMxHvZ9L3E60duxSVPIWQRzY2HJKpCV4pRzY3jS/r/a1upLeo/Nup9mDRJ5MS0FX2hRR+wRo+Hiw==}
+    dependencies:
+      css-select: 5.1.0
+      cssom: 0.5.0
+      html-escaper: 3.0.3
+      htmlparser2: 8.0.1
+      uhyphen: 0.2.0
     dev: true
 
   /load-tsconfig/0.2.3:
@@ -5250,6 +5270,10 @@ packages:
     resolution: {integrity: sha512-MvlCc4GHrmZdAllBc0iUDowff36Q9Ndw/UzqmEKyrfSzokTd9ZCy1i+IIk5hrYKkjoYVQyNbrw7/F8XJ2rEwTg==}
     dev: true
 
+  /uhyphen/0.2.0:
+    resolution: {integrity: sha512-qz3o9CHXmJJPGBdqzab7qAYuW8kQGKNEuoHFYrBwV6hWIMcpAmxDLXojcHfFr9US1Pe6zUswEIJIbLI610fuqA==}
+    dev: true
+
   /unique-string/3.0.0:
     resolution: {integrity: sha512-VGXBUVwxKMBUznyffQweQABPRRW1vHZAbadFZud4pLFAqRGvv/96vafgjWFqzourzr8YonlQiPgH0YCJfawoGQ==}
     engines: {node: '>=12'}
@@ -5425,6 +5449,32 @@ packages:
       vite: 3.2.4
       web-ext: 7.3.1
       webextension-polyfill: 0.10.0
+    transitivePeerDependencies:
+      - body-parser
+      - bufferutil
+      - express
+      - safe-compare
+      - supports-color
+      - utf-8-validate
+    dev: true
+
+  /vite-plugin-web-extension/3.0.2_vite@3.2.4:
+    resolution: {integrity: sha512-YdjDYkeSZIh1xo2qbGTzKjxapDwn0aqVtSjbpA8Jn3iQGZLjNRYDE0qcuFftvKPBxKlV06Q4VzkY6x9M0UprkQ==}
+    peerDependencies:
+      vite: ^4
+    dependencies:
+      ajv: 8.11.2
+      async-lock: 1.4.0
+      fs-extra: 10.1.0
+      json5: 2.2.3
+      linkedom: 0.14.25
+      lodash.uniq: 4.5.0
+      lodash.uniqby: 4.7.0
+      md5: 2.3.0
+      vite: 3.2.4
+      web-ext: 7.3.1
+      webextension-polyfill: 0.10.0
+      yaml: 2.2.1
     transitivePeerDependencies:
       - body-parser
       - bufferutil
@@ -6194,6 +6244,11 @@ packages:
   /yaml/1.10.2:
     resolution: {integrity: sha512-r3vXyErRCYJ7wg28yvBY5VSoAF8ZvlcW9/BwUzEtUsjvX/DKs24dIkuwjtuprwJJHsbyUbLApepYTR1BN4uHrg==}
     engines: {node: '>= 6'}
+    dev: true
+
+  /yaml/2.2.1:
+    resolution: {integrity: sha512-e0WHiYql7+9wr4cWMx3TVQrNwejKaEe7/rHNmQmqRjazfOP5W8PB6Jpebb5o6fIapbz9o9+2ipcaTM2ZwDI6lw==}
+    engines: {node: '>= 14'}
     dev: true
 
   /yargs-parser/20.2.9:

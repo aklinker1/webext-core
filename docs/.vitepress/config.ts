@@ -147,6 +147,10 @@ export default defineConfig({
               text: 'Get Started',
               link: '/proxy-service/',
             },
+            {
+              text: 'Variants',
+              link: '/proxy-service/variants',
+            },
           ],
         },
         packages,
