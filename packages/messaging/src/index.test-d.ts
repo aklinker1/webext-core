@@ -38,4 +38,14 @@ describe('Messenger Typing', () => {
     expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeNumber();
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeBoolean();
   });
+
+  it('should require passing undefined to sendMessage when there is no data', () => {
+    const { sendMessage } = defineExtensionMessaging<{
+      ping: ProtocolWithReturn<undefined, 'pong'>;
+    }>();
+
+    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
+    expectTypeOf(sendMessage).parameter(1).toBeUndefined();
+    expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined>();
+  });
 });
