@@ -38,9 +38,9 @@ export type ProtocolWithReturn<TData, TReturn> = { BtVgCTPYZu: TData; RrhVseLgZW
  * Given a `ProtocolWithReturn` or a value, return the message's data type.
  */
 export type GetDataType<T> = T extends (...args: infer Args) => any
-  ? Parameters<T>['length'] extends 0
-    ? undefined
-    : Args[0]
+  ? Args['length'] extends 0 | 1
+    ? Args[0]
+    : never
   : T extends ProtocolWithReturn<any, any>
   ? T['BtVgCTPYZu']
   : T;
