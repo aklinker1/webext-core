@@ -1,6 +1,12 @@
 <template>
   <div class="ContributorList">
-    <a v-for="user in contributors" :key="user.id" :href="user.html_url" target="_blank">
+    <a
+      v-for="user in contributors"
+      :key="user.id"
+      :href="user.html_url"
+      target="_blank"
+      :title="user.login"
+    >
       <img :src="user.avatar_url" />
       <p>{{ user.login }}</p>
     </a>
@@ -51,5 +57,7 @@ fetch('https://api.github.com/repos/aklinker1/webext-core/contributors', {
   margin: 0;
   font-size: small;
   text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 </style>
