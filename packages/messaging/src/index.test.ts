@@ -1,6 +1,6 @@
 import { describe, it, vi, beforeEach, expect } from 'vitest';
 import { fakeBrowser } from '@webext-core/fake-browser';
-import { ProtocolWithReturn, defineExtensionMessaging } from './index';
+import { defineExtensionMessaging } from './index';
 
 /**
  * This is defined in `@webext-core/fake-browser` when there are no `Browser.runtime.onMessage`
@@ -11,8 +11,8 @@ const NO_RUNTIME_LISTENERS_ERROR = 'No listeners available';
 vi.mock('webextension-polyfill');
 
 interface ProtocolMap {
-  getLength: ProtocolWithReturn<string, number>;
-  getHalfLength: ProtocolWithReturn<string, number>;
+  getLength(string: string): number;
+  getHalfLength(string: string): Promise<number>;
 }
 
 describe('Messaging Wrapper', () => {

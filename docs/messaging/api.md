@@ -65,12 +65,6 @@ Contains details about the message recieved by the listener.
 - `sender`: Details about where the message was sent from. See [`Runtime.MessageSender`](https://developer.chrome.com/docs/extensions/reference/runtime/#type-MessageSender) for more details.
 - `timestamp`: The MS since epoch when the message was sent.
 
-## `ProtocolWithReturn`
-
-A utility type for defining a message with a response.
-
-See [Defining a `ProtocolMap`](/messaging/#defining-a-protocolmap) example usages.
-
 ## `ExtensionMessagingConfig`
 
 ```ts

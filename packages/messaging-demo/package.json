@@ -2,13 +2,13 @@
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite build --watch"
+    "dev": "vite dev"
   },
   "dependencies": {
     "@webext-core/messaging": "workspace:*"
   },
   "devDependencies": {
     "vite": "^3.2.4",
-    "vite-plugin-web-extension": "2.0.0-alpha5"
+    "vite-plugin-web-extension": "^3.0.2"
   }
 }

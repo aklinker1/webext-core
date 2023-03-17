@@ -1,13 +1,13 @@
 # `@webext-core/messaging`
 
-A light-weight, type-safe wrapper around the `browser.runtime` messaging APIs. Supports all browsers (Chrome, Firefox, Safari).
+A light-weight, type-safe wrapper around the `browser.runtime` messaging APIs. Supports all browsers (Chrome, Firefox, Safari, etc).
 
 ```ts
 // ./messaging.ts
-import { ProtocolWithReturn, defineExtensionMessaging } from '@webext-core/messaging';
+import { defineExtensionMessaging } from '@webext-core/messaging';
 
 interface ProtocolMap {
-  getStringLength: ProtocolWithReturn<string, number>;
+  getStringLength(string: string): number;
 }
 
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
@@ -26,6 +26,7 @@ onMessage('getStringLength', message => {
 // ./content-script.js or anywhere else
 import { sendMessage } from './messaging';
 
+// length's type is inferred as `number`
 const length = await sendMessage('getStringLength', 'hello world');
 
 console.log(length); // 11

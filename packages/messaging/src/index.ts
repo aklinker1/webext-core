@@ -19,30 +19,8 @@ export interface ExtensionMessagingConfig {
   logger?: Logger;
 }
 
-/**
- * Used to add a return type to a message in the protocol map.
- *
- * @example
- * interface ProtocolMap {
- *   // data is a string, returns undefined
- *   type1: string;
- *   // data is a string, returns a number
- *   type2: ProtocolWithReturn<string, number>;
- * }
- *
- * > Internally, this is just an object with random keys for the data and return types.
- */
-export type ProtocolWithReturn<TData, TReturn> = { BtVgCTPYZu: TData; RrhVseLgZW: TReturn };
-
-/**
- * Given a `ProtocolWithReturn` or a value, return the message's data type.
- */
-export type GetDataType<T> = T extends ProtocolWithReturn<any, any> ? T['BtVgCTPYZu'] : T;
-
-/**
- * Given a `ProtocolWithReturn` or a value, return the message's return type.
- */
-export type GetReturnType<T> = T extends ProtocolWithReturn<any, any> ? T['RrhVseLgZW'] : void;
+type GetDataType<T> = T extends (data: any) => any ? Parameters<T>[0] : undefined;
+type GetReturnType<T> = T extends (data: any) => any ? Awaited<ReturnType<T>> : void;
 
 /**
  * Either a Promise of a type, or that type directly. Used to indicate that a method can by sync or
@@ -56,6 +34,7 @@ export type MaybePromise<T> = Promise<T> | T;
  * If the listener has already been removed with `Messenger.removeAllListeners`, this is a noop.
  */
 export type RemoveListenerCallback = () => void;
+
 type OnMessageReceived<TProtocolMap, TType extends keyof TProtocolMap> = (
   message: Message<TProtocolMap, TType>,
 ) => MaybePromise<GetReturnType<TProtocolMap[TType]>>;

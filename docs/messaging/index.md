@@ -45,68 +45,73 @@ curl -o messaging.js https://cdn.jsdelivr.net/npm/@webext-core/messaging/lib/ind
 
 ## Basic Usage
 
-First, define a protocol map.
+1. If you're using TypeScript, you'll need to define a protocol map.
 
-- The keys are the types of the messages you will be sending
-- The values defines the data and return types for a message
+   ```ts
+   // ./messaging.ts
+   interface ProtocolMap {
+     getTextLength(data: string): number;
+   }
+   ```
 
-```ts
-// ./messaging.ts
-import { ProtocolWithReturn } from '@webext-core/messaging';
+   Here, we've defined a single message named `getTextLength`, which takes a `string` as data and expects a `number` to be returned.
 
-interface ProtocolMap {
-  getStringLength: ProtocolWithReturn<string, number>;
-}
-```
+2. Call `defineExtensionMessaging`, passing your `ProtocolMap` as the first type parameter.
 
-Once you've defined the protocol map, call `defineExtensionMessaging`, passing your `ProtocolMap` as the first type parameter.
+   ```ts
+   // ./messaging
+   import { defineExtensionMessaging } from '@webext-core/messaging';
 
-Export the `sendMessage` and `onMessage` methods. These are what the rest of your extension will use to pass messages around.
+   interface ProtocolMap {
+     getTextLength(data: string): number;
+   }
 
-```ts
-import { ProtocolWithReturn, defineExtensionMessaging } from '@webext-core/messaging';
+   export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
+   ```
 
-interface ProtocolMap {
-  getStringLength: ProtocolWithReturn<string, number>;
-}
+   Export the `sendMessage` and `onMessage` methods. These are what the rest of your extension will use to pass messages around.
 
-export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
-```
+   ```ts
+   // ./background.ts
+   import { onMessage } from './messaging';
 
-Usually the `onMessage` function will be used in the background, listening for messages from a different part of the extension.
+   onMessage('getStringLength', message => {
+     const text = message.data;
+     return text.length;
+   });
+   ```
 
-```ts
-// ./background.ts
-import { onMessage } from './messaging';
+   ```ts
+   // ./content-script.js
+   import { sendMessage } from './messaging';
 
-onMessage('getStringLength', message => {
-  return message.data.length;
-});
-```
+   const length = await sendMessage('getStringLength', 'hello world');
 
-In this case, the message is being sent from a content script.
-
-```ts
-// ./content-script.js or anywhere else
-import { sendMessage } from './messaging';
-
-const length = await sendMessage('getStringLength', 'hello world');
-
-console.log(length); // 11
-```
+   console.log(length); // 11
+   ```
 
 ## Defining a `ProtocolMap`
 
 <!-- prettier-ignore -->
 ```ts
 interface ProtocolMap {
-  message1: undefined;                              // No data and no return type
-  message2: string;                                 // Only data
-  message3: ProtocolWithReturn<undefined, boolean>; // Only a return type
-  message4: ProtocolWithReturn<string, boolean>;    // Data and return type
+  message1(): void;                // No data and no return type
+  message2(data: string): void;    // Only data
+  message3(): boolean;             // Only a return type
+  message4(data: string): boolean; // Data and a return type
 }
 ```
 
-`ProtocolWithReturn` is a utility type provided by the package to make it easier to define a protocol map. However, it's only required when a message responds with a value.
+### Multiple Arguments
 
-If you're not returning anything from a message, you can just use set the value to the message's data type.
+The `ProtocolMap` functions only support a single argument. To pass multiple values, you should pass an object like so:
+
+<<< @/snippets/messaging/multipleArgs.ts#definition
+
+To send the message, pass an object as defined by your types:
+
+<<< @/snippets/messaging/multipleArgs.ts#sendMessage
+
+Then in your message handler, you can destructure the values:
+
+<<< @/snippets/messaging/multipleArgs.ts#onMessage

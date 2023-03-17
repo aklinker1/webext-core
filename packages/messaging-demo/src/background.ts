@@ -1,16 +1,16 @@
-import { onMessage1, onMessage2 } from './utils/messaging';
+import { onMessage } from './utils/messaging';
 
 const sleep = (ms: number) => new Promise(res => setTimeout(res, ms));
 
-onMessage1('sleep', async ({ data }) => new Promise(res => setTimeout(res, data)));
-onMessage1('ping', async () => {
+onMessage('sleep', async ({ data }) => new Promise(res => setTimeout(res, data)));
+onMessage('ping', async () => {
   await sleep(1000);
   return 'pong' as const;
 });
-onMessage2('ping2', async ({ data }) => {
+onMessage('ping2', async ({ data }) => {
   await sleep(1000);
   return data;
 });
-onMessage2('throw', () => {
+onMessage('throw', () => {
   throw Error('Example error');
 });
