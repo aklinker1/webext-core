@@ -35,7 +35,7 @@ export interface ExtensionMessagingConfig {
 export type ProtocolWithReturn<TData, TReturn> = { BtVgCTPYZu: TData; RrhVseLgZW: TReturn };
 
 /**
- * Given a `ProtocolWithReturn` or a value, return the message's data type.
+ * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type.
  */
 export type GetDataType<T> = T extends (...args: infer Args) => any
   ? Args['length'] extends 0 | 1
@@ -46,7 +46,7 @@ export type GetDataType<T> = T extends (...args: infer Args) => any
   : T;
 
 /**
- * Given a `ProtocolWithReturn` or a value, return the message's return type.
+ * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type.
  */
 export type GetReturnType<T> = T extends (...args: any[]) => infer R
   ? R
