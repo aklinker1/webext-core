@@ -39,7 +39,7 @@ describe('Messenger Typing', () => {
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeBoolean();
   });
 
-  it('should infer data and return types from bound function declaration', () => {
+  it('should infer data and return types from a bound function declaration', () => {
     const { sendMessage, onMessage } = defineExtensionMessaging<{
       getStringLength(data: string): number;
     }>();
@@ -52,7 +52,7 @@ describe('Messenger Typing', () => {
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeNumber();
   });
 
-  it('should infer data and return types from anonymous function declaration', () => {
+  it('should infer data and return types from an anonymous function declaration', () => {
     const { sendMessage, onMessage } = defineExtensionMessaging<{
       getStringLength: (data: string) => number;
     }>();
