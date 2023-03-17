@@ -69,7 +69,7 @@ Contains details about the message recieved by the listener.
 
 A utility type for defining a message with a response.
 
-See [Defining a `ProtocolMap`](/messaging/#defining-a-protocolmap) example usages.
+See [Protocol Maps](/messaging/protocol-maps) for more details.
 
 ## `ExtensionMessagingConfig`
 

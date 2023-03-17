@@ -128,6 +128,10 @@ export default defineConfig({
               link: '/messaging/',
             },
             {
+              text: 'Protocol Maps',
+              link: '/messaging/protocol-maps',
+            },
+            {
               text: 'API',
               link: '/messaging/api',
             },

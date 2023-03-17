@@ -94,19 +94,3 @@ const length = await sendMessage('getStringLength', 'hello world');
 
 console.log(length); // 11
 ```
-
-## Defining a `ProtocolMap`
-
-<!-- prettier-ignore -->
-```ts
-interface ProtocolMap {
-  message1: undefined;                              // No data and no return type
-  message2: string;                                 // Only data
-  message3: ProtocolWithReturn<undefined, boolean>; // Only a return type
-  message4: ProtocolWithReturn<string, boolean>;    // Data and return type
-}
-```
-
-`ProtocolWithReturn` is a utility type provided by the package to make it easier to define a protocol map. However, it's only required when a message responds with a value.
-
-If you're not returning anything from a message, you can just use set the value to the message's data type.
