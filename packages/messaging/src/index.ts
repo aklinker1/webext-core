@@ -37,12 +37,22 @@ export type ProtocolWithReturn<TData, TReturn> = { BtVgCTPYZu: TData; RrhVseLgZW
 /**
  * Given a `ProtocolWithReturn` or a value, return the message's data type.
  */
-export type GetDataType<T> = T extends ProtocolWithReturn<any, any> ? T['BtVgCTPYZu'] : T;
+export type GetDataType<T> = T extends (...args: infer Args) => any
+  ? Parameters<T>['length'] extends 0
+    ? undefined
+    : Args[0]
+  : T extends ProtocolWithReturn<any, any>
+  ? T['BtVgCTPYZu']
+  : T;
 
 /**
  * Given a `ProtocolWithReturn` or a value, return the message's return type.
  */
-export type GetReturnType<T> = T extends ProtocolWithReturn<any, any> ? T['RrhVseLgZW'] : void;
+export type GetReturnType<T> = T extends (...args: any[]) => infer R
+  ? R
+  : T extends ProtocolWithReturn<any, any>
+  ? T['RrhVseLgZW']
+  : void;
 
 /**
  * Either a Promise of a type, or that type directly. Used to indicate that a method can by sync or
