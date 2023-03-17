@@ -39,9 +39,45 @@ describe('Messenger Typing', () => {
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeBoolean();
   });
 
+  it('should infer data and return types from bound function declaration', () => {
+    const { sendMessage, onMessage } = defineExtensionMessaging<{
+      getStringLength(data: string): number;
+    }>();
+
+    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'getStringLength'>();
+    expectTypeOf(sendMessage).parameter(1).toBeString();
+    expectTypeOf(sendMessage).returns.resolves.toBeNumber();
+
+    expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeString();
+    expectTypeOf(onMessage).parameter(1).returns.resolves.toBeNumber();
+  });
+
+  it('should infer data and return types from anonymous function declaration', () => {
+    const { sendMessage, onMessage } = defineExtensionMessaging<{
+      getStringLength: (data: string) => number;
+    }>();
+
+    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'getStringLength'>();
+    expectTypeOf(sendMessage).parameter(1).toBeString();
+    expectTypeOf(sendMessage).returns.resolves.toBeNumber();
+
+    expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeString();
+    expectTypeOf(onMessage).parameter(1).returns.resolves.toBeNumber();
+  });
+
   it('should require passing undefined to sendMessage when there is no data', () => {
     const { sendMessage } = defineExtensionMessaging<{
       ping: ProtocolWithReturn<undefined, 'pong'>;
+    }>();
+
+    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
+    expectTypeOf(sendMessage).parameter(1).toBeUndefined();
+    expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined>();
+  });
+
+  it('should require passing undefined to sendMessage when there is no arguments in a function definition', () => {
+    const { sendMessage } = defineExtensionMessaging<{
+      ping(): 'pong';
     }>();
 
     expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
