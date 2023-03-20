@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/fake-browser",
-  "version": "1.2.1",
+  "version": "1.2.2",
   "description": "An in-memory implementation of webextension-polyfill for testing. Supports all test frameworks (Vitest, Jest, etc)",
   "license": "MIT",
   "keywords": [
