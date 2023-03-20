@@ -205,10 +205,6 @@ export function defineExtensionMessaging<
               return { err: errMessage };
             });
         }
-
-        return Promise.resolve({
-          err: `Listener not found for message.type="${message.type}".\n\nDid you forget to call \`onMessage("getLength", ...)\`?`,
-        });
       };
       Browser.runtime.onMessage.addListener(rootListener);
     }

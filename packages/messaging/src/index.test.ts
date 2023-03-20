@@ -71,14 +71,12 @@ describe('Messaging Wrapper', () => {
     expect(sendMessage('getLength', input)).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 
-  it('should throw an error when a listener for a specific message type has not been set yet', async () => {
+  it('should throw an error when a listener for a specific message type has not been added yet', async () => {
     const { onMessage, sendMessage } = defineExtensionMessaging<ProtocolMap>();
 
     onMessage('getHalfLength', ({ data }) => data.length / 2);
 
-    expect(sendMessage('getLength', 'some-string')).rejects.toThrowError(
-      'Listener not found for message.type="getLength".\n\nDid you forget to call `onMessage("getLength", ...)`?',
-    );
+    expect(sendMessage('getLength', 'some-string')).rejects.toThrowError('No response');
   });
 
   it('should fully remove the root listener after removeAllListeners was called', async () => {
@@ -97,5 +95,24 @@ describe('Messaging Wrapper', () => {
 
     expect(actual).toBe(expected);
     await expect(res).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+  });
+
+  it('should support multiple listeners at the same time, neither interacting with the other', async () => {
+    const onMessage1 = vi.fn();
+    const onMessage2 = vi.fn();
+
+    const messenger1 = defineExtensionMessaging<{ message1(): void }>();
+    const messenger2 = defineExtensionMessaging<{ message2(): void }>();
+    messenger1.onMessage('message1', onMessage1);
+    messenger2.onMessage('message2', onMessage2);
+
+    await messenger1.sendMessage('message1', undefined);
+    await messenger2.sendMessage('message2', undefined);
+
+    expect(onMessage1).toBeCalledTimes(1);
+    expect(onMessage2).toBeCalledTimes(1);
+    expect(onMessage2.mock.invocationCallOrder[0]).toBeGreaterThan(
+      onMessage1.mock.invocationCallOrder[0],
+    );
   });
 });
