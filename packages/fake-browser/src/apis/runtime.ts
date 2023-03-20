@@ -52,6 +52,8 @@ export const runtime: BrowserOverrides['runtime'] = {
     if (!onMessage.hasListeners()) throw Error('No listeners available');
     const sender: Runtime.MessageSender = {};
     const res = await onMessage.trigger(message, sender);
-    return res[0];
+
+    // Return first response
+    return res.find(r => !!r);
   },
 };
