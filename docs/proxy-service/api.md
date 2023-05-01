@@ -102,3 +102,30 @@ type AsyncSomeService = DeepAsync<SomeService>;
 //   };
 // }
 ```
+
+## `flattenPromise`
+
+```ts
+// Type
+function flattenPromise<T>(promise: Promise<T>): ProxyService<T>;
+```
+
+`flattenPromise` makes it easier to work with `Promise<Dependency>` passed into your services.
+
+It works by using a `Proxy` to await the promise internally before calling any methods.
+
+### Example
+
+```ts
+function createTodosRepo(idbPromise: Promise<IDBPDatabase>) {
+  const idb = flattenPromise(idbPromise); // [!code ++]
+
+  return {
+    async create(todo: Todo): Promise<void> {
+      await (await idbPromise).add('todos', todo); // [!code --]
+      await idb.add('todos', todo); // [!code ++]
+    },
+    // ...
+  };
+}
+```
