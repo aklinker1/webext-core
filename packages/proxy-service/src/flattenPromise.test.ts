@@ -12,12 +12,13 @@ describe('flattenPromise', () => {
   });
 
   it('should convert shallow Promise<Object> to DeepAsync<Object>', async () => {
-    const objectPromise = Promise.resolve({
+    const Object = {
       additionalIncrement: 1,
       add(x: number, y: number): number {
         return x + y + this.additionalIncrement;
       },
-    });
+    };
+    const objectPromise = Promise.resolve(Object);
 
     const object = flattenPromise(objectPromise);
     const actual = await object.add(1, 2);
