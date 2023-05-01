@@ -45,38 +45,41 @@ curl -o messaging.js https://cdn.jsdelivr.net/npm/@webext-core/messaging/lib/ind
 
 ## Basic Usage
 
-First, define a protocol map.
+First, define a protocol map:
 
-- The keys are the types of the messages you will be sending
-- The values defines the data and return types for a message
+:::code-group
 
-```ts
-// ./messaging.ts
-import { ProtocolWithReturn } from '@webext-core/messaging';
-
+```ts [messaging.ts]
 interface ProtocolMap {
-  getStringLength: ProtocolWithReturn<string, number>;
+  getStringLength(data: string): number;
 }
 ```
 
-Once you've defined the protocol map, call `defineExtensionMessaging`, passing your `ProtocolMap` as the first type parameter.
+:::
+
+Then call `defineExtensionMessaging`, passing your `ProtocolMap` as the first type parameter.
 
 Export the `sendMessage` and `onMessage` methods. These are what the rest of your extension will use to pass messages around.
 
-```ts
-import { ProtocolWithReturn, defineExtensionMessaging } from '@webext-core/messaging';
+:::code-group
+
+```ts [messaging.ts]
+import { defineExtensionMessaging } from '@webext-core/messaging';
 
 interface ProtocolMap {
-  getStringLength: ProtocolWithReturn<string, number>;
+  getStringLength(data: string): number;
 }
 
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
 ```
 
-Usually the `onMessage` function will be used in the background, listening for messages from a different part of the extension.
+:::
 
-```ts
-// ./background.ts
+Usually the `onMessage` function will be used in the background and messages will be sent from other parts of the extension.
+
+:::code-group
+
+```ts [background.ts]
 import { onMessage } from './messaging';
 
 onMessage('getStringLength', message => {
@@ -84,13 +87,32 @@ onMessage('getStringLength', message => {
 });
 ```
 
-In this case, the message is being sent from a content script.
-
-```ts
-// ./content-script.js or anywhere else
+```ts [content-script.ts]
 import { sendMessage } from './messaging';
 
 const length = await sendMessage('getStringLength', 'hello world');
 
 console.log(length); // 11
 ```
+
+:::
+
+You can also send messages from your background script to a tab, but you need to know the `tabId`.
+
+:::code-group
+
+```ts [content-script.ts]
+import { onMessage } from './messaging';
+
+onMessage('getStringLength', message => {
+  return message.data.length;
+});
+```
+
+```ts [background.ts]
+import { sendMessage } from './messaging';
+
+const length = await sendMessage('getStringLength', 'hello world', tabId);
+```
+
+:::

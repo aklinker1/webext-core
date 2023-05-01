@@ -43,10 +43,10 @@ registerMathService();
 ```ts [anywhere-else.ts]
 import { getMathService } from './MathService';
 
-// 4. Get an instance of your service anywhere in your extension
+// 3. Get an instance of your service anywhere in your extension
 const mathService = getMathService();
 
-// 5. Call methods like normal, but they will execute in the background
+// 4. Call methods like normal, but they will execute in the background
 await mathService.fibonacci(100);
 ```
 
@@ -81,42 +81,51 @@ curl -o proxy-service.js https://cdn.jsdelivr.net/npm/@webext-core/proxy-service
 
 Lets look at a more realistic example, IndexedDB! Since the same IndexedDB database is not available in every JS context of an extension, it's common to use the IndexedDB instance in the background script as a database for web extensions.
 
-First, we need to create the a real implementation of our service. In this case, the service will contain CRUD operations for todos in the database:
+First, we need to implementat of our service. In this case, the service will contain CRUD operations for todos in the database:
 
 :::code-group
 
 ```ts [TodosRepo.ts]
-import { defineProxyService } from '@webext-core/proxy-service';
+import { defineProxyService, flattenPromise } from '@webext-core/proxy-service';
 import { IDBPDatabase } from 'idb';
 
-// You can also use functions to create your services
-function createTodosRepo(idb: Promise<IDBPDatabase>) {
+function createTodosRepo(idbPromise: Promise<IDBPDatabase>) {
+  const idb = flattenPromise(idbPromise);
+
   return {
     async create(todo: Todo): Promise<void> {
-      (await idb).add('todos', todo);
+      await idb.add('todos', todo);
     },
-    async getOne(id: Pick<Todo, 'id'>): Promise<Todo> {
-      return (await idb).get('todos', id);
+    getOne(id: Pick<Todo, 'id'>): Promise<Todo> {
+      return idb.get('todos', id);
     },
-    async getAll(): Promise<Todo[]> {
-      return (await idb).getAll('todos');
+    getAll(): Promise<Todo[]> {
+      return idb.getAll('todos');
     },
     async update(todo: Todo): Promise<void> {
-      (await idb).put('todos', todo);
+      await idb.put('todos', todo);
     },
     async delete(todo: Todo): Promise<void> {
-      (await idb).delete('todos', todo.id);
+      await idb.delete('todos', todo.id);
     },
   };
 }
-
-export const [registerTodosRepo, getTodosRepo] = defineProxyService('TodosRepo', createTodosRepo);
 ```
 
 :::
 
-:::info
-In this example, we're using [`idb`](https://www.npmjs.com/package/idb) to simplify the IndexedDB code.
+> In this example, we're using a plain object instead of a class as the service. See the [Variants](./variants) docs for more variations in creating proxy services.
+
+In the same file, define a proxy service for our `TodosRepo`:
+
+:::code-group
+
+```ts [TodosRepo.ts]
+// ...
+
+export const [registerTodosRepo, getTodosRepo] = defineProxyService('TodosRepo', createTodosRepo);
+```
+
 :::
 
 Now that you have a service implemented, we need to tell the extension to use it! This needs to happen syncronously when your background script is loaded, so put it as high up as possible.
@@ -134,19 +143,17 @@ registerTodosRepo(db);
 
 :::
 
+You need to call `register` synchronously at the top level of the background script to avoid race conditions between registering and accessing the service for the first time.
+
 :::info
-This works for both MV2 background pages, and MV3 service works.
-:::
-
-You'll notice that we're not `await`ing the database until we call a fucntion inside the service. This helps keep the service registration synchronous, avoiding race conditions between calling the first method on your service and the registration completing.
-
-:::warning
-While registering your service synchronously is not technically required for persistent MV2 background pages, it is necessary for non-persistent MV2 background pages and MV3 service workers.
+Here, even though `openDB` returns a promise, we're not awaiting the promise until executing the functions inside the service.
 
 You can follow the pattern of passing `Promise<Dependency>` into your services and awaiting them internally to stay synchronous.
+
+[`flattenPromise`](./flatten-promise) is used to make consuming this promise easier.
 :::
 
-And you're done! You can now access your IndexedDB database from any JS context inside your extension:
+And that's it. You can now access your IndexedDB database from any JS context inside your extension:
 
 :::code-group
 
@@ -171,7 +178,7 @@ todosRepo.getAll().then(console.log);
 ```ts [background/some-helper.ts]
 import { getTodosRepo } from './TodosRepo';
 
-// Even somewhere else in your background
+// Anywhere else in your background
 const todosRepo = getTodosRepo();
 todosRepo.getAll().then(console.log);
 ```

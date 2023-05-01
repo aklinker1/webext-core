@@ -48,7 +48,7 @@ interface ProtocolMap {
 
 ## Multiple Arguments
 
-Protocol maps only support a single argument. To pass than one value for a message's `data`, pass an object instead!
+Protocol maps only support a single argument. To pass more than one argument, pass an object instead!
 
 ```ts
 interface ProtocolMap {

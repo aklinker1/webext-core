@@ -16,7 +16,7 @@ titleTemplate: '@webext-core/isolated-element'
 
 `@webext-core/isolated-element` uses the [`ShadowRoot` API](https://developer.mozilla.org/en-US/docs/Web/API/Element/shadowRoot) to create a custom element who's CSS is completely separate from the page it's injected into.
 
-It will let you load UIs from content scripts without worrying about the page's CSS effecting your UI, no iframe needed!
+It will let you load UIs from content scripts without worrying about the page's CSS effecting your UI, no `iframe` needed!
 
 ## Installation
 

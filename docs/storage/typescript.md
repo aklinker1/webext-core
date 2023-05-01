@@ -2,7 +2,7 @@
 
 ## Adding Type Safety
 
-If your project uses TypeScript, you can make your storage interactions type-safe by passing a schema into the first type parameter of `defineExtensionStorage`.
+If your project uses TypeScript, you can make your storage type-safe by passing a schema into the first type parameter of `defineExtensionStorage`.
 
 ```ts
 import { defineExtensionStorage } from '@webext-core/storage';
