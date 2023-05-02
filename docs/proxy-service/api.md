@@ -11,14 +11,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
 ): [registerService: (...args: TArgs) => TService, getService: () => ProxyService<TService>];
 ```
 
-You service can also be defined as any of the following:
-
-- Single function
-- Class definition
-- Plain object
-- Deeply nested object containing all the above
-
-See [Variants](./variants) for examples of using all the different types of services.
+See [Variants](./variants) for examples on how to define the real implemenation using classes, objects, etc.
 
 ### Parameters
 
