@@ -1,2 +1,2 @@
 export { defineProxyService } from './defineProxyService';
-export type { ProxyServiceConfig } from './types';
+export type { ProxyServiceConfig, ProxyService, DeepAsync } from './types';

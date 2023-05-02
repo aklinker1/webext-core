@@ -151,6 +151,10 @@ export default defineConfig({
               text: 'Variants',
               link: '/proxy-service/variants',
             },
+            {
+              text: 'API',
+              link: '/proxy-service/api',
+            },
           ],
         },
         packages,

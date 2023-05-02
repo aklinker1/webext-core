@@ -1,5 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
 import { defineProxyService } from './defineProxyService';
+import { DeepAsync } from './types';
 
 // https://vitest.dev/guide/testing-types.html
 

@@ -12,7 +12,7 @@
 
 Returns [`sendMessage`](#sendmessage) and [`onMessage`](#onmessage) with types based on your [`TProtocolMap`](#protocolmap).
 
-- `options` `[ExtensionMessagingConfig](#extensionmessagingconfig)`: Configures the behavior of `sendMessage` and `onMessage`.
+- `options` [`ExtensionMessagingConfig`](#extensionmessagingconfig): Configures the behavior of `sendMessage` and `onMessage`.
 
 ## `sendMessage`
 

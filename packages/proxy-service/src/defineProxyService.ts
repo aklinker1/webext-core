@@ -1,5 +1,5 @@
 import { isBackground } from './isBackground';
-import { DeepAsync, ProxyServiceConfig, Service } from './types';
+import { ProxyService, ProxyServiceConfig, Service } from './types';
 import { defineExtensionMessaging, ProtocolWithReturn } from '@webext-core/messaging';
 import get from 'get-value';
 
@@ -7,7 +7,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
   name: string,
   init: (...args: TArgs) => TService,
   config?: ProxyServiceConfig,
-): [registerService: (...args: TArgs) => TService, getService: () => DeepAsync<TService>] {
+): [registerService: (...args: TArgs) => TService, getService: () => ProxyService<TService>] {
   let service: TService | undefined;
 
   const messageKey = `proxy-service.${name}`;
@@ -19,8 +19,8 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
    * Create and returns a "deep" proxy. Every property that is accessed returns another proxy, and
    * when a function is called at any depth (0 to infinity), a message is sent to the background.
    */
-  function createProxy(path?: string): DeepAsync<TService> {
-    const wrapped = (() => {}) as DeepAsync<TService>;
+  function createProxy(path?: string): ProxyService<TService> {
+    const wrapped = (() => {}) as ProxyService<TService>;
     const proxy = new Proxy(wrapped, {
       // Executed when the object is called as a function
       async apply(_target, _thisArg, args) {
@@ -64,7 +64,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
           `Failed to get an instance of ${name}: in background, but registerService has not been called. Did you forget to call registerService?`,
         );
       }
-      return service as unknown as DeepAsync<TService>;
+      return service as ProxyService<TService>;
     },
   ];
 }
