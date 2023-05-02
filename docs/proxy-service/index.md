@@ -150,7 +150,7 @@ Here, even though `openDB` returns a promise, we're not awaiting the promise unt
 
 You can follow the pattern of passing `Promise<Dependency>` into your services and awaiting them internally to stay synchronous.
 
-[`flattenPromise`](./flatten-promise) is used to make consuming this promise easier.
+[`flattenPromise`](./api#flattenpromise) is used to make consuming this promise easier.
 :::
 
 And that's it. You can now access your IndexedDB database from any JS context inside your extension:

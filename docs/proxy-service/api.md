@@ -107,7 +107,7 @@ type AsyncSomeService = DeepAsync<SomeService>;
 
 ```ts
 // Type
-function flattenPromise<T>(promise: Promise<T>): ProxyService<T>;
+function flattenPromise<T>(promise: Promise<T>): DeepAsync<T>;
 ```
 
 `flattenPromise` makes it easier to work with `Promise<Dependency>` passed into your services.

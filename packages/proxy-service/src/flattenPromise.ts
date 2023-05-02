@@ -1,5 +1,5 @@
 import get from 'get-value';
-import { ProxyService } from './types';
+import { DeepAsync } from './types';
 
 /**
  * Given a promise of a variable, return a proxy to that awaits the promise internally so you don't
@@ -21,9 +21,9 @@ import { ProxyService } from './types';
  *   }
  * }
  */
-export function flattenPromise<T>(promise: Promise<T>): ProxyService<T> {
-  function createProxy(location?: { propertyPath: string; parentPath?: string }): ProxyService<T> {
-    const wrapped = (() => {}) as ProxyService<T>;
+export function flattenPromise<T>(promise: Promise<T>): DeepAsync<T> {
+  function createProxy(location?: { propertyPath: string; parentPath?: string }): DeepAsync<T> {
+    const wrapped = (() => {}) as DeepAsync<T>;
     const proxy = new Proxy(wrapped, {
       async apply(_target, _thisArg, args) {
         const t = (await promise) as any;
