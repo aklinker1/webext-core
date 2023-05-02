@@ -2,8 +2,8 @@ import get from 'get-value';
 import { ProxyService } from './types';
 
 /**
- * Given a promise of a variable, return a proxy to that variable that awaits the promise internally
- * so you don't have to call `await` twice.
+ * Given a promise of a variable, return a proxy to that awaits the promise internally so you don't
+ * have to call `await` twice.
  *
  * You can unwrap promises of functions, objects, or classes.
  *
