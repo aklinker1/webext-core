@@ -11,14 +11,7 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
 ): [registerService: (...args: TArgs) => TService, getService: () => ProxyService<TService>];
 ```
 
-You service can also be defined as any of the following:
-
-- Single function
-- Class definition
-- Plain object
-- Deeply nested object containing all the above
-
-See [Variants](./variants) for examples of using all the different types of services.
+See [Variants](./variants) for examples on how to define the real implemenation using classes, objects, etc.
 
 ### Parameters
 
@@ -101,4 +94,31 @@ type AsyncSomeService = DeepAsync<SomeService>;
 //     asyncFn(): Promise<number>;
 //   };
 // }
+```
+
+## `flattenPromise`
+
+```ts
+// Type
+function flattenPromise<T>(promise: Promise<T>): DeepAsync<T>;
+```
+
+`flattenPromise` makes it easier to work with `Promise<Dependency>` passed into your services.
+
+It works by using a `Proxy` to await the promise internally before calling any methods.
+
+### Example
+
+```ts
+function createTodosRepo(idbPromise: Promise<IDBPDatabase>) {
+  const idb = flattenPromise(idbPromise); // [!code ++]
+
+  return {
+    async create(todo: Todo): Promise<void> {
+      await (await idbPromise).add('todos', todo); // [!code --]
+      await idb.add('todos', todo); // [!code ++]
+    },
+    // ...
+  };
+}
 ```

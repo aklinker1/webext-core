@@ -109,7 +109,7 @@ If you are submitting PRs, don't worry about this! A maintainer will squash and 
 
 Each commit's title effects the publishing process. The style is based on conventional commits, but using scoped prefixes. Use the `fix(package-name): ` and `feat(package-name): ` prefixes when commiting a change. For example, the following commit history:
 
-```txt
+```
 docs: Fixed typos
 fix(storage): Some change
 feat(proxy-service): Some new feature
