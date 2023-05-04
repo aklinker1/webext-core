@@ -64,7 +64,7 @@ export function defineGenericMessanging<
         data,
         timestamp: Date.now(),
       };
-      config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ─ᐅ`, message);
+      config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ─ᐅ`, message, ...args);
 
       const response = await config.sendMessage(message, ...args);
       const { res, err } = response ?? { err: 'No response' };
