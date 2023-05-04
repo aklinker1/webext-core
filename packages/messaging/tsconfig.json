@@ -1,4 +1,7 @@
 {
   "extends": "tsconfig/ts-library.json",
+  "compilerOptions": {
+    "lib": ["DOM"]
+  },
   "exclude": ["lib"]
 }
