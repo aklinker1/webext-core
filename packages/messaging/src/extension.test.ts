@@ -1,6 +1,7 @@
 import { describe, it, vi, beforeEach, expect } from 'vitest';
 import { fakeBrowser } from '@webext-core/fake-browser';
-import { ProtocolWithReturn, defineExtensionMessaging } from './index';
+import { ProtocolWithReturn } from './index';
+import { defineExtensionMessaging } from './extension';
 
 /**
  * This is defined in `@webext-core/fake-browser` when there are no `Browser.runtime.onMessage`
@@ -16,7 +17,11 @@ interface ProtocolMap {
 }
 
 describe('Messaging Wrapper', () => {
-  beforeEach(fakeBrowser.reset);
+  beforeEach(() => {
+    fakeBrowser.reset();
+    vi.resetAllMocks();
+    vi.restoreAllMocks();
+  });
 
   it('should send and recieve messages', async () => {
     const { onMessage, sendMessage } = defineExtensionMessaging<ProtocolMap>();
@@ -27,6 +32,25 @@ describe('Messaging Wrapper', () => {
     const actual = await sendMessage('getLength', input);
 
     expect(actual).toBe(expected);
+  });
+
+  it('should send messages to tabs', async () => {
+    const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
+    const input = 'test';
+    const tabId = 0;
+    const expected = 4;
+    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected });
+
+    const actual = await sendMessage('getLength', input, tabId);
+
+    expect(actual).toBe(expected);
+    expect(fakeBrowser.tabs.sendMessage).toBeCalledTimes(1);
+    expect(fakeBrowser.tabs.sendMessage).toBeCalledWith(tabId, {
+      id: expect.any(Number),
+      timestamp: expect.any(Number),
+      type: 'getLength',
+      data: input,
+    });
   });
 
   it('should handle errors', async () => {
@@ -80,11 +104,7 @@ describe('Messaging Wrapper', () => {
   });
 
   it('should fully remove the root listener after removeAllListeners was called', async () => {
-    const {
-      onMessage,
-      sendMessage,
-      removeAllMessageListeners: removeAllListeners,
-    } = defineExtensionMessaging<ProtocolMap>();
+    const { onMessage, sendMessage, removeAllListeners } = defineExtensionMessaging<ProtocolMap>();
     const input = 'test';
     const expected = 4;
 
