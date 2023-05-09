@@ -1,4 +1,4 @@
-import { GetDataType, GetReturnType, Logger, MaybePromise } from '.';
+import { RemoveListenerCallback, GetDataType, GetReturnType, Logger, MaybePromise } from './types';
 
 export interface Message<TType = string> {
   id: number;
@@ -6,8 +6,6 @@ export interface Message<TType = string> {
   data: any;
   timestamp: number;
 }
-
-type RemoveListenerCallback = () => void;
 
 export interface GenericMessagingConfig<TMessage, TSendMessageArgs extends any[]> {
   logger?: Logger;
