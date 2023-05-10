@@ -2,6 +2,8 @@
 
 # API
 
+API reference for [`@webext-core/storage`](/guide/storage/).
+
 :::info
 The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
 :::

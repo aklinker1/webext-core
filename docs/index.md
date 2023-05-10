@@ -29,7 +29,7 @@ features:
     details: A simpler, type-safe API for sending and recieving messages.
   - icon: 🚍
     title: '@webext-core/proxy-service'
-    link: /proxy-service/
+    link: /guide/proxy-service/
     details: Call a function, but execute in a different JS context, like the background.
   - icon: 🧩
     title: '@webext-core/isolated-element'

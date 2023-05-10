@@ -2,6 +2,8 @@
 
 # API
 
+API reference for [`@webext-core/proxy-service`](/guide/proxy-service/).
+
 :::info
 The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
 :::

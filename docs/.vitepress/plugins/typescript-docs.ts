@@ -29,17 +29,18 @@ const EXCLUDED_SYMBOLS = [
 export function typescriptDocs(): Plugin {
   const ctx: Ctx = {
     watchers: [],
+    symbolMap: {},
   };
+  let mode: 'build' | 'serve';
 
   return {
     name: 'typescript-docs',
+    configResolved(config) {
+      mode = config.command;
+    },
     async buildStart() {
       const allPackages = await getPackages();
-
-      generateAll(ctx, allPackages, true);
-    },
-    async closeWatcher() {
-      removeWatchListeners(ctx);
+      await generateAll(ctx, allPackages, mode, mode === 'serve');
     },
     async buildEnd() {
       removeWatchListeners(ctx);
@@ -52,6 +53,10 @@ export function typescriptDocs(): Plugin {
  */
 interface Ctx {
   watchers: chokidar.FSWatcher[];
+  /**
+   * Map of symbols to the packages they are found in.
+   */
+  symbolMap: { [symbolName: string]: string[] };
 }
 
 async function removeWatchListeners(ctx: Ctx) {
@@ -69,38 +74,44 @@ async function getPackages(): Promise<string[]> {
   return all.filter(folderName => !folderName.endsWith('-demo') && folderName !== 'tsconfig');
 }
 
-async function generateAll(ctx: Ctx, projectDirNames: string[], watch?: boolean) {
+async function generateAll(
+  ctx: Ctx,
+  projectDirNames: string[],
+  mode: 'build' | 'serve',
+  watch?: boolean,
+) {
   if (watch) {
     await removeWatchListeners(ctx);
   }
 
   const tasks = new Listr<Ctx>(
-    [
-      {
-        title: 'Generating TS Docs',
-        task: (ctx, topTask) =>
-          topTask.newListr(
-            projectDirNames.map<ListrTask<Ctx>>(dirname => ({
-              title: dirname,
-              task: (ctx, task) => {
-                if (watch) {
-                  const watcher = chokidar.watch(`packages/${dirname}/src`);
-                  watcher.on('change', changedPath => {
-                    console.log(
-                      `\n\x1b[2mChanged: ${path.relative(process.cwd(), changedPath)}\x1b[0m`,
-                    );
-                    generateAll(ctx, [dirname]);
-                  });
-                  ctx.watchers.push(watcher);
-                }
+    {
+      title: 'Generating TS Docs',
+      task: (ctx, topTask) =>
+        topTask.newListr(
+          projectDirNames.map<ListrTask<Ctx>>(dirname => ({
+            title: dirname,
+            task: (ctx, task) => {
+              if (watch) {
+                const watcher = chokidar.watch(`packages/${dirname}/src`);
+                watcher.on('change', changedPath => {
+                  console.log(
+                    `\n\x1b[2mChanged: ${path.relative(process.cwd(), changedPath)}\x1b[0m`,
+                  );
+                  generateAll(ctx, [dirname], mode);
+                });
+                ctx.watchers.push(watcher);
+              }
 
-                return generateProjectDocs(ctx, task, dirname);
-              },
-            })),
-          ),
-      },
-    ],
-    { ctx },
+              return generateProjectDocs(ctx, task, dirname);
+            },
+          })),
+        ),
+    },
+    {
+      ctx,
+      silentRendererCondition: () => mode === 'build',
+    },
   );
 
   try {
@@ -118,7 +129,6 @@ async function generateProjectDocs(
 ) {
   // Project setup
 
-  task.output = 'Loaded TS project...';
   const projectDir = path.resolve('packages', projectDirname);
   const entrypointPath = path.resolve(projectDir, 'src/index.ts');
   const outputDir = path.resolve('docs/api');
@@ -131,15 +141,16 @@ async function generateProjectDocs(
 
   // Type Generation
 
-  task.output = 'Generating types for ' + path.relative(projectDir, entrypointPath);
   const publicSymbols = getPublicSymbols(project, entrypoint);
   // Sort alphabetically
   publicSymbols.sort((l, r) => l.getName().toLowerCase().localeCompare(r.getName().toLowerCase()));
   const docs = renderDocs(projectDirname, project, publicSymbols);
+  publicSymbols.forEach(s => {
+    (ctx.symbolMap[s.getName()] ??= []).push(projectDirname);
+  });
   // Write to file
   await fs.mkdir(outputDir, { recursive: true });
   await fs.writeFile(outputFile, docs, 'utf-8');
-  task.output = '';
 }
 
 function getPublicSymbols(project: Project, entrypoint: SourceFile): Symbol[] {
@@ -236,6 +247,7 @@ function renderDocs(projectDirname: string, project: Project, symbols: Symbol[])
     // Header
     `<!-- GENERATED FILE, DO NOT EDIT -->`,
     `# API`,
+    `API reference for [\`@webext-core/${projectDirname}\`](/guide/${projectDirname}/).`,
     ':::info\nThe entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).\n:::',
     // Symbols
     ...symbols.map(symbol => renderSymbol(project, symbol).trim()),

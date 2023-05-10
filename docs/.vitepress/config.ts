@@ -5,15 +5,39 @@ const ogDescription = 'Next Generation Frontend Tooling';
 const ogTitle = 'Web Ext Core';
 const ogUrl = 'https://webext-core.aklinker1.io';
 
-const packages = {
+const packageDirnames = [
+  'storage',
+  'messaging',
+  'fake-browser',
+  'proxy-service',
+  'isolated-element',
+].sort((l, r) => l.localeCompare(r));
+
+const packagesItemGroup = {
   text: 'Packages',
-  items: [
-    { text: 'storage', link: '/storage/' },
-    { text: 'messaging', link: '/messaging/' },
-    { text: 'fake-browser', link: '/fake-browser/' },
-    { text: 'proxy-service', link: '/proxy-service/' },
-    { text: 'isolated-element', link: '/isolated-element/' },
-  ].sort((l, r) => l.text.localeCompare(r.text)),
+  items: packageDirnames.map(dirname => ({
+    text: dirname,
+    link: `/guide/${dirname}/`,
+    // items: packagePages[dirname],
+  })),
+};
+
+const packagePages = {
+  'proxy-service': [
+    {
+      text: 'Get Started',
+      link: '/guide/proxy-service/',
+    },
+    {
+      text: 'Variants',
+      link: '/guide/proxy-service/variants',
+    },
+  ],
+};
+
+const apiItemGroup = {
+  text: 'API',
+  items: packageDirnames.map(dirname => ({ text: dirname, link: `/api/${dirname}` })),
 };
 
 export default defineConfig({
@@ -70,7 +94,7 @@ export default defineConfig({
       copyright: 'Copyright © 2022-present Aaron Klinker & Web Ext Core Contributors',
     },
 
-    nav: [{ text: 'Guide', link: '/guide/' }, packages],
+    nav: [{ text: 'Guide', link: '/guide/' }, apiItemGroup],
 
     sidebar: {
       '/guide/': [
@@ -91,8 +115,9 @@ export default defineConfig({
             },
           ],
         },
-        packages,
+        packagesItemGroup,
       ],
+      '/api/': [apiItemGroup],
       '/fake-browser/': [
         {
           text: 'fake-browser',
@@ -119,7 +144,7 @@ export default defineConfig({
             },
           ],
         },
-        packages,
+        packagesItemGroup,
       ],
       '/isolated-element/': [
         {
@@ -131,7 +156,7 @@ export default defineConfig({
             },
           ],
         },
-        packages,
+        packagesItemGroup,
       ],
       '/messaging/': [
         {
@@ -145,13 +170,9 @@ export default defineConfig({
               text: 'Protocol Maps',
               link: '/messaging/protocol-maps',
             },
-            {
-              text: 'API',
-              link: '/messaging/api',
-            },
           ],
         },
-        packages,
+        packagesItemGroup,
       ],
       '/proxy-service/': [
         {
@@ -165,13 +186,9 @@ export default defineConfig({
               text: 'Variants',
               link: '/proxy-service/variants',
             },
-            {
-              text: 'API',
-              link: '/proxy-service/api',
-            },
           ],
         },
-        packages,
+        packagesItemGroup,
       ],
       '/storage/': [
         {
@@ -182,16 +199,12 @@ export default defineConfig({
               link: '/storage/',
             },
             {
-              text: 'API',
-              link: '/storage/api',
-            },
-            {
               text: 'Typescript',
               link: '/storage/typescript',
             },
           ],
         },
-        packages,
+        packagesItemGroup,
       ],
     },
   },

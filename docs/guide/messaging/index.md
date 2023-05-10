@@ -16,7 +16,7 @@ titleTemplate: '@webext-core/messaging'
 
 `@webext-core/messaging` a simplified, type-safe wrapper around the web extension messaging APIs.
 
-> Don't like lower-level messaging APIs? Try out [`@webext-core/proxy-service`](/proxy-service/) for a more DX-friendly approach to messaging.
+> Don't like lower-level messaging APIs? Try out [`@webext-core/proxy-service`](/guide/proxy-service/) for a more DX-friendly approach to messaging.
 
 ## Installation
 
