@@ -28,4 +28,7 @@ const overrides: BrowserOverrides = {
   windows,
 };
 
+/**
+ * An in-memory implementation of the `browser` global.
+ */
 export const fakeBrowser: FakeBrowser = merge(GeneratedBrowser, overrides);

@@ -5,9 +5,7 @@ import { DeepAsync } from './types';
  * Given a promise of a variable, return a proxy to that awaits the promise internally so you don't
  * have to call `await` twice.
  *
- * You can unwrap promises of functions, objects, or classes.
- *
- * This is meant to be used to simplify service implementations, like so:
+ * > This can be used to simplify handling `Promise<Dependency>` passed in your services.
  *
  * @example
  * function createService(dependencyPromise: Promise<SomeDependency>) {

@@ -10,11 +10,14 @@ export interface Logger {
   error(...args: any[]): void;
 }
 
+/**
+ * Cofnigure how the messenger behaves.
+ */
 export interface ExtensionMessagingConfig {
   /**
-   * The logger to use when logging messages. Defaults to `console`.
+   * The logger to use when logging messages. Set to `null` to disable logging.
    *
-   * Set to `null` to disable logging.
+   * @default console
    */
   logger?: Logger;
 }
@@ -23,6 +26,8 @@ export interface ExtensionMessagingConfig {
  * Used to add a return type to a message in the protocol map.
  *
  * > Internally, this is just an object with random keys for the data and return types.
+ *
+ * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/messaging/protocol-maps.html#syntax>
  *
  * @example
  * interface ProtocolMap {
@@ -33,7 +38,13 @@ export interface ExtensionMessagingConfig {
  * }
  */
 export interface ProtocolWithReturn<TData, TReturn> {
+  /**
+   * Stores the data type. Randomly named so that it isn't accidentally implemented.
+   */
   BtVgCTPYZu: TData;
+  /**
+   * Stores the return type. Randomly named so that it isn't accidentally implemented.
+   */
   RrhVseLgZW: TReturn;
 }
 

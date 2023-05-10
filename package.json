@@ -18,6 +18,7 @@
     "@types/prettier": "^2.7.2",
     "@types/webextension-polyfill": "^0.9.1",
     "@webext-core/fake-browser": "workspace:*",
+    "chokidar": "^3.5.3",
     "husky": "^8.0.1",
     "listr2": "^6.4.2",
     "prettier": "^2.7.1",
