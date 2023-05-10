@@ -22,6 +22,8 @@ export interface ExtensionMessagingConfig {
 /**
  * Used to add a return type to a message in the protocol map.
  *
+ * > Internally, this is just an object with random keys for the data and return types.
+ *
  * @example
  * interface ProtocolMap {
  *   // data is a string, returns undefined
@@ -29,10 +31,11 @@ export interface ExtensionMessagingConfig {
  *   // data is a string, returns a number
  *   type2: ProtocolWithReturn<string, number>;
  * }
- *
- * > Internally, this is just an object with random keys for the data and return types.
  */
-export type ProtocolWithReturn<TData, TReturn> = { BtVgCTPYZu: TData; RrhVseLgZW: TReturn };
+export interface ProtocolWithReturn<TData, TReturn> {
+  BtVgCTPYZu: TData;
+  RrhVseLgZW: TReturn;
+}
 
 /**
  * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type.

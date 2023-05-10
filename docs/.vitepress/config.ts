@@ -1,4 +1,5 @@
 import { defineConfig } from 'vitepress';
+import { typescriptDocs } from './plugins/typescript-docs';
 
 const ogDescription = 'Next Generation Frontend Tooling';
 const ogTitle = 'Web Ext Core';
@@ -18,6 +19,10 @@ const packages = {
 export default defineConfig({
   title: `Web Ext Core`,
   description: 'Web Extension Development Made Easy',
+
+  vite: {
+    plugins: [typescriptDocs()],
+  },
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
@@ -43,6 +48,15 @@ export default defineConfig({
 
   themeConfig: {
     logo: '/logo.svg',
+
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'W9IBYBNTPJ',
+        apiKey: 'c8c2d0d5e6f058c31b8539fc58e259af',
+        indexName: 'webext-core-docs',
+      },
+    },
 
     editLink: {
       pattern: 'https://github.com/aklinker1/webext-core/edit/main/docs/:path',
