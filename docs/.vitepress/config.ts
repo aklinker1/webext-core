@@ -8,21 +8,50 @@ const ogUrl = 'https://webext-core.aklinker1.io';
 const packageDirnames = [
   'storage',
   'messaging',
-  'fake-browser',
   'proxy-service',
   'isolated-element',
-].sort((l, r) => l.localeCompare(r));
-
-const packagesItemGroup = {
-  text: 'Packages',
-  items: packageDirnames.map(dirname => ({
-    text: dirname,
-    link: `/guide/${dirname}/`,
-    // items: packagePages[dirname],
-  })),
-};
+  'fake-browser',
+];
 
 const packagePages = {
+  'fake-browser': [
+    {
+      text: 'Get Started',
+      link: '/guide/fake-browser/',
+    },
+    {
+      text: 'Testing Frameworks',
+      link: '/guide/fake-browser/testing-frameworks',
+    },
+    {
+      text: 'Reseting State',
+      link: '/guide/fake-browser/reseting-state',
+    },
+    {
+      text: 'Triggering Events',
+      link: '/guide/fake-browser/triggering-events',
+    },
+    {
+      text: 'Implemented APIs',
+      link: '/guide/fake-browser/implemented-apis',
+    },
+  ],
+  'isolated-element': [
+    {
+      text: 'Get Started',
+      link: '/guide/isolated-element/',
+    },
+  ],
+  messaging: [
+    {
+      text: 'Get Started',
+      link: '/guide/messaging/',
+    },
+    {
+      text: 'Protocol Maps',
+      link: '/guide/messaging/protocol-maps',
+    },
+  ],
   'proxy-service': [
     {
       text: 'Get Started',
@@ -33,7 +62,23 @@ const packagePages = {
       link: '/guide/proxy-service/variants',
     },
   ],
+  storage: [
+    {
+      text: 'Get Started',
+      link: '/guide/storage/',
+    },
+    {
+      text: 'Typescript',
+      link: '/guide/storage/typescript',
+    },
+  ],
 };
+
+const packagesItemGroup = packageDirnames.map(dirname => ({
+  text: dirname,
+  link: `/guide/${dirname}/`,
+  items: packagePages[dirname],
+}));
 
 const apiItemGroup = {
   text: 'API',
@@ -99,113 +144,20 @@ export default defineConfig({
     sidebar: {
       '/guide/': [
         {
-          text: 'Guide',
-          items: [
-            {
-              text: 'Getting Started',
-              link: '/guide/',
-            },
-            {
-              text: 'Browser Support',
-              link: '/guide/browser-support',
-            },
-            {
-              text: 'Contributing',
-              link: '/guide/contributing',
-            },
-          ],
+          text: 'Introduction',
+          link: '/guide/',
         },
-        packagesItemGroup,
+        {
+          text: 'Browser Support',
+          link: '/guide/browser-support',
+        },
+        {
+          text: 'Contributing',
+          link: '/guide/contributing',
+        },
+        ...packagesItemGroup,
       ],
       '/api/': [apiItemGroup],
-      '/fake-browser/': [
-        {
-          text: 'fake-browser',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/fake-browser/',
-            },
-            {
-              text: 'Testing Frameworks',
-              link: '/fake-browser/testing-frameworks',
-            },
-            {
-              text: 'Reseting State',
-              link: '/fake-browser/reseting-state',
-            },
-            {
-              text: 'Triggering Events',
-              link: '/fake-browser/triggering-events',
-            },
-            {
-              text: 'Implemented APIs',
-              link: '/fake-browser/implemented-apis',
-            },
-          ],
-        },
-        packagesItemGroup,
-      ],
-      '/isolated-element/': [
-        {
-          text: 'isolated-element',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/isolated-element/',
-            },
-          ],
-        },
-        packagesItemGroup,
-      ],
-      '/messaging/': [
-        {
-          text: 'messaging',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/messaging/',
-            },
-            {
-              text: 'Protocol Maps',
-              link: '/messaging/protocol-maps',
-            },
-          ],
-        },
-        packagesItemGroup,
-      ],
-      '/proxy-service/': [
-        {
-          text: 'proxy-service',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/proxy-service/',
-            },
-            {
-              text: 'Variants',
-              link: '/proxy-service/variants',
-            },
-          ],
-        },
-        packagesItemGroup,
-      ],
-      '/storage/': [
-        {
-          text: 'storage',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/storage/',
-            },
-            {
-              text: 'Typescript',
-              link: '/storage/typescript',
-            },
-          ],
-        },
-        packagesItemGroup,
-      ],
     },
   },
 });
