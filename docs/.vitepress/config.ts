@@ -102,8 +102,14 @@ export default defineConfig({
     // ['meta', { property: 'og:image', content: ogImage }],
     ['meta', { property: 'og:url', content: ogUrl }],
     ['meta', { property: 'og:description', content: ogDescription }],
-    ['meta', { name: 'twitter:card', content: 'summary_large_image' }],
-    ['meta', { name: 'twitter:site', content: '@vite_js' }],
+    [
+      'meta',
+      {
+        name: 'twitter:card',
+        content:
+          'https://repository-images.githubusercontent.com/562524328/c0cd6d4b-23ff-4536-97ab-f19a57cc23e3',
+      },
+    ],
     ['meta', { name: 'theme-color', content: '#646cff' }],
     // <script async defer data-website-id="04aff3ed-57d7-4ee0-9faf-e24a39adeafa" src="https://stats.aklinker1.io/umami.js"></script>
     [
