@@ -1,11 +1,11 @@
-# Getting Started
+# Introduction
 
-## Overview
+## Installation
 
-`@webext-core`'s packages are provided via NPM. Depending on your project's setup, you can use them in different ways:
+All of `@webext-core`'s packages are provided via NPM. Depending on your project's setup, you can use them in different ways:
 
 - If your project uses a bundler like Vite or Webpack, see [Bundler Setup](#bundler-setup).
-- If your project does not use a bundler, see [Vanilla Setup](#non-bundler-setup)
+- If your project does not use a bundler, see [Non-bundler Setup](#non-bundler-setup)
 
 ## Bundler Setup
 
@@ -28,7 +28,7 @@ import { localExtStorage } from '@webext-core/storage';
 const value = await localExtStorage.getItem('some-key');
 ```
 
-## Vanilla Setup
+## Non-bundler Setup
 
 If you're not using a bundler, you'll have to download each package and put it inside your project.
 

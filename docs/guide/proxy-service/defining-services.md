@@ -1,4 +1,10 @@
-# Variants
+---
+next:
+  text: API Reference
+  link: /api/proxy-service
+---
+
+# Defining Services
 
 There are several different ways to define a proxy service:
 
@@ -99,9 +105,7 @@ const todos = await getAllTodos();
 
 ## Nested Objects
 
-If you need to register "deep" objects containing multiple services, you can do that as well. You can use classes or objects inside the main object.
-
-Here I mix classes and functions, but you'll want to pick one to stay consistent.
+If you need to register "deep" objects containing multiple services, you can do that as well. You can use classes, objects, and functions at any level.
 
 ```ts
 import { openDB, IDBPDatabase } from 'idb';

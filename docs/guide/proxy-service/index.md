@@ -36,7 +36,7 @@ export const [registerMathService, getMathService] = defineProxyService(
 ```ts [background.ts]
 import { registerMathService } from './MathService';
 
-// 2. As soon as possible in your background, register it
+// 2. As soon as possible, register it in the background script
 registerMathService();
 ```
 
@@ -46,7 +46,7 @@ import { getMathService } from './MathService';
 // 3. Get an instance of your service anywhere in your extension
 const mathService = getMathService();
 
-// 4. Call methods like normal, but they will execute in the background
+// 4. Call methods like normal, they will execute in the background
 await mathService.fibonacci(100);
 ```
 
@@ -54,7 +54,7 @@ await mathService.fibonacci(100);
 
 ## Installation
 
-###### Bundler
+###### NPM
 
 ```ts
 pnpm i @webext-core/proxy-service
@@ -64,7 +64,7 @@ pnpm i @webext-core/proxy-service
 import { defineProxyService } from '@webext-core/proxy-service';
 ```
 
-###### Vanilla
+###### CDN
 
 ```sh
 curl -o proxy-service.js https://cdn.jsdelivr.net/npm/@webext-core/proxy-service/lib/index.global.js
@@ -114,7 +114,7 @@ function createTodosRepo(idbPromise: Promise<IDBPDatabase>) {
 
 :::
 
-> In this example, we're using a plain object instead of a class as the service. See the [Variants](./variants) docs for more variations in creating proxy services.
+> In this example, we're using a plain object instead of a class as the service. See the [Defining Services](./defining-services) docs for examples of all the different ways to create a proxy service.
 
 In the same file, define a proxy service for our `TodosRepo`:
 

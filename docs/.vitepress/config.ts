@@ -58,8 +58,8 @@ const packagePages = {
       link: '/guide/proxy-service/',
     },
     {
-      text: 'Variants',
-      link: '/guide/proxy-service/variants',
+      text: 'Defining Services',
+      link: '/guide/proxy-service/defining-services',
     },
   ],
   storage: [
