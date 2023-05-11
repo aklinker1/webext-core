@@ -89,6 +89,8 @@ export default defineConfig({
   title: `Web Ext Core`,
   description: 'Web Extension Development Made Easy',
 
+  ignoreDeadLinks: [/^\/api\/.*/],
+
   vite: {
     plugins: [typescriptDocs()],
   },
