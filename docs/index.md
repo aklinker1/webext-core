@@ -21,23 +21,23 @@ hero:
 features:
   - icon: 📦
     title: '@webext-core/storage'
-    link: /storage/
+    link: /guide/storage/
     details: An alternative, type-safe API similar to local storage for accessing extension storage.
   - icon: 💬
     title: '@webext-core/messaging'
-    link: /messaging/
+    link: /guide/messaging/
     details: A simpler, type-safe API for sending and recieving messages.
   - icon: 🚍
     title: '@webext-core/proxy-service'
-    link: /proxy-service/
+    link: /guide/proxy-service/
     details: Call a function, but execute in a different JS context, like the background.
   - icon: 🧩
     title: '@webext-core/isolated-element'
-    link: /isolated-element/
+    link: /guide/isolated-element/
     details: Create a container who's styles are isolated from the page's styles.
   - icon: 🛠️
     title: '@webext-core/fake-browser'
-    link: /fake-browser/
+    link: /guide/fake-browser/
     details: An in-memory implementation of webextension-polyfill for testing.
   - icon: 🚀
     title: 'COMING SOON: @webext-core/publish'

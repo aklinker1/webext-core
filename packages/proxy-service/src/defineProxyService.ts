@@ -3,6 +3,18 @@ import { ProxyService, ProxyServiceConfig, Service } from './types';
 import { defineExtensionMessaging, ProtocolWithReturn } from '@webext-core/messaging';
 import get from 'get-value';
 
+/**
+ * Utility for creating a service whose functions are executed in the background script regardless
+ * of the JS context the they are called from.
+ *
+ * @param name A unique name for the service. Used to identify which service is being executed.
+ * @param init A function that returns your real service implementation. If args are listed,
+ *             `registerService` will require the same set of arguments.
+ * @param config
+ * @returns
+ * - `registerService`: Used to register your service in the background
+ * - `getService`: Used to get an instance of the service anywhere in the extension.
+ */
 export function defineProxyService<TService extends Service, TArgs extends any[]>(
   name: string,
   init: (...args: TArgs) => TService,

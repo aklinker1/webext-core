@@ -16,11 +16,11 @@ titleTemplate: '@webext-core/messaging'
 
 `@webext-core/messaging` a simplified, type-safe wrapper around the web extension messaging APIs.
 
-> Don't like lower-level messaging APIs? Try out [`@webext-core/proxy-service`](/proxy-service/) for a more DX-friendly approach to messaging.
+> Don't like lower-level messaging APIs? Try out [`@webext-core/proxy-service`](/guide/proxy-service/) for a more DX-friendly approach to executing code in the background script.
 
 ## Installation
 
-###### Bundler
+###### NPM
 
 ```ts
 pnpm i @webext-core/messaging
@@ -30,7 +30,7 @@ pnpm i @webext-core/messaging
 import { defineExtensionMessaging } from '@webext-core/messaging';
 ```
 
-###### Vanilla
+###### CDN
 
 ```sh
 curl -o messaging.js https://cdn.jsdelivr.net/npm/@webext-core/messaging/lib/index.global.js
@@ -96,6 +96,8 @@ console.log(length); // 11
 ```
 
 :::
+
+### Sending Messages to Tabs
 
 You can also send messages from your background script to a tab, but you need to know the `tabId`.
 

@@ -10,6 +10,12 @@ export type OnChangeCallback<
   TKey extends keyof TSchema = keyof TSchema,
 > = (newValue: TSchema[TKey], oldValue: TSchema[TKey] | null) => void;
 
+/**
+ * This is the interface for the storage objects exported from the package. It is similar to `localStorage`, except for a few differences:
+ *
+ * - ***It's async*** since the web extension storage APIs are async.
+ * - It can store any data type, ***not just strings***.
+ */
 export interface ExtensionStorage<TSchema extends AnySchema> {
   /**
    * Clear all values from storage.

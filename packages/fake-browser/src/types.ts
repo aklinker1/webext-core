@@ -106,4 +106,7 @@ export interface BrowserOverrides {
   };
 }
 
+/**
+ * The standard `Browser` interface from `webextension-polyfill`, but with additional functions for triggering events and reseting state.
+ */
 export type FakeBrowser = BrowserOverrides & Browser;

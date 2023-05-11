@@ -1,10 +1,12 @@
 # Contributing
 
-Here you'll find everything you need to know about contributing to the project.
+Special thanks to the contributors. I look forward to seeing you in the list!
 
-[[toc]]
+<ClientOnly>
+    <ContributorList />
+</ClientOnly>
 
-:::info First time contributing to open source?
+:::details First time contributing to open source?
 It's easy! Here are some resources to get started:
 
 - https://www.youtube.com/embed/dSl_qnWO104
@@ -12,13 +14,11 @@ It's easy! Here are some resources to get started:
 
 :::
 
-## Contibutors
+<br/>
 
-Special thanks to all the contributors. I look forward to seeing you in the list!
+###### Table of Contents
 
-<ClientOnly>
-    <ContributorList />
-</ClientOnly>
+[[toc]]
 
 ## Project Goals
 
@@ -27,12 +27,14 @@ The goal of `webext-core` is to create useful, targetted, quality utilities for 
 With that in mind, there's a couple of expectations I have around new code:
 
 - Code is written in TypeScript and packages provide great TypeScript support.
-- Fully unit tested. I won't require 100% coverage, but it should be close.
 - Utilities support all browsers.
+- Well unit tested. I won't require 100% coverage, but it should be close.
 
-If you're just fixing a bug or improving the docs, feel free to open a PR!
+## Before You Contribute
 
-If you want to create a new package, open an issue first. That way we can collaborate and make sure it fits the purpose listed above. If it's not something I want to maintain or it doesn't fit this project, I don't want you to have wasted time working on it. We all have lives to live :smiley:
+If you're just fixing a bug or improving the docs, feel free to open a PR, no questions asked!
+
+If you want to add a new package or feature, open an issue first. That way we can collaborate and make sure it fits the purpose listed in the [project goals](#project-goals). If you open a PR, but it's not something I want to maintain or it doesn't fit this project, you will have wasted your time. We both have lives to live :smiley:.
 
 ## Development Setup
 
@@ -44,7 +46,7 @@ You'll need to install some tools:
 Then you can fork the repo, install the dependencies, and build the packages for the first time!
 
 ```sh
-git clone <your-forl>
+git clone {your-fork}
 cd webext-core
 pnpm i
 pnpm build

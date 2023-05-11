@@ -1,23 +1,99 @@
 import { defineConfig } from 'vitepress';
+import { typescriptDocs } from './plugins/typescript-docs';
 
 const ogDescription = 'Next Generation Frontend Tooling';
 const ogTitle = 'Web Ext Core';
 const ogUrl = 'https://webext-core.aklinker1.io';
 
-const packages = {
-  text: 'Packages',
-  items: [
-    { text: 'storage', link: '/storage/' },
-    { text: 'messaging', link: '/messaging/' },
-    { text: 'fake-browser', link: '/fake-browser/' },
-    { text: 'proxy-service', link: '/proxy-service/' },
-    { text: 'isolated-element', link: '/isolated-element/' },
-  ].sort((l, r) => l.text.localeCompare(r.text)),
+const packageDirnames = [
+  'storage',
+  'messaging',
+  'proxy-service',
+  'isolated-element',
+  'fake-browser',
+];
+
+const packagePages = {
+  'fake-browser': [
+    {
+      text: 'Get Started',
+      link: '/guide/fake-browser/',
+    },
+    {
+      text: 'Testing Frameworks',
+      link: '/guide/fake-browser/testing-frameworks',
+    },
+    {
+      text: 'Reseting State',
+      link: '/guide/fake-browser/reseting-state',
+    },
+    {
+      text: 'Triggering Events',
+      link: '/guide/fake-browser/triggering-events',
+    },
+    {
+      text: 'Implemented APIs',
+      link: '/guide/fake-browser/implemented-apis',
+    },
+  ],
+  'isolated-element': [
+    {
+      text: 'Get Started',
+      link: '/guide/isolated-element/',
+    },
+  ],
+  messaging: [
+    {
+      text: 'Get Started',
+      link: '/guide/messaging/',
+    },
+    {
+      text: 'Protocol Maps',
+      link: '/guide/messaging/protocol-maps',
+    },
+  ],
+  'proxy-service': [
+    {
+      text: 'Get Started',
+      link: '/guide/proxy-service/',
+    },
+    {
+      text: 'Defining Services',
+      link: '/guide/proxy-service/defining-services',
+    },
+  ],
+  storage: [
+    {
+      text: 'Get Started',
+      link: '/guide/storage/',
+    },
+    {
+      text: 'Typescript',
+      link: '/guide/storage/typescript',
+    },
+  ],
+};
+
+const packagesItemGroup = packageDirnames.map(dirname => ({
+  text: dirname,
+  link: `/guide/${dirname}/`,
+  items: packagePages[dirname],
+}));
+
+const apiItemGroup = {
+  text: 'API',
+  items: packageDirnames.map(dirname => ({ text: dirname, link: `/api/${dirname}` })),
 };
 
 export default defineConfig({
   title: `Web Ext Core`,
   description: 'Web Extension Development Made Easy',
+
+  ignoreDeadLinks: [/^\/api\/.*/],
+
+  vite: {
+    plugins: [typescriptDocs()],
+  },
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
@@ -44,6 +120,15 @@ export default defineConfig({
   themeConfig: {
     logo: '/logo.svg',
 
+    search: {
+      provider: 'algolia',
+      options: {
+        appId: 'W9IBYBNTPJ',
+        apiKey: 'c8c2d0d5e6f058c31b8539fc58e259af',
+        indexName: 'webext-core-docs',
+      },
+    },
+
     editLink: {
       pattern: 'https://github.com/aklinker1/webext-core/edit/main/docs/:path',
       text: 'Suggest changes to this page',
@@ -56,129 +141,25 @@ export default defineConfig({
       copyright: 'Copyright © 2022-present Aaron Klinker & Web Ext Core Contributors',
     },
 
-    nav: [{ text: 'Guide', link: '/guide/' }, packages],
+    nav: [{ text: 'Guide', link: '/guide/' }, apiItemGroup],
 
     sidebar: {
       '/guide/': [
         {
-          text: 'Guide',
-          items: [
-            {
-              text: 'Getting Started',
-              link: '/guide/',
-            },
-            {
-              text: 'Browser Support',
-              link: '/guide/browser-support',
-            },
-            {
-              text: 'Contributing',
-              link: '/guide/contributing',
-            },
-          ],
+          text: 'Introduction',
+          link: '/guide/',
         },
-        packages,
-      ],
-      '/fake-browser/': [
         {
-          text: 'fake-browser',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/fake-browser/',
-            },
-            {
-              text: 'Testing Frameworks',
-              link: '/fake-browser/testing-frameworks',
-            },
-            {
-              text: 'Reseting State',
-              link: '/fake-browser/reseting-state',
-            },
-            {
-              text: 'Triggering Events',
-              link: '/fake-browser/triggering-events',
-            },
-            {
-              text: 'Implemented APIs',
-              link: '/fake-browser/implemented-apis',
-            },
-          ],
+          text: 'Browser Support',
+          link: '/guide/browser-support',
         },
-        packages,
-      ],
-      '/isolated-element/': [
         {
-          text: 'isolated-element',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/isolated-element/',
-            },
-          ],
+          text: 'Contributing',
+          link: '/guide/contributing',
         },
-        packages,
+        ...packagesItemGroup,
       ],
-      '/messaging/': [
-        {
-          text: 'messaging',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/messaging/',
-            },
-            {
-              text: 'Protocol Maps',
-              link: '/messaging/protocol-maps',
-            },
-            {
-              text: 'API',
-              link: '/messaging/api',
-            },
-          ],
-        },
-        packages,
-      ],
-      '/proxy-service/': [
-        {
-          text: 'proxy-service',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/proxy-service/',
-            },
-            {
-              text: 'Variants',
-              link: '/proxy-service/variants',
-            },
-            {
-              text: 'API',
-              link: '/proxy-service/api',
-            },
-          ],
-        },
-        packages,
-      ],
-      '/storage/': [
-        {
-          text: 'storage',
-          items: [
-            {
-              text: 'Get Started',
-              link: '/storage/',
-            },
-            {
-              text: 'API',
-              link: '/storage/api',
-            },
-            {
-              text: 'Typescript',
-              link: '/storage/typescript',
-            },
-          ],
-        },
-        packages,
-      ],
+      '/api/': [apiItemGroup],
     },
   },
 });

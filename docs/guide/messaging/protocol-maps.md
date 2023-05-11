@@ -1,3 +1,9 @@
+---
+next:
+  text: API Reference
+  link: /api/messaging
+---
+
 # Protocol Maps
 
 > Only relevant to TypeScript projects.
@@ -34,47 +40,26 @@ const res /* : boolean */ = await sendMessage('message4', 'text');
 
 ## Async Messages
 
-All messages are async. In your protocol map, don't specify return types as `Promise<T>`, just use `T`.
+All messages are async. In your protocol map, you don't need to make the return type `Promise<T>`, `T` will work just fine.
 
 ```ts
 interface ProtocolMap {
-  // Do this:
-  someMessage(): string;
-
-  // Not this:
-  someMessage(): Promise<string>;
+  someMessage(): string; // [!code ++]
+  someMessage(): Promise<string>; // [!code --]
 }
 ```
 
 ## Multiple Arguments
 
-Protocol maps only support a single argument. To pass more than one argument, pass an object instead!
+Protocol map functions should be defined with a single parameter, `data`. To pass more than one argument, make the `data` parameter an object instead!
 
 ```ts
 interface ProtocolMap {
-  someMessage(data: { arg1: string; arg2: boolean }): void;
-
-  // THIS DOES NOT WORK - the data type will be inferred as the first argument's type.
-  someMessage(arg1: string, arg2: boolean): void;
+  someMessage(data: { arg1: string; arg2: boolean }): void; // [!code ++]
+  someMessage(arg1: string, arg2: boolean): void; // [!code --]
 }
 ```
 
 ```ts
-await sendMessage('someMessage', { arg1: '...', arg2: true });
+await sendMessage('someMessage', { arg1: ..., arg2: ... });
 ```
-
-## `ProtocolWithReturn`
-
-Instead of using function declarations, you can use the following to achieve the same types:
-
-<!-- prettier-ignore -->
-```ts
-interface ProtocolMap {
-  message1: undefined;                              // No data and no return type
-  message2: string;                                 // Only data
-  message3: ProtocolWithReturn<undefined, boolean>; // Only a return type
-  message4: ProtocolWithReturn<string, boolean>;    // Data and return type
-}
-```
-
-> The functional syntax is easier to read and more intuative, and was added in `v1.3.0` to replace this syntax.
