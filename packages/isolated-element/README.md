@@ -29,4 +29,4 @@ document.body.appendChild(parentElement);
 
 ## Get Started
 
-See [documentation](https://webext-core.aklinker1.io/isolated-element) to get started!
+See [documentation](https://webext-core.aklinker1.io/guide/isolated-element/) to get started!

@@ -38,12 +38,12 @@ export const alarms: BrowserOverrides['alarms'] = {
       name = arg0 ?? '';
       alarmInfo = arg1 as Alarms.CreateAlarmInfoType;
     }
-    const existing = alarmList.find(alarm => alarm.name === name);
-    if (existing) throw Error(`Alarm named "${name}" already exists`);
+    const i = alarmList.findIndex(alarm => alarm.name === name);
+    if (i >= 0) alarmList.splice(i, 1);
 
     alarmList.push({
       name,
-      scheduledTime: alarmInfo.when ?? Date.now() + (alarmInfo.delayInMinutes ?? 0) * 1000,
+      scheduledTime: alarmInfo.when ?? Date.now() + (alarmInfo.delayInMinutes ?? 0) * 60e3,
       periodInMinutes: alarmInfo.periodInMinutes,
     });
   },

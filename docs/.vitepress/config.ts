@@ -8,6 +8,7 @@ const ogUrl = 'https://webext-core.aklinker1.io';
 const packageDirnames = [
   'storage',
   'messaging',
+  'job-scheduler',
   'proxy-service',
   'isolated-element',
   'fake-browser',
@@ -72,6 +73,12 @@ const packagePages = {
       link: '/guide/storage/typescript',
     },
   ],
+  'job-scheduler': [
+    {
+      text: 'Get Started',
+      link: '/guide/job-scheduler/',
+    },
+  ],
 };
 
 const packagesItemGroup = packageDirnames.map(dirname => ({
@@ -93,6 +100,9 @@ export default defineConfig({
 
   vite: {
     plugins: [typescriptDocs()],
+    define: {
+      __PACKAGES__: JSON.stringify(packageDirnames),
+    },
   },
 
   head: [

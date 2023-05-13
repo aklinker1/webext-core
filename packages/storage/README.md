@@ -14,4 +14,4 @@ const value = await localExtStorage.getItem('some-key');
 
 ## Get Started
 
-See [documentation](https://webext-core.aklinker1.io/storage) to get started!
+See [documentation](https://webext-core.aklinker1.io/guide/storage/) to get started!

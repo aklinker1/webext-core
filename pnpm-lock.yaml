@@ -89,6 +89,29 @@ importers:
     devDependencies:
       vite: 4.0.4
 
+  packages/job-scheduler:
+    specifiers:
+      '@vitest/coverage-c8': ^0.24.5
+      '@webext-core/fake-browser': workspace:*
+      cron-parser: ^4.8.1
+      format-duration: ^3.0.2
+      tsconfig: workspace:*
+      tsup: ^6.4.0
+      typescript: ^4.8.4
+      vitest: ^0.24.5
+      webextension-polyfill: ^0.10.0
+    dependencies:
+      cron-parser: 4.8.1
+      format-duration: 3.0.2
+      webextension-polyfill: 0.10.0
+    devDependencies:
+      '@vitest/coverage-c8': 0.24.5
+      '@webext-core/fake-browser': link:../fake-browser
+      tsconfig: link:../tsconfig
+      tsup: 6.4.0_typescript@4.8.4
+      typescript: 4.8.4
+      vitest: 0.24.5
+
   packages/messaging:
     specifiers:
       '@types/webextension-polyfill': ^0.9.1
@@ -2137,6 +2160,13 @@ packages:
       yaml: 1.10.2
     dev: true
 
+  /cron-parser/4.8.1:
+    resolution: {integrity: sha512-jbokKWGcyU4gl6jAfX97E1gDpY12DJ1cLJZmoDzaAln/shZ+S3KBFBuA2Q6WeUN4gJf/8klnV1EfvhA2lK5IRQ==}
+    engines: {node: '>=12.0.0'}
+    dependencies:
+      luxon: 3.3.0
+    dev: false
+
   /cross-spawn/7.0.3:
     resolution: {integrity: sha512-iRDPJKUPVEND7dHPO8rkbOnPpyDygcDFtWjpeWNCgy8WP2rXcxXL8TskReQl6OrB2G7+UJrags1q15Fudc7G6w==}
     engines: {node: '>= 8'}
@@ -3077,6 +3107,10 @@ packages:
       combined-stream: 1.0.8
       mime-types: 2.1.35
     dev: true
+
+  /format-duration/3.0.2:
+    resolution: {integrity: sha512-pKzJDSRgK2lqAiPW3uizDaIJaJnataZclsahz25UMwfdryBGDa+1HlbXGjzpMvX/2kMh4O0sNevFXKaEfCjHsA==}
+    dev: false
 
   /formdata-polyfill/4.0.10:
     resolution: {integrity: sha512-buewHzMvYL29jdeQTVILecSaZKnt/RJWjoZCF5OW60Z67/GmSLBkOFM7qh1PI3zFNtJbaZL5eQu1vLfazOwj4g==}
@@ -4020,6 +4054,11 @@ packages:
     dependencies:
       yallist: 4.0.0
     dev: true
+
+  /luxon/3.3.0:
+    resolution: {integrity: sha512-An0UCfG/rSiqtAIiBPO0Y9/zAnHUZxAMiCpTd5h2smgsj7GGmcenvrvww2cqNA8/4A5ZrD1gJpHN2mIHZQF+Mg==}
+    engines: {node: '>=12'}
+    dev: false
 
   /magic-string/0.25.9:
     resolution: {integrity: sha512-RmF0AsMzgt25qzqqLc1+MbHmhdx0ojF2Fvs4XnOqz2ZOBXzzkEwc/dJQZCYHAn7v1jbVOjAZfK8msRn4BxO4VQ==}

@@ -56,7 +56,7 @@ await mathService.fibonacci(100);
 
 ###### NPM
 
-```ts
+```sh
 pnpm i @webext-core/proxy-service
 ```
 

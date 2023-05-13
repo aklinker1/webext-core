@@ -11,7 +11,7 @@ export interface Logger {
 }
 
 /**
- * Cofnigure how the messenger behaves.
+ * Configure how the messenger behaves.
  */
 export interface ExtensionMessagingConfig {
   /**
@@ -19,7 +19,7 @@ export interface ExtensionMessagingConfig {
    *
    * @default console
    */
-  logger?: Logger;
+  logger?: Logger | null;
 }
 
 /**

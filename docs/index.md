@@ -27,6 +27,10 @@ features:
     title: '@webext-core/messaging'
     link: /guide/messaging/
     details: A simpler, type-safe API for sending and recieving messages.
+  - icon: 👷
+    title: '@webext-core/job-scheduler'
+    link: /guide/job-scheduler/
+    details: Easily schedule and manage reoccuring jobs
   - icon: 🚍
     title: '@webext-core/proxy-service'
     link: /guide/proxy-service/
@@ -39,7 +43,7 @@ features:
     title: '@webext-core/fake-browser'
     link: /guide/fake-browser/
     details: An in-memory implementation of webextension-polyfill for testing.
-  - icon: 🚀
-    title: 'COMING SOON: @webext-core/publish'
-    details: Publish your extension to the various stores.
+  # - icon: 🚀
+  #   title: 'COMING SOON: @webext-core/publish'
+  #   details: Publish your extension to the various stores.
 ---

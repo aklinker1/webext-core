@@ -1,11 +1,23 @@
 # Introduction
 
-## Installation
+## Overview
 
-All of `@webext-core`'s packages are provided via NPM. Depending on your project's setup, you can use them in different ways:
+All of `@webext-core`'s packages are provided via NPM. Depending on your project's setup, you can consume them in 2 different ways:
 
-- If your project uses a bundler like Vite or Webpack, see [Bundler Setup](#bundler-setup).
-- If your project does not use a bundler, see [Non-bundler Setup](#non-bundler-setup)
+1. If your project uses a bundler like Vite or Webpack, see [Bundler Setup](#bundler-setup).
+2. If your project does not use a bundler, see [Non-bundler Setup](#non-bundler-setup)
+
+## List of packages
+
+<script setup>
+const packages = __PACKAGES__;
+</script>
+
+<ul>
+  <li v-for="pkg of packages">
+    <a target="_blank" href="/guide/${pkg}/"><code>@webext-core/{{pkg}}</code></a>
+  </li>
+</ul>
 
 ## Bundler Setup
 

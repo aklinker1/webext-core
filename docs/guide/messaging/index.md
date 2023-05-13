@@ -22,7 +22,7 @@ titleTemplate: '@webext-core/messaging'
 
 ###### NPM
 
-```ts
+```sh
 pnpm i @webext-core/messaging
 ```
 
