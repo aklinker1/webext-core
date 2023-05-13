@@ -43,7 +43,7 @@ export const alarms: BrowserOverrides['alarms'] = {
 
     alarmList.push({
       name,
-      scheduledTime: alarmInfo.when ?? Date.now() + (alarmInfo.delayInMinutes ?? 0) * 1000,
+      scheduledTime: alarmInfo.when ?? Date.now() + (alarmInfo.delayInMinutes ?? 0) * 60e3,
       periodInMinutes: alarmInfo.periodInMinutes,
     });
   },

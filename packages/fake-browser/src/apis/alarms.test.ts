@@ -18,7 +18,7 @@ describe('Fake Alarms API', () => {
     expect(alarm).toEqual({
       name: '',
       periodInMinutes: 5,
-      scheduledTime: now + 1000,
+      scheduledTime: now + 60e3,
     });
   });
 
@@ -56,7 +56,7 @@ describe('Fake Alarms API', () => {
     expect(alarm).toEqual({
       name,
       periodInMinutes: 10,
-      scheduledTime: now + 2000,
+      scheduledTime: now + 2 * 60e3,
     });
   });
 
