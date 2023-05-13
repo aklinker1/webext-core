@@ -11,6 +11,8 @@ The `@webext-core` packages are simple wrappers around [`webextension-polyfill`]
 | Safari _<sup>1</sup>_ |       >= 14        |
 | Edge                  |       >= 88        |
 
-> _Safari <sup>1</sup>_: Safari define's both Chrome's `chrome` and Firefox's `browser` globals, which `webextension-polyfill` handles automatically. However, Safari does not implement the complete standard. See the [browser compatibliity chart](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Browser_support_for_JavaScript_APIs) for more details.
+Other Chromium-based browsers are not officially supported, and may not work*<sup>2</sup>*. See Mozilla's [supported browsers documentation](https://github.com/mozilla/webextension-polyfill#supported-browsers) for more details.
 
-Other Chromium-based browsers will work as well. See Mozilla's [supported browsers documentation](https://github.com/mozilla/webextension-polyfill#supported-browsers) for more details.
+> _<sup>1</sup>_ - `webextension-polyfill` works on Safari, however Safari does not implement the complete web extension standard. See the [browser compatibliity chart](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/Browser_support_for_JavaScript_APIs) for more details.
+>
+> _<sup>2</sup>_ - In practice, the browsers are close enough to chrome that they work 99% of the time. But make sure to test your extension before assuming it will work.

@@ -30,7 +30,7 @@ Requires the `storage` permission.
 
 ###### NPM
 
-```ts
+```sh
 pnpm i @webext-core/storage
 ```
 

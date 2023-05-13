@@ -28,7 +28,7 @@ Creates a new `Messenger` used to send and recieve messages in your extension.
 
 ```ts
 interface ExtensionMessagingConfig {
-  logger?: Logger;
+  logger?: Logger | null;
 }
 ```
 
@@ -36,7 +36,7 @@ Cofnigure how the messenger behaves.
 
 ### Properties 
 
-- ***`logger?: Logger`*** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
+- ***`logger?: Logger | null`*** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
 
 ## `GetDataType`
 

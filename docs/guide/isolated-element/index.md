@@ -25,7 +25,7 @@ It will let you load UIs from content scripts without worrying about the page's 
 
 ###### NPM
 
-```ts
+```sh
 pnpm i @webext-core/isolated-element
 ```
 
