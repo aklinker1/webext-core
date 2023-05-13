@@ -38,8 +38,8 @@ export const alarms: BrowserOverrides['alarms'] = {
       name = arg0 ?? '';
       alarmInfo = arg1 as Alarms.CreateAlarmInfoType;
     }
-    const existing = alarmList.find(alarm => alarm.name === name);
-    if (existing) throw Error(`Alarm named "${name}" already exists`);
+    const i = alarmList.findIndex(alarm => alarm.name === name);
+    if (i >= 0) alarmList.splice(i, 1);
 
     alarmList.push({
       name,

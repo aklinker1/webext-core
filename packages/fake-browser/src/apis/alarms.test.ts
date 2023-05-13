@@ -32,13 +32,17 @@ describe('Fake Alarms API', () => {
     });
   });
 
-  it('should not allow creating an alarm with the same name', async () => {
+  it('should replace an existing alarm with the same name', async () => {
     const name = '1';
-    fakeBrowser.alarms.create(name, {});
+    fakeBrowser.alarms.create(name, { when: 1 });
+    fakeBrowser.alarms.create(name, { when: 2 });
 
-    expect(() => fakeBrowser.alarms.create(name, {})).toThrow(
-      `Alarm named "${name}" already exists`,
-    );
+    const alarm = await fakeBrowser.alarms.get(name);
+
+    expect(alarm).toEqual({
+      name,
+      scheduledTime: 2,
+    });
   });
 
   it('should allow creating a named alarm', async () => {
