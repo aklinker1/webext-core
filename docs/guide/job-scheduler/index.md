@@ -50,7 +50,7 @@ curl -o job-scheduler.js https://cdn.jsdelivr.net/npm/@webext-core/job-scheduler
 
 ## Usage
 
-`defineJobSchduler` should to be executed once in the background. It returns an object that can be used to schedule jobs or remove scheduled jobs.
+`defineJobSchduler` should to be executed once in the background. It returns an object that can be used to schedule or remove jobs.
 
 :::code-group
 
@@ -62,7 +62,7 @@ const jobs = defineJobScheduler();
 
 :::
 
-The call `jobs.scheduleJob` to schedule a new job. To see all the options for configuring jobs, see the [API reference](/api/job-scheduler).
+Once the job scheduler is created, call `scheduleJob`. To see all the options for configuring jobs, see the [API reference](/api/job-scheduler).
 
 :::code-group
 
@@ -103,14 +103,14 @@ jobs.scheduleJob({
 
 If a job has been created in the past, and nothing has changed, `scheduleJob` will do nothing. If something changed, it will update the job.
 
-To stop running a job, you'll need to call `removeJob`.
+To stop running a job, call `removeJob`.
 
 ```ts
 job.removeJob('some-old-job');
 ```
 
 :::warning
-This is especially important when releasing an update after removing a job you no longer want running - even if you're not calling `scheduleJob` anymore, if you don't call `removeJob`, the alarm managed internally for that job will not be deleted.
+This is especially important when releasing an update after removing a job that is no longer needed - even if `scheduleJob` isn't called anymore. If you don't call `removeJob`, the alarm managed internally for that job will not be deleted.
 :::
 
 ## Parameterized Jobs
@@ -146,7 +146,7 @@ function someJob(someDependency: SomeDependency) {
 
 You should only create one scheduler, and it should be created in the background page/service worker.
 
-To schedule jobs from the UI or content scripts, you can use [`@webext-core/proxy-service`](/guide/proxy-service/):
+To schedule jobs from a UI or content script, you can use [`@webext-core/proxy-service`](/guide/proxy-service/).
 
 :::code-group
 

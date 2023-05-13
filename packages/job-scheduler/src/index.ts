@@ -13,7 +13,7 @@ export interface Logger {
 }
 
 /**
- * Cofnigure how the messenger behaves.
+ * Configures how the job scheduler behaves.
  */
 export interface JobSchedulerConfig {
   /**
@@ -31,20 +31,19 @@ export interface JobSchedulerConfig {
 export type ExecuteFn = () => Promise<any> | any;
 
 /**
- * A job that executes on a set interval, starting when the job is scheduled.
+ * A job that executes on a set interval, starting when the job is scheduled for the first time.
  */
 export interface IntervalJob {
   id: string;
   type: 'interval';
   /**
    * Interval in milliseconds. Due to limitations of the alarms API, it must be greater than 1
-   * minute and it will be rounded to the nearest minute.
+   * minute.
    */
   duration: number;
   /**
    * Execute the job immediately when it is scheduled for the first time. If `false`, it will
-   * execute for the first time after `durationInMs`. This has no effect when updating an existing
-   * job.
+   * execute for the first time after `duration`. This has no effect when updating an existing job.
    *
    * @default false
    */

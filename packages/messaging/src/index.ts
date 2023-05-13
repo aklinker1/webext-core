@@ -11,7 +11,7 @@ export interface Logger {
 }
 
 /**
- * Cofnigure how the messenger behaves.
+ * Configure how the messenger behaves.
  */
 export interface ExtensionMessagingConfig {
   /**
