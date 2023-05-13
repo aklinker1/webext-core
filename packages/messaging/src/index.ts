@@ -19,7 +19,7 @@ export interface ExtensionMessagingConfig {
    *
    * @default console
    */
-  logger?: Logger;
+  logger?: Logger | null;
 }
 
 /**
