@@ -8,6 +8,11 @@ export interface Message<TType = string> {
 }
 
 export interface GenericMessagingConfig<TMessage, TSendMessageArgs extends any[]> {
+  /**
+   * The logger to use when logging messages. Set to `null` to disable logging.
+   *
+   * @default console
+   */
   logger?: Logger;
   sendMessage(message: Message, ...args: TSendMessageArgs): Promise<any>;
   addRootListener(

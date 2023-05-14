@@ -17,6 +17,10 @@ export type MaybePromise<T> = Promise<T> | T;
 /**
  * Used to add a return type to a message in the protocol map.
  *
+ * > Internally, this is just an object with random keys for the data and return types.
+ *
+ * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
+ *
  * @example
  * interface ProtocolMap {
  *   // data is a string, returns undefined
@@ -24,13 +28,22 @@ export type MaybePromise<T> = Promise<T> | T;
  *   // data is a string, returns a number
  *   type2: ProtocolWithReturn<string, number>;
  * }
- *
- * > Internally, this is just an object with random keys for the data and return types.
  */
-export type ProtocolWithReturn<TData, TReturn> = { BtVgCTPYZu: TData; RrhVseLgZW: TReturn };
+export interface ProtocolWithReturn<TData, TReturn> {
+  /**
+   * Stores the data type. Randomly named so that it isn't accidentally implemented.
+   */
+  BtVgCTPYZu: TData;
+  /**
+   * Stores the return type. Randomly named so that it isn't accidentally implemented.
+   */
+  RrhVseLgZW: TReturn;
+}
 
 /**
  * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type.
+ *
+ * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
  */
 export type GetDataType<T> = T extends (...args: infer Args) => any
   ? Args['length'] extends 0 | 1
@@ -42,6 +55,8 @@ export type GetDataType<T> = T extends (...args: infer Args) => any
 
 /**
  * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type.
+ *
+ * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
  */
 export type GetReturnType<T> = T extends (...args: any[]) => infer R
   ? R

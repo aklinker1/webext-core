@@ -7,10 +7,19 @@ interface RegisteredChangeListener<TSchema extends AnySchema> {
 }
 
 /**
- * Create a storage instance with an optional type schema.
+ * Create a storage instance with an optional schema, `TSchema`, for type safety.
  *
- * @arg storage Either `Browser.storage.local`, `Browser.storage.sync`, or
- *              `Browser.storage.managed`. This is the storage that will back the implementation.
+ * @param storage The storage to to use. Either `Browser.storage.local`, `Browser.storage.sync`, or `Browser.storage.managed`.
+ *
+ * @example
+ * import browser from 'webextension-polyfill';
+ *
+ * interface Schema {
+ *   installDate: number;
+ * }
+ * const extensionStorage = defineExtensionStorage<Schema>(browser.storage.local);
+ *
+ * const date = await extensionStorage.getItem("installDate");
  */
 export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
   storage: Storage.StorageArea,
@@ -83,18 +92,4 @@ export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
       return () => removeListener(listener);
     },
   };
-}
-
-function getStorageName(storage: Storage.StorageArea): 'local' | 'sync' | 'managed' {
-  switch (storage) {
-    case browser.storage.local:
-      return 'local';
-    case browser.storage.sync:
-      return 'sync';
-    case browser.storage.managed:
-      return 'managed';
-  }
-  throw Error(
-    'Unsupported storage area. local, sync, and managed are the only supporte storage areas.',
-  );
 }

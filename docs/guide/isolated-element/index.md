@@ -1,5 +1,8 @@
 ---
 titleTemplate: '@webext-core/isolated-element'
+next:
+  text: API Reference
+  link: /api/isolated-element
 ---
 
 # Isolated Element
@@ -20,9 +23,9 @@ It will let you load UIs from content scripts without worrying about the page's 
 
 ## Installation
 
-###### Bundler
+###### NPM
 
-```ts
+```sh
 pnpm i @webext-core/isolated-element
 ```
 
@@ -30,7 +33,7 @@ pnpm i @webext-core/isolated-element
 import { createIsolatedElement } from '@webext-core/isolated-element';
 ```
 
-###### Vanilla
+###### CDN
 
 ```sh
 curl -o isolated-element.js https://cdn.jsdelivr.net/npm/@webext-core/isolated-element/lib/index.global.js
@@ -92,11 +95,3 @@ import App from './App.tsx';
 
 ReactDOM.createRoot(isolatedElement).render(<App />);
 ```
-
-## Options
-
-| Option | Type                                           | Required |  Default   | Description                                                                                                             |
-| :----- | :--------------------------------------------- | :------: | :--------: | :---------------------------------------------------------------------------------------------------------------------- |
-| `name` | `string`                                       |    ✅    |            | A unique tag name used when defining the web component used internally. Don't use the same name twice for different UIs |
-| `css`  | `{ url: string }` or `{ textContent: string }` |          |            | Either the URL to a CSS file or the text contents of a CSS file                                                         |
-| `mode` | `"open"` or `"closed"`                         |          | `"closed"` | See [`ShadowRoot.mode`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/mode)                               |

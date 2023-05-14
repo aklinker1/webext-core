@@ -33,4 +33,4 @@ console.log(length); // 11
 
 ## Get Started
 
-See [documentation](https://webext-core.aklinker1.io/messaging) to get started!
+See [documentation](https://webext-core.aklinker1.io/guide/messaging/) to get started!

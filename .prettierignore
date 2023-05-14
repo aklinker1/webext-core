@@ -3,3 +3,4 @@ dist/
 lib/
 pnpm-lock.yaml
 /docs/.vitepress/cache
+/docs/api/*

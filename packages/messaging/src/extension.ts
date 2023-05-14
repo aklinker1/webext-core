@@ -2,6 +2,9 @@ import Browser, { Runtime } from 'webextension-polyfill';
 import { GenericMessagingConfig, Message, defineGenericMessanging } from './generic';
 import { RemoveListenerCallback } from '.';
 
+/**
+ * Configure how the messenger behaves.
+ */
 export interface ExtensionMessagingConfig<TMessage>
   extends Pick<GenericMessagingConfig<TMessage, ExtensionSendMessageArgs>, 'logger'> {}
 
