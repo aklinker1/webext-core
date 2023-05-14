@@ -1,4 +1,4 @@
-import { GenericMessenger, Message, defineGenericMessanging } from './generic';
+import { GenericMessenger, defineGenericMessanging } from './generic';
 import { BaseMessagingConfig } from './types';
 
 const REQUEST_EVENT = '@webext-core/messaging/custom-events';
