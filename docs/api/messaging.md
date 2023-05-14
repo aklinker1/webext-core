@@ -32,7 +32,7 @@ interface ExtensionMessagingConfig {
 }
 ```
 
-Cofnigure how the messenger behaves.
+Configure how the messenger behaves.
 
 ### Properties 
 
@@ -110,7 +110,7 @@ Unlike the regular `chrome.runtime` messaging APIs, there are no limitations to 
 ## `ProtocolWithReturn`
 
 :::danger Deprecated
-Use the function syntax instead: <https://webext-core.aklinker1.io/messaging/protocol-maps.html#syntax>
+Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
 :::
 
 ```ts

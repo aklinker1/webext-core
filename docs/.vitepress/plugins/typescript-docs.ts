@@ -5,6 +5,104 @@ import { Listr, ListrTask, ListrTaskWrapper } from 'listr2';
 import { Project, Symbol, SourceFile, Node, ts, JSDocableNode, JSDoc } from 'ts-morph';
 import * as prettier from 'prettier';
 import chokidar from 'chokidar';
+import { defineConfig } from 'vitepress';
+import { parseHTML } from 'linkedom';
+
+export function defineTypescriptDocs(packageDirnames: string[]) {
+  const ctx: Ctx = {
+    watchers: [],
+    symbolMap: {},
+  };
+
+  function plugin(): Plugin {
+    let mode: 'build' | 'serve';
+    let hasGenerated = false;
+
+    return {
+      name: 'generate-ts-docs',
+      configResolved(config) {
+        mode = config.command;
+      },
+      async buildStart() {
+        if (hasGenerated) return;
+        hasGenerated = true;
+
+        const allPackages = await getPackages();
+        await generateAll(ctx, allPackages, mode, mode === 'serve');
+      },
+      async buildEnd() {
+        removeWatchListeners(ctx);
+      },
+    };
+  }
+
+  return defineConfig({
+    ignoreDeadLinks: [/^\/api\/.*/],
+
+    vite: {
+      plugins: [plugin()],
+      define: {
+        __PACKAGES__: JSON.stringify(packageDirnames),
+      },
+    },
+
+    transformHtml(code, id) {
+      const [_, thisPkg] = id.match(/\/api\/(.*)\.html$/) ?? [];
+      if (!thisPkg) return;
+
+      const { document } = parseHTML(code);
+      /**
+       * Creates an anchor element to a symbol's package.
+       */
+      const createLink = (
+        symbolName: string,
+        thisPkg: string,
+        packages: string[],
+      ): HTMLAnchorElement => {
+        const a = document.createElement('a');
+        a.textContent = symbolName;
+        if (packages.includes(thisPkg)) {
+          a.href = '#' + symbolName.toLowerCase();
+        } else {
+          a.href = `/api/${packages[0]}#${symbolName.toLowerCase()}`;
+        }
+        return a;
+      };
+
+      // Code blocks - same text color, underlined
+      document.querySelectorAll('pre span').forEach(span => {
+        Object.entries(ctx.symbolMap).forEach(([symbolName, packages]) => {
+          if (span.textContent !== symbolName) return;
+
+          const a = createLink(symbolName, thisPkg, packages);
+          a.style.color = 'inherit';
+          a.style.textDecoration = 'underline';
+          span.replaceChildren(a);
+        });
+      });
+
+      // Inline code - primary color, underlined links
+      document.querySelectorAll('p code, li code').forEach(block =>
+        Object.entries(ctx.symbolMap).forEach(([symbolName, packages]) => {
+          // Look for matching full word
+          if (
+            !block.textContent
+              ?.replace(/[.,\/#!$%\^&\*;:{}=\-_`~()]/g, '')
+              .split(/\s+/)
+              .includes(symbolName)
+          )
+            return;
+
+          const a = createLink(symbolName, thisPkg, packages);
+          a.style.textDecoration = 'underline';
+          block.innerHTML = block.innerHTML.replace(symbolName, a.outerHTML);
+        }),
+      );
+
+      return document.toString();
+    },
+  });
+}
 
 type Plugin = NonNullable<NonNullable<UserConfig['vite']>['plugins']>[0];
 type SymbolLinks = { [symbolName: string]: string };
@@ -25,28 +123,6 @@ const EXCLUDED_SYMBOLS = [
   'TData',
   'TReturn',
 ];
-
-export function typescriptDocs(): Plugin {
-  const ctx: Ctx = {
-    watchers: [],
-    symbolMap: {},
-  };
-  let mode: 'build' | 'serve';
-
-  return {
-    name: 'typescript-docs',
-    configResolved(config) {
-      mode = config.command;
-    },
-    async buildStart() {
-      const allPackages = await getPackages();
-      await generateAll(ctx, allPackages, mode, mode === 'serve');
-    },
-    async buildEnd() {
-      removeWatchListeners(ctx);
-    },
-  };
-}
 
 /**
  * context passed into each task
