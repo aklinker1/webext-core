@@ -1,37 +1,62 @@
 import Browser, { Runtime } from 'webextension-polyfill';
-import { GenericMessagingConfig, Message, defineGenericMessanging } from './generic';
-import { RemoveListenerCallback } from '.';
+import { GenericMessenger, defineGenericMessanging } from './generic';
+import { BaseMessagingConfig } from './types';
 
 /**
- * Configure how the messenger behaves.
+ * Configuration passed into `defineExtensionMessaging`.
  */
-export interface ExtensionMessagingConfig<TMessage>
-  extends Pick<GenericMessagingConfig<TMessage, ExtensionSendMessageArgs>, 'logger'> {}
+export interface ExtensionMessagingConfig extends BaseMessagingConfig {}
 
-export interface ExtensionMessage<TType = string> extends Message<TType> {
+/**
+ * Additional fields available on the `Message` from an `ExtensionMessenger`.
+ */
+export interface ExtensionMessage {
+  /**
+   * Information about where the message came from. See
+   * [`Runtime.MessageSender`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/MessageSender).
+   */
   sender: Runtime.MessageSender;
 }
 
-export type ExtensionSendMessageArgs = [tabId?: number];
+/**
+ * Send messsage accepts an additional, optional argument `tabId`. Pass it to send a message to a
+ * specific tab from the background script.
+ *
+ * You cannot message between tabs directly. It must go through the background script.
+ */
+export type ExtensionSendMessageArgs = [
+  /**
+   * The tab to send a message to.
+   */
+  tabId?: number,
+];
 
-export function defineExtensionMessaging<TProtocolMap = Record<string, any>>(
-  config?: ExtensionMessagingConfig<ExtensionMessage>,
-) {
-  return defineGenericMessanging<
-    TProtocolMap,
-    ExtensionMessage<keyof TProtocolMap>,
-    ExtensionSendMessageArgs
-  >({
+/**
+ * Messenger returned by `defineExtensionMessaging`.
+ */
+export type ExtensionMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
+  TProtocolMap,
+  ExtensionMessage,
+  ExtensionSendMessageArgs
+>;
+
+/**
+ * Returns an `ExtensionMessenger` that is backed by the `browser.runtime.sendMessage` and
+ * `browser.tabs.sendMessage` APIs.
+ *
+ * It can be used to send messages to and from the background page/service worker.
+ */
+export function defineExtensionMessaging<
+  TProtocolMap extends Record<string, any> = Record<string, any>,
+>(config?: ExtensionMessagingConfig): ExtensionMessenger<TProtocolMap> {
+  return defineGenericMessanging({
     ...config,
     sendMessage(message, tabId) {
       if (tabId == null) return Browser.runtime.sendMessage(message);
       return Browser.tabs.sendMessage(tabId, message);
     },
     addRootListener(processMessage) {
-      const listener = (
-        message: ExtensionMessage<keyof TProtocolMap>,
-        sender: Runtime.MessageSender,
-      ) => {
+      const listener = (message: any, sender: Runtime.MessageSender) => {
         if (typeof message === 'object') return processMessage({ ...message, sender });
         else return processMessage(message);
       };

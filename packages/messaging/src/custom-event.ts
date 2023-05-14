@@ -1,20 +1,70 @@
-import { GenericMessagingConfig, Message, defineGenericMessanging } from './generic';
+import { GenericMessenger, Message, defineGenericMessanging } from './generic';
+import { BaseMessagingConfig } from './types';
 
 const REQUEST_EVENT = '@webext-core/messaging/custom-events';
 const RESPONSE_EVENT = '@webext-core/messaging/custom-events/response';
 
-export interface CustomEventMessagingConfig<TMessage>
-  extends Pick<GenericMessagingConfig<TMessage, []>, 'logger'> {}
-
-export type CustomEventWithMessage<TType> = Omit<CustomEvent<Message<TType>>, 'detail'>;
-
-export interface CustomEventMessage<TType = string> extends Message<TType> {
-  event: Omit<CustomEvent<Message<TType>>, 'detail'>;
+/**
+ * Configuration passed into `defineCustomEventMessaging`.
+ */
+export interface CustomEventMessagingConfig extends BaseMessagingConfig {
+  /**
+   * A string used to ensure the messenger only sends messages to and listens for messages from
+   * other custom event messengers with the same namespace. Defaults to the extension's ID, which is
+   * unique. This prevents `onMessage` from being fired from other extensions or the webpage a
+   * content script is ran on.
+   *
+   * @default browser.runtime.id
+   */
+  namespace?: string;
 }
 
-export function defineCustomEventMessaging<TProtocolMap = Record<string, any>>(
-  config?: CustomEventMessagingConfig<CustomEventMessage>,
-) {
+/**
+ * Additional fields available on the `Message` from a `CustomEventMessenger`.
+ */
+export interface CustomEventMessage {
+  /**
+   * The event that was fired, resulting in the message being passed.
+   */
+  event: CustomEvent;
+}
+
+/**
+ * Messenger returned by `defineCustomEventMessenger`.
+ */
+export type CustomEventMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
+  TProtocolMap,
+  CustomEventMessage,
+  []
+>;
+
+/**
+ * Creates a `CustomEventMessenger`. This messenger is backed by the `CustomEvent` APIs. It can be
+ * used to communicate between:
+ *
+ * - Content script and website
+ * - Content script and injected script
+ *
+ * `sendMessage` does not accept any additional arguments..
+ *
+ * @example
+ * interface WebsiteMessengerSchema {
+ *   initInjectedScript(data: ...): void;
+ * }
+ *
+ * export const websiteMessenger = defineCustomEventMessenger<initInjectedScript>();
+ *
+ * // Content script
+ * websiteMessenger.sendMessage("initInjectedScript", ...);
+ *
+ * // Injected script
+ * websiteMessenger.onMessage("initInjectedScript", (...) => {
+ *   // ...
+ * })
+ */
+export function defineCustomEventMessaging<
+  TProtocolMap extends Record<string, any> = Record<string, any>,
+>(config?: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   const sendCustomMessage = (event: CustomEvent) =>
     new Promise(res => {
       const responseListener = (e: Event) => {
@@ -26,7 +76,7 @@ export function defineCustomEventMessaging<TProtocolMap = Record<string, any>>(
       window.dispatchEvent(event);
     });
 
-  return defineGenericMessanging<TProtocolMap, CustomEventMessage<keyof TProtocolMap>, []>({
+  return defineGenericMessanging({
     ...config,
 
     sendMessage(message) {

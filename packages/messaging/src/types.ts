@@ -42,8 +42,6 @@ export interface ProtocolWithReturn<TData, TReturn> {
 
 /**
  * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type.
- *
- * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
  */
 export type GetDataType<T> = T extends (...args: infer Args) => any
   ? Args['length'] extends 0 | 1
@@ -55,8 +53,6 @@ export type GetDataType<T> = T extends (...args: infer Args) => any
 
 /**
  * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type.
- *
- * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
  */
 export type GetReturnType<T> = T extends (...args: any[]) => infer R
   ? R
@@ -70,3 +66,37 @@ export type GetReturnType<T> = T extends (...args: any[]) => infer R
  * If the listener has already been removed with `Messenger.removeAllListeners`, this is a noop.
  */
 export type RemoveListenerCallback = () => void;
+
+/**
+ * Shared configuration between all the different messengers.
+ */
+export interface BaseMessagingConfig {
+  /**
+   * The logger to use when logging messages. Set to `null` to disable logging.
+   *
+   * @default console
+   */
+  logger?: Logger;
+}
+
+/**
+ * Contains information about the message recieved.
+ */
+export interface Message<
+  TProtocolMap extends Record<string, any>,
+  TType extends keyof TProtocolMap,
+> {
+  /**
+   * A semi-unique, auto-incrementing number used to trace messages being sent.
+   */
+  id: number;
+  /**
+   * The data that was passed into `sendMessage`
+   */
+  data: GetDataType<TProtocolMap[TType]>;
+  type: TType;
+  /**
+   * The timestamp the message was sent in MS since epoch.
+   */
+  timestamp: number;
+}

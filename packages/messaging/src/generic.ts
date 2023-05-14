@@ -1,50 +1,93 @@
-import { RemoveListenerCallback, GetDataType, GetReturnType, Logger, MaybePromise } from './types';
+import {
+  RemoveListenerCallback,
+  GetDataType,
+  GetReturnType,
+  MaybePromise,
+  BaseMessagingConfig,
+  Message,
+} from './types';
 
-export interface Message<TType = string> {
-  id: number;
-  type: TType;
-  data: any;
-  timestamp: number;
-}
-
-export interface GenericMessagingConfig<TMessage, TSendMessageArgs extends any[]> {
-  /**
-   * The logger to use when logging messages. Set to `null` to disable logging.
-   *
-   * @default console
-   */
-  logger?: Logger;
-  sendMessage(message: Message, ...args: TSendMessageArgs): Promise<any>;
+/**
+ * Config required to call `defineGenericMessenger`.
+ */
+interface GenericMessagingConfig<
+  TProtocolMap extends Record<string, any>,
+  TMessageExtension,
+  TSendMessageArgs extends any[],
+> extends BaseMessagingConfig {
+  sendMessage<TType extends keyof TProtocolMap>(
+    message: Message<TProtocolMap, TType>,
+    ...args: TSendMessageArgs
+  ): Promise<any>;
   addRootListener(
-    processMessage: (message: TMessage) => void | Promise<{ res: any } | { err: unknown }>,
+    processMessage: (
+      message: Message<TProtocolMap, any> & TMessageExtension,
+    ) => void | Promise<{ res: any } | { err: unknown }>,
   ): RemoveListenerCallback;
 }
 
-export interface GenericMessenger<TProtocolMap, TSendMessageArgs extends any[]> {
+/**
+ * Messaging interface shared by all messengers.
+ *
+ * Type parameters accept:
+ * - `TProtocolMap` to define the data and return types of messages.
+ * - `TMessageExtension` to define additional fields that are available on a message inside
+ *    `onMessage`'s callback
+ * - `TSendMessageArgs` to define a list of additional arguments for `sendMessage`
+ */
+export interface GenericMessenger<
+  TProtocolMap extends Record<string, any>,
+  TMessageExtension,
+  TSendMessageArgs extends any[],
+> {
+  /**
+   * Send a message to the background or a specific tab if `tabId` is passed. You can call this
+   * function anywhere in your extension.
+   *
+   * If you haven't setup a listener for the sent `type`, an error will be thrown.
+   *
+   * @param type The message type being sent. Call `onMessage` with the same type to listen for that message.
+   * @param data The data to send with the message.
+   * @param args Different messengers will have additional arguments to configure how a message gets sent.
+   */
   sendMessage<TType extends keyof TProtocolMap>(
     type: TType,
     data: GetDataType<TProtocolMap[TType]>,
     ...args: TSendMessageArgs
   ): Promise<GetReturnType<TProtocolMap[TType]>>;
 
-  onMessage<TType extends keyof TProtocolMap, TMessage extends Message<TType>>(
+  /**
+   * Trigger a callback when a message of the requested type is recieved. You cannot setup multiple
+   * listeners for the same message type in the same JS context.
+   *
+   * To remove the listener, call the returned message.
+   *
+   * @param type The message type to listen for. Call `sendMessage` with the same type to triggern this listener.
+   * @param onReceived The callback executed when a message is recieved.
+   */
+  onMessage<TType extends keyof TProtocolMap>(
     type: TType,
-    onReceived: (message: TMessage) => void | MaybePromise<GetReturnType<TProtocolMap[TType]>>,
+    onReceived: (
+      message: Message<TProtocolMap, TType> & TMessageExtension,
+    ) => void | MaybePromise<GetReturnType<TProtocolMap[TType]>>,
   ): RemoveListenerCallback;
 
+  /**
+   * Removes all listeners.
+   */
   removeAllListeners(): void;
 }
 
 export function defineGenericMessanging<
-  TProtocolMap = Record<string, any>,
-  TMessage extends Message<keyof TProtocolMap> = Message<keyof TProtocolMap>,
+  TProtocolMap extends Record<string, any>,
+  TMessageExtension,
   TSendMessageArgs extends any[] = [],
 >(
-  config: GenericMessagingConfig<TMessage, TSendMessageArgs>,
-): GenericMessenger<TProtocolMap, TSendMessageArgs> {
+  config: GenericMessagingConfig<TProtocolMap, TMessageExtension, TSendMessageArgs>,
+): GenericMessenger<TProtocolMap, TMessageExtension, TSendMessageArgs> {
   let removeRootListener: RemoveListenerCallback | undefined;
   let perTypeListeners: {
-    [t in keyof TProtocolMap]+?: (message: TMessage) => void | Promise<any>;
+    [t in keyof TProtocolMap]+?: (message: TMessageExtension) => void | Promise<any>;
   } = {};
 
   function cleanupRootListener() {
@@ -60,10 +103,14 @@ export function defineGenericMessanging<
   }
 
   return {
-    async sendMessage(type, data, ...args): Promise<any> {
-      const message: Message = {
+    async sendMessage<TType extends keyof TProtocolMap>(
+      type: TType,
+      data: TProtocolMap[TType],
+      ...args: TSendMessageArgs
+    ): Promise<any> {
+      const message: Message<TProtocolMap, TType> = {
         id: getNextId(),
-        type: type as string,
+        type: type,
         data,
         timestamp: Date.now(),
       };

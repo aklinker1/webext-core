@@ -114,6 +114,7 @@ const EXTERNAL_SYMBOLS: SymbolLinks = {
     'https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea',
   StorageArea:
     'https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea',
+  CustomEvent: 'https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent',
 };
 
 const EXCLUDED_SYMBOLS = [
