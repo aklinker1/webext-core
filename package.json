@@ -8,7 +8,6 @@
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "docs:test": "vitest -r docs",
-    "docs:generate": "typedoc --plugin typedoc-plugin-markdown",
     "build": "turbo run build",
     "prepare": "husky install"
   },
@@ -28,5 +27,8 @@
     "vitepress": "1.0.0-alpha.75",
     "vitest": "^0.29.2",
     "webextension-polyfill": "^0.10.0"
+  },
+  "dependencies": {
+    "linkedom": "^0.14.26"
   }
 }

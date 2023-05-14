@@ -1,5 +1,5 @@
 import { defineConfig } from 'vitepress';
-import { typescriptDocs } from './plugins/typescript-docs';
+import { defineTypescriptDocs } from './plugins/typescript-docs';
 
 const ogDescription = 'Next Generation Frontend Tooling';
 const ogTitle = 'Web Ext Core';
@@ -93,17 +93,10 @@ const apiItemGroup = {
 };
 
 export default defineConfig({
+  ...defineTypescriptDocs(packageDirnames),
+
   title: `Web Ext Core`,
   description: 'Web Extension Development Made Easy',
-
-  ignoreDeadLinks: [/^\/api\/.*/],
-
-  vite: {
-    plugins: [typescriptDocs()],
-    define: {
-      __PACKAGES__: JSON.stringify(packageDirnames),
-    },
-  },
 
   head: [
     ['link', { rel: 'icon', type: 'image/svg+xml', href: '/logo.svg' }],
