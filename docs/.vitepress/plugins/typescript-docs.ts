@@ -95,7 +95,6 @@ export function defineTypescriptDocs(packageDirnames: string[]) {
 
           const a = createLink(symbolName, thisPkg, packages);
           a.style.textDecoration = 'underline';
-          console.log(block.innerHTML, '->', a.outerHTML);
           block.innerHTML = block.innerHTML.replace(symbolName, a.outerHTML);
         }),
       );
