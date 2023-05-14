@@ -123,6 +123,7 @@ const EXCLUDED_SYMBOLS = [
   // Generic type params
   'TData',
   'TReturn',
+  'TType',
 ];
 
 /**

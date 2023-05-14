@@ -272,9 +272,12 @@ async.
 ## `Message`
 
 ```ts
-interface Message<TProtocolMap extends Record<string, any>> {
+interface Message<
+  TProtocolMap extends Record<string, any>,
+  TType extends keyof TProtocolMap
+> {
   id: number;
-  data: TProtocolMap[TType];
+  data: GetDataType<TProtocolMap[TType]>;
   type: TType;
   timestamp: number;
 }
@@ -286,7 +289,7 @@ Contains information about the message recieved.
 
 - ***`id: number`***<br/>A semi-unique, auto-incrementing number used to trace messages being sent.
 
-- ***`data: TProtocolMap[TType]`***<br/>The data that was passed into `sendMessage`
+- ***`data: GetDataType<TProtocolMap[TType]>`***<br/>The data that was passed into `sendMessage`
 
 - ***`type: TType`***
 
