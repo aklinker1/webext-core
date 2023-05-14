@@ -1,5 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
-import { defineExtensionMessaging, ProtocolWithReturn } from '.';
+import { MaybePromise, ProtocolWithReturn } from './types';
+import { defineExtensionMessaging } from './extension';
 
 describe('Messenger Typing', () => {
   it('should use any for data and return type when a protocol map is not passed', () => {
@@ -10,7 +11,7 @@ describe('Messenger Typing', () => {
     expectTypeOf(sendMessage).returns.resolves.toBeAny();
 
     expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeAny();
-    expectTypeOf(onMessage).parameter(1).returns.toBeAny();
+    expectTypeOf(onMessage).parameter(1).returns.toMatchTypeOf<void | MaybePromise<any>>();
   });
 
   it('should support basic values representing the data type and no return type', () => {
