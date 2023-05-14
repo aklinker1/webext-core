@@ -6,7 +6,7 @@ titleTemplate: Web Extensions Made Easy
 
 hero:
   name: Web Ext Core
-  tagline: Core libraries for developing web extensions on all browsers.
+  tagline: Core libraries to develop web extensions for all browsers.
   image:
     src: /logo-with-shadow.png
     alt: Vite
@@ -30,7 +30,7 @@ features:
   - icon: 👷
     title: '@webext-core/job-scheduler'
     link: /guide/job-scheduler/
-    details: Easily schedule and manage reoccuring jobs
+    details: Easily schedule and manage reoccuring jobs.
   - icon: 🚍
     title: '@webext-core/proxy-service'
     link: /guide/proxy-service/
@@ -43,7 +43,10 @@ features:
     title: '@webext-core/fake-browser'
     link: /guide/fake-browser/
     details: An in-memory implementation of webextension-polyfill for testing.
-  # - icon: 🚀
-  #   title: 'COMING SOON: @webext-core/publish'
-  #   details: Publish your extension to the various stores.
+  - icon: 🚀
+    title: 'COMING SOON: @webext-core/publish'
+    details: Publish your extension to the various stores, with full support for Firefox source code uploads.
+    link: https://github.com/aklinker1/publish-browser-extension
+  - {}
+  - {}
 ---
