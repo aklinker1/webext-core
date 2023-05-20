@@ -1,35 +1,47 @@
-export function parseMatchPattern(matchPattern: string): MatchPattern {
-  if (matchPattern === '<all_urls>') return new MatchPattern(MatchPattern.PROTOCOLS, '*', '*');
-
-  const groups = /(.*):\/\/(.*?)(\/.*)/.exec(matchPattern);
-  if (groups == null) throw new InvalidMatchPattern(matchPattern, 'Incorrect format');
-
-  const [_, protocol, hostname, pathname] = groups;
-  validateProtocol(matchPattern, protocol);
-  validateHostname(matchPattern, hostname);
-  validatePathname(matchPattern, pathname);
-
-  const protocols = protocol === '*' ? ['http', 'https'] : [protocol];
-  return new MatchPattern(protocols, hostname, pathname);
-}
-
-class MatchPattern {
+/**
+ * Class for parsing and performing operations on match patterns.
+ *
+ * @example
+ * const pattern = new MatchPattern("*://google.com/*");
+ *
+ * pattern.includes("https://google.com");            // true
+ * pattern.includes("http://youtube.com/watch?v=123") // false
+ */
+export class MatchPattern {
   static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn'];
 
-  constructor(
-    private protocolMatches: string[],
-    private hostnameMatch: string | undefined,
-    private pathnameMatch: string | undefined,
-  ) {}
+  private protocolMatches: string[];
+  private hostnameMatch: string | undefined;
+  private pathnameMatch: string | undefined;
+
+  /**
+   * Parse a match pattern string. If it is invalid, the constructor will throw an
+   * `InvalidMatchPattern` error.
+   *
+   * @param matchPattern The match pattern to parse.
+   */
+  constructor(matchPattern: string) {
+    if (matchPattern === '<all_urls>') {
+      this.protocolMatches = [...MatchPattern.PROTOCOLS];
+      this.hostnameMatch = '*';
+      this.pathnameMatch = '*';
+    } else {
+      const groups = /(.*):\/\/(.*?)(\/.*)/.exec(matchPattern);
+      if (groups == null) throw new InvalidMatchPattern(matchPattern, 'Incorrect format');
+
+      const [_, protocol, hostname, pathname] = groups;
+      validateProtocol(matchPattern, protocol);
+      validateHostname(matchPattern, hostname);
+      validatePathname(matchPattern, pathname);
+
+      this.protocolMatches = protocol === '*' ? ['http', 'https'] : [protocol];
+      this.hostnameMatch = hostname;
+      this.pathnameMatch = pathname;
+    }
+  }
 
   /**
    * Check if a URL is included in a pattern.
-   *
-   * @example
-   * const pattern = parseMatchPattern("*://google.com/*");
-   *
-   * pattern.includes("https://google.com");            // true
-   * pattern.includes("http://youtube.com/watch?v=123") // false
    */
   includes(url: string | URL | Location): boolean {
     const u: URL =
