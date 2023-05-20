@@ -459,20 +459,20 @@ function getTypeDeclarations(project: Project, symbol: Symbol): string[] {
           .inlineBlock(() => {
             dec.getStaticMethods().forEach(method => {
               if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-              w.writeLine(method.getText().replace(method.getBodyText() ?? '', ''));
+              w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
             });
             dec.getConstructors().forEach(con => {
               if (con.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
               w.writeLine(
                 con
                   .getText()
-                  .replace(con.getBodyText() ?? '', '')
+                  .replace(con.getBodyText() ?? '', '// ...')
                   .replace(/(private|readonly) /g, ''),
               );
             });
             dec.getMethods().forEach(method => {
               if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-              w.writeLine(method.getText().replace(method.getBodyText() ?? '', ''));
+              w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
             });
           });
         return w.toString();

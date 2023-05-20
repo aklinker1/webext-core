@@ -10,6 +10,7 @@ const packageDirnames = [
   'messaging',
   'job-scheduler',
   'proxy-service',
+  'match-patterns',
   'isolated-element',
   'fake-browser',
 ];

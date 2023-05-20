@@ -12,7 +12,9 @@ The entire API reference is also available in your editor via [JSDocs](https://j
 
 ```ts
 class InvalidMatchPattern extends Error {
-  constructor(matchPattern: string, reason: string) {}
+  constructor(matchPattern: string, reason: string) {
+    // ...
+  }
 }
 ```
 
@@ -20,21 +22,24 @@ class InvalidMatchPattern extends Error {
 
 ```ts
 class MatchPattern {
-  constructor(
-    protocolMatches: string[],
-    hostnameMatch: string | undefined,
-    pathnameMatch: string | undefined
-  ) {}
-  includes(url: string | URL | Location): boolean {}
+  constructor(matchPattern: string) {
+    // ...
+  }
+  includes(url: string | URL | Location): boolean {
+    // ...
+  }
 }
 ```
 
-## `parseMatchPattern`
+Class for parsing and performing operations on match patterns.
+
+### Examples
 
 ```ts
-function parseMatchPattern(matchPattern: string): MatchPattern {
-  // ...
-}
+const pattern = new MatchPattern("*://google.com/*");
+
+pattern.includes("https://google.com");            // true
+pattern.includes("http://youtube.com/watch?v=123") // false
 ```
 
 <br/><br/>

@@ -1,12 +1,12 @@
 // @vitest-environment jsdom
 import { describe, it, expect } from 'vitest';
-import { InvalidMatchPattern, parseMatchPattern } from './index';
+import { InvalidMatchPattern, MatchPattern } from './index';
 
-describe('parseMatchPattern', () => {
+describe('MatchPattern', () => {
   it.each(['', '<all_url>', '*://*', '*', 'test://*/*'])(
     'should throw an error for invalid pattern "%s"',
     pattern => {
-      expect(() => parseMatchPattern(pattern)).toThrowError(InvalidMatchPattern);
+      expect(() => new MatchPattern(pattern)).toThrowError(InvalidMatchPattern);
     },
   );
 
@@ -17,7 +17,7 @@ describe('parseMatchPattern', () => {
         [true, new URL('https://youtube.com')],
         [true, { hostname: 'test.com', pathname: '/', protocol: 'http:' } as Location],
       ])('should parse "%s", when "%s" is checked, return %s', (exepcted, url) => {
-        expect(parseMatchPattern('<all_urls>').includes(url)).toBe(exepcted);
+        expect(new MatchPattern('<all_urls>').includes(url)).toBe(exepcted);
       });
     });
 
@@ -29,7 +29,7 @@ describe('parseMatchPattern', () => {
         ['*://google.com/search', 'ftp://google.com/search', false],
         ['*://google.com/search', 'urn://google.com/search', false],
       ])('should parse "%s", when "%s" is checked, return %s', (pattern, url, exepcted) => {
-        expect(parseMatchPattern(pattern).includes(url)).toBe(exepcted);
+        expect(new MatchPattern(pattern).includes(url)).toBe(exepcted);
       });
     });
 
@@ -42,7 +42,7 @@ describe('parseMatchPattern', () => {
         [`${protocol}://*.google.com/search`, `${protocol}://www.google.com/search`, true],
         [`${protocol}://*.google.com/search`, `${protocol}://images.google.com/search`, true],
       ])('should parse "%s", when "%s" is checked, return %s', (pattern, url, exepcted) => {
-        expect(parseMatchPattern(pattern).includes(url)).toBe(exepcted);
+        expect(new MatchPattern(pattern).includes(url)).toBe(exepcted);
       });
     });
   });
