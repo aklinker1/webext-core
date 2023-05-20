@@ -31,6 +31,10 @@ features:
     title: '@webext-core/job-scheduler'
     link: /guide/job-scheduler/
     details: Easily schedule and manage reoccuring jobs.
+  - icon: 👍
+    title: '@webext-core/match-patterns'
+    link: /guide/match-patterns/
+    details: Utilities for working with match patterns
   - icon: 🚍
     title: '@webext-core/proxy-service'
     link: /guide/proxy-service/
@@ -47,6 +51,5 @@ features:
     title: 'COMING SOON: @webext-core/publish'
     details: Publish your extension to the various stores, with full support for Firefox source code uploads.
     link: https://github.com/aklinker1/publish-browser-extension
-  - {}
   - {}
 ---

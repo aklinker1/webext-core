@@ -115,6 +115,25 @@ importers:
       typescript: 4.8.4
       vitest: 0.24.5
 
+  packages/match-patterns:
+    specifiers:
+      '@vitest/coverage-c8': ^0.24.5
+      '@webcomponents/webcomponentsjs': ^2.7.0
+      jsdom: ^20.0.3
+      tsconfig: workspace:*
+      tsup: ^6.4.0
+      typescript: ^4.8.4
+      vitest: ^0.24.5
+    dependencies:
+      '@webcomponents/webcomponentsjs': 2.7.0
+    devDependencies:
+      '@vitest/coverage-c8': 0.24.5_jsdom@20.0.3
+      jsdom: 20.0.3
+      tsconfig: link:../tsconfig
+      tsup: 6.4.0_typescript@4.8.4
+      typescript: 4.8.4
+      vitest: 0.24.5_jsdom@20.0.3
+
   packages/messaging:
     specifiers:
       '@types/webextension-polyfill': ^0.9.1

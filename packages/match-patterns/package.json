@@ -1,0 +1,62 @@
+{
+  "name": "@webext-core/match-patterns",
+  "version": "1.0.0",
+  "description": "Utilities for working with match patterns.",
+  "license": "MIT",
+  "keywords": [
+    "web-extension",
+    "browser-extension",
+    "chrome-extension",
+    "webext",
+    "web-ext",
+    "chrome",
+    "firefox",
+    "safari",
+    "browser",
+    "extension",
+    "match",
+    "pattern",
+    "content",
+    "script"
+  ],
+  "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/match-patterns",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aklinker1/webext-core",
+    "directory": "packages/match-patterns"
+  },
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMatchPatterns",
+    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/match-patterns^...",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "compile": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@webcomponents/webcomponentsjs": "^2.7.0"
+  },
+  "devDependencies": {
+    "@vitest/coverage-c8": "^0.24.5",
+    "jsdom": "^20.0.3",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.4.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5"
+  }
+}
