@@ -154,7 +154,9 @@ In general, if you don't need to communicate with iframes, use `defineCustomEven
 If you need to communicate with iframes, use `defineWindowMessaging`.
 :::
 
-Then they can be used in the same way as the extension messenger:
+Then they can be used in the same way as the extension messenger, with `sendMessage` and `onMessage`.
+
+Here, we're injecting a script, initializing it with data, and allowing the script to send data back to our content script.
 
 :::code-group
 
@@ -171,7 +173,7 @@ script.onload = () => {
 
 websiteMessenger.onMessage("somethingHappened", (data) => {
   // Do something with the update data
-})
+});
 ```
 
 ```ts [Injected script]
