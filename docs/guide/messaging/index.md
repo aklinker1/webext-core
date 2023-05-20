@@ -14,7 +14,7 @@ titleTemplate: '@webext-core/messaging'
 
 ## Overview
 
-`@webext-core/messaging` a simplified, type-safe wrapper around the web extension messaging APIs.
+`@webext-core/messaging` a simplified, type-safe wrapper around the web extension messaging APIs. It also provides a similar interface for communicating with web pages or injected scripts.
 
 > Don't like lower-level messaging APIs? Try out [`@webext-core/proxy-service`](/guide/proxy-service/) for a more DX-friendly approach to executing code in the background script.
 
@@ -115,6 +115,74 @@ onMessage('getStringLength', message => {
 import { sendMessage } from './messaging';
 
 const length = await sendMessage('getStringLength', 'hello world', tabId);
+```
+
+:::
+
+## Window Messaging
+
+Inside a content script, you may need to communicate with webpage or an injected script running in the page's JS context. In this case, you can use `defineWindowMessenger` or `defineCustomEventMessenger`, which use the `window.postMessage` and `CustomEvent` APIs respectively.
+
+:::code-group
+
+```ts [Window]
+import { defineWindowMessaging } from '@webext-core/messaging';
+
+export interface WebsiteMessengerSchema {
+  init(data: unknown): void;
+}
+
+export const websiteMessenger = defineWindowMessaging<WebsiteMessengerSchema>();
+```
+
+```ts [Custom Event]
+import { defineCustomEventMessaging } from '@webext-core/messaging';
+
+export interface WebsiteMessengerSchema {
+  init(data: unknown): void;
+  somethingHappened(data: unknown): void;
+}
+
+export const websiteMessenger = defineCustomEventMessaging<WebsiteMessengerSchema>();
+```
+
+:::
+
+::: tip Which one should I use?
+In general, if you don't need to communicate with iframes, use `defineCustomEventMessaging`.
+
+If you need to communicate with iframes, use `defineWindowMessaging`.
+:::
+
+Then they can be used in the same way as the extension messenger:
+
+:::code-group
+
+```ts [Content Script]
+import { websiteMessenger } from './website-messenging';
+
+const script = document.createElement('script');
+script.src = browser.runtime.getUrl('/path/to/injected.js');
+document.head.appendChild(script);
+
+script.onload = () => {
+  websiteMessenger.sendMessage("init", { ... });
+}
+
+websiteMessenger.onMessage("somethingHappened", (data) => {
+  // Do something with the update data
+})
+```
+
+```ts [Injected script]
+import { websiteMessenger } from './website-messenging';
+
+websiteMessenger.onMessage('init', data => {
+  // initialize injected script
+
+  // eventually, send data back to the content script
+  websiteMessenger.sendMessage("somethingHappened", { ... });
+});
 ```
 
 :::
