@@ -463,7 +463,12 @@ function getTypeDeclarations(project: Project, symbol: Symbol): string[] {
             });
             dec.getConstructors().forEach(con => {
               if (con.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-              w.writeLine(con.getText().replace(con.getBodyText() ?? '', ''));
+              w.writeLine(
+                con
+                  .getText()
+                  .replace(con.getBodyText() ?? '', '')
+                  .replace(/(private|readonly) /g, ''),
+              );
             });
             dec.getMethods().forEach(method => {
               if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;

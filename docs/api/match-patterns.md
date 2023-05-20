@@ -21,9 +21,9 @@ class InvalidMatchPattern extends Error {
 ```ts
 class MatchPattern {
   constructor(
-    private protocolMatches: string[],
-    private hostnameMatch: string | undefined,
-    private pathnameMatch: string | undefined
+    protocolMatches: string[],
+    hostnameMatch: string | undefined,
+    pathnameMatch: string | undefined
   ) {}
   includes(url: string | URL | Location): boolean {}
 }
