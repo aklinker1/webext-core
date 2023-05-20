@@ -5,7 +5,7 @@ next:
   link: /api/match-patterns
 ---
 
-# Isolated Element
+# Match Patterns
 
 <ChipGroup>
   <Chip text="MV2" type="manifest" />
@@ -49,6 +49,8 @@ curl -o match-patterns.js https://cdn.jsdelivr.net/npm/@webext-core/match-patter
 `MatchPattern` includes one function: `includes`. It can be used to check if a URL is included (or matches) the match pattern.
 
 ```ts
+import { MatchPattern } from '@webext-core/match-patterns';
+
 const google = new MatchPattern('*://*.google.com');
 google.includes('https://acounts.google.com'); // true
 google.includes('https://google.com/search?q=test'); // true
@@ -57,4 +59,11 @@ const youtube = new MatchPattern('*://youtube.com/watch');
 youtube.includes('https://youtube.com/watch'); // true
 youtube.includes('https://youtube.com/mrbeast'); // false
 youtube.includes('https://acounts.google.com'); // false
+```
+
+`includes` also accepts URLs and `window.location`
+
+```ts
+google.includes(new URL('https://google.com'));
+google.includes(window.location);
 ```

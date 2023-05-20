@@ -9,8 +9,8 @@ const packageDirnames = [
   'storage',
   'messaging',
   'job-scheduler',
-  'proxy-service',
   'match-patterns',
+  'proxy-service',
   'isolated-element',
   'fake-browser',
 ];
@@ -78,6 +78,12 @@ const packagePages = {
     {
       text: 'Get Started',
       link: '/guide/job-scheduler/',
+    },
+  ],
+  'match-patterns': [
+    {
+      text: 'Get Started',
+      link: '/guide/match-patterns/',
     },
   ],
 };
