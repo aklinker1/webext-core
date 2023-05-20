@@ -7,6 +7,7 @@ import * as prettier from 'prettier';
 import chokidar from 'chokidar';
 import { defineConfig } from 'vitepress';
 import { parseHTML } from 'linkedom';
+import { CodeBlockWriter } from 'ts-morph';
 
 export function defineTypescriptDocs(packageDirnames: string[]) {
   const ctx: Ctx = {
@@ -258,7 +259,8 @@ function getPublicSymbols(project: Project, entrypoint: SourceFile): Symbol[] {
 }
 
 function collectReferencedSymbols(node: Node, symbols: Symbol[]): void {
-  const symbol = node.getSymbolOrThrow();
+  const symbol = node.getSymbol();
+  if (symbol == null) return;
 
   if (node.isKind(ts.SyntaxKind.TypeReference)) {
     symbols.push(symbol);
@@ -314,6 +316,15 @@ function collectReferencedSymbols(node: Node, symbols: Symbol[]): void {
   if (node.isKind(ts.SyntaxKind.Parameter)) {
     const typeSymbol = node.getType().getSymbol();
     if (typeSymbol) symbols.push(typeSymbol);
+    return;
+  }
+
+  if (node.isKind(ts.SyntaxKind.ClassDeclaration)) {
+    symbols.push(symbol);
+
+    // Add references from extends
+    const extend = node.getExtends();
+    if (extend) collectReferencedSymbols(extend, symbols);
     return;
   }
 
@@ -420,6 +431,7 @@ function getTypeDeclarations(project: Project, symbol: Symbol): string[] {
       if (dec.isKind(ts.SyntaxKind.FunctionDeclaration)) dec.setBodyText('// ...');
 
       const text = cleanTypeText(dec.getText());
+      // console.log(text);
 
       // text ~= "() => void"
       if (dec.isKind(ts.SyntaxKind.FunctionType)) return text;
@@ -437,6 +449,28 @@ function getTypeDeclarations(project: Project, symbol: Symbol): string[] {
         let declarationKeyword = dec.getVariableStatementOrThrow().getDeclarationKind();
         const type = cleanTypeText(dec.getType().getText());
         return `${declarationKeyword} ${name}: ${type}`;
+      }
+      // text ~= "class ... extends  { ... }";
+      if (dec.isKind(ts.SyntaxKind.ClassDeclaration)) {
+        const w = new CodeBlockWriter();
+        const extend = dec.getExtends();
+        w.write(`class ${dec.getName()} `)
+          .conditionalWrite(!!extend, () => `extends ${extend?.getText()} `)
+          .inlineBlock(() => {
+            dec.getStaticMethods().forEach(method => {
+              if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
+              w.writeLine(method.getText().replace(method.getBodyText() ?? '', ''));
+            });
+            dec.getConstructors().forEach(con => {
+              if (con.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
+              w.writeLine(con.getText().replace(con.getBodyText() ?? '', ''));
+            });
+            dec.getMethods().forEach(method => {
+              if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
+              w.writeLine(method.getText().replace(method.getBodyText() ?? '', ''));
+            });
+          });
+        return w.toString();
       }
 
       throw Error(

@@ -1,4 +1,4 @@
-export function parseMatchPattern(matchPattern: string) {
+export function parseMatchPattern(matchPattern: string): MatchPattern {
   if (matchPattern === '<all_urls>') return new MatchPattern(MatchPattern.PROTOCOLS, '*', '*');
 
   const groups = /(.*):\/\/(.*?)(\/.*)/.exec(matchPattern);
