@@ -57,21 +57,22 @@ export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config?: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   const namespace = config?.namespace ?? browser.runtime.id;
+  const removeAdditionalListeners: Array<() => void> = [];
 
   const sendCustomMessage = (event: CustomEvent) =>
     new Promise(res => {
-      window.addEventListener(
-        RESPONSE_EVENT,
-        e => {
-          const { detail } = e as CustomEvent;
-          res(detail);
-        },
-        { once: true },
+      const responseListener = (e: Event) => {
+        const { detail } = e as CustomEvent;
+        res(detail);
+      };
+      removeAdditionalListeners.push(() =>
+        window.removeEventListener(RESPONSE_EVENT, responseListener),
       );
+      window.addEventListener(RESPONSE_EVENT, responseListener, { once: true });
       window.dispatchEvent(event);
     });
 
-  return defineGenericMessanging({
+  const messenger = defineGenericMessanging<TProtocolMap, CustomEventMessage, []>({
     ...config,
 
     sendMessage(message) {
@@ -95,4 +96,12 @@ export function defineCustomEventMessaging<
       return () => window.removeEventListener(REQUEST_EVENT, listener);
     },
   });
+
+  return {
+    ...messenger,
+    removeAllListeners() {
+      messenger.removeAllListeners();
+      removeAdditionalListeners.forEach(removeListener => removeListener());
+    },
+  };
 }
