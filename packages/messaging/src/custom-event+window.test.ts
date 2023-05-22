@@ -13,14 +13,20 @@ describe.each<
     defineFn: <T extends Record<string, any>>(
       config?: NamespaceMessagingConfig,
     ) => GenericMessenger<T, any, [string?: string]>,
-    sendArg: string | undefined,
+    ...sendArg: any[],
   ]
 >([
   ['Window Messenger', defineWindowMessaging, undefined],
   ['Custom Event Messenger', defineCustomEventMessaging, '*'],
-])('%s', (_, defineMessaging, sendArg) => {
+])('%s', (_, _defineTestMessaging, ...sendArgs) => {
+  // We need to call `removeAllListeners` between each test, so use `defineTestMessaging` instead
+  // of `_defineTestMessaging`
   let messengers: GenericMessenger<any, any, []>[] = [];
-
+  function defineTestMessaging<T extends Record<string, any>>(config?: NamespaceMessagingConfig) {
+    const messenger = _defineTestMessaging<T>(config);
+    messengers.push(messenger);
+    return messenger;
+  }
   beforeEach(() => {
     messengers.forEach(m => m.removeAllListeners());
     messengers = [];
@@ -32,13 +38,12 @@ describe.each<
     }
     const expected = Math.random();
     const data = 'data';
-    const messenger1 = defineMessaging<MessageSchema>();
-    const messenger2 = defineMessaging<MessageSchema>();
-    messengers.push(messenger1, messenger2);
+    const messenger1 = defineTestMessaging<MessageSchema>();
+    const messenger2 = defineTestMessaging<MessageSchema>();
     const onMessage = vi.fn().mockResolvedValue(expected);
 
     messenger2.onMessage('test', onMessage);
-    const actual = await messenger1.sendMessage('test', data, sendArg);
+    const actual = await messenger1.sendMessage('test', data, ...sendArgs);
 
     expect(actual).toEqual(expected);
     expect(onMessage).toBeCalledWith(
@@ -55,17 +60,16 @@ describe.each<
     interface MessageSchema {
       test(data: string): number;
     }
-    const messenger1 = defineMessaging<MessageSchema>({ namespace: 'b' });
-    const messenger2 = defineMessaging<MessageSchema>({ namespace: 'a' });
-    const messenger3 = defineMessaging<MessageSchema>({ namespace: 'a' });
-    messengers.push(messenger1, messenger2, messenger3);
+    const messenger1 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
+    const messenger2 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
+    const messenger3 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
     const expected = Math.random();
-    const onMessage1 = vi.fn().mockReturnValue(1);
+    const onMessage1 = vi.fn().mockReturnValue(5);
     const onMessage2 = vi.fn().mockReturnValue(expected);
 
     messenger1.onMessage('test', onMessage1);
     messenger2.onMessage('test', onMessage2);
-    const actual = await messenger3.sendMessage('test', 'data', sendArg);
+    const actual = await messenger3.sendMessage('test', 'data', ...sendArgs);
 
     expect(onMessage1).not.toBeCalled();
     expect(onMessage2).toBeCalledTimes(1);
@@ -77,23 +81,34 @@ describe.each<
       test(data: string): number;
     }
     const expected = 1;
-    const messenger1 = defineMessaging();
-    const messenger2 = defineMessaging();
-    const messenger3 = defineMessaging();
-    messengers.push(messenger1, messenger2, messenger3);
+    const messenger1 = _defineTestMessaging();
+    const messenger2 = _defineTestMessaging();
+    const messenger3 = _defineTestMessaging();
     const onMessage1 = vi.fn().mockResolvedValue(expected);
-    const onMessage2 = vi.fn().mockResolvedValue(2);
+    const onMessage2 = vi.fn().mockResolvedValue(4);
 
     messenger1.onMessage('test', onMessage1);
     messenger2.onMessage('test', onMessage2);
-    const actual = await messenger3.sendMessage('test', 'data', sendArg);
+    const actual = await messenger3.sendMessage('test', 'data', ...sendArgs);
 
     expect(onMessage1).toBeCalledTimes(1);
     expect(onMessage2).toBeCalledTimes(1);
     expect(actual).toBe(expected);
   });
 
-  it.todo('should send the correct data');
+  it('should throw an error if the responder throws an error', async () => {
+    interface MessageSchema {
+      test(data: string): number;
+    }
+    const error = new Error('test');
+    const messenger1 = defineTestMessaging<MessageSchema>({ logger: console });
+    const messenger2 = defineTestMessaging<MessageSchema>({ logger: console });
+    const onMessage = vi.fn().mockRejectedValue(error);
 
-  it.todo('should throw an error if the responder throws an error');
+    messenger2.onMessage('test', onMessage);
+
+    await expect(() => messenger1.sendMessage('test', 'data', ...sendArgs)).rejects.toThrowError(
+      error,
+    );
+  });
 });

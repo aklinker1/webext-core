@@ -79,7 +79,7 @@ export interface BaseMessagingConfig {
   logger?: Logger;
 }
 
-export interface NamespaceMessagingConfig {
+export interface NamespaceMessagingConfig extends BaseMessagingConfig {
   /**
    * A string used to ensure the messenger only sends messages to and listens for messages from
    * other custom event messengers with the same namespace. Defaults to the extension's ID, which is

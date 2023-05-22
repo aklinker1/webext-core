@@ -17,7 +17,7 @@ export interface WindowMessagingConfig extends NamespaceMessagingConfig {}
  * > See <https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin> for more
  * details.
  */
-export type WindowSendMessageArgs = [targetOrigin?: string];
+export type WindowSendMessageArgs = [targetOrigin: string];
 
 export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
   TProtocolMap,
@@ -52,14 +52,18 @@ export function defineWindowMessaging<
 >(config?: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
   const namespace = config?.namespace ?? browser.runtime.id;
 
+  let removeAdditionalListeners: Array<() => void> = [];
+
   const sendWindowMessage = (message: Message<TProtocolMap, any>, targetOrigin?: string) =>
     new Promise(res => {
       const responseListener = (event: MessageEvent) => {
         if (event.data.type === RESPONSE_TYPE) {
           res(event.data.response);
-          window.removeEventListener('message', responseListener);
+          removeResponseListener();
         }
       };
+      const removeResponseListener = () => window.removeEventListener('message', responseListener);
+      removeAdditionalListeners.push(removeResponseListener);
       window.addEventListener('message', responseListener);
       window.postMessage(
         { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace },
@@ -67,7 +71,7 @@ export function defineWindowMessaging<
       );
     });
 
-  return defineGenericMessanging({
+  const messenger = defineGenericMessanging<TProtocolMap, {}, WindowSendMessageArgs>({
     ...config,
 
     sendMessage(message, targetOrigin) {
@@ -86,4 +90,13 @@ export function defineWindowMessaging<
       return () => window.removeEventListener('message', listener);
     },
   });
+
+  return {
+    ...messenger,
+    removeAllListeners() {
+      messenger.removeAllListeners();
+      removeAdditionalListeners.forEach(removeListener => removeListener());
+      removeAdditionalListeners = [];
+    },
+  };
 }
