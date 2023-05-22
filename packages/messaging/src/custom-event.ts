@@ -1,5 +1,6 @@
+import browser from 'webextension-polyfill';
 import { GenericMessenger, defineGenericMessanging } from './generic';
-import { BaseMessagingConfig } from './types';
+import { NamespaceMessagingConfig } from './types';
 
 const REQUEST_EVENT = '@webext-core/messaging/custom-events';
 const RESPONSE_EVENT = '@webext-core/messaging/custom-events/response';
@@ -7,17 +8,7 @@ const RESPONSE_EVENT = '@webext-core/messaging/custom-events/response';
 /**
  * Configuration passed into `defineCustomEventMessaging`.
  */
-export interface CustomEventMessagingConfig extends BaseMessagingConfig {
-  /**
-   * A string used to ensure the messenger only sends messages to and listens for messages from
-   * other custom event messengers with the same namespace. Defaults to the extension's ID, which is
-   * unique. This prevents `onMessage` from being fired from other extensions or the webpage a
-   * content script is ran on.
-   *
-   * @default browser.runtime.id
-   */
-  namespace?: string;
-}
+export interface CustomEventMessagingConfig extends NamespaceMessagingConfig {}
 
 /**
  * Additional fields available on the `Message` from a `CustomEventMessenger`.
@@ -65,6 +56,9 @@ export type CustomEventMessenger<TProtocolMap extends Record<string, any>> = Gen
 export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config?: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
+  const messengerId = Math.random();
+  const namespace = config?.namespace ?? browser.runtime.id;
+
   const sendCustomMessage = (event: CustomEvent) =>
     new Promise(res => {
       const responseListener = (e: Event) => {
@@ -80,14 +74,17 @@ export function defineCustomEventMessaging<
     ...config,
 
     sendMessage(message) {
-      const event = new CustomEvent(REQUEST_EVENT, { detail: message });
+      const event = new CustomEvent(REQUEST_EVENT, { detail: { message, messengerId, namespace } });
       return sendCustomMessage(event);
     },
 
     addRootListener(processMessage) {
-      const listener = (e: Event) => {
+      const listener = async (e: Event) => {
         const { detail, ...event } = e as CustomEvent;
-        const response = processMessage({ ...detail, event });
+        if (detail.messengerId === messengerId || detail.namespace !== namespace) return;
+
+        const message = { ...detail.message, event };
+        const response = await processMessage(message);
 
         const responseEvent = new CustomEvent(RESPONSE_EVENT, { detail: response });
         window.dispatchEvent(responseEvent);

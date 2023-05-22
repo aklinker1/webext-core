@@ -1,5 +1,6 @@
+import browser from 'webextension-polyfill';
 import { GenericMessenger, defineGenericMessanging } from './generic';
-import { BaseMessagingConfig, Message } from './types';
+import { NamespaceMessagingConfig, Message } from './types';
 
 const REQUEST_TYPE = '@webext-core/messaging/window';
 const RESPONSE_TYPE = '@webext-core/messaging/window/response';
@@ -7,7 +8,7 @@ const RESPONSE_TYPE = '@webext-core/messaging/window/response';
 /**
  * Configuration passed into `defineWindowMessaging`.
  */
-export interface WindowMessagingConfig extends BaseMessagingConfig {}
+export interface WindowMessagingConfig extends NamespaceMessagingConfig {}
 
 /**
  * For a `WindowMessenger`, `sendMessage` requires an additional argument, the `targetOrigin`. It
@@ -16,7 +17,7 @@ export interface WindowMessagingConfig extends BaseMessagingConfig {}
  * > See <https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin> for more
  * details.
  */
-export type WindowSendMessageArgs = [targetOrigin: string];
+export type WindowSendMessageArgs = [targetOrigin?: string];
 
 export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
   TProtocolMap,
@@ -49,7 +50,10 @@ export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericM
 export function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config?: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
-  const sendWindowMessage = (message: Message<TProtocolMap, any>) =>
+  const messengerId = Math.random();
+  const namespace = config?.namespace ?? browser.runtime.id;
+
+  const sendWindowMessage = (message: Message<TProtocolMap, any>, targetOrigin?: string) =>
     new Promise(res => {
       const responseListener = (event: MessageEvent) => {
         if (event.data.type === RESPONSE_TYPE) {
@@ -58,24 +62,30 @@ export function defineWindowMessaging<
         }
       };
       window.addEventListener('message', responseListener);
-      window.postMessage({
-        type: REQUEST_TYPE,
-        message,
-      });
+      window.postMessage(
+        { type: REQUEST_TYPE, message, senderOrigin: location.origin, messengerId, namespace },
+        targetOrigin ?? '*',
+      );
     });
 
   return defineGenericMessanging({
     ...config,
 
-    sendMessage(message) {
-      return sendWindowMessage(message);
+    sendMessage(message, targetOrigin) {
+      return sendWindowMessage(message, targetOrigin);
     },
 
     addRootListener(processMessage) {
-      const listener = (event: MessageEvent) => {
-        if (event.data.type === REQUEST_TYPE) {
-          return processMessage(event.data.message);
-        }
+      const listener = async (event: MessageEvent) => {
+        if (
+          event.data.type !== REQUEST_TYPE ||
+          event.data.messengerId === messengerId ||
+          event.data.namespace !== namespace
+        )
+          return;
+
+        const response = await processMessage(event.data.message);
+        window.postMessage({ type: RESPONSE_TYPE, response }, event.data.senderOrigin);
       };
 
       window.addEventListener('message', listener);

@@ -79,6 +79,18 @@ export interface BaseMessagingConfig {
   logger?: Logger;
 }
 
+export interface NamespaceMessagingConfig {
+  /**
+   * A string used to ensure the messenger only sends messages to and listens for messages from
+   * other custom event messengers with the same namespace. Defaults to the extension's ID, which is
+   * unique. This prevents `onMessage` from being fired from other extensions or the webpage a
+   * content script is ran on.
+   *
+   * @default browser.runtime.id
+   */
+  namespace?: string;
+}
+
 /**
  * Contains information about the message recieved.
  */
