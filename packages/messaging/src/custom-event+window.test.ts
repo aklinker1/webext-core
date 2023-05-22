@@ -84,15 +84,21 @@ describe.each<
     const messenger1 = defineTestMessaging();
     const messenger2 = defineTestMessaging();
     const messenger3 = defineTestMessaging();
-    const onMessage1 = vi.fn().mockResolvedValue(expected);
-    const onMessage2 = vi.fn().mockResolvedValue(3);
+    const onMessageFast = vi.fn(async () => {
+      await new Promise(res => setTimeout(res, 5));
+      return expected;
+    });
+    const onMessageSlow = vi.fn(async () => {
+      await new Promise(res => setTimeout(res, 10));
+      return 3;
+    });
 
-    messenger1.onMessage('test', onMessage1);
-    messenger2.onMessage('test', onMessage2);
+    messenger1.onMessage('test', onMessageSlow);
+    messenger2.onMessage('test', onMessageFast);
     const actual = await messenger3.sendMessage('test', 'data', ...sendArgs);
 
-    expect(onMessage1).toBeCalledTimes(1);
-    expect(onMessage2).toBeCalledTimes(1);
+    expect(onMessageFast).toBeCalledTimes(1);
+    expect(onMessageSlow).toBeCalledTimes(1);
     expect(actual).toBe(expected);
   });
 
