@@ -118,7 +118,7 @@ export function defineGenericMessanging<
       config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ─ᐅ`, message, ...args);
 
       const response = await config.sendMessage(message, ...args);
-      const { res, err } = response ?? { err: serializeError(new Error('No response')) };
+      const { res, err } = response ?? { err: new Error('No response') };
       config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ᐊ─`, { res, err });
 
       if (err != null) throw deserializeError(err);
