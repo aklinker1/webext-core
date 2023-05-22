@@ -50,7 +50,6 @@ export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericM
 export function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config?: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
-  const messengerId = Math.random();
   const namespace = config?.namespace ?? browser.runtime.id;
 
   const sendWindowMessage = (message: Message<TProtocolMap, any>, targetOrigin?: string) =>
@@ -63,7 +62,7 @@ export function defineWindowMessaging<
       };
       window.addEventListener('message', responseListener);
       window.postMessage(
-        { type: REQUEST_TYPE, message, senderOrigin: location.origin, messengerId, namespace },
+        { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace },
         targetOrigin ?? '*',
       );
     });
@@ -77,12 +76,7 @@ export function defineWindowMessaging<
 
     addRootListener(processMessage) {
       const listener = async (event: MessageEvent) => {
-        if (
-          event.data.type !== REQUEST_TYPE ||
-          event.data.messengerId === messengerId ||
-          event.data.namespace !== namespace
-        )
-          return;
+        if (event.data.type !== REQUEST_TYPE || event.data.namespace !== namespace) return;
 
         const response = await processMessage(event.data.message);
         window.postMessage({ type: RESPONSE_TYPE, response }, event.data.senderOrigin);

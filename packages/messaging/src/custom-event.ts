@@ -56,17 +56,18 @@ export type CustomEventMessenger<TProtocolMap extends Record<string, any>> = Gen
 export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config?: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
-  const messengerId = Math.random();
   const namespace = config?.namespace ?? browser.runtime.id;
 
   const sendCustomMessage = (event: CustomEvent) =>
     new Promise(res => {
-      const responseListener = (e: Event) => {
-        const { detail } = e as CustomEvent;
-        res(detail);
-        window.removeEventListener(RESPONSE_EVENT, responseListener);
-      };
-      window.addEventListener(RESPONSE_EVENT, responseListener);
+      window.addEventListener(
+        RESPONSE_EVENT,
+        e => {
+          const { detail } = e as CustomEvent;
+          res(detail);
+        },
+        { once: true },
+      );
       window.dispatchEvent(event);
     });
 
@@ -74,14 +75,14 @@ export function defineCustomEventMessaging<
     ...config,
 
     sendMessage(message) {
-      const event = new CustomEvent(REQUEST_EVENT, { detail: { message, messengerId, namespace } });
+      const event = new CustomEvent(REQUEST_EVENT, { detail: { message, namespace } });
       return sendCustomMessage(event);
     },
 
     addRootListener(processMessage) {
       const listener = async (e: Event) => {
         const { detail, ...event } = e as CustomEvent;
-        if (detail.messengerId === messengerId || detail.namespace !== namespace) return;
+        if (detail.namespace !== namespace) return;
 
         const message = { ...detail.message, event };
         const response = await processMessage(message);
