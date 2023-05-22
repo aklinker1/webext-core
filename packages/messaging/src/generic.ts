@@ -6,6 +6,7 @@ import {
   BaseMessagingConfig,
   Message,
 } from './types';
+import { serializeError, deserializeError } from 'serialize-error';
 
 /**
  * Config required to call `defineGenericMessenger`.
@@ -117,10 +118,10 @@ export function defineGenericMessanging<
       config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ─ᐅ`, message, ...args);
 
       const response = await config.sendMessage(message, ...args);
-      const { res, err } = response ?? { err: 'No response' };
+      const { res, err } = response ?? { err: serializeError(new Error('No response')) };
       config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ᐊ─`, { res, err });
 
-      if (err != null) throw Error(err);
+      if (err != null) deserializeError(err);
       return res;
     },
 
@@ -154,11 +155,8 @@ export function defineGenericMessanging<
               return { res };
             })
             .catch(err => {
-              let errMessage: string;
-              if (err instanceof Error) errMessage = err.message;
-              else errMessage = String(err);
               config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { err });
-              return { err: errMessage };
+              return { err: serializeError(err) };
             });
         });
       }
