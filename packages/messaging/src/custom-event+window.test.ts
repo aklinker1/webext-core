@@ -107,8 +107,8 @@ describe.each<
       test(data: string): number;
     }
     const error = new Error('test');
-    const messenger1 = defineTestMessaging<MessageSchema>({ logger: console });
-    const messenger2 = defineTestMessaging<MessageSchema>({ logger: console });
+    const messenger1 = defineTestMessaging<MessageSchema>();
+    const messenger2 = defineTestMessaging<MessageSchema>();
     const onMessage = vi.fn().mockRejectedValue(error);
 
     messenger2.onMessage('test', onMessage);
