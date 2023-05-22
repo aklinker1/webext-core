@@ -36,7 +36,7 @@ describe.each<
     interface MessageSchema {
       test(data: string): number;
     }
-    const expected = Math.random();
+    const expected = 1 + Math.random();
     const data = 'data';
     const messenger1 = defineTestMessaging<MessageSchema>();
     const messenger2 = defineTestMessaging<MessageSchema>();
@@ -63,8 +63,8 @@ describe.each<
     const messenger1 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
     const messenger2 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
     const messenger3 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
-    const expected = Math.random();
-    const onMessage1 = vi.fn().mockReturnValue(5);
+    const expected = 2 + Math.random();
+    const onMessage1 = vi.fn().mockReturnValue(2);
     const onMessage2 = vi.fn().mockReturnValue(expected);
 
     messenger1.onMessage('test', onMessage1);
@@ -80,12 +80,12 @@ describe.each<
     interface MessageSchema {
       test(data: string): number;
     }
-    const expected = 1;
-    const messenger1 = _defineTestMessaging();
-    const messenger2 = _defineTestMessaging();
-    const messenger3 = _defineTestMessaging();
+    const expected = 3 + Math.random();
+    const messenger1 = defineTestMessaging();
+    const messenger2 = defineTestMessaging();
+    const messenger3 = defineTestMessaging();
     const onMessage1 = vi.fn().mockResolvedValue(expected);
-    const onMessage2 = vi.fn().mockResolvedValue(4);
+    const onMessage2 = vi.fn().mockResolvedValue(3);
 
     messenger1.onMessage('test', onMessage1);
     messenger2.onMessage('test', onMessage2);
