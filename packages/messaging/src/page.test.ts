@@ -22,7 +22,7 @@ describe.each<
   // of `_defineTestMessaging`
   let messengers: GenericMessenger<any, any, []>[] = [];
   function defineTestMessaging<T extends Record<string, any>>(config?: NamespaceMessagingConfig) {
-    const messenger = _defineTestMessaging<T>({ namespace: String(Math.random()), ...config });
+    const messenger = _defineTestMessaging<T>({ namespace: 'default-namespace', ...config });
     messengers.push(messenger);
     return messenger;
   }
