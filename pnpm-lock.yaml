@@ -39,6 +39,33 @@ importers:
       vitest: 0.29.2
       webextension-polyfill: 0.10.0
 
+  packages/analytics:
+    specifiers:
+      '@types/ua-parser-js': ^0.7.36
+      '@vitest/coverage-c8': ^0.24.5
+      '@webext-core/proxy-service': workspace:*
+      '@webext-core/storage': workspace:*
+      jsdom: ^20.0.3
+      tsconfig: workspace:*
+      tsup: ^6.4.0
+      typescript: ^4.8.4
+      ua-parser-js: ^1.0.35
+      vitest: ^0.24.5
+      webextension-polyfill: ^0.10.0
+    dependencies:
+      '@webext-core/proxy-service': link:../proxy-service
+      '@webext-core/storage': link:../storage
+      ua-parser-js: 1.0.35
+      webextension-polyfill: 0.10.0
+    devDependencies:
+      '@types/ua-parser-js': 0.7.36
+      '@vitest/coverage-c8': 0.24.5_jsdom@20.0.3
+      jsdom: 20.0.3
+      tsconfig: link:../tsconfig
+      tsup: 6.4.0_typescript@4.8.4
+      typescript: 4.8.4
+      vitest: 0.24.5_jsdom@20.0.3
+
   packages/fake-browser:
     specifiers:
       '@types/lodash.merge': ^4.6.7
@@ -1073,10 +1100,6 @@ packages:
       '@types/chai': 4.3.4
     dev: true
 
-  /@types/chai/4.3.3:
-    resolution: {integrity: sha512-hC7OMnszpxhZPduX+m+nrx+uFoLkWOMiR4oa/AZF3MuSETYTZmFfJAHqZEM8MVlvfG7BEUcgvtwoCTxBp6hm3g==}
-    dev: true
-
   /@types/chai/4.3.4:
     resolution: {integrity: sha512-KnRanxnpfpjUTqTCXslZSEdLfXExwgNxYPdiO2WGUj8+HDjFi8R3k5RVKPeSCzLjCcshCAtVO2QBbVuAV4kTnw==}
     dev: true
@@ -1117,6 +1140,10 @@ packages:
 
   /@types/prettier/2.7.2:
     resolution: {integrity: sha512-KufADq8uQqo1pYKVIYzfKbJfBAc0sOeXqGbFaSpv8MRmC/zXgowNZmFcbngndGk922QDmOASEXUZCaY48gs4cg==}
+    dev: true
+
+  /@types/ua-parser-js/0.7.36:
+    resolution: {integrity: sha512-N1rW+njavs70y2cApeIw1vLMYXRwfBy+7trgavGuuTfOd7j1Yh7QTRc/yqsPl6ncokt72ZXuxEU0PiCp9bSwNQ==}
     dev: true
 
   /@types/web-bluetooth/0.0.17:
@@ -1418,7 +1445,7 @@ packages:
   /acorn-globals/7.0.1:
     resolution: {integrity: sha512-umOSDSDrfHbTNPuNpC2NSnnA3LUrqpevPb4T9jRx4MagXNS0rs+gwiTcAvqCRmsD6utzsrzNt+ebm00SNWiC3Q==}
     dependencies:
-      acorn: 8.8.1
+      acorn: 8.8.2
       acorn-walk: 8.2.0
     dev: true
 
@@ -1896,19 +1923,6 @@ packages:
     resolution: {integrity: sha512-4tYFyifaFfGacoiObjJegolkwSU4xQNGbVgUiNYVUxbQ2x2lUsFvY4hVgVzGiIe6WLOPqycWXA40l+PWsxthUw==}
     dev: true
 
-  /chai/4.3.6:
-    resolution: {integrity: sha512-bbcp3YfHCUzMOvKqsztczerVgBKSsEijCySNlHHbX3VG1nskvqjz5Rfso1gGwD6w6oOV3eI60pKuMOV5MV7p3Q==}
-    engines: {node: '>=4'}
-    dependencies:
-      assertion-error: 1.1.0
-      check-error: 1.0.2
-      deep-eql: 3.0.1
-      get-func-name: 2.0.0
-      loupe: 2.3.5
-      pathval: 1.1.1
-      type-detect: 4.0.8
-    dev: true
-
   /chai/4.3.7:
     resolution: {integrity: sha512-HLnAzZ2iupm25PlN0xFreAlBA5zaBSv3og0DdeGA4Ar6h6rJ3A0rolRUKJhSF2V10GZKDgWF/VmAEsNWjCRB+A==}
     engines: {node: '>=4'}
@@ -2305,13 +2319,6 @@ packages:
     engines: {node: '>=10'}
     dependencies:
       mimic-response: 3.1.0
-    dev: true
-
-  /deep-eql/3.0.1:
-    resolution: {integrity: sha512-+QeIQyN5ZuO+3Uk5DYh6/1eKO0m0YmJFGNmFHGACpf1ClL1nmlV/p4gNgbl2pJGxgXb4faqo6UE+M5ACEMyVcw==}
-    engines: {node: '>=0.12'}
-    dependencies:
-      type-detect: 4.0.8
     dev: true
 
   /deep-eql/4.1.3:
@@ -3743,7 +3750,7 @@ packages:
         optional: true
     dependencies:
       abab: 2.0.6
-      acorn: 8.8.1
+      acorn: 8.8.2
       acorn-globals: 7.0.1
       cssom: 0.5.0
       cssstyle: 2.3.0
@@ -4054,12 +4061,6 @@ packages:
       slice-ansi: 5.0.0
       strip-ansi: 7.0.1
       wrap-ansi: 8.1.0
-    dev: true
-
-  /loupe/2.3.5:
-    resolution: {integrity: sha512-KNGVjhsXDxvY/cYE8GNi7SBaJSfJIT+/+/8GlprqBXpoU6cSR7/RT7OBJOsoYtyxq0L3q6oIcO8tX7dbEEXr3A==}
-    dependencies:
-      get-func-name: 2.0.0
     dev: true
 
   /loupe/2.3.6:
@@ -5007,14 +5008,6 @@ packages:
       fsevents: 2.3.2
     dev: true
 
-  /rollup/3.2.5:
-    resolution: {integrity: sha512-/Ha7HhVVofduy+RKWOQJrxe4Qb3xyZo+chcpYiD8SoQa4AG7llhupUtyfKSSrdBM2mWJjhM8wZwmbY23NmlIYw==}
-    engines: {node: '>=14.18.0', npm: '>=8.0.0'}
-    hasBin: true
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /rollup/3.21.6:
     resolution: {integrity: sha512-SXIICxvxQxR3D4dp/3LDHZIJPC8a4anKMHd4E3Jiz2/JnY+2bEjqrOokAauc5ShGVNFHlEFjBXAXlaxkJqIqSg==}
     engines: {node: '>=14.18.0', npm: '>=8.0.0'}
@@ -5363,7 +5356,7 @@ packages:
   /strip-literal/0.4.2:
     resolution: {integrity: sha512-pv48ybn4iE1O9RLgCAN0iU4Xv7RlBTiit6DKmMiErbs9x1wH6vXBs45tWc0H5wUIF6TLTrKweqkmYF/iraQKNw==}
     dependencies:
-      acorn: 8.8.1
+      acorn: 8.8.2
     dev: true
 
   /strip-literal/1.0.1:
@@ -5413,7 +5406,7 @@ packages:
     engines: {node: '>=8'}
     dependencies:
       '@istanbuljs/schema': 0.1.3
-      glob: 7.1.6
+      glob: 7.2.0
       minimatch: 3.1.2
     dev: true
 
@@ -5446,11 +5439,6 @@ packages:
 
   /tinybench/2.3.1:
     resolution: {integrity: sha512-hGYWYBMPr7p4g5IarQE7XhlyWveh1EKhy4wUBS1LrHXCKYgvz+4/jCqgmJqZxxldesn05vccrtME2RLLZNW7iA==}
-    dev: true
-
-  /tinypool/0.3.0:
-    resolution: {integrity: sha512-NX5KeqHOBZU6Bc0xj9Vr5Szbb1j8tUHIeD18s41aDJaPeC5QTdEhK0SpdpUrZlj2nv5cctNcSjaKNanXlfcVEQ==}
-    engines: {node: '>=14.0.0'}
     dev: true
 
   /tinypool/0.3.1:
@@ -5565,7 +5553,7 @@ packages:
       joycon: 3.1.1
       postcss-load-config: 3.1.4
       resolve-from: 5.0.0
-      rollup: 3.2.5
+      rollup: 3.21.6
       source-map: 0.8.0-beta.0
       sucrase: 3.28.0
       tree-kill: 1.2.2
@@ -5710,6 +5698,10 @@ packages:
     resolution: {integrity: sha512-cW9T5W9xY37cc+jfEnaUvX91foxtHkza3Nw3wkoF4sSlKn0MONdkdEndig/qPBWXNkmplh3NzayQzCiHM4/hqw==}
     engines: {node: '>=12.20'}
     hasBin: true
+    dev: false
+
+  /ua-parser-js/1.0.35:
+    resolution: {integrity: sha512-fKnGuqmTBnIE+/KXSzCn4db8RTigUzw1AN0DmdU6hJovUTbYJKyqj+8Mt1c4VfRDnOVJnENmfYkIPZ946UrSAA==}
     dev: false
 
   /ufo/1.1.1:
@@ -5929,36 +5921,6 @@ packages:
       - utf-8-validate
     dev: true
 
-  /vite/3.2.2:
-    resolution: {integrity: sha512-pLrhatFFOWO9kS19bQ658CnRYzv0WLbsPih6R+iFeEEhDOuYgYCX2rztUViMz/uy/V8cLCJvLFeiOK7RJEzHcw==}
-    engines: {node: ^14.18.0 || >=16.0.0}
-    hasBin: true
-    peerDependencies:
-      less: '*'
-      sass: '*'
-      stylus: '*'
-      sugarss: '*'
-      terser: ^5.4.0
-    peerDependenciesMeta:
-      less:
-        optional: true
-      sass:
-        optional: true
-      stylus:
-        optional: true
-      sugarss:
-        optional: true
-      terser:
-        optional: true
-    dependencies:
-      esbuild: 0.15.13
-      postcss: 8.4.18
-      resolve: 1.22.1
-      rollup: 2.79.1
-    optionalDependencies:
-      fsevents: 2.3.2
-    dev: true
-
   /vite/3.2.4:
     resolution: {integrity: sha512-Z2X6SRAffOUYTa+sLy3NQ7nlHFU100xwanq1WDwqaiFiCe+25zdxP1TfCS5ojPV2oDDcXudHIoPnI1Z/66B7Yw==}
     engines: {node: ^14.18.0 || >=16.0.0}
@@ -5984,6 +5946,40 @@ packages:
       terser:
         optional: true
     dependencies:
+      esbuild: 0.15.13
+      postcss: 8.4.18
+      resolve: 1.22.1
+      rollup: 2.79.1
+    optionalDependencies:
+      fsevents: 2.3.2
+    dev: true
+
+  /vite/3.2.4_@types+node@18.11.9:
+    resolution: {integrity: sha512-Z2X6SRAffOUYTa+sLy3NQ7nlHFU100xwanq1WDwqaiFiCe+25zdxP1TfCS5ojPV2oDDcXudHIoPnI1Z/66B7Yw==}
+    engines: {node: ^14.18.0 || >=16.0.0}
+    hasBin: true
+    peerDependencies:
+      '@types/node': '>= 14'
+      less: '*'
+      sass: '*'
+      stylus: '*'
+      sugarss: '*'
+      terser: ^5.4.0
+    peerDependenciesMeta:
+      '@types/node':
+        optional: true
+      less:
+        optional: true
+      sass:
+        optional: true
+      stylus:
+        optional: true
+      sugarss:
+        optional: true
+      terser:
+        optional: true
+    dependencies:
+      '@types/node': 18.11.9
       esbuild: 0.15.13
       postcss: 8.4.18
       resolve: 1.22.1
@@ -6176,17 +6172,17 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/chai': 4.3.3
+      '@types/chai': 4.3.4
       '@types/chai-subset': 1.3.3
       '@types/node': 18.11.9
-      chai: 4.3.6
+      chai: 4.3.7
       debug: 4.3.4
       local-pkg: 0.4.2
       strip-literal: 0.4.2
       tinybench: 2.3.1
-      tinypool: 0.3.0
+      tinypool: 0.3.1
       tinyspy: 1.0.2
-      vite: 3.2.2
+      vite: 3.2.4_@types+node@18.11.9
     transitivePeerDependencies:
       - less
       - sass
@@ -6218,18 +6214,18 @@ packages:
       jsdom:
         optional: true
     dependencies:
-      '@types/chai': 4.3.3
+      '@types/chai': 4.3.4
       '@types/chai-subset': 1.3.3
       '@types/node': 18.11.9
-      chai: 4.3.6
+      chai: 4.3.7
       debug: 4.3.4
       jsdom: 20.0.3
       local-pkg: 0.4.2
       strip-literal: 0.4.2
       tinybench: 2.3.1
-      tinypool: 0.3.0
+      tinypool: 0.3.1
       tinyspy: 1.0.2
-      vite: 3.2.2
+      vite: 3.2.4_@types+node@18.11.9
     transitivePeerDependencies:
       - less
       - sass

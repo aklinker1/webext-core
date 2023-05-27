@@ -1,0 +1,69 @@
+{
+  "name": "@webext-core/analytics",
+  "version": "0.1.0",
+  "description": "Analytics client for web extensions",
+  "license": "MIT",
+  "keywords": [
+    "web-extension",
+    "browser-extension",
+    "chrome-extension",
+    "webext",
+    "web-ext",
+    "chrome",
+    "firefox",
+    "safari",
+    "browser",
+    "extension",
+    "analytics",
+    "google",
+    "ga4",
+    "measurement",
+    "protocol",
+    "umami"
+  ],
+  "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/analytics",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/aklinker1/webext-core",
+    "directory": "packages/analytics"
+  },
+  "type": "module",
+  "publishConfig": {
+    "access": "public"
+  },
+  "files": [
+    "lib"
+  ],
+  "main": "lib/index.cjs",
+  "module": "lib/index.js",
+  "types": "lib/index.d.ts",
+  "exports": {
+    ".": {
+      "import": "./lib/index.js",
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts"
+    }
+  },
+  "scripts": {
+    "build": "tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreAnalytics",
+    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/analytics^...",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "compile": "tsc --noEmit"
+  },
+  "dependencies": {
+    "@webext-core/proxy-service": "workspace:*",
+    "@webext-core/storage": "workspace:*",
+    "ua-parser-js": "^1.0.35",
+    "webextension-polyfill": "^0.10.0"
+  },
+  "devDependencies": {
+    "@types/ua-parser-js": "^0.7.36",
+    "@vitest/coverage-c8": "^0.24.5",
+    "jsdom": "^20.0.3",
+    "tsconfig": "workspace:*",
+    "tsup": "^6.4.0",
+    "typescript": "^4.8.4",
+    "vitest": "^0.24.5"
+  }
+}
