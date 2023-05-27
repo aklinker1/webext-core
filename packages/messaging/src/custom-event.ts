@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig } from './types';
 
@@ -55,8 +54,8 @@ export type CustomEventMessenger<TProtocolMap extends Record<string, any>> = Gen
  */
 export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
->(config?: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
-  const namespace = config?.namespace ?? browser.runtime.id;
+>(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
+  const namespace = config.namespace;
   const removeAdditionalListeners: Array<() => void> = [];
 
   const sendCustomMessage = (event: CustomEvent) =>

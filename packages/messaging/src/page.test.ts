@@ -1,7 +1,6 @@
 // @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { defineWindowMessaging } from './window';
-import { defineCustomEventMessaging } from './custom-event';
+import { defineWindowMessaging, defineCustomEventMessaging } from './page';
 import { GenericMessenger } from './generic';
 import { NamespaceMessagingConfig } from './types';
 
@@ -11,7 +10,7 @@ describe.each<
   [
     title: string,
     defineFn: <T extends Record<string, any>>(
-      config?: NamespaceMessagingConfig,
+      config: NamespaceMessagingConfig,
     ) => GenericMessenger<T, any, [string?: string]>,
     ...sendArg: any[],
   ]
@@ -23,7 +22,7 @@ describe.each<
   // of `_defineTestMessaging`
   let messengers: GenericMessenger<any, any, []>[] = [];
   function defineTestMessaging<T extends Record<string, any>>(config?: NamespaceMessagingConfig) {
-    const messenger = _defineTestMessaging<T>(config);
+    const messenger = _defineTestMessaging<T>({ namespace: String(Math.random()), ...config });
     messengers.push(messenger);
     return messenger;
   }

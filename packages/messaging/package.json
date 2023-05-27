@@ -36,11 +36,17 @@
   "exports": {
     ".": {
       "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
+      "require": "./lib/index.cjs",
+      "types": "./lib/index.d.ts"
+    },
+    "./page": {
+      "import": "./lib/page.js",
+      "require": "./lib/page.cjs",
+      "types": "./lib/page.d.ts"
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
+    "build": "tsup src/index.ts src/page.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
     "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/messaging^...",
     "test": "vitest -r src",
     "test:coverage": "vitest run -r src --coverage",

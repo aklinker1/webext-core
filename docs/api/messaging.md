@@ -39,19 +39,10 @@ Additional fields available on the `Message` from a `CustomEventMessenger`.
 ## `CustomEventMessagingConfig`
 
 ```ts
-interface CustomEventMessagingConfig extends BaseMessagingConfig {
-  namespace?: string;
-}
+interface CustomEventMessagingConfig extends NamespaceMessagingConfig {}
 ```
 
 Configuration passed into `defineCustomEventMessaging`.
-
-### Properties 
-
-- ***`namespace?: string`*** (default: `browser.runtime.id`)<br/>A string used to ensure the messenger only sends messages to and listens for messages from
-other custom event messengers with the same namespace. Defaults to the extension's ID, which is
-unique. This prevents `onMessage` from being fired from other extensions or the webpage a
-content script is ran on.
 
 ## `CustomEventMessenger`
 
@@ -67,7 +58,7 @@ Messenger returned by `defineCustomEventMessenger`.
 ```ts
 function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>
->(config?: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
+>(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   // ...
 }
 ```
@@ -118,7 +109,7 @@ It can be used to send messages to and from the background page/service worker.
 ```ts
 function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>
->(config?: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
+>(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
   // ...
 }
 ```
@@ -326,6 +317,19 @@ Optional.
 it will be iframe's URL not the URL of the page which hosts it.
 Optional.
 
+## `NamespaceMessagingConfig`
+
+```ts
+interface NamespaceMessagingConfig extends BaseMessagingConfig {
+  namespace: string;
+}
+```
+
+### Properties 
+
+- ***`namespace: string`***<br/>A string used to ensure the messenger only sends messages to and listens for messages from
+other messengers of the same type, with the same namespace.
+
 ## `ProtocolWithReturn`
 
 :::danger Deprecated
@@ -373,7 +377,7 @@ If the listener has already been removed with `Messenger.removeAllListeners`, th
 ## `WindowMessagingConfig`
 
 ```ts
-interface WindowMessagingConfig extends BaseMessagingConfig {}
+interface WindowMessagingConfig extends NamespaceMessagingConfig {}
 ```
 
 Configuration passed into `defineWindowMessaging`.
@@ -388,7 +392,7 @@ type WindowMessenger<TProtocolMap extends Record<string, any>> =
 ## `WindowSendMessageArgs`
 
 ```ts
-type WindowSendMessageArgs = [targetOrigin: string];
+type WindowSendMessageArgs = [targetOrigin?: string];
 ```
 
 For a `WindowMessenger`, `sendMessage` requires an additional argument, the `targetOrigin`. It

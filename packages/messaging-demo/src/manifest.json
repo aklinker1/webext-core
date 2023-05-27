@@ -7,5 +7,17 @@
   },
   "action": {
     "default_popup": "popup.html"
-  }
+  },
+  "content_scripts": [
+    {
+      "matches": ["*://*.google.com/*"],
+      "js": ["google.cs.ts"]
+    }
+  ],
+  "web_accessible_resources": [
+    {
+      "resources": ["assets/google.injected.js"],
+      "matches": ["*://*.google.com/*"]
+    }
+  ]
 }

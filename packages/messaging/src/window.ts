@@ -1,4 +1,3 @@
-import browser from 'webextension-polyfill';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig, Message } from './types';
 
@@ -17,7 +16,7 @@ export interface WindowMessagingConfig extends NamespaceMessagingConfig {}
  * > See <https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin> for more
  * details.
  */
-export type WindowSendMessageArgs = [targetOrigin: string];
+export type WindowSendMessageArgs = [targetOrigin?: string];
 
 export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
   TProtocolMap,
@@ -49,8 +48,8 @@ export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericM
  */
 export function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
->(config?: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
-  const namespace = config?.namespace ?? browser.runtime.id;
+>(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
+  const namespace = config.namespace;
 
   let removeAdditionalListeners: Array<() => void> = [];
 

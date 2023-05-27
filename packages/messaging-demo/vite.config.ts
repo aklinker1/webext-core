@@ -9,5 +9,9 @@ export default defineConfig({
     outDir: path.resolve(__dirname, 'dist'),
     emptyOutDir: true,
   },
-  plugins: [webExtension()],
+  plugins: [
+    webExtension({
+      additionalInputs: ['assets/google.injected.ts'],
+    }),
+  ],
 });

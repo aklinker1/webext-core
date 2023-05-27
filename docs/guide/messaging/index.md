@@ -121,40 +121,45 @@ const length = await sendMessage('getStringLength', 'hello world', tabId);
 
 ## Window Messaging
 
-Inside a content script, you may need to communicate with webpage or an injected script running in the page's JS context. In this case, you can use `defineWindowMessenger` or `defineCustomEventMessenger`, which use the `window.postMessage` and `CustomEvent` APIs respectively.
+Inside a content script, you may need to communicate with a webpage or an injected script running in the page's JS context. In this case, you can use `defineWindowMessenger` or `defineCustomEventMessenger`, which use the `window.postMessage` and `CustomEvent` APIs respectively.
 
 :::code-group
 
 ```ts [Window]
-import { defineWindowMessaging } from '@webext-core/messaging';
-
-export interface WebsiteMessengerSchema {
-  init(data: unknown): void;
-}
-
-export const websiteMessenger = defineWindowMessaging<WebsiteMessengerSchema>();
-```
-
-```ts [Custom Event]
-import { defineCustomEventMessaging } from '@webext-core/messaging';
+import { defineWindowMessaging } from '@webext-core/messaging/page';
 
 export interface WebsiteMessengerSchema {
   init(data: unknown): void;
   somethingHappened(data: unknown): void;
 }
 
-export const websiteMessenger = defineCustomEventMessaging<WebsiteMessengerSchema>();
+export const websiteMessenger = defineWindowMessaging<WebsiteMessengerSchema>({
+  namespace: '<some-unique-string>',
+});
+```
+
+```ts [Custom Event]
+import { defineCustomEventMessaging } from '@webext-core/messaging/page';
+
+export interface WebsiteMessengerSchema {
+  init(data: unknown): void;
+  somethingHappened(data: unknown): void;
+}
+
+export const websiteMessenger = defineCustomEventMessaging<WebsiteMessengerSchema>({
+  namespace: '<some-unique-string>',
+});
 ```
 
 :::
 
 ::: tip Which one should I use?
-In general, if you don't need to communicate with iframes, use `defineCustomEventMessaging`.
-
-If you need to communicate with iframes, use `defineWindowMessaging`.
+In general, if you don't need to communicate with iframes, use `defineCustomEventMessaging`. If you need to communicate with iframes, use `defineWindowMessaging`.
 :::
 
-Then they can be used in the same way as the extension messenger, with `sendMessage` and `onMessage`.
+Note the namespace option. Only messengers of the same type (window vs custom event) and same namespace will communicate. This prevents accidentially reacting to messages from the page or from another extension. Usually, it should be a unique string for your extension. The easiest method is to set it to `browser.runtime.id`, but if you're injecting a script, `webextension-polyfill` will not be available in the page context and you'll have to use something else or hardcode the extension's ID.
+
+The messenger object can be used in the same way as the extension messenger, with `sendMessage` and `onMessage`.
 
 Here, we're injecting a script, initializing it with data, and allowing the script to send data back to our content script.
 
@@ -172,7 +177,7 @@ script.onload = () => {
 }
 
 websiteMessenger.onMessage("somethingHappened", (data) => {
-  // Do something with the update data
+  // React to messages from the injected script
 });
 ```
 
