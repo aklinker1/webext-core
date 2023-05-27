@@ -47,7 +47,8 @@
     "compile": "vitest typecheck"
   },
   "dependencies": {
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": "^0.10.0",
+    "serialize-error": "^11.0.0"
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.9.1",
