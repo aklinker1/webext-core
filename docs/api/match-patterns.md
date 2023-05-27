@@ -1,12 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API
+# API Reference - `match-patterns`
 
-API reference for [`@webext-core/match-patterns`](/guide/match-patterns/).
-
-:::info
-The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
-:::
+> [`@webext-core/match-patterns`](/guide/match-patterns/)
 
 ## `InvalidMatchPattern`
 

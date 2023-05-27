@@ -1,12 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API
+# API Reference - `storage`
 
-API reference for [`@webext-core/storage`](/guide/storage/).
-
-:::info
-The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
-:::
+> [`@webext-core/storage`](/guide/storage/)
 
 ## `defineExtensionStorage`
 

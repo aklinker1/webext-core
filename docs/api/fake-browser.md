@@ -1,12 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API
+# API Reference - `fake-browser`
 
-API reference for [`@webext-core/fake-browser`](/guide/fake-browser/).
-
-:::info
-The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
-:::
+> [`@webext-core/fake-browser`](/guide/fake-browser/)
 
 ## `FakeBrowser`
 

@@ -1,12 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API
+# API Reference - `proxy-service`
 
-API reference for [`@webext-core/proxy-service`](/guide/proxy-service/).
-
-:::info
-The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
-:::
+> [`@webext-core/proxy-service`](/guide/proxy-service/)
 
 ## `DeepAsync`
 

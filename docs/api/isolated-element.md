@@ -1,12 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API
+# API Reference - `isolated-element`
 
-API reference for [`@webext-core/isolated-element`](/guide/isolated-element/).
-
-:::info
-The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
-:::
+> [`@webext-core/isolated-element`](/guide/isolated-element/)
 
 ## `createIsolatedElement`
 

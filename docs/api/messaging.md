@@ -1,12 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API
+# API Reference - `messaging`
 
-API reference for [`@webext-core/messaging`](/guide/messaging/).
-
-:::info
-The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
-:::
+> [`@webext-core/messaging`](/guide/messaging/)
 
 ## `BaseMessagingConfig`
 

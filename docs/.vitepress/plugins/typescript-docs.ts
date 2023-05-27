@@ -335,9 +335,8 @@ function renderDocs(projectDirname: string, project: Project, symbols: Symbol[])
   const sections = [
     // Header
     `<!-- GENERATED FILE, DO NOT EDIT -->`,
-    `# API`,
-    `API reference for [\`@webext-core/${projectDirname}\`](/guide/${projectDirname}/).`,
-    ':::info\nThe entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).\n:::',
+    `# API Reference - \`${projectDirname}\``,
+    `> [\`@webext-core/${projectDirname}\`](/guide/${projectDirname}/)`,
     // Symbols
     ...symbols.map(symbol => renderSymbol(project, symbol).trim()),
     // Footer

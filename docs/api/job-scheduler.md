@@ -1,12 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API
+# API Reference - `job-scheduler`
 
-API reference for [`@webext-core/job-scheduler`](/guide/job-scheduler/).
-
-:::info
-The entire API reference is also available in your editor via [JSDocs](https://jsdoc.app/).
-:::
+> [`@webext-core/job-scheduler`](/guide/job-scheduler/)
 
 ## `CronJob`
 
