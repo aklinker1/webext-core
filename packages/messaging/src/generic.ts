@@ -129,7 +129,7 @@ export function defineGenericMessanging<
       // Setup single, root listener (if it doesn't exist) that processes the message
       if (removeRootListener == null) {
         config.logger?.debug(
-          `[messaging] ${type as string} initialized message listener for this context`,
+          `[messaging] "${type as string}" initialized the message listener for this context`,
         );
         removeRootListener = config.addRootListener(message => {
           // Validate the message object

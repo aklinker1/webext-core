@@ -79,6 +79,14 @@ export interface BaseMessagingConfig {
   logger?: Logger;
 }
 
+export interface NamespaceMessagingConfig extends BaseMessagingConfig {
+  /**
+   * A string used to ensure the messenger only sends messages to and listens for messages from
+   * other messengers of the same type, with the same namespace.
+   */
+  namespace: string;
+}
+
 /**
  * Contains information about the message recieved.
  */

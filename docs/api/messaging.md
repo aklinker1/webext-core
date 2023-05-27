@@ -18,6 +18,73 @@ Shared configuration between all the different messengers.
 
 - ***`logger?: Logger`*** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
 
+## `CustomEventMessage`
+
+```ts
+interface CustomEventMessage {
+  event: CustomEvent;
+}
+```
+
+Additional fields available on the `Message` from a `CustomEventMessenger`.
+
+### Properties 
+
+- ***`event: CustomEvent`***<br/>The event that was fired, resulting in the message being passed.
+
+## `CustomEventMessagingConfig`
+
+```ts
+interface CustomEventMessagingConfig extends NamespaceMessagingConfig {}
+```
+
+Configuration passed into `defineCustomEventMessaging`.
+
+## `CustomEventMessenger`
+
+```ts
+type CustomEventMessenger<TProtocolMap extends Record<string, any>> =
+  GenericMessenger<TProtocolMap, CustomEventMessage, []>;
+```
+
+Messenger returned by `defineCustomEventMessenger`.
+
+## `defineCustomEventMessaging`
+
+```ts
+function defineCustomEventMessaging<
+  TProtocolMap extends Record<string, any> = Record<string, any>
+>(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
+  // ...
+}
+```
+
+Creates a `CustomEventMessenger`. This messenger is backed by the `CustomEvent` APIs. It can be
+used to communicate between:
+
+- Content script and website
+- Content script and injected script
+
+`sendMessage` does not accept any additional arguments..
+
+### Examples
+
+```ts
+interface WebsiteMessengerSchema {
+  initInjectedScript(data: ...): void;
+}
+
+export const websiteMessenger = defineCustomEventMessenger<initInjectedScript>();
+
+// Content script
+websiteMessenger.sendMessage("initInjectedScript", ...);
+
+// Injected script
+websiteMessenger.onMessage("initInjectedScript", (...) => {
+  // ...
+})
+```
+
 ## `defineExtensionMessaging`
 
 ```ts
@@ -32,6 +99,40 @@ Returns an `ExtensionMessenger` that is backed by the `browser.runtime.sendMessa
 `browser.tabs.sendMessage` APIs.
 
 It can be used to send messages to and from the background page/service worker.
+
+## `defineWindowMessaging`
+
+```ts
+function defineWindowMessaging<
+  TProtocolMap extends Record<string, any> = Record<string, any>
+>(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
+  // ...
+}
+```
+
+Returns a `WindowMessenger`. It is backed by the `window.postMessage` API.  It can be used to
+communicate between:
+
+- Content script and website
+- Content script and injected script
+
+### Examples
+
+```ts
+interface WebsiteMessengerSchema {
+  initInjectedScript(data: ...): void;
+}
+
+export const websiteMessenger = defineWindowMessaging<initInjectedScript>();
+
+// Content script
+websiteMessenger.sendMessage("initInjectedScript", ...);
+
+// Injected script
+websiteMessenger.onMessage("initInjectedScript", (...) => {
+  // ...
+})
+```
 
 ## `ExtensionMessage`
 
@@ -212,6 +313,19 @@ Optional.
 it will be iframe's URL not the URL of the page which hosts it.
 Optional.
 
+## `NamespaceMessagingConfig`
+
+```ts
+interface NamespaceMessagingConfig extends BaseMessagingConfig {
+  namespace: string;
+}
+```
+
+### Properties 
+
+- ***`namespace: string`***<br/>A string used to ensure the messenger only sends messages to and listens for messages from
+other messengers of the same type, with the same namespace.
+
 ## `ProtocolWithReturn`
 
 :::danger Deprecated
@@ -255,6 +369,33 @@ type RemoveListenerCallback = () => void;
 Call to ensure an active listener has been removed.
 
 If the listener has already been removed with `Messenger.removeAllListeners`, this is a noop.
+
+## `WindowMessagingConfig`
+
+```ts
+interface WindowMessagingConfig extends NamespaceMessagingConfig {}
+```
+
+Configuration passed into `defineWindowMessaging`.
+
+## `WindowMessenger`
+
+```ts
+type WindowMessenger<TProtocolMap extends Record<string, any>> =
+  GenericMessenger<TProtocolMap, {}, WindowSendMessageArgs>;
+```
+
+## `WindowSendMessageArgs`
+
+```ts
+type WindowSendMessageArgs = [targetOrigin?: string];
+```
+
+For a `WindowMessenger`, `sendMessage` requires an additional argument, the `targetOrigin`. It
+defines which frames inside the page should receive the message.
+
+> See <https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin> for more
+details.
 
 <br/><br/>
 

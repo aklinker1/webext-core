@@ -2,12 +2,28 @@ import { UserConfig } from 'vitepress';
 import fs from 'node:fs/promises';
 import path from 'node:path';
 import { Listr, ListrTask, ListrTaskWrapper } from 'listr2';
-import { Project, Symbol, SourceFile, Node, ts, JSDocableNode, JSDoc } from 'ts-morph';
+import {
+  Project,
+  Symbol,
+  SourceFile,
+  Node,
+  ts,
+  JSDocableNode,
+  JSDoc,
+  ExportedDeclarations,
+} from 'ts-morph';
 import * as prettier from 'prettier';
 import chokidar from 'chokidar';
 import { defineConfig } from 'vitepress';
 import { parseHTML } from 'linkedom';
 import { CodeBlockWriter } from 'ts-morph';
+
+/**
+ * If the main entrypoint for a file is different than src/index.ts, list them below.
+ */
+const CUSTOM_ENTRYPOINTS: Record<string, string[]> = {
+  messaging: ['src/index.ts', 'src/page.ts'],
+};
 
 export function defineTypescriptDocs(packageDirnames: string[]) {
   const ctx: Ctx = {
@@ -209,18 +225,22 @@ async function generateProjectDocs(
   // Project setup
 
   const projectDir = path.resolve('packages', projectDirname);
-  const entrypointPath = path.resolve(projectDir, 'src/index.ts');
+  const entrypointPaths = (CUSTOM_ENTRYPOINTS[projectDirname] ?? ['src/index.ts']).map(entry =>
+    path.resolve(projectDir, entry),
+  );
   const outputDir = path.resolve('docs/api');
   const outputFile = path.resolve(outputDir, `${projectDirname}.md`);
   const tsConfigFilePath = path.resolve(projectDir, 'tsconfig.json');
   // Load TS Project
   const project = new Project({ tsConfigFilePath });
-  const entrypoint = project.addSourceFileAtPath(entrypointPath);
+  const entrypoints = entrypointPaths.map(entrypointPath =>
+    project.addSourceFileAtPath(entrypointPath),
+  );
   project.resolveSourceFileDependencies();
 
   // Type Generation
 
-  const publicSymbols = getPublicSymbols(project, entrypoint);
+  const publicSymbols = getPublicSymbols(project, entrypoints);
   // Sort alphabetically
   publicSymbols.sort((l, r) => l.getName().toLowerCase().localeCompare(r.getName().toLowerCase()));
   const docs = renderDocs(projectDirname, project, publicSymbols);
@@ -232,16 +252,16 @@ async function generateProjectDocs(
   await fs.writeFile(outputFile, docs, 'utf-8');
 }
 
-function getPublicSymbols(project: Project, entrypoint: SourceFile): Symbol[] {
+function getPublicSymbols(project: Project, entrypoints: SourceFile[]): Symbol[] {
   // Get all exported declarations from the source file
-  const exportedDeclarations = entrypoint.getExportedDeclarations();
+  const exportedDeclarations = entrypoints
+    .flatMap(entry => Array.from(entry.getExportedDeclarations().values()))
+    .flat();
 
   // Collect all exported symbols
   const exportedSymbols: Symbol[] = [];
-  for (const declarations of exportedDeclarations.values()) {
-    for (const declaration of declarations) {
-      exportedSymbols.push(declaration.getSymbolOrThrow());
-    }
+  for (const declaration of exportedDeclarations) {
+    exportedSymbols.push(declaration.getSymbolOrThrow());
   }
 
   // Collect all referenced symbols in exported declarations
