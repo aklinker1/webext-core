@@ -8,6 +8,7 @@ const ogUrl = 'https://webext-core.aklinker1.io';
 const packageDirnames = [
   'storage',
   'messaging',
+  'analytics',
   'job-scheduler',
   'match-patterns',
   'proxy-service',
@@ -84,6 +85,24 @@ const packagePages = {
     {
       text: 'Get Started',
       link: '/guide/match-patterns/',
+    },
+  ],
+  analytics: [
+    {
+      text: 'Get Started',
+      link: '/guide/analytics/',
+    },
+    {
+      text: 'Google Analytics',
+      link: '/guide/analytics/google-analytics',
+    },
+    {
+      text: 'Umami',
+      link: '/guide/analytics/umami',
+    },
+    {
+      text: 'Custom Analytics Service',
+      link: '/guide/analytics/custom',
     },
   ],
 };

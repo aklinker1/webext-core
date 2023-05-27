@@ -166,7 +166,10 @@ async function removeWatchListeners(ctx: Ctx) {
  */
 async function getPackages(): Promise<string[]> {
   const all = await fs.readdir('packages');
-  return all.filter(folderName => !folderName.endsWith('-demo') && folderName !== 'tsconfig');
+  return all.filter(
+    folderName =>
+      !folderName.endsWith('-demo') && folderName !== 'tsconfig' && !folderName.startsWith('.'),
+  );
 }
 
 async function generateAll(
