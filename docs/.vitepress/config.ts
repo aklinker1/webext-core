@@ -139,9 +139,9 @@ export default defineConfig({
     search: {
       provider: 'algolia',
       options: {
-        appId: 'W9IBYBNTPJ',
-        apiKey: 'c8c2d0d5e6f058c31b8539fc58e259af',
-        indexName: 'webext-core-docs',
+        appId: '5YM53OJZKV',
+        apiKey: 'afa7be8df70add29c036f21548117128',
+        indexName: 'webext-core-aklinker1',
       },
     },
 
