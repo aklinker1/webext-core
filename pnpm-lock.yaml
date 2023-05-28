@@ -44,7 +44,6 @@ importers:
       '@types/ua-parser-js': ^0.7.36
       '@vitest/coverage-c8': ^0.24.5
       '@webext-core/proxy-service': workspace:*
-      '@webext-core/storage': workspace:*
       jsdom: ^20.0.3
       tsconfig: workspace:*
       tsup: ^6.4.0
@@ -54,7 +53,6 @@ importers:
       webextension-polyfill: ^0.10.0
     dependencies:
       '@webext-core/proxy-service': link:../proxy-service
-      '@webext-core/storage': link:../storage
       ua-parser-js: 1.0.35
       webextension-polyfill: 0.10.0
     devDependencies:

@@ -1,3 +1,3 @@
 export * from './types';
-export * from './defineGoogleAnalyticsClient';
-export * from './defineUmamiClient';
+export * from './createGoogleAnalyticsClient';
+export * from './createUmamiClient';

@@ -1,4 +1,3 @@
-import { localExtStorage } from '@webext-core/storage';
 import browser from 'webextension-polyfill';
 import { ExtensionAnalytics, ExtensionAnalyticsConfig } from '../types';
 import { TrackBaseOptions } from '../clients';
@@ -20,14 +19,6 @@ export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): Exte
 
   const ua = UAParser(navigator.userAgent);
 
-  const getUserId = async (): Promise<string | undefined> => {
-    if (config.getUserId) return await config.getUserId();
-    if (browser.storage == null) return undefined;
-
-    const userId: string | null = await localExtStorage.getItem('@webext-core/analytics/userId');
-    return userId ?? undefined;
-  };
-
   const getBaseOptions = async (): Promise<Omit<TrackBaseOptions, 'context' | 'timestamp'>> => {
     return {
       browser: ua.browser.name,
@@ -39,7 +30,8 @@ export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): Exte
         ? `${globalThis.screen.width}x${globalThis.screen.height}`
         : undefined,
       sessionId,
-      userId: await getUserId(),
+      referrer: globalThis.document?.referrer,
+      title: globalThis.document?.title,
     };
   };
 

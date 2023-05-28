@@ -127,6 +127,7 @@ type SymbolLinks = { [symbolName: string]: string };
 const EXTERNAL_SYMBOLS: SymbolLinks = {
   Promise:
     'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise',
+  Array: 'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array',
   'Storage.StorageArea':
     'https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea',
   StorageArea:
@@ -506,7 +507,15 @@ function getTypeDeclarations(project: Project, symbol: Symbol): string[] {
         }`,
       );
     })
-    .map(text => prettier.format(text, { printWidth: 80, parser: 'typescript' }).trimEnd());
+    .map(text => {
+      try {
+        return prettier.format(text, { printWidth: 80, parser: 'typescript' }).trimEnd();
+      } catch (err) {
+        console.log('Symbol:', symbol.getName());
+        console.log(text);
+        throw err;
+      }
+    });
 }
 
 function warn(message: string) {

@@ -31,12 +31,6 @@ export interface ExtensionAnalyticsConfig {
    */
   isEnabled: () => boolean | Promise<boolean>;
   /**
-   * Returns the user id that may be reported with events and page views. If this method is not
-   * provided, a random UUID will be generated and stored in storage. If the storage permission is
-   * missing, the user ID will not be included in any reports.
-   */
-  getUserId?: () => string | Promise<string>;
-  /**
    * By default, the analytics application will track some standard events: `extension_installed`,
    * `extension_updated`, etc. By setting this to `false`, these events will not be tracked
    * automatically; you'll need to track them manually.

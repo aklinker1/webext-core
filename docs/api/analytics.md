@@ -4,173 +4,47 @@
 
 > [`@webext-core/analytics`](/guide/analytics/)
 
-## `Array`
+## `createGoogleAnalyticsClient`
 
 ```ts
-interface Array<T> {
-  length: number;
-  toString(): string;
-  toLocaleString(): string;
-  pop(): T | undefined;
-  push(...items: T[]): number;
-  concat(...items: ConcatArray<T>[]): T[];
-  concat(...items: (T | ConcatArray<T>)[]): T[];
-  join(separator?: string): string;
-  reverse(): T[];
-  shift(): T | undefined;
-  slice(start?: number, end?: number): T[];
-  sort(compareFn?: (a: T, b: T) => number): this;
-  splice(start: number, deleteCount?: number): T[];
-  splice(start: number, deleteCount: number, ...items: T[]): T[];
-  unshift(...items: T[]): number;
-  indexOf(searchElement: T, fromIndex?: number): number;
-  lastIndexOf(searchElement: T, fromIndex?: number): number;
-  every<S extends T>(
-    predicate: (value: T, index: number, array: T[]) => value is S,
-    thisArg?: any
-  ): this is S[];
-  every(
-    predicate: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any
-  ): boolean;
-  some(
-    predicate: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any
-  ): boolean;
-  forEach(
-    callbackfn: (value: T, index: number, array: T[]) => void,
-    thisArg?: any
-  ): void;
-  map<U>(
-    callbackfn: (value: T, index: number, array: T[]) => U,
-    thisArg?: any
-  ): U[];
-  filter<S extends T>(
-    predicate: (value: T, index: number, array: T[]) => value is S,
-    thisArg?: any
-  ): S[];
-  filter(
-    predicate: (value: T, index: number, array: T[]) => unknown,
-    thisArg?: any
-  ): T[];
-  reduce(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T
-  ): T;
-  reduce(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T,
-    initialValue: T
-  ): T;
-  reduce<U>(
-    callbackfn: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => U,
-    initialValue: U
-  ): U;
-  reduceRight(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T
-  ): T;
-  reduceRight(
-    callbackfn: (
-      previousValue: T,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => T,
-    initialValue: T
-  ): T;
-  reduceRight<U>(
-    callbackfn: (
-      previousValue: U,
-      currentValue: T,
-      currentIndex: number,
-      array: T[]
-    ) => U,
-    initialValue: U
-  ): U;
-  [n: number]: T;
-}
-
-var Array: ArrayConstructor;
-
-interface Array<T> {
-  find<S extends T>(
-    predicate: (this: void, value: T, index: number, obj: T[]) => value is S,
-    thisArg?: any
-  ): S | undefined;
-  find(
-    predicate: (value: T, index: number, obj: T[]) => unknown,
-    thisArg?: any
-  ): T | undefined;
-  findIndex(
-    predicate: (value: T, index: number, obj: T[]) => unknown,
-    thisArg?: any
-  ): number;
-  fill(value: T, start?: number, end?: number): this;
-  copyWithin(target: number, start: number, end?: number): this;
-}
-
-interface Array<T> {
-  [Symbol.iterator](): IterableIterator<T>;
-  entries(): IterableIterator<[number, T]>;
-  keys(): IterableIterator<number>;
-  values(): IterableIterator<T>;
-}
-
-interface Array<T> {
-  [Symbol.unscopables](): {
-    copyWithin: boolean;
-    entries: boolean;
-    fill: boolean;
-    find: boolean;
-    findIndex: boolean;
-    keys: boolean;
-    values: boolean;
-  };
-}
-
-interface Array<T> {
-  includes(searchElement: T, fromIndex?: number): boolean;
-}
-
-interface Array<T> {
-  flatMap<U, This = undefined>(
-    callback: (
-      this: This,
-      value: T,
-      index: number,
-      array: T[]
-    ) => U | ReadonlyArray<U>,
-    thisArg?: This
-  ): U[];
-  flat<A, D extends number = 1>(this: A, depth?: D): FlatArray<A, D>[];
-}
-
-interface Array<T> {
-  at(index: number): T | undefined;
+function createGoogleAnalyticsClient(
+  config: GoogleAnalyticsConfig
+): ExtensionAnalyticsClient {
+  // ...
 }
 ```
 
-### Properties 
+Returns a client for reporting analytics to Google Analytics 4 through the
+[Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4).
 
-- ***`length:number`***
+It is worth noting that the measurment protocol restricts the reporting of some events, user
+properties, and event parameters. [See the docs](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=firebase#reserved_names)
+for more information. That means that this client WILL NOT provide the same amount of stats as
+your standard web, gtag setup.
+
+The client will:
+
+- Upload a single event per network request
+- Send the `context` and `page` as event parameterss
+- Does not upload anything for `trackPageView` - the `page_view` event is one of the restricted events for the MP API
+
+## `createUmamiClient`
+
+```ts
+function createUmamiClient(config: UmamiConfig): ExtensionAnalyticsClient {
+  // ...
+}
+```
+
+Umami is a privacy focused alternative to google analytics.
+
+> https://umami.is/
+
+The Umami client returned by this function:
+
+- Uploads a single event at a time
+- Sends the `context` string as the `hostname` parameter
+- Does not upload anything for `trackPageView` - pages are apart of events.
 
 ## `defineExtensionAnalytics`
 
@@ -241,7 +115,6 @@ support it, every event also gets the page details, and can be reported inside `
 interface ExtensionAnalyticsConfig {
   client: ExtensionAnalyticsClient;
   isEnabled: () => boolean | Promise<boolean>;
-  getUserId?: () => string | Promise<string>;
   disableStandardEvents?: boolean;
   isEventSampled?: (
     action: string,
@@ -258,10 +131,6 @@ implement your own `ExtensionAnalyticsClient`.
 - ***`isEnabled: () => boolean | Promise<boolean>`***<br/>Before an event is uploaded, this function is executed to see if the user has agreed to
 collecting their data. Return `false` if they have opted-out, and `true` if they have opted-in.
 
-- ***`getUserId?: () => string | Promise<string>`***<br/>Returns the user id that may be reported with events and page views. If this method is not
-provided, a random UUID will be generated and stored in storage. If the storage permission is
-missing, the user ID will not be included in any reports.
-
 - ***`disableStandardEvents?: boolean`*** (default: `true`)<br/>By default, the analytics application will track some standard events: `extension_installed`,
 `extension_updated`, etc. By setting this to `false`, these events will not be tracked
 automatically; you'll need to track them manually.
@@ -269,11 +138,30 @@ automatically; you'll need to track them manually.
 - ***`isEventSampled?: (action: string, sessionRandom: number) => boolean | Promise<boolean>`*** (default: `() => true`)<br/>By default, all events are uploaded. Define this function to sample events on the client side.
 Return `true` if an event should be uploaded. Return false to skip uploading the event.
 
+## `GoogleAnalyticsConfig`
+
+```ts
+
+```
+
+### Properties 
+
+- ***``***<br/>Used for the `measurement_id` query parameter.
+
+- ***``***<br/>Used for the `api_secret` query parameter.
+
+- ***``***<br/>Return value used for the `user_id` field in the request body.
+
+- ***``***<br/>Return value used for the `client_id` field in the request body.
+
+- ***``***<br/>Set to true to enable debug mode - requests will go to the `/debug/mp/collect` endpoint instead of the regular `/mp/collect` endpoint.
+
+- ***``***<br/>Used for `non_personalized_ads` in the request body.
+
 ## `TrackBaseOptions`
 
 ```ts
 interface TrackBaseOptions {
-  userId: string | undefined;
   context: string | undefined;
   screen: string | undefined;
   sessionId: number | undefined;
@@ -283,12 +171,12 @@ interface TrackBaseOptions {
   browser: string | undefined;
   browserVersion: string | undefined;
   language: string | undefined;
+  referrer: string | undefined;
+  title: string | undefined;
 }
 ```
 
 ### Properties 
-
-- ***`userId: string | undefined`***<br/>ID of the user reporting the event.
 
 - ***`context: string | undefined`***<br/>JS context the event was reported from.
 
@@ -307,6 +195,10 @@ interface TrackBaseOptions {
 - ***`browserVersion: string | undefined`***<br/>The browser version from the `navigator.userAgent`
 
 - ***`language: string | undefined`***<br/>Language returned from [`browser.i18n.getUILanguage`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/I18n/getUILanguage).
+
+- ***`referrer: string | undefined`***<br/>From `document.referrer` if available.
+
+- ***`title: string | undefined`***<br/>From `document.title` if available.
 
 ## `TrackEventOptions`
 
@@ -334,6 +226,20 @@ interface TrackPageViewOptions extends TrackBaseOptions {
 ### Properties 
 
 - ***`page?: string`***
+
+## `UmamiConfig`
+
+```ts
+
+```
+
+Used to pass config into `defineUmamiClient`.
+
+### Properties 
+
+- ***``***<br/>See [Umami's documentation for more details](https://umami.is/docs/collect-data).
+
+- ***``***<br/>URL to your Umami instance (`https://stats.aklinker1.io`, `https://analytics.umami.is/share/LGazGOecbDtaIwDr/umami.is`, etc). Include the path up until the `/api`
 
 <br/><br/>
 

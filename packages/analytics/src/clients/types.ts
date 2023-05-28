@@ -17,10 +17,6 @@ export interface ExtensionAnalyticsClient {
 
 export interface TrackBaseOptions {
   /**
-   * ID of the user reporting the event.
-   */
-  userId: string | undefined;
-  /**
    * JS context the event was reported from.
    */
   context: string | undefined;
@@ -56,6 +52,14 @@ export interface TrackBaseOptions {
    * Language returned from [`browser.i18n.getUILanguage`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/I18n/getUILanguage).
    */
   language: string | undefined;
+  /**
+   * From `document.referrer` if available.
+   */
+  referrer: string | undefined;
+  /**
+   * From `document.title` if available.
+   */
+  title: string | undefined;
 }
 
 export interface TrackPageViewOptions extends TrackBaseOptions {
