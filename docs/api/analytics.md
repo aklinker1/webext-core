@@ -141,22 +141,31 @@ Return `true` if an event should be uploaded. Return false to skip uploading the
 ## `GoogleAnalyticsConfig`
 
 ```ts
-
+interface GoogleAnalyticsConfig {
+  measurementId: string;
+  apiSecret: string;
+  getUserId?: () => string | Promise<string>;
+  getClientId: () => string | Promise<string>;
+  debug?: boolean;
+  nonPersonalizedAds?: boolean;
+}
 ```
 
 ### Properties 
 
-- ***``***<br/>Used for the `measurement_id` query parameter.
+- ***`measurementId: string`***<br/>Used for the [`measurement_id` query parameter](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#required_parameters).
 
-- ***``***<br/>Used for the `api_secret` query parameter.
+- ***`apiSecret: string`***<br/>Used for the [`api_secret` query parameter](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#required_parameters).
 
-- ***``***<br/>Return value used for the `user_id` field in the request body.
+- ***`getUserId?: () => string | Promise<string>`***<br/>Return value used for the [`user_id` field in the request body](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body).
 
-- ***``***<br/>Return value used for the `client_id` field in the request body.
+- ***`getClientId: () => string | Promise<string>`***<br/>Return value used for the [`client_id` field in the request body](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body).
 
-- ***``***<br/>Set to true to enable debug mode - requests will go to the `/debug/mp/collect` endpoint instead of the regular `/mp/collect` endpoint.
+- ***`debug?: boolean`***<br/>Set to `true` to enable debug mode. When `true`, requests will go to the
+[`/debug/mp/collect` endpoint](https://developers.google.com/analytics/devguides/collection/protocol/ga4/validating-events?client_type=gtag#sending_events_for_validation)
+instead of the regular [`/mp/collect` endpoint](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#url_endpoint).
 
-- ***``***<br/>Used for `non_personalized_ads` in the request body.
+- ***`nonPersonalizedAds?: boolean`***<br/>Used for the [`non_personalized_ads` field](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) in the request body.
 
 ## `TrackBaseOptions`
 
@@ -230,16 +239,20 @@ interface TrackPageViewOptions extends TrackBaseOptions {
 ## `UmamiConfig`
 
 ```ts
-
+interface UmamiConfig {
+  websiteId: string;
+  url: string;
+}
 ```
 
 Used to pass config into `defineUmamiClient`.
 
 ### Properties 
 
-- ***``***<br/>See [Umami's documentation for more details](https://umami.is/docs/collect-data).
+- ***`websiteId: string`***<br/>See [Umami's documentation for more details](https://umami.is/docs/collect-data).
 
-- ***``***<br/>URL to your Umami instance (`https://stats.aklinker1.io`, `https://analytics.umami.is/share/LGazGOecbDtaIwDr/umami.is`, etc). Include the path up until the `/api`
+- ***`url: string`***<br/>URL to your Umami instance (`https://stats.aklinker1.io`,
+`https://analytics.umami.is/share/LGazGOecbDtaIwDr/umami.is`, etc).
 
 <br/><br/>
 

@@ -1,6 +1,21 @@
 import { ExtensionAnalyticsClient } from './types';
 
 /**
+ * Used to pass config into `defineUmamiClient`.
+ */
+export interface UmamiConfig {
+  /**
+   * See [Umami's documentation for more details](https://umami.is/docs/collect-data).
+   */
+  websiteId: string;
+  /**
+   * URL to your Umami instance (`https://stats.aklinker1.io`,
+   * `https://analytics.umami.is/share/LGazGOecbDtaIwDr/umami.is`, etc).
+   */
+  url: string;
+}
+
+/**
  * Umami is a privacy focused alternative to google analytics.
  *
  * > https://umami.is/
@@ -44,20 +59,6 @@ export function createUmamiClient(config: UmamiConfig): ExtensionAnalyticsClient
       });
     },
   };
-}
-
-/**
- * Used to pass config into `defineUmamiClient`.
- */
-export interface UmamiConfig {
-  /**
-   * See [Umami's documentation for more details](https://umami.is/docs/collect-data).
-   */
-  websiteId: string;
-  /**
-   * URL to your Umami instance (`https://stats.aklinker1.io`, `https://analytics.umami.is/share/LGazGOecbDtaIwDr/umami.is`, etc). Include the path up until the `/api`
-   */
-  url: string;
 }
 
 /**

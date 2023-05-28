@@ -1,5 +1,34 @@
 import { ExtensionAnalyticsClient } from './types';
 
+export interface GoogleAnalyticsConfig {
+  /**
+   * Used for the [`measurement_id` query parameter](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#required_parameters).
+   */
+  measurementId: string;
+  /**
+   * Used for the [`api_secret` query parameter](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#required_parameters).
+   */
+  apiSecret: string;
+  /**
+   * Return value used for the [`user_id` field in the request body](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body).
+   */
+  getUserId?: () => string | Promise<string>;
+  /**
+   * Return value used for the [`client_id` field in the request body](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body).
+   */
+  getClientId: () => string | Promise<string>;
+  /**
+   * Set to `true` to enable debug mode. When `true`, requests will go to the
+   * [`/debug/mp/collect` endpoint](https://developers.google.com/analytics/devguides/collection/protocol/ga4/validating-events?client_type=gtag#sending_events_for_validation)
+   * instead of the regular [`/mp/collect` endpoint](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#url_endpoint).
+   */
+  debug?: boolean;
+  /**
+   * Used for the [`non_personalized_ads` field](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=gtag#payload_post_body) in the request body.
+   */
+  nonPersonalizedAds?: boolean;
+}
+
 /**
  * Returns a client for reporting analytics to Google Analytics 4 through the
  * [Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4).
@@ -53,33 +82,6 @@ export function createGoogleAnalyticsClient(
   };
 }
 
-export interface GoogleAnalyticsConfig {
-  /**
-   * Used for the `measurement_id` query parameter.
-   */
-  measurementId: string;
-  /**
-   * Used for the `api_secret` query parameter.
-   */
-  apiSecret: string;
-  /**
-   * Return value used for the `user_id` field in the request body.
-   */
-  getUserId?: () => string | Promise<string>;
-  /**
-   * Return value used for the `client_id` field in the request body.
-   */
-  getClientId: () => string | Promise<string>;
-  /**
-   * Set to true to enable debug mode - requests will go to the `/debug/mp/collect` endpoint instead of the regular `/mp/collect` endpoint.
-   */
-  debug?: boolean;
-  /**
-   * Used for `non_personalized_ads` in the request body.
-   */
-  nonPersonalizedAds?: boolean;
-}
-
 interface RequestBody {
   client_id: string;
   user_id?: string;
@@ -89,7 +91,13 @@ interface RequestBody {
   events: Array<{
     name: string;
     params: {
+      /**
+       * See [Recommended Parameters for Reports](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports).
+       */
       engagement_time_msec?: string;
+      /**
+       * See [Recommended Parameters for Reports](https://developers.google.com/analytics/devguides/collection/protocol/ga4/sending-events?client_type=gtag#recommended_parameters_for_reports).
+       */
       session_id?: string;
       [param: string]: any;
     };
