@@ -4,29 +4,45 @@
 
 > [`@webext-core/analytics`](/guide/analytics/)
 
-## `createGoogleAnalyticsClient`
+## `createGoogleAnalytics4Client`
 
 ```ts
-function createGoogleAnalyticsClient(
+function createGoogleAnalytics4Client(
   config: GoogleAnalyticsConfig
 ): ExtensionAnalyticsClient {
   // ...
 }
 ```
 
-Returns a client for reporting analytics to Google Analytics 4 through the
+Creates an `ExtensionAnalyticsClient` for Google Analytics 4 using the
 [Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4).
 
-It is worth noting that the measurment protocol restricts the reporting of some events, user
-properties, and event parameters. [See the docs](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=firebase#reserved_names)
-for more information. That means that this client WILL NOT provide the same amount of stats as
-your standard web, gtag setup.
+### Examples
 
-The client will:
+```ts
+import { createGoogleAnalytics4Client } from '@webext-core/analytics';
 
-- Upload a single event per network request
-- Send the `context` and `page` as event parameterss
-- Does not upload anything for `trackPageView` - the `page_view` event is one of the restricted events for the MP API
+function generateRandomId(): string {
+  // ...
+}
+
+async function getOrInit(key: string, init: () => string): Promise<string> {
+  const value = localExtStorage.getItem(key);
+  if (value != null) return value;
+
+  const newValue = init();
+  await localExtStorage.setItem(key, newValue);
+  return newValue;
+}
+
+const googleAnalytics = createGoogleAnalytics4Client({
+  measurementId: "...",
+  apiSecret: "...",
+  nonPersonalizedAds: true,
+  getUserId: () => getOrInit("googleAnalytics/userId", generateRandomId),
+  getClientId: () => getOrInit("googleAnalytics/clientId", generateRandomId),
+})
+```
 
 ## `createUmamiClient`
 
@@ -36,15 +52,22 @@ function createUmamiClient(config: UmamiConfig): ExtensionAnalyticsClient {
 }
 ```
 
-Umami is a privacy focused alternative to google analytics.
+Creates an `ExtensionAnalyticsClient` for <https://umami.is>.
 
-> https://umami.is/
+### Examples
 
-The Umami client returned by this function:
+```ts
+import { createUmamiClient } from '@webext-core/analytics';
 
-- Uploads a single event at a time
-- Sends the `context` string as the `hostname` parameter
-- Does not upload anything for `trackPageView` - pages are apart of events.
+const umami = createUmamiClient({
+  websiteId: "...",
+  sendUrl: "https://stats.aklinker1.io"
+});
+export const [registerAnalytics, getAnalytics] = defineExtensionAnalytics({
+  client: umami,
+  ...
+})
+```
 
 ## `defineExtensionAnalytics`
 

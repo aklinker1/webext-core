@@ -30,21 +30,34 @@ export interface GoogleAnalyticsConfig {
 }
 
 /**
- * Returns a client for reporting analytics to Google Analytics 4 through the
+ * Creates an `ExtensionAnalyticsClient` for Google Analytics 4 using the
  * [Measurement Protocol](https://developers.google.com/analytics/devguides/collection/protocol/ga4).
  *
- * It is worth noting that the measurment protocol restricts the reporting of some events, user
- * properties, and event parameters. [See the docs](https://developers.google.com/analytics/devguides/collection/protocol/ga4/reference?client_type=firebase#reserved_names)
- * for more information. That means that this client WILL NOT provide the same amount of stats as
- * your standard web, gtag setup.
+ * @example
+ * import { createGoogleAnalytics4Client } from '@webext-core/analytics';
  *
- * The client will:
+ * function generateRandomId(): string {
+ *   // ...
+ * }
  *
- * - Upload a single event per network request
- * - Send the `context` and `page` as event parameterss
- * - Does not upload anything for `trackPageView` - the `page_view` event is one of the restricted events for the MP API
+ * async function getOrInit(key: string, init: () => string): Promise<string> {
+ *   const value = localExtStorage.getItem(key);
+ *   if (value != null) return value;
+ *
+ *   const newValue = init();
+ *   await localExtStorage.setItem(key, newValue);
+ *   return newValue;
+ * }
+ *
+ * const googleAnalytics = createGoogleAnalytics4Client({
+ *   measurementId: "...",
+ *   apiSecret: "...",
+ *   nonPersonalizedAds: true,
+ *   getUserId: () => getOrInit("googleAnalytics/userId", generateRandomId),
+ *   getClientId: () => getOrInit("googleAnalytics/clientId", generateRandomId),
+ * })
  */
-export function createGoogleAnalyticsClient(
+export function createGoogleAnalytics4Client(
   config: GoogleAnalyticsConfig,
 ): ExtensionAnalyticsClient {
   const prodUrl = 'https://www.google-analytics.com/mp/collect';
@@ -55,6 +68,8 @@ export function createGoogleAnalyticsClient(
       const url = new URL(config.debug ? debugUrl : prodUrl);
       url.searchParams.set('measurement_id', config.measurementId);
       url.searchParams.set('api_secret', config.apiSecret);
+
+      // TODO: figure out how to report the os/browser info and language
       const body: RequestBody = {
         client_id: await config.getClientId(),
         user_id: await config.getUserId?.(),

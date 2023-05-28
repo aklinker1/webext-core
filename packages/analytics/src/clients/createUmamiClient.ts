@@ -16,15 +16,19 @@ export interface UmamiConfig {
 }
 
 /**
- * Umami is a privacy focused alternative to google analytics.
+ * Creates an `ExtensionAnalyticsClient` for <https://umami.is>.
  *
- * > https://umami.is/
+ * @example
+ * import { createUmamiClient } from '@webext-core/analytics';
  *
- * The Umami client returned by this function:
- *
- * - Uploads a single event at a time
- * - Sends the `context` string as the `hostname` parameter
- * - Does not upload anything for `trackPageView` - pages are apart of events.
+ * const umami = createUmamiClient({
+ *   websiteId: "...",
+ *   sendUrl: "https://stats.aklinker1.io"
+ * });
+ * export const [registerAnalytics, getAnalytics] = defineExtensionAnalytics({
+ *   client: umami,
+ *   ...
+ * })
  */
 export function createUmamiClient(config: UmamiConfig): ExtensionAnalyticsClient {
   const baseUrl = config.url.endsWith('/')
