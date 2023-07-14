@@ -1,6 +1,9 @@
 {
   "name": "webext-core",
   "private": true,
+  "engines": {
+    "node": ">=16"
+  },
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
