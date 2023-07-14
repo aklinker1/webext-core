@@ -93,15 +93,15 @@ const packagePages = {
       link: '/guide/analytics/',
     },
     {
-      text: 'Google Analytics',
-      link: '/guide/analytics/google-analytics',
-    },
-    {
       text: 'Umami',
       link: '/guide/analytics/umami',
     },
     {
-      text: 'Custom Analytics Service',
+      text: 'Google Analytics 4',
+      link: '/guide/analytics/google-analytics-4',
+    },
+    {
+      text: 'Custom Service',
       link: '/guide/analytics/custom',
     },
   ],

@@ -19,6 +19,7 @@ export function defineExtensionAnalytics(config: ExtensionAnalyticsConfig) {
   const [registerClient, getClient] = defineProxyService(
     '@webext-core/analytics-client',
     (client: ExtensionAnalyticsClient) => client,
+    config,
   );
 
   let singletonAnalytics: ExtensionAnalytics | undefined;

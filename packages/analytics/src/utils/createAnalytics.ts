@@ -1,10 +1,11 @@
 import browser from 'webextension-polyfill';
 import { ExtensionAnalytics, ExtensionAnalyticsConfig } from '../types';
-import { TrackBaseOptions } from '../clients';
+import { TrackBaseOptions, TrackEventOptions, TrackPageViewOptions } from '../clients';
 import UAParser from 'ua-parser-js';
 
 export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): ExtensionAnalytics {
   const { client } = config;
+  const logger = config.logger === null ? null : config.logger ?? console;
   let currentContext: string | undefined;
   let currentPage: string | undefined;
   const sessionId = Date.now();
@@ -14,7 +15,7 @@ export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): Exte
     const sampled = await (isSampled ?? (() => true))();
     if (!sampled) return false;
 
-    return await isEnabled();
+    return await config.isEnabled();
   };
 
   const ua = UAParser(navigator.userAgent);
@@ -49,16 +50,18 @@ export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): Exte
     if (!enabled) return;
 
     const baseOptions = await getBaseOptions();
+    const options: TrackEventOptions = {
+      timestamp,
+      action,
+      properties: properties ?? {},
+      context,
+      page,
+      ...baseOptions,
+    };
+    logger?.log('Reporting event: ' + action, options);
 
     await client
-      .uploadEvent({
-        timestamp,
-        action,
-        properties: properties ?? {},
-        context,
-        page,
-        ...baseOptions,
-      })
+      .uploadEvent(options)
       // ignore network errors
       .catch();
   };
@@ -74,13 +77,15 @@ export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): Exte
     if (!enabled) return;
 
     const baseOptions = await getBaseOptions();
+    const options: TrackPageViewOptions = {
+      timestamp,
+      context,
+      page,
+      ...baseOptions,
+    };
+    logger?.log('Reporting page view: ' + page, options);
     await client
-      .uploadPageView?.({
-        timestamp,
-        context,
-        page,
-        ...baseOptions,
-      })
+      .uploadPageView?.(options)
       // ignore network errors
       .catch();
   };
@@ -96,7 +101,7 @@ export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): Exte
       // Grab variables synchronously
       const context = currentContext;
       const page = currentPage;
-      void trackEventAsync(timestamp, context, page, action, properties);
+      void trackEventAsync(timestamp, context, page, action, properties).catch(logger?.warn);
     },
 
     trackPageView(page) {
@@ -105,7 +110,7 @@ export function createExtensionAnalytics(config: ExtensionAnalyticsConfig): Exte
 
       // Grab variables synchronously
       const context = currentContext;
-      void trackPageViewAsync(timestamp, context, page);
+      void trackPageViewAsync(timestamp, context, page).catch(logger?.warn);
     },
   };
 }

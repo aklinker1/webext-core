@@ -1,4 +1,5 @@
 import { ExtensionAnalyticsClient } from './clients';
+import { ProxyServiceConfig } from '@webext-core/proxy-service';
 
 export interface ExtensionAnalytics {
   /**
@@ -19,7 +20,7 @@ export interface ExtensionAnalytics {
   trackPageView: (pathname: string) => void;
 }
 
-export interface ExtensionAnalyticsConfig {
+export interface ExtensionAnalyticsConfig extends ProxyServiceConfig {
   /**
    * The client to report analytics to. Use `defineUmamiClient`, `defineGoogleAnalyticsClient`, or
    * implement your own `ExtensionAnalyticsClient`.
