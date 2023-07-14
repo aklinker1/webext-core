@@ -48,9 +48,6 @@
     "test:coverage": "vitest run -r src --coverage",
     "compile": "tsc --noEmit"
   },
-  "dependencies": {
-    "@webcomponents/webcomponentsjs": "^2.7.0"
-  },
   "devDependencies": {
     "@vitest/coverage-c8": "^0.24.5",
     "jsdom": "^20.0.3",

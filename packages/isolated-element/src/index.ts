@@ -1,5 +1,4 @@
 import { CreateIsolatedElementOptions } from './options';
-import '@webcomponents/webcomponentsjs';
 
 export type { CreateIsolatedElementOptions };
 
@@ -33,11 +32,6 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
   const { name, mode = 'closed', css } = options;
 
   // Create the root, parent element
-  try {
-    customElements.define(name, class extends HTMLElement {});
-  } catch {
-    // Custom element already exists, maybe you're trying to mount on a SPA, we don't need to redefine it
-  }
   const parentElement = document.createElement(name);
 
   // Create the shadow and isolated nodes
