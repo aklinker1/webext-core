@@ -1,5 +1,4 @@
 import { CreateIsolatedElementOptions } from './options';
-import '@webcomponents/webcomponentsjs';
 
 export type { CreateIsolatedElementOptions };
 
