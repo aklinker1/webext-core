@@ -2,7 +2,8 @@
   "name": "webext-core",
   "private": true,
   "engines": {
-    "node": ">=16"
+    "node": ">=16",
+    "pnpm": "8"
   },
   "scripts": {
     "format": "prettier --write .",
