@@ -34,7 +34,7 @@ export function createUmamiClient(config: UmamiConfig): ExtensionAnalyticsClient
   const baseUrl = config.url.endsWith('/')
     ? config.url.substring(config.url.length - 1)
     : config.url;
-  const sendUrl = `${baseUrl}/api/send`;
+  const sendUrl = `${baseUrl}/api/collect`;
 
   return {
     async uploadEvent(options) {
