@@ -71,7 +71,9 @@ export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
   }
 
   return {
-    clear: storage.clear,
+    clear() {
+      return storage.clear();
+    },
     getItem(key) {
       return storage.get(key as string).then(res => res[key as string] ?? null);
     },
