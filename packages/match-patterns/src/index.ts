@@ -13,6 +13,7 @@ export class MatchPattern {
   private protocolMatches: string[];
   private hostnameMatch: string | undefined;
   private pathnameMatch: string | undefined;
+  private isAllUrls?: boolean;
 
   /**
    * Parse a match pattern string. If it is invalid, the constructor will throw an
@@ -22,6 +23,7 @@ export class MatchPattern {
    */
   constructor(matchPattern: string) {
     if (matchPattern === '<all_urls>') {
+      this.isAllUrls = true;
       this.protocolMatches = [...MatchPattern.PROTOCOLS];
       this.hostnameMatch = '*';
       this.pathnameMatch = '*';
@@ -44,6 +46,8 @@ export class MatchPattern {
    * Check if a URL is included in a pattern.
    */
   includes(url: string | URL | Location): boolean {
+    if (this.isAllUrls) return true;
+
     const u: URL =
       typeof url === 'string' ? new URL(url) : url instanceof Location ? new URL(url.href) : url;
 

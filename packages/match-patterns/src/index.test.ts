@@ -15,6 +15,7 @@ describe('MatchPattern', () => {
       it.each([
         [true, 'http://google.com'],
         [true, new URL('https://youtube.com')],
+        [true, new URL('file:///home/aklinker1')],
         [true, { hostname: 'test.com', pathname: '/', protocol: 'http:' } as Location],
       ])('should parse "%s", when "%s" is checked, return %s', (exepcted, url) => {
         expect(new MatchPattern('<all_urls>').includes(url)).toBe(exepcted);
