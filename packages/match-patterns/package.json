@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/match-patterns",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "Utilities for working with match patterns.",
   "license": "MIT",
   "keywords": [
