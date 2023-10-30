@@ -15,7 +15,42 @@ To tell Vitest to use `@webext-core/fake-browser` instead of `webextension-polyf
 export { fakeBrowser as default } from '@webext-core/fake-browser';
 ```
 
-Then write your tests. Make sure to call `vi.mock("webextension-polyfill")` to tell vitest to use the mock we just setup.
+Next, create a global setup file, `vitest.setup.ts`, where we actually test vitest to use our mock:
+
+```ts
+import { vi } from 'vitest';
+
+vi.mock('webextension-polyfill');
+```
+
+Finally, update your `vitest.config.ts` file:
+
+```ts
+import { defineConfig } from 'vitest/config';
+
+export default defineConfig({
+  test: {
+    // List setup file
+    setupFiles: ['vitest.setup.ts'],
+
+    // List ALL dependencies that use `webextension-polyfill` under `server.deps.include`.
+    // Without this, Vitest can't mock `webextension-polyfill` inside the dependencies, and the
+    // actual polyfill will be loaded in tests
+    //
+    // You can get a list of dependencies using your package manager:
+    //   - npm list webextension-polyfill
+    //   - yarn list webextension-polyfill
+    //   - pnpm why webextension-polyfill
+    server: {
+      deps: {
+        include: ['@webext-core/storage', ...],
+      },
+    },
+  },
+});
+```
+
+Then write your tests!
 
 ```ts
 import browser from 'webextension-polyfill';
@@ -27,9 +62,6 @@ import { test, vi } from 'vitest';
 function isXyzEnabled(): Promise<boolean> {
   return localExtStorage.getItem('xyz');
 }
-
-// Enable the global mock
-vi.mock('webextension-polyfill');
 
 describe('isXyzEnabled', () => {
   beforeEach(() => {
@@ -46,24 +78,6 @@ describe('isXyzEnabled', () => {
 
     expect(actual).toBe(expected);
   });
-});
-```
-
-Calling `vi.mock` in every file is a pain. Instead, you can add a setup file that calls it before all your tests:
-
-```ts
-// vitest.setup.ts
-vi.mock('webextension-polyfill');
-```
-
-```ts
-// vitest.config.ts
-import { defineConfig } from 'vitest/config';
-
-export default defineConfig({
-  testing: {
-    setupFiles: ['vitest.setup.ts'],
-  },
 });
 ```
 
