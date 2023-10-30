@@ -15,7 +15,7 @@ To tell Vitest to use `@webext-core/fake-browser` instead of `webextension-polyf
 export { fakeBrowser as default } from '@webext-core/fake-browser';
 ```
 
-Next, create a global setup file, `vitest.setup.ts`, where we actually test vitest to use our mock:
+Next, create a global setup file, `vitest.setup.ts`, where we actually tell Vitest to use our mock:
 
 ```ts
 import { vi } from 'vitest';
