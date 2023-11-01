@@ -15,7 +15,8 @@ type StorageAreaWithTrigger = Storage.StorageArea & {
   };
 };
 
-function defineStorageArea(area: 'local' | 'sync' | 'managed'): StorageAreaWithTrigger {
+type StorageArea = 'local' | 'managed' | 'session' | 'sync';
+function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
   const data: Record<string, any> = {};
   const onChanged =
     defineEventWithTrigger<(changes: Storage.StorageAreaOnChangedChangesType) => void>();
@@ -90,6 +91,10 @@ const managedStorage = {
   ...defineStorageArea('managed'),
   QUOTA_BYTES: 5242880 as const,
 };
+const sessionStorage = {
+  ...defineStorageArea('session'),
+  QUOTA_BYTES: 5242880 as const,
+};
 const syncStorage = {
   ...defineStorageArea('sync'),
   MAX_ITEMS: 512 as const,
@@ -106,11 +111,13 @@ export const storage: BrowserOverrides['storage'] = {
   resetState() {
     localStorage.resetState();
     managedStorage.resetState();
+    sessionStorage.resetState();
     syncStorage.resetState();
     globalOnChanged.removeAllListeners();
   },
   local: localStorage,
   managed: managedStorage,
+  session: sessionStorage,
   sync: syncStorage,
   onChanged: globalOnChanged,
 };
