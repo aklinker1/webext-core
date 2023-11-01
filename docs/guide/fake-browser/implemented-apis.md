@@ -42,7 +42,7 @@ For all APIs not listed here, you will have to mock the functions behavior yours
 
 ## `storage`
 
-- The `local`, `sync`, and `managed` storages are all stored separately in memory.
+- The `local`, `sync`, `session`, and `managed` storages are all stored separately in memory.
 - `storage.onChanged`, `storage.{area}.onChanged` events are all triggered when updating values.
 - Each storage area can be reset individually.
 
