@@ -49,7 +49,7 @@
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
-    "@types/webextension-polyfill": "^0.9.1",
+    "@types/webextension-polyfill": "^0.10.5",
     "@vitest/coverage-c8": "^0.24.5",
     "tsup": "^6.4.0",
     "typescript": "^4.8.4",

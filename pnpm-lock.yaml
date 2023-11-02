@@ -283,8 +283,8 @@ importers:
         version: 0.10.0
     devDependencies:
       '@types/webextension-polyfill':
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.10.5
+        version: 0.10.5
       '@vitest/coverage-c8':
         specifier: ^0.24.5
         version: 0.24.5(jsdom@20.0.3)
@@ -1195,6 +1195,10 @@ packages:
 
   /@types/web-bluetooth@0.0.17:
     resolution: {integrity: sha512-4p9vcSmxAayx72yn70joFoL44c9MO/0+iVEBIQXe3v2h2SiAsEIo/G5v6ObFWvNKRFjbrVadNf9LqEEZeQPzdA==}
+    dev: true
+
+  /@types/webextension-polyfill@0.10.5:
+    resolution: {integrity: sha512-LlmbFLUB7+BDrb9nMuM0wlqtx9LZbBV2x3W98o02cD7Y8i10+sBenTlhG56vr47dzC7WIVXbURii+5jMJsyjLw==}
     dev: true
 
   /@types/webextension-polyfill@0.9.1:
@@ -3296,6 +3300,7 @@ packages:
 
   /glob@6.0.4:
     resolution: {integrity: sha512-MKZeRNyYZAVVVG1oZeLaWie1uweH40m9AZwIwxyPbTSX4hHrVYSzLg0Ro5Z5R7XKkIX+Cc6oD1rqeDJnwsB8/A==}
+    requiresBuild: true
     dependencies:
       inflight: 1.0.6
       inherits: 2.0.4
@@ -4257,6 +4262,7 @@ packages:
   /mkdirp@0.5.6:
     resolution: {integrity: sha512-FP+p8RB8OWpF3YZBCrP5gtADmtXApB5AMLn+vdyA+PyxCjrCs00mjyUozssO33cwDeT3wNGdLxJ5M//YqtHAJw==}
     hasBin: true
+    requiresBuild: true
     dependencies:
       minimist: 1.2.7
     dev: true
@@ -4343,6 +4349,7 @@ packages:
 
   /nan@2.17.0:
     resolution: {integrity: sha512-2ZTgtl0nJsO0KQCjEpxcIr5D+Yv90plTitZt9JBfQvVJDS5seMl3FOvsh3+9CoYWXf/1l5OaZzzF6nDm4cagaQ==}
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -4365,6 +4372,7 @@ packages:
   /ncp@2.0.0:
     resolution: {integrity: sha512-zIdGUrPRFTUELUvr3Gmc7KZ2Sw/h1PiVM0Af/oHB6zgnV1ikqSfRk+TOufi79aHYCW3NiOXmr1BP5nWbzojLaA==}
     hasBin: true
+    requiresBuild: true
     dev: true
     optional: true
 
@@ -5034,6 +5042,7 @@ packages:
   /rimraf@2.4.5:
     resolution: {integrity: sha512-J5xnxTyqaiw06JjMftq7L9ouA448dw/E7dKghkP9WpKNuwmARNNg+Gk8/u5ryb9N/Yo2+z3MCwuqFK/+qPOPfQ==}
     hasBin: true
+    requiresBuild: true
     dependencies:
       glob: 6.0.4
     dev: true
