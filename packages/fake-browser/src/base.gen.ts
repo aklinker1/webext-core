@@ -238,6 +238,11 @@ Mock the function yourself using your testing framework, or submit a PR with an 
 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
     },
+    getUserSettings: () => {
+      throw Error(`Browser.action.getUserSettings not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
     setIcon: () => {
       throw Error(`Browser.action.setIcon not implemented.
 
@@ -334,6 +339,11 @@ Mock the function yourself using your testing framework, or submit a PR with an 
     },
     getTitle: () => {
       throw Error(`Browser.browserAction.getTitle not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    getUserSettings: () => {
+      throw Error(`Browser.browserAction.getUserSettings not implemented.
 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
     },
@@ -1401,6 +1411,28 @@ Mock the function yourself using your testing framework, or submit a PR with an 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
       },
     },
+    onChanged: {
+      addListener: () => {
+        throw Error(`Browser.commands.onChanged.addListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      removeListener: () => {
+        throw Error(`Browser.commands.onChanged.removeListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      hasListener: () => {
+        throw Error(`Browser.commands.onChanged.hasListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      hasListeners: () => {
+        throw Error(`Browser.commands.onChanged.hasListeners not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+    },
   },
   contentScripts: {
     register: () => {
@@ -1551,29 +1583,59 @@ Mock the function yourself using your testing framework, or submit a PR with an 
       },
     },
   },
-  declarativeContent: {
-    PageStateMatcher: class PageStateMatcher {},
-    // @ts-expect-error: Generated type is known to be wrong
-    ShowAction: class ShowAction {},
-    SetIcon: class SetIcon {},
-    RequestContentScript: class RequestContentScript {},
-    onPageChanged: {
-      addRules: () => {
-        throw Error(`Browser.declarativeContent.onPageChanged.addRules not implemented.
+  declarativeNetRequest: {
+    updateDynamicRules: () => {
+      throw Error(`Browser.declarativeNetRequest.updateDynamicRules not implemented.
 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
-      },
-      getRules: () => {
-        throw Error(`Browser.declarativeContent.onPageChanged.getRules not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
-      },
-      removeRules: () => {
-        throw Error(`Browser.declarativeContent.onPageChanged.removeRules not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
-      },
     },
+    updateSessionRules: () => {
+      throw Error(`Browser.declarativeNetRequest.updateSessionRules not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    getEnabledRulesets: () => {
+      throw Error(`Browser.declarativeNetRequest.getEnabledRulesets not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    updateEnabledRulesets: () => {
+      throw Error(`Browser.declarativeNetRequest.updateEnabledRulesets not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    getAvailableStaticRuleCount: () => {
+      throw Error(`Browser.declarativeNetRequest.getAvailableStaticRuleCount not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    getDynamicRules: () => {
+      throw Error(`Browser.declarativeNetRequest.getDynamicRules not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    getSessionRules: () => {
+      throw Error(`Browser.declarativeNetRequest.getSessionRules not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    isRegexSupported: () => {
+      throw Error(`Browser.declarativeNetRequest.isRegexSupported not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    testMatchOutcome: () => {
+      throw Error(`Browser.declarativeNetRequest.testMatchOutcome not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
+    DYNAMIC_RULESET_ID: '_dynamic',
+    GUARANTEED_MINIMUM_STATIC_RULES: 0,
+    MAX_NUMBER_OF_STATIC_RULESETS: 0,
+    MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: 0,
+    MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 0,
+    MAX_NUMBER_OF_REGEX_RULES: 0,
+    SESSION_RULESET_ID: '_session',
   },
   devtools: {
     inspectedWindow: {
@@ -2705,6 +2767,28 @@ Mock the function yourself using your testing framework, or submit a PR with an 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
       },
     },
+    onDeleteSuggestion: {
+      addListener: () => {
+        throw Error(`Browser.omnibox.onDeleteSuggestion.addListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      removeListener: () => {
+        throw Error(`Browser.omnibox.onDeleteSuggestion.removeListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      hasListener: () => {
+        throw Error(`Browser.omnibox.onDeleteSuggestion.hasListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      hasListeners: () => {
+        throw Error(`Browser.omnibox.onDeleteSuggestion.hasListeners not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+    },
   },
   pageAction: {
     show: () => {
@@ -3785,6 +3869,11 @@ Mock the function yourself using your testing framework, or submit a PR with an 
 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
     },
+    query: () => {
+      throw Error(`Browser.search.query not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+    },
   },
   sessions: {
     forgetClosedTab: () => {
@@ -4070,6 +4159,51 @@ Mock the function yourself using your testing framework, or submit a PR with an 
         },
         hasListeners: () => {
           throw Error(`Browser.storage.managed.onChanged.hasListeners not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        },
+      },
+    },
+    session: {
+      QUOTA_BYTES: 10485760,
+      get: () => {
+        throw Error(`Browser.storage.session.get not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      set: () => {
+        throw Error(`Browser.storage.session.set not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      remove: () => {
+        throw Error(`Browser.storage.session.remove not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      clear: () => {
+        throw Error(`Browser.storage.session.clear not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      },
+      onChanged: {
+        addListener: () => {
+          throw Error(`Browser.storage.session.onChanged.addListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        },
+        removeListener: () => {
+          throw Error(`Browser.storage.session.onChanged.removeListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        },
+        hasListener: () => {
+          throw Error(`Browser.storage.session.onChanged.hasListener not implemented.
+
+Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        },
+        hasListeners: () => {
+          throw Error(`Browser.storage.session.onChanged.hasListeners not implemented.
 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
         },

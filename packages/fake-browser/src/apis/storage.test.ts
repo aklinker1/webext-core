@@ -4,116 +4,55 @@ import { fakeBrowser } from '..';
 describe('Fake Storage API', () => {
   beforeEach(fakeBrowser.reset);
 
-  it('should allow getting and setting storage', async () => {
-    const key1 = '1';
-    const value1 = '1';
-    const key2 = '2';
-    const value2 = 2;
+  it.each(['local', 'session', 'sync'] as const)(
+    'should allow getting and setting %s storage',
+    async area => {
+      const key1 = '1';
+      const value1 = '1';
+      const key2 = '2';
+      const value2 = 2;
 
-    await fakeBrowser.storage.local.set({ [key1]: value1 });
-    await fakeBrowser.storage.local.set({ [key2]: value2 });
+      await fakeBrowser.storage[area].set({ [key1]: value1 });
+      await fakeBrowser.storage[area].set({ [key2]: value2 });
 
-    expect(await fakeBrowser.storage.local.get()).toEqual({
-      [key1]: value1,
-      [key2]: value2,
-    });
-    expect(await fakeBrowser.storage.local.get(key1)).toEqual({
-      [key1]: value1,
-    });
+      expect(await fakeBrowser.storage[area].get()).toEqual({
+        [key1]: value1,
+        [key2]: value2,
+      });
+      expect(await fakeBrowser.storage[area].get(key1)).toEqual({
+        [key1]: value1,
+      });
 
-    await fakeBrowser.storage.local.remove(key1);
-    expect(await fakeBrowser.storage.local.get(key1)).toEqual({
-      [key1]: null,
-    });
-    expect(await fakeBrowser.storage.local.get({ [key1]: 'fallback' })).toEqual({
-      [key1]: 'fallback',
-    });
-    expect(await fakeBrowser.storage.local.get([key1, key2])).toEqual({
-      [key1]: null,
-      [key2]: value2,
-    });
+      await fakeBrowser.storage[area].remove(key1);
+      expect(await fakeBrowser.storage[area].get(key1)).toEqual({
+        [key1]: null,
+      });
+      expect(await fakeBrowser.storage[area].get({ [key1]: 'fallback' })).toEqual({
+        [key1]: 'fallback',
+      });
+      expect(await fakeBrowser.storage[area].get([key1, key2])).toEqual({
+        [key1]: null,
+        [key2]: value2,
+      });
 
-    await fakeBrowser.storage.local.clear();
-    expect(await fakeBrowser.storage.local.get()).toEqual({});
+      await fakeBrowser.storage[area].clear();
+      expect(await fakeBrowser.storage[area].get()).toEqual({});
+    },
+  );
 
-    await fakeBrowser.storage.session.set({ [key1]: value1 });
-    await fakeBrowser.storage.session.set({ [key2]: value2 });
+  it.each(['local', 'session', 'sync'] as const)(
+    'setting a value to undefined should do nothing',
+    async area => {
+      const key = 'key';
+      const value = 'test';
 
-    expect(await fakeBrowser.storage.session.get()).toEqual({
-      [key1]: value1,
-      [key2]: value2,
-    });
-    expect(await fakeBrowser.storage.session.get(key1)).toEqual({
-      [key1]: value1,
-    });
-
-    await fakeBrowser.storage.session.remove(key1);
-    expect(await fakeBrowser.storage.session.get(key1)).toEqual({
-      [key1]: null,
-    });
-    expect(await fakeBrowser.storage.session.get({ [key1]: 'fallback' })).toEqual({
-      [key1]: 'fallback',
-    });
-    expect(await fakeBrowser.storage.session.get([key1, key2])).toEqual({
-      [key1]: null,
-      [key2]: value2,
-    });
-
-    await fakeBrowser.storage.session.clear();
-    expect(await fakeBrowser.storage.session.get()).toEqual({});
-
-    await fakeBrowser.storage.sync.set({ [key1]: value1 });
-    await fakeBrowser.storage.sync.set({ [key2]: value2 });
-
-    expect(await fakeBrowser.storage.sync.get()).toEqual({
-      [key1]: value1,
-      [key2]: value2,
-    });
-    expect(await fakeBrowser.storage.sync.get(key1)).toEqual({
-      [key1]: value1,
-    });
-
-    await fakeBrowser.storage.sync.remove(key1);
-    expect(await fakeBrowser.storage.sync.get(key1)).toEqual({
-      [key1]: null,
-    });
-    expect(await fakeBrowser.storage.sync.get({ [key1]: 'fallback' })).toEqual({
-      [key1]: 'fallback',
-    });
-    expect(await fakeBrowser.storage.sync.get([key1, key2])).toEqual({
-      [key1]: null,
-      [key2]: value2,
-    });
-
-    await fakeBrowser.storage.sync.clear();
-    expect(await fakeBrowser.storage.sync.get()).toEqual({});
-  });
-
-  it('setting a value to undefined should do nothing', async () => {
-    const key = 'key';
-    const value = 'test';
-
-    await fakeBrowser.storage.local.set({ [key]: value });
-    await fakeBrowser.storage.local.set({ [key]: undefined });
-
-    expect(await fakeBrowser.storage.local.get(key)).toEqual({
-      [key]: value,
-    });
-
-    await fakeBrowser.storage.session.set({ [key]: value });
-    await fakeBrowser.storage.session.set({ [key]: undefined });
-
-    expect(await fakeBrowser.storage.session.get(key)).toEqual({
-      [key]: value,
-    });
-
-    await fakeBrowser.storage.sync.set({ [key]: value });
-    await fakeBrowser.storage.sync.set({ [key]: undefined });
-
-    expect(await fakeBrowser.storage.sync.get(key)).toEqual({
-      [key]: value,
-    });
-  });
+      await fakeBrowser.storage[area].set({ [key]: value });
+      await fakeBrowser.storage[area].set({ [key]: undefined });
+      expect(await fakeBrowser.storage[area].get(key)).toEqual({
+        [key]: value,
+      });
+    },
+  );
 
   it('sync.getBytesInUse should throw an error', () => {
     expect(fakeBrowser.storage.sync.getBytesInUse).toThrowError();
