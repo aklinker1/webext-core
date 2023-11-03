@@ -4165,7 +4165,6 @@ Mock the function yourself using your testing framework, or submit a PR with an 
       },
     },
     session: {
-      QUOTA_BYTES: 10485760,
       get: () => {
         throw Error(`Browser.storage.session.get not implemented.
 

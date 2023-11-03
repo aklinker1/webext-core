@@ -28,7 +28,7 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm = await fakeBrowser.alarms.get(job.id);
-        await fakeBrowser.alarms.onAlarm.trigger(alarm);
+        await fakeBrowser.alarms.onAlarm.trigger(alarm!);
 
         expect(job.execute).toBeCalledTimes(1);
         expect(alarm).toEqual(expected);
@@ -71,7 +71,7 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm = await fakeBrowser.alarms.get(job.id);
-        await fakeBrowser.alarms.onAlarm.trigger(alarm);
+        await fakeBrowser.alarms.onAlarm.trigger(alarm!);
 
         expect(job.execute).toBeCalledTimes(1);
         expect(alarm).toEqual(expected);
@@ -96,7 +96,7 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm = await fakeBrowser.alarms.get(job.id);
-        await fakeBrowser.alarms.onAlarm.trigger(alarm);
+        await fakeBrowser.alarms.onAlarm.trigger(alarm!);
 
         expect(job.execute).toBeCalledTimes(1);
         expect(alarm).toEqual(expected);
@@ -122,7 +122,7 @@ describe('defineJobScheduler', () => {
           await jobs.scheduleJob(job);
 
           const alarm = await fakeBrowser.alarms.get(job.id);
-          await fakeBrowser.alarms.onAlarm.trigger(alarm);
+          await fakeBrowser.alarms.onAlarm.trigger(alarm!);
 
           expect(job.execute).toBeCalledTimes(1);
           expect(alarm).toEqual(expected);
@@ -147,7 +147,7 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm = await fakeBrowser.alarms.get(job.id);
-        await fakeBrowser.alarms.onAlarm.trigger(alarm);
+        await fakeBrowser.alarms.onAlarm.trigger(alarm!);
 
         expect(alarm).toEqual(expected);
         expect(job.execute).toBeCalledTimes(1);
@@ -194,8 +194,8 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm1 = await fakeBrowser.alarms.get(job.id);
-        vi.setSystemTime(alarm1.scheduledTime + 1);
-        await fakeBrowser.alarms.onAlarm.trigger(alarm1);
+        vi.setSystemTime(alarm1!.scheduledTime + 1);
+        await fakeBrowser.alarms.onAlarm.trigger(alarm1!);
         const alarm2 = await fakeBrowser.alarms.get(job.id);
 
         expect(alarm1).toEqual(expected1);
