@@ -132,12 +132,6 @@ describe('Fake Storage API', () => {
       fakeBrowser.storage.onChanged.addListener(globalListener);
     });
     afterEach(() => {
-      fakeBrowser.storage.local.onChanged.removeListener(localListener);
-      fakeBrowser.storage.sync.onChanged.removeListener(syncListener);
-      fakeBrowser.storage.session.onChanged.removeListener(sessionListener);
-      fakeBrowser.storage.onChanged.removeListener(globalListener);
-    });
-    afterEach(() => {
       localListener.mockClear();
       syncListener.mockClear();
       sessionListener.mockClear();
