@@ -93,7 +93,7 @@ const managedStorage = {
 };
 const sessionStorage = {
   ...defineStorageArea('session'),
-  QUOTA_BYTES: 5242880 as const,
+  QUOTA_BYTES: 10485760 as const,
 };
 const syncStorage = {
   ...defineStorageArea('sync'),
