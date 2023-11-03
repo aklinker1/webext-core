@@ -68,8 +68,8 @@ importers:
         specifier: ^4.6.7
         version: 4.6.7
       '@types/webextension-polyfill':
-        specifier: ^0.9.1
-        version: 0.9.1
+        specifier: ^0.10.5
+        version: 0.10.5
       '@vitest/coverage-c8':
         specifier: ^0.24.5
         version: 0.24.5(jsdom@20.0.3)

@@ -57,6 +57,9 @@ export interface BrowserOverrides {
     local: {
       onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
     };
+    session: {
+      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
+    };
     sync: {
       onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
     };
