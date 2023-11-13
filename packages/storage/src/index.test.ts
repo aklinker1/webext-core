@@ -68,14 +68,14 @@ describe('Storage Wrappers', () => {
       expect(actual).toEqual({ [key]: newValue });
     });
 
-    it('should set the value to null when passing undefined', async () => {
+    it('should remove the value from storage when setting the value to undefined', async () => {
       const key = 'key';
       await fakeBrowser.storage.local.set({ [key]: '1' });
 
       await storage.setItem(key, undefined);
 
       const actual = await fakeBrowser.storage.local.get();
-      expect(actual).toEqual({ [key]: null });
+      expect(actual).toEqual({});
     });
 
     it('should type the key correctly', async () => {

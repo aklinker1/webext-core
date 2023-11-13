@@ -51,7 +51,7 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
         Object.keys(keys).forEach(key => (res[key] = data[key] ?? keys[key]));
       } else {
         // return just the keys or null
-        getKeyList(keys).forEach(key => (res[key] = data[key] ?? null));
+        getKeyList(keys).forEach(key => (res[key] = data[key]));
       }
       return res;
     },
@@ -74,7 +74,9 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
 
         const oldValue = data[key] ?? null;
         changes[key] = { oldValue, newValue };
-        data[key] = newValue;
+
+        if (newValue == null) delete data[key];
+        else data[key] = newValue;
       }
       await onChanged.trigger(changes);
       await globalOnChanged.trigger(changes, area);

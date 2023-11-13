@@ -24,14 +24,11 @@ describe('Fake Storage API', () => {
       });
 
       await fakeBrowser.storage[area].remove(key1);
-      expect(await fakeBrowser.storage[area].get(key1)).toEqual({
-        [key1]: null,
-      });
+      expect(await fakeBrowser.storage[area].get(key1)).toEqual({});
       expect(await fakeBrowser.storage[area].get({ [key1]: 'fallback' })).toEqual({
         [key1]: 'fallback',
       });
       expect(await fakeBrowser.storage[area].get([key1, key2])).toEqual({
-        [key1]: null,
         [key2]: value2,
       });
 
@@ -53,6 +50,16 @@ describe('Fake Storage API', () => {
       });
     },
   );
+
+  it('setting a value to null should remove it', async () => {
+    const key = 'key';
+    const value = 'test';
+
+    await fakeBrowser.storage.local.set({ [key]: value });
+    await fakeBrowser.storage.local.set({ [key]: null });
+
+    expect(await fakeBrowser.storage.local.get(key)).toEqual({});
+  });
 
   it('sync.getBytesInUse should throw an error', () => {
     expect(fakeBrowser.storage.sync.getBytesInUse).toThrowError();
