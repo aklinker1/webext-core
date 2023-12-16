@@ -155,17 +155,10 @@ importers:
         version: 0.24.5(jsdom@20.0.3)
 
   packages/match-patterns:
-    dependencies:
-      '@webcomponents/webcomponentsjs':
-        specifier: ^2.7.0
-        version: 2.7.0
     devDependencies:
       '@vitest/coverage-c8':
         specifier: ^0.24.5
         version: 0.24.5(jsdom@20.0.3)
-      jsdom:
-        specifier: ^20.0.3
-        version: 20.0.3
       tsconfig:
         specifier: workspace:*
         version: link:../tsconfig
@@ -1458,10 +1451,6 @@ packages:
       - '@vue/composition-api'
       - vue
     dev: true
-
-  /@webcomponents/webcomponentsjs@2.7.0:
-    resolution: {integrity: sha512-j161Z9oiy8k74vchdrQGihfSp7QulrTclCUiPo0D7JF6/RjpXAmB0ThlTAFlSElkgqg0vdFgNAXaX9ZHZy25wQ==}
-    dev: false
 
   /abab@2.0.6:
     resolution: {integrity: sha512-j2afSsaIENvHZN2B8GOpF566vZ5WVk5opAiMTvWgaQT8DkbOqsTfvNAvHoRGU2zzP8cPoqys+xHTRDWW8L+/BA==}
