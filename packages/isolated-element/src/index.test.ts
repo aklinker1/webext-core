@@ -1,7 +1,7 @@
 /**
  * @vitest-environment jsdom
  */
-import { describe, beforeEach, it, expect } from 'vitest';
+import { describe, beforeEach, it, expect, vi } from 'vitest';
 import { createIsolatedElement } from './index';
 
 describe('createIsolatedElement', () => {
@@ -34,20 +34,21 @@ describe('createIsolatedElement', () => {
     const name = 'event-test-element-default';
 
     const { isolatedElement, parentElement } = await createIsolatedElement({ name });
-    document.body.append(parentElement);
-    let eventFired = false;
-    document.body.addEventListener('keyup', () => {
-      eventFired = true;
-    });
     const input = document.createElement('input');
-    isolatedElement.appendChild(input);
-    document.body.appendChild(isolatedElement);
+    isolatedElement.append(input);
+    document.body.append(parentElement);
+    document.body.append(isolatedElement);
+
+    const listener = vi.fn();
+    document.body.addEventListener('keyup', listener);
+
     const event = new KeyboardEvent('keyup', {
       bubbles: true,
     });
     input.dispatchEvent(event);
 
-    expect(eventFired).toBe(true);
+    expect(listener).toBeCalledTimes(1);
+    expect(listener).toBeCalledWith(event);
   });
 
   it('should not allow event propagation when isolateEvents is set to true', async () => {
@@ -57,20 +58,20 @@ describe('createIsolatedElement', () => {
       name,
       isolateEvents: true,
     });
-    document.body.append(parentElement);
-    let eventFired = false;
-    document.body.addEventListener('keyup', () => {
-      eventFired = true;
-    });
     const input = document.createElement('input');
-    isolatedElement.appendChild(input);
-    document.body.appendChild(isolatedElement);
+    isolatedElement.append(input);
+    document.body.append(parentElement);
+    document.body.append(isolatedElement);
+
+    const listener = vi.fn();
+    document.body.addEventListener('keyup', listener);
+
     const event = new KeyboardEvent('keyup', {
       bubbles: true,
     });
     input.dispatchEvent(event);
 
-    expect(eventFired).toBe(false);
+    expect(listener).not.toBeCalled();
   });
 
   it('should allow event propagation conditionally when isolateEvents is set to an array of events', async () => {
@@ -80,20 +81,16 @@ describe('createIsolatedElement', () => {
       name,
       isolateEvents: ['click'],
     });
-    document.body.append(parentElement);
-    let eventFired = {
-      click: false,
-      keyup: false,
-    };
-    document.body.addEventListener('click', () => {
-      eventFired['click'] = true;
-    });
-    document.body.addEventListener('keyup', () => {
-      eventFired['keyup'] = true;
-    });
     const input = document.createElement('input');
-    isolatedElement.appendChild(input);
-    document.body.appendChild(isolatedElement);
+    isolatedElement.append(input);
+    document.body.append(parentElement);
+    document.body.append(isolatedElement);
+
+    const clickListener = vi.fn();
+    const keyupListener = vi.fn();
+    document.body.addEventListener('click', clickListener);
+    document.body.addEventListener('keyup', keyupListener);
+
     const clickEvent = new MouseEvent('click', {
       bubbles: true,
     });
@@ -103,7 +100,8 @@ describe('createIsolatedElement', () => {
     input.dispatchEvent(clickEvent);
     input.dispatchEvent(keyupEvent);
 
-    expect(eventFired['click']).toBe(false);
-    expect(eventFired['keyup']).toBe(true);
+    expect(clickListener).not.toBeCalled();
+    expect(keyupListener).toBeCalledTimes(1);
+    expect(keyupListener).toBeCalledWith(keyupEvent);
   });
 });
