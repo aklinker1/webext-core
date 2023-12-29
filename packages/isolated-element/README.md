@@ -1,6 +1,6 @@
 # `@webext-core/isolated-element`
 
-Isolate content script UI's styles from the parent page. Supports all browsers (Chrome, Firefox, Safari)
+Isolate content script UI's styles from the parent page and control event bubbling to the host page. Supports all browsers (Chrome, Firefox, Safari).
 
 ```bash
 pnpm i @webext-core/isolated-element
@@ -21,6 +21,7 @@ const { parentElement, isolatedElement } = await createIsolatedElement({
   css: {
     url: browser.runtime.getURL('/path/to/styles.css'),
   },
+  isolateEvents: true, // or array of event names to isolate, e.g., ['click', 'keydown']
 });
 
 mountUi(isolatedElement);
