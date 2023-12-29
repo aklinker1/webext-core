@@ -14,6 +14,7 @@ export type { CreateIsolatedElementOptions };
  * const { isolatedElement, parentElement } = createIsolatedElement({
  *   name: 'example-ui',
  *   css: { textContent: "p { color: red }" },
+ *   isolateEvents: true // or ['keydown', 'keyup', 'keypress']
  * });
  *
  * // Create and mount your app inside the isolation
@@ -29,7 +30,7 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
   isolatedElement: HTMLElement;
   shadow: ShadowRoot;
 }> {
-  const { name, mode = 'closed', css } = options;
+  const { name, mode = 'closed', css, isolateEvents = false } = options;
 
   // Create the root, parent element
   const parentElement = document.createElement(name);
@@ -57,6 +58,16 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
 
   // Add the isolated element to the shadow so it shows up once the parentElement is mounted
   shadow.appendChild(isolatedElement);
+
+  // Add logic to prevent event bubbling if isolateEvents is true or a list of events
+  if (isolateEvents) {
+    const eventTypes = Array.isArray(isolateEvents)
+      ? isolateEvents
+      : ['keydown', 'keyup', 'keypress'];
+    eventTypes.forEach(eventType => {
+      body.addEventListener(eventType, e => e.stopPropagation());
+    });
+  }
 
   return {
     parentElement,
