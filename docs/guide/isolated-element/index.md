@@ -17,9 +17,9 @@ next:
 
 ## Overview
 
-`@webext-core/isolated-element` uses the [`ShadowRoot` API](https://developer.mozilla.org/en-US/docs/Web/API/Element/shadowRoot) to create a custom element who's CSS is completely separate from the page it's injected into.
+`@webext-core/isolated-element` uses the [`ShadowRoot` API](https://developer.mozilla.org/en-US/docs/Web/API/Element/shadowRoot) to create a custom element who's CSS is completely separate from the page it's injected into. It also allows controlling event bubbling from the isolated element to the host page.
 
-It will let you load UIs from content scripts without worrying about the page's CSS effecting your UI, no `iframe` needed!
+It will let you load UIs from content scripts without worrying about the page's CSS effecting your UI or events interfering with the host page, no `iframe` needed!
 
 ## Installation
 
@@ -65,6 +65,7 @@ const { parentElement, isolatedElement } = await createIsolatedElement({
   css: {
     url: browser.runtime.getURL('/path/to/styles.css'),
   },
+  isolateEvents: true, // or array of event names to isolate, e.g., ['click', 'keydown']
 });
 
 // Mount our UI inside the isolated element
