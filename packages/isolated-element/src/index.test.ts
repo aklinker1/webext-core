@@ -37,13 +37,13 @@ describe('createIsolatedElement', () => {
     const input = document.createElement('input');
     isolatedElement.append(input);
     document.body.append(parentElement);
-    document.body.append(isolatedElement);
 
     const listener = vi.fn();
     document.body.addEventListener('keyup', listener);
 
     const event = new KeyboardEvent('keyup', {
       bubbles: true,
+      composed: true,
     });
     input.dispatchEvent(event);
 
@@ -61,13 +61,13 @@ describe('createIsolatedElement', () => {
     const input = document.createElement('input');
     isolatedElement.append(input);
     document.body.append(parentElement);
-    document.body.append(isolatedElement);
 
     const listener = vi.fn();
     document.body.addEventListener('keyup', listener);
 
     const event = new KeyboardEvent('keyup', {
       bubbles: true,
+      composed: true,
     });
     input.dispatchEvent(event);
 
@@ -84,7 +84,6 @@ describe('createIsolatedElement', () => {
     const input = document.createElement('input');
     isolatedElement.append(input);
     document.body.append(parentElement);
-    document.body.append(isolatedElement);
 
     const clickListener = vi.fn();
     const keyupListener = vi.fn();
@@ -93,9 +92,11 @@ describe('createIsolatedElement', () => {
 
     const clickEvent = new MouseEvent('click', {
       bubbles: true,
+      composed: true,
     });
     const keyupEvent = new KeyboardEvent('keyup', {
       bubbles: true,
+      composed: true,
     });
     input.dispatchEvent(clickEvent);
     input.dispatchEvent(keyupEvent);
