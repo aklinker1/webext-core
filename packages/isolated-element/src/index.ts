@@ -1,3 +1,4 @@
+import isPotentialCustomElementName from 'is-potential-custom-element-name';
 import { CreateIsolatedElementOptions } from './options';
 
 export type { CreateIsolatedElementOptions };
@@ -31,6 +32,12 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
   shadow: ShadowRoot;
 }> {
   const { name, mode = 'closed', css, isolateEvents = false } = options;
+
+  if (!isPotentialCustomElementName(name)) {
+    throw new Error(
+      `"name" option is must be PotentialCustomElementName. ref: https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name`,
+    );
+  }
 
   // Create the root, parent element
   const parentElement = document.createElement(name);

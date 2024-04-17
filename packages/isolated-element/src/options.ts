@@ -4,6 +4,7 @@
 export interface CreateIsolatedElementOptions {
   /**
    * A unique tag name used when defining the web component used internally. Don't use the same name twice for different UIs.
+   * "name" option is must be `PotentialCustomElementName`. See the [WHATWG spec](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name).
    */
   name: string;
   /**
