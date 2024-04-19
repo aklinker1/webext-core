@@ -3,8 +3,10 @@
  */
 export interface CreateIsolatedElementOptions {
   /**
-   * A unique tag name used when defining the web component used internally. Don't use the same name twice for different UIs.
-   * "name" option is must be `PotentialCustomElementName`. See the [WHATWG spec](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name).
+   * A unique HTML tag name (two words, kebab case - [see spec](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)) used when defining the web component used internally. Don't use the same name twice for different UIs.
+   * @example "sticky-note"
+   * @example "anime-skip-player"
+   * @example "github-better-line-count-diff"
    */
   name: string;
   /**

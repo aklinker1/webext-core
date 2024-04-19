@@ -35,7 +35,7 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
 
   if (!isPotentialCustomElementName(name)) {
     throw Error(
-      `"name" option is must be PotentialCustomElementName. ref: https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name`,
+      `"${name}" is not a valid custom element name. It must be two words and kebab-case, with a few exceptions. See spec for more details: https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name`,
     );
   }
 

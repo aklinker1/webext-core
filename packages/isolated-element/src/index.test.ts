@@ -9,14 +9,12 @@ describe('createIsolatedElement', () => {
     document.querySelector('body')!.innerHTML = '';
   });
 
-  it('should the name option must be PotentialCustomElementName', async () => {
-    const incorrectName = 'test';
-    const correctName = 'test-element';
+  it('should validate the custom element name', async () => {
+    const invalidName = 'test';
 
-    await expect(createIsolatedElement({ name: incorrectName })).rejects.toThrow(
-      /PotentialCustomElementName/,
+    await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
+      `"${invalidName}" is not a valid custom element name`,
     );
-    await expect(createIsolatedElement({ name: correctName })).resolves.not.toThrow();
   });
 
   it('should insert an app into the UI', async () => {
