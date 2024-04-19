@@ -34,7 +34,7 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
   const { name, mode = 'closed', css, isolateEvents = false } = options;
 
   if (!isPotentialCustomElementName(name)) {
-    throw new Error(
+    throw Error(
       `"name" option is must be PotentialCustomElementName. ref: https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name`,
     );
   }
