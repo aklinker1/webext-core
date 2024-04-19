@@ -98,6 +98,9 @@ importers:
         specifier: ^1.0.1
         version: 1.0.1
     devDependencies:
+      '@types/is-potential-custom-element-name':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@vitest/coverage-c8':
         specifier: ^0.24.5
         version: 0.24.5(jsdom@20.0.3)
@@ -1158,6 +1161,10 @@ packages:
 
   /@types/http-cache-semantics@4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
+    dev: true
+
+  /@types/is-potential-custom-element-name@1.0.0:
+    resolution: {integrity: sha512-T0BZalfxXvSs3pBIAY1VeWHAChxRqccrQKIOfhdhAO6Lmntq6C5RnM+lzKB9wxPxG+k3G/H9IVKkeU4HkM12SQ==}
     dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
