@@ -93,7 +93,14 @@ importers:
         version: 0.24.5(jsdom@20.0.3)
 
   packages/isolated-element:
+    dependencies:
+      is-potential-custom-element-name:
+        specifier: ^1.0.1
+        version: 1.0.1
     devDependencies:
+      '@types/is-potential-custom-element-name':
+        specifier: ^1.0.0
+        version: 1.0.0
       '@vitest/coverage-c8':
         specifier: ^0.24.5
         version: 0.24.5(jsdom@20.0.3)
@@ -1154,6 +1161,10 @@ packages:
 
   /@types/http-cache-semantics@4.0.1:
     resolution: {integrity: sha512-SZs7ekbP8CN0txVG2xVRH6EgKmEm31BOxA07vkFaETzZz1xh+cbt8BcI0slpymvwhx5dlFnQG2rTlPVQn+iRPQ==}
+    dev: true
+
+  /@types/is-potential-custom-element-name@1.0.0:
+    resolution: {integrity: sha512-T0BZalfxXvSs3pBIAY1VeWHAChxRqccrQKIOfhdhAO6Lmntq6C5RnM+lzKB9wxPxG+k3G/H9IVKkeU4HkM12SQ==}
     dev: true
 
   /@types/istanbul-lib-coverage@2.0.4:
@@ -3675,7 +3686,6 @@ packages:
 
   /is-potential-custom-element-name@1.0.1:
     resolution: {integrity: sha512-bCYeRA2rVibKZd+s2625gGnGF/t7DSqDs4dP7CrLA1m7jKWz6pps0LpYLJN8Q64HtmPKJ1hrN3nzPNKFEKOUiQ==}
-    dev: true
 
   /is-relative@0.1.3:
     resolution: {integrity: sha512-wBOr+rNM4gkAZqoLRJI4myw5WzzIdQosFAAbnvfXP5z1LyzgAI3ivOKehC5KfqlQJZoihVhirgtCBj378Eg8GA==}

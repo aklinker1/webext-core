@@ -9,6 +9,14 @@ describe('createIsolatedElement', () => {
     document.querySelector('body')!.innerHTML = '';
   });
 
+  it('should validate the custom element name', async () => {
+    const invalidName = 'test';
+
+    await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
+      `"${invalidName}" is not a valid custom element name`,
+    );
+  });
+
   it('should insert an app into the UI', async () => {
     const text = 'Example';
     const appId = 'app';

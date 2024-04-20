@@ -1,3 +1,4 @@
+import isPotentialCustomElementName from 'is-potential-custom-element-name';
 import { CreateIsolatedElementOptions } from './options';
 
 export type { CreateIsolatedElementOptions };
@@ -31,6 +32,12 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
   shadow: ShadowRoot;
 }> {
   const { name, mode = 'closed', css, isolateEvents = false } = options;
+
+  if (!isPotentialCustomElementName(name)) {
+    throw Error(
+      `"${name}" is not a valid custom element name. It must be two words and kebab-case, with a few exceptions. See spec for more details: https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name`,
+    );
+  }
 
   // Create the root, parent element
   const parentElement = document.createElement(name);

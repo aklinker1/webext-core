@@ -49,11 +49,15 @@
     "compile": "tsc --noEmit"
   },
   "devDependencies": {
+    "@types/is-potential-custom-element-name": "^1.0.0",
     "@vitest/coverage-c8": "^0.24.5",
     "jsdom": "^20.0.3",
     "tsconfig": "workspace:*",
     "tsup": "^6.4.0",
     "typescript": "^4.8.4",
     "vitest": "^0.24.5"
+  },
+  "dependencies": {
+    "is-potential-custom-element-name": "^1.0.1"
   }
 }
