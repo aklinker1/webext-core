@@ -54,7 +54,7 @@ favorites.push('https://github.com');
 await localExtSTorage.setItem('favoriteUrls', favorites);
 ```
 
-## Hanlding `null` Correctly
+## Handling `null` Correctly
 
 When using a schema, you'll notice that `getItem` returns `T | null`, but `setItem` requires a non-null value.
 
