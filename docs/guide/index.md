@@ -25,7 +25,7 @@ If you haven't setup a bundler yet, I recommend using [`vite`](https://vitejs.de
 
 ```sh PNPM
 # Bootstrap a new project
-pnpm create vite-plugin-web-extnesion
+pnpm create vite-plugin-web-extension
 ```
 
 Install any of the packages and use them normally. Everything will just work :+1:
