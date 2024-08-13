@@ -7,7 +7,7 @@
     "dev": "buildc --deps-only -- wxt",
     "build": "buildc -- wxt build",
     "check": "tsc --noEmit",
-    "prepare": "wxt prepare"
+    "prepare": "buildc --deps-only -- wxt prepare"
   },
   "dependencies": {
     "@webext-core/proxy-service": "workspace:*"
