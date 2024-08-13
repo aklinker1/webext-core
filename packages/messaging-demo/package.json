@@ -5,8 +5,7 @@
   "scripts": {
     "dev": "buildc --deps-only -- wxt",
     "build": "buildc -- wxt build",
-    "check": "tsc --noEmit",
-    "prepare": "buildc --deps-only -- wxt prepare"
+    "check": "tsc --noEmit"
   },
   "dependencies": {
     "@webext-core/messaging": "workspace:*"
