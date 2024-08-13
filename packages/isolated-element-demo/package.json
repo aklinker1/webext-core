@@ -5,7 +5,8 @@
   "type": "module",
   "scripts": {
     "dev": "buildc --deps-only -- vite",
-    "build": "buildc --deps-only -- vite build"
+    "build": "buildc --deps-only -- vite build",
+    "check": "echo 'noop'"
   },
   "dependencies": {
     "@webext-core/isolated-element": "workspace:*"
