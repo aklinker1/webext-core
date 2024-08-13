@@ -53,7 +53,7 @@ All Packages
   An alternative, type-safe API similar to local storage for accessing extension storage.
   <br />
   <br />
-  [Go to docs →](/storage)
+  [Go to docs →](/storage/installation)
   ::
 
   ::card{icon=noto:left-speech-bubble}
@@ -63,7 +63,7 @@ All Packages
   A simpler, type-safe API for sending and recieving messages.
   <br />
   <br />
-  [Go to docs →](/messaging)
+  [Go to docs →](/messaging/installation)
   ::
 
   ::card{icon=noto:construction-worker}
@@ -73,7 +73,7 @@ All Packages
   Easily schedule and manage reoccuring jobs.
   <br />
   <br />
-  [Go to docs →](/job-scheduler)
+  [Go to docs →](/job-scheduler/installation)
   ::
 
   ::card{icon=noto:thumbs-up}
@@ -83,7 +83,7 @@ All Packages
   Utilities for working with match patterns.
   <br />
   <br />
-  [Go to docs →](/match-patterns)
+  [Go to docs →](/match-patterns/installation)
   ::
 
   ::card{icon=noto:oncoming-bus}
@@ -93,7 +93,7 @@ All Packages
   Call a function, but execute in a different JS context, like the background.
   <br />
   <br />
-  [Go to docs →](/proxy-service)
+  [Go to docs →](/proxy-service/installation)
   ::
 
   ::card{icon=noto:puzzle-piece}
@@ -103,7 +103,7 @@ All Packages
   Create a container who's styles are isolated from the page's styles.
   <br />
   <br />
-  [Go to docs →](/isolated-element)
+  [Go to docs →](/isolated-element/installation)
   ::
 
   ::card{icon=noto:rocket}
@@ -113,6 +113,6 @@ All Packages
   An in-memory implementation of webextension-polyfill for testing.
   <br />
   <br />
-  [Go to docs →](/fake-browser)
+  [Go to docs →](/fake-browser/installation)
   ::
 ::

@@ -13,8 +13,6 @@ const parsedRedirects = redirects
   })
   .filter(redirect => redirect.from && redirect.to);
 
-console.log(parsedRedirects);
-
 export default defineNuxtPlugin(() => {
   // Client side redirects only since it is hosted as a SSG app
   if (process.server) return;
