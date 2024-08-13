@@ -22,7 +22,7 @@ Create a storage instance with an optional schema, `TSchema`, for type safety.
 
 ### Parameters
 
-- ***`storage: Storage.StorageArea`***<br/>The storage to to use. Either `Browser.storage.local`, `Browser.storage.sync`, or `Browser.storage.managed`.
+- **_`storage: Storage.StorageArea`_**<br/>The storage to to use. Either `Browser.storage.local`, `Browser.storage.sync`, or `Browser.storage.managed`.
 
 ### Examples
 
@@ -34,7 +34,7 @@ interface Schema {
 }
 const extensionStorage = defineExtensionStorage<Schema>(browser.storage.local);
 
-const date = await extensionStorage.getItem("installDate");
+const date = await extensionStorage.getItem('installDate');
 ```
 
 ## `ExtensionStorage`
@@ -42,13 +42,8 @@ const date = await extensionStorage.getItem("installDate");
 ```ts
 interface ExtensionStorage<TSchema extends AnySchema> {
   clear(): Promise<void>;
-  getItem<TKey extends keyof TSchema>(
-    key: TKey,
-  ): Promise<Required<TSchema>[TKey] | null>;
-  setItem<TKey extends keyof TSchema>(
-    key: TKey,
-    value: TSchema[TKey],
-  ): Promise<void>;
+  getItem<TKey extends keyof TSchema>(key: TKey): Promise<Required<TSchema>[TKey] | null>;
+  setItem<TKey extends keyof TSchema>(key: TKey, value: TSchema[TKey]): Promise<void>;
   removeItem<TKey extends keyof TSchema>(key: TKey): Promise<void>;
   onChange<TKey extends keyof TSchema>(
     key: TKey,
@@ -59,8 +54,8 @@ interface ExtensionStorage<TSchema extends AnySchema> {
 
 This is the interface for the storage objects exported from the package. It is similar to `localStorage`, except for a few differences:
 
-- ***It's async*** since the web extension storage APIs are async.
-- It can store any data type, ***not just strings***.
+- **_It's async_** since the web extension storage APIs are async.
+- It can store any data type, **_not just strings_**.
 
 ## `localExtStorage`
 
