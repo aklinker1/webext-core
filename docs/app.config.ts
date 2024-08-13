@@ -1,6 +1,6 @@
 export default defineAppConfig({
   docus: {
-    title: 'WebExt Core',
+    title: 'Web Ext Core',
     description: 'Web Extension Development Made Easy',
     url: 'http://webext-core.aklinker1.io',
     github: {
