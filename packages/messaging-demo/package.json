@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "dev": "buildc --deps-only -- wxt",
+    "build": "buildc -- wxt build",
     "check": "tsc --noEmit",
     "prepare": "wxt prepare"
   },
