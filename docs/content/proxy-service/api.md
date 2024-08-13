@@ -29,7 +29,10 @@ function defineProxyService<TService extends Service, TArgs extends any[]>(
   name: string,
   init: (...args: TArgs) => TService,
   config?: ProxyServiceConfig,
-): [registerService: (...args: TArgs) => TService, getService: () => ProxyService<TService>] {
+): [
+  registerService: (...args: TArgs) => TService,
+  getService: () => ProxyService<TService>,
+] {
   // ...
 }
 ```
@@ -39,14 +42,14 @@ of the JS context the they are called from.
 
 ### Parameters
 
-- **_`name: string`_**<br/>A unique name for the service. Used to identify which service is being executed.
+- ***`name: string`***<br/>A unique name for the service. Used to identify which service is being executed.
 
-- **_`init: (...args: TArgs) => TService`_**<br/>A function that returns your real service implementation. If args are listed,
-  `registerService` will require the same set of arguments.
+- ***`init: (...args: TArgs) => TService`***<br/>A function that returns your real service implementation. If args are listed,
+`registerService` will require the same set of arguments.
 
-- **_`config?: ProxyServiceConfig`_**
+- ***`config?: ProxyServiceConfig`***
 
-### Returns
+### Returns 
 
 - `registerService`: Used to register your service in the background
 - `getService`: Used to get an instance of the service anywhere in the extension.
@@ -74,21 +77,21 @@ function createService(dependencyPromise: Promise<SomeDependency>) {
     doSomething() {
       await dependency.someAsyncWork();
       // Instead of `await (await dependencyPromise).someAsyncWork();`
-    },
-  };
+    }
+  }
 }
 ```
 
 ## `ProxyService`
 
 ```ts
-type ProxyService<TService> = TService extends DeepAsync<TService> ? TService : DeepAsync<TService>;
+type ProxyService<TService> =
+  TService extends DeepAsync<TService> ? TService : DeepAsync<TService>;
 ```
 
 A type that ensures a service has only async methods.
-
-- **_If all methods are async_**, it returns the original type.
-- **_If the service has non-async methods_**, it returns a `DeepAsync` of the service.
+- ***If all methods are async***, it returns the original type.
+- ***If the service has non-async methods***, it returns a `DeepAsync` of the service.
 
 ## `ProxyServiceConfig`
 

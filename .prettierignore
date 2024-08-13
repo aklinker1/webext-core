@@ -6,3 +6,4 @@ pnpm-lock.yaml
 /docs/api/*
 .nuxt
 .wxt.output
+docs/content/*/api.md

@@ -36,10 +36,10 @@ Class for parsing and performing operations on match patterns.
 ### Examples
 
 ```ts
-const pattern = new MatchPattern('*://google.com/*');
+const pattern = new MatchPattern("*://google.com/*");
 
-pattern.includes('https://google.com'); // true
-pattern.includes('http://youtube.com/watch?v=123'); // false
+pattern.includes("https://google.com");            // true
+pattern.includes("http://youtube.com/watch?v=123") // false
 ```
 
 <br/><br/>

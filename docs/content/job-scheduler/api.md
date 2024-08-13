@@ -13,7 +13,7 @@ See [`@webext-core/job-scheduler`](/job-scheduler/installation/)
 ```ts
 interface CronJob extends cron.ParserOptions<false> {
   id: string;
-  type: 'cron';
+  type: "cron";
   expression: string;
   execute: ExecuteFn;
 }
@@ -23,15 +23,15 @@ A job that is executed based on a CRON expression. Backed by `cron-parser`.
 
 [`cron.ParserOptions`](https://github.com/harrisiirak/cron-parser#options) includes options like timezone.
 
-### Properties
+### Properties 
 
-- **_`id: string`_**
+- ***`id: string`***
 
-- **_`type: 'cron'`_**
+- ***`type: 'cron'`***
 
-- **_`expression: string`_**<br/>See `cron-parser`'s [supported expressions](https://github.com/harrisiirak/cron-parser#supported-format)
+- ***`expression: string`***<br/>See `cron-parser`'s [supported expressions](https://github.com/harrisiirak/cron-parser#supported-format)
 
-- **_`execute: ExecuteFn`_**
+- ***`execute: ExecuteFn`***
 
 ## `defineJobScheduler`
 
@@ -48,9 +48,9 @@ Creates a `JobScheduler` backed by the
 
 ### Parameters
 
-- **_`options?: JobSchedulerConfig`_**
+- ***`options?: JobSchedulerConfig`***
 
-### Returns
+### Returns 
 
 A `JobScheduler` that can be used to schedule and manage jobs.
 
@@ -68,7 +68,7 @@ Function ran when executing the job. Errors are automatically caught and will tr
 ```ts
 interface IntervalJob {
   id: string;
-  type: 'interval';
+  type: "interval";
   duration: number;
   immediate?: boolean;
   execute: ExecuteFn;
@@ -77,19 +77,19 @@ interface IntervalJob {
 
 A job that executes on a set interval, starting when the job is scheduled for the first time.
 
-### Properties
+### Properties 
 
-- **_`id: string`_**
+- ***`id: string`***
 
-- **_`type: 'interval'`_**
+- ***`type: 'interval'`***
 
-- **_`duration: number`_**<br/>Interval in milliseconds. Due to limitations of the alarms API, it must be greater than 1
-  minute.
+- ***`duration: number`***<br/>Interval in milliseconds. Due to limitations of the alarms API, it must be greater than 1
+minute.
 
-- **_`immediate?: boolean`_** (default: `false`)<br/>Execute the job immediately when it is scheduled for the first time. If `false`, it will
-  execute for the first time after `duration`. This has no effect when updating an existing job.
+- ***`immediate?: boolean`*** (default: `false`)<br/>Execute the job immediately when it is scheduled for the first time. If `false`, it will
+execute for the first time after `duration`. This has no effect when updating an existing job.
 
-- **_`execute: ExecuteFn`_**
+- ***`execute: ExecuteFn`***
 
 ## `Job`
 
@@ -103,8 +103,14 @@ type Job = IntervalJob | CronJob | OnceJob;
 interface JobScheduler {
   scheduleJob(job: Job): Promise<void>;
   removeJob(jobId: string): Promise<void>;
-  on(event: 'success', callback: (job: Job, result: any) => void): RemoveListenerFn;
-  on(event: 'error', callback: (job: Job, error: unknown) => void): RemoveListenerFn;
+  on(
+    event: "success",
+    callback: (job: Job, result: any) => void,
+  ): RemoveListenerFn;
+  on(
+    event: "error",
+    callback: (job: Job, error: unknown) => void,
+  ): RemoveListenerFn;
 }
 ```
 
@@ -118,9 +124,9 @@ interface JobSchedulerConfig {
 
 Configures how the job scheduler behaves.
 
-### Properties
+### Properties 
 
-- **_`logger?: Logger | null`_** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
+- ***`logger?: Logger | null`*** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
 
 ## `Logger`
 
@@ -140,7 +146,7 @@ Interface used to log text to the console when creating and executing jobs.
 ```ts
 interface OnceJob {
   id: string;
-  type: 'once';
+  type: "once";
   date: Date | string | number;
   execute: ExecuteFn;
 }
@@ -148,15 +154,15 @@ interface OnceJob {
 
 Runs a job once, at a specific date/time.
 
-### Properties
+### Properties 
 
-- **_`id: string`_**
+- ***`id: string`***
 
-- **_`type: 'once'`_**
+- ***`type: 'once'`***
 
-- **_`date: Date | string | number`_**<br/>The date to run the job on.
+- ***`date: Date | string | number`***<br/>The date to run the job on.
 
-- **_`execute: ExecuteFn`_**
+- ***`execute: ExecuteFn`***
 
 <br/><br/>
 
