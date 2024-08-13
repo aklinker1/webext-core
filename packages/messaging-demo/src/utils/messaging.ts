@@ -1,7 +1,7 @@
-import { defineExtensionMessaging, ProtocolWithReturn } from '@webext-core/messaging';
+import { defineExtensionMessaging } from '@webext-core/messaging';
 
 interface MessageProtocol1 {
-  ping: ProtocolWithReturn<undefined, 'pong'>;
+  ping: () => 'pong';
   sleep: number;
 }
 
@@ -11,7 +11,7 @@ export const { sendMessage: sendMessage1, onMessage: onMessage1 } =
 // Define another protocol to make sure the library supports multiple
 
 interface MessageProtocol2 {
-  ping2: ProtocolWithReturn<string, string>;
+  ping2: (arg: string) => string;
   throw: undefined;
 }
 

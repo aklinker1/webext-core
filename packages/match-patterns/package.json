@@ -42,17 +42,15 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMatchPatterns",
-    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/match-patterns^...",
-    "test": "vitest",
-    "test:coverage": "vitest run --coverage",
-    "compile": "tsc --noEmit"
+    "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMatchPatterns",
+    "test": "buildc --deps-only -- vitest",
+    "test:coverage": "buildc --deps-only -- vitest run --coverage",
+    "check": "buildc --deps-only -- tsc --noEmit"
   },
   "devDependencies": {
-    "@vitest/coverage-c8": "^0.24.5",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.4.0",
-    "typescript": "^4.8.4",
-    "vitest": "^0.24.5"
+    "tsconfig": "workspace:*"
+  },
+  "buildc": {
+    "outDir": "lib"
   }
 }

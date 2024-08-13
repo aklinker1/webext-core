@@ -48,8 +48,8 @@ export type GetDataType<T> = T extends (...args: infer Args) => any
     ? Args[0]
     : never
   : T extends ProtocolWithReturn<any, any>
-  ? T['BtVgCTPYZu']
-  : T;
+    ? T['BtVgCTPYZu']
+    : T;
 
 /**
  * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type.
@@ -57,8 +57,8 @@ export type GetDataType<T> = T extends (...args: infer Args) => any
 export type GetReturnType<T> = T extends (...args: any[]) => infer R
   ? R
   : T extends ProtocolWithReturn<any, any>
-  ? T['RrhVseLgZW']
-  : void;
+    ? T['RrhVseLgZW']
+    : void;
 
 /**
  * Call to ensure an active listener has been removed.

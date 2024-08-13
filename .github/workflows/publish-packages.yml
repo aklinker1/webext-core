@@ -93,7 +93,6 @@ jobs:
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
-          pnpm build:dependencies
           pnpm build
           pnpm publish
         working-directory: packages/${{ matrix.package }}

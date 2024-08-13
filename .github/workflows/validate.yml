@@ -6,35 +6,42 @@ on:
   workflow_call:
 
 jobs:
-  root:
-    name: root
+  checks:
     runs-on: ubuntu-22.04
     steps:
-      - name: Checkout Repo
-        uses: actions/checkout@v3
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: |
+          bun format:check
+          bun run --cwd packages/fake-browser check
+          bun run --cwd packages/isolated-element check
+          bun run --cwd packages/isolated-element-demo check
+          bun run --cwd packages/job-scheduler check
+          bun run --cwd packages/match-patterns check
+          bun run --cwd packages/messaging check
+          bun run --cwd packages/proxy-service check
+          bun run --cwd packages/storage check
 
-      - name: Install PNPM
-        uses: pnpm/action-setup@v2.2.4
-        with:
-          version: 8
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: bun run build
 
-      - name: Install Node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'pnpm'
-
-      - name: Install dependencies
-        run: pnpm install
-
-      - name: Check Formatting
-        run: pnpm format:check
-
-      - name: Build
-        run: pnpm build
-
-      - name: Type Check
-        run: pnpm -r compile
-
-      - name: Run Tests
-        run: pnpm -r test:coverage
+  tests:
+    runs-on: ubuntu-22.04
+    steps:
+      - uses: actions/checkout@v3
+      - uses: oven-sh/setup-bun@v2
+      - run: bun install
+      - run: |
+          bun run --cwd packages/fake-browser test:coverage
+          bun run --cwd packages/isolated-element test:coverage
+          bun run --cwd packages/job-scheduler test:coverage
+          bun run --cwd packages/match-patterns test:coverage
+          bun run --cwd packages/messaging test:coverage
+          bun run --cwd packages/proxy-service test:coverage
+          bun run --cwd packages/storage test:coverage

@@ -42,22 +42,20 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreIsolatedElement",
-    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/isolated-element^...",
-    "test": "vitest -r src",
-    "test:coverage": "vitest run -r src --coverage",
-    "compile": "tsc --noEmit"
+    "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreIsolatedElement",
+    "test": "buildc --deps-only -- vitest -r src",
+    "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
+    "check": "buildc --deps-only -- tsc --noEmit"
   },
   "devDependencies": {
     "@types/is-potential-custom-element-name": "^1.0.0",
-    "@vitest/coverage-c8": "^0.24.5",
     "jsdom": "^20.0.3",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.4.0",
-    "typescript": "^4.8.4",
-    "vitest": "^0.24.5"
+    "tsconfig": "workspace:*"
   },
   "dependencies": {
     "is-potential-custom-element-name": "^1.0.1"
+  },
+  "buildc": {
+    "outDir": "lib"
   }
 }

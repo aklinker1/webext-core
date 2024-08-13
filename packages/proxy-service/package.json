@@ -40,11 +40,12 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreProxyService",
-    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/proxy-service^...",
-    "test": "vitest -r src",
-    "test:coverage": "vitest run -r src --coverage",
-    "compile": "tsc --noEmit"
+    "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreProxyService",
+    "test": "buildc --deps-only -- vitest -r src",
+    "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
+    "check": "buildc --deps-only -- bun check:typescript && bun check:type-tests",
+    "check:typescript": "tsc --noEmit",
+    "check:type-tests": "vitest run --typecheck types"
   },
   "dependencies": {
     "get-value": "^3.0.1",
@@ -53,16 +54,15 @@
   "devDependencies": {
     "@types/get-value": "^3.0.3",
     "@types/webextension-polyfill": "^0.9.1",
-    "@vitest/coverage-c8": "^0.24.5",
     "@webext-core/fake-browser": "workspace:*",
     "@webext-core/messaging": "workspace:*",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.4.0",
-    "typescript": "^4.8.4",
-    "vitest": "0.28.0"
+    "tsconfig": "workspace:*"
   },
   "peerDependencies": {
     "webextension-polyfill": "^0.10.0",
     "@webext-core/messaging": ">=1.3.1"
+  },
+  "buildc": {
+    "outDir": "lib"
   }
 }

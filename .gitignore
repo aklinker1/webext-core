@@ -10,3 +10,6 @@ coverage
 /docs/.vitepress/cache
 .DS_Store
 tsconfig.vitest-temp.json
+/.cache
+.output
+.wxt
