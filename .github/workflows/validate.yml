@@ -20,10 +20,11 @@ jobs:
           bun run --cwd packages/job-scheduler check
           bun run --cwd packages/match-patterns check
           bun run --cwd packages/messaging check
-          bun run --cwd packages/messaging-demo check
           bun run --cwd packages/proxy-service check
-          bun run --cwd packages/proxy-service-demo check
           bun run --cwd packages/storage check
+
+          bun run --cwd packages/messaging-demo buildc --deps-only -- wxt prepare
+          bun run --cwd packages/messaging-demo buildc --deps-only -- wxt prepare
 
   build:
     runs-on: ubuntu-22.04
