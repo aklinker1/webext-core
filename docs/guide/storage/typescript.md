@@ -44,9 +44,8 @@ When used correctly, types will be automatically inferred without having to spec
 const installDate /*: number | null */ = await extensionStorage.getItem('installDate');
 await extensionStorage.setItem('installDate', 123);
 
-const notificationsEnalbed /*: boolean | null */ = await extensionStorage.getItem(
-  'notificationsEnalbed',
-);
+const notificationsEnalbed /*: boolean | null */ =
+  await extensionStorage.getItem('notificationsEnalbed');
 
 const favorites /*: string[] | null */ = await extensionStorage.getItem('favoriteUrls');
 favorites ??= [];

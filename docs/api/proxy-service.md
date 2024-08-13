@@ -10,10 +10,10 @@
 type DeepAsync<TService> = TService extends (...args: any) => any
   ? ToAsyncFunction<TService>
   : TService extends { [key: string]: any }
-  ? {
-      [fn in keyof TService]: DeepAsync<TService[fn]>;
-    }
-  : never;
+    ? {
+        [fn in keyof TService]: DeepAsync<TService[fn]>;
+      }
+    : never;
 ```
 
 A recursive type that deeply converts all methods in `TService` to be async.
@@ -24,10 +24,10 @@ A recursive type that deeply converts all methods in `TService` to be async.
 function defineProxyService<TService extends Service, TArgs extends any[]>(
   name: string,
   init: (...args: TArgs) => TService,
-  config?: ProxyServiceConfig
+  config?: ProxyServiceConfig,
 ): [
   registerService: (...args: TArgs) => TService,
-  getService: () => ProxyService<TService>
+  getService: () => ProxyService<TService>,
 ] {
   // ...
 }
@@ -81,9 +81,8 @@ function createService(dependencyPromise: Promise<SomeDependency>) {
 ## `ProxyService`
 
 ```ts
-type ProxyService<TService> = TService extends DeepAsync<TService>
-  ? TService
-  : DeepAsync<TService>;
+type ProxyService<TService> =
+  TService extends DeepAsync<TService> ? TService : DeepAsync<TService>;
 ```
 
 A type that ensures a service has only async methods.

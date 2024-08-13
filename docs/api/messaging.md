@@ -53,7 +53,7 @@ Messenger returned by `defineCustomEventMessenger`.
 
 ```ts
 function defineCustomEventMessaging<
-  TProtocolMap extends Record<string, any> = Record<string, any>
+  TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   // ...
 }
@@ -89,7 +89,7 @@ websiteMessenger.onMessage("initInjectedScript", (...) => {
 
 ```ts
 function defineExtensionMessaging<
-  TProtocolMap extends Record<string, any> = Record<string, any>
+  TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config?: ExtensionMessagingConfig): ExtensionMessenger<TProtocolMap> {
   // ...
 }
@@ -104,7 +104,7 @@ It can be used to send messages to and from the background page/service worker.
 
 ```ts
 function defineWindowMessaging<
-  TProtocolMap extends Record<string, any> = Record<string, any>
+  TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
   // ...
 }
@@ -183,7 +183,7 @@ You cannot message between tabs directly. It must go through the background scri
 interface GenericMessenger<
   TProtocolMap extends Record<string, any>,
   TMessageExtension,
-  TSendMessageArgs extends any[]
+  TSendMessageArgs extends any[],
 > {
   sendMessage<TType extends keyof TProtocolMap>(
     type: TType,
@@ -193,8 +193,8 @@ interface GenericMessenger<
   onMessage<TType extends keyof TProtocolMap>(
     type: TType,
     onReceived: (
-      message: Message<TProtocolMap, TType> & TMessageExtension
-    ) => void | MaybePromise<GetReturnType<TProtocolMap[TType]>>
+      message: Message<TProtocolMap, TType> & TMessageExtension,
+    ) => void | MaybePromise<GetReturnType<TProtocolMap[TType]>>,
   ): RemoveListenerCallback;
   removeAllListeners(): void;
 }
@@ -216,8 +216,8 @@ type GetDataType<T> = T extends (...args: infer Args) => any
     ? Args[0]
     : never
   : T extends ProtocolWithReturn<any, any>
-  ? T["BtVgCTPYZu"]
-  : T;
+    ? T["BtVgCTPYZu"]
+    : T;
 ```
 
 Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type.
@@ -228,8 +228,8 @@ Given a function declaration, `ProtocolWithReturn`, or a value, return the messa
 type GetReturnType<T> = T extends (...args: any[]) => infer R
   ? R
   : T extends ProtocolWithReturn<any, any>
-  ? T["RrhVseLgZW"]
-  : void;
+    ? T["RrhVseLgZW"]
+    : void;
 ```
 
 Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type.
@@ -261,7 +261,7 @@ async.
 ```ts
 interface Message<
   TProtocolMap extends Record<string, any>,
-  TType extends keyof TProtocolMap
+  TType extends keyof TProtocolMap,
 > {
   id: number;
   data: GetDataType<TProtocolMap[TType]>;

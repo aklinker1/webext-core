@@ -2,9 +2,11 @@
   "name": "webext-core",
   "private": true,
   "engines": {
-    "node": ">=16",
-    "pnpm": "8"
+    "node": ">=16"
   },
+  "workspaces": [
+    "packages/*"
+  ],
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",
@@ -12,27 +14,38 @@
     "docs:build": "vitepress build docs",
     "docs:serve": "vitepress serve docs",
     "docs:test": "vitest -r docs",
-    "build": "turbo run build",
-    "prepare": "husky install"
+    "build": "buildc all",
+    "prepare": "simple-git-hooks"
   },
   "devDependencies": {
+    "@aklinker1/buildc": "1.1.0-alpha1",
     "@aklinker1/generate-changelog": "*",
     "@algolia/client-search": "^4.17.0",
     "@types/prettier": "^2.7.2",
     "@types/webextension-polyfill": "^0.9.1",
+    "@vitest/coverage-v8": "^2.0.5",
     "@webext-core/fake-browser": "workspace:*",
     "chokidar": "^3.5.3",
-    "husky": "^8.0.1",
+    "linkedom": "^0.14.26",
+    "lint-staged": "^15.2.9",
     "listr2": "^6.4.2",
-    "prettier": "^2.7.1",
-    "pretty-quick": "^3.1.3",
+    "prettier": "^3.3.3",
+    "simple-git-hooks": "^2.11.1",
     "ts-morph": "^16.0.0",
+    "tsup": "^6.4.0",
+    "tsx": "^4.17.0",
     "turbo": "^1.6.3",
+    "typescript": "^5.5.4",
+    "vite": "^4.0.0",
     "vitepress": "1.0.0-alpha.75",
-    "vitest": "^0.29.2",
+    "vitest": "^2.0.5",
     "webextension-polyfill": "^0.10.0"
   },
-  "dependencies": {
-    "linkedom": "^0.14.26"
-  }
+  "simple-git-hooks": {
+    "pre-commit": "bun lint-staged"
+  },
+  "lint-staged": {
+    "*": "prettier --ignore-unknown --write"
+  },
+  "packageManager": "pnpm@8.15.9+sha512.499434c9d8fdd1a2794ebf4552b3b25c0a633abcee5bb15e7b5de90f32f47b513aca98cd5cfd001c31f0db454bc3804edccd578501e4ca293a6816166bbd9f81"
 }

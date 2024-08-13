@@ -8,7 +8,7 @@
 
 ```ts
 function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
-  storage: Storage.StorageArea
+  storage: Storage.StorageArea,
 ): ExtensionStorage<TSchema> {
   // ...
 }
@@ -39,16 +39,16 @@ const date = await extensionStorage.getItem("installDate");
 interface ExtensionStorage<TSchema extends AnySchema> {
   clear(): Promise<void>;
   getItem<TKey extends keyof TSchema>(
-    key: TKey
+    key: TKey,
   ): Promise<Required<TSchema>[TKey] | null>;
   setItem<TKey extends keyof TSchema>(
     key: TKey,
-    value: TSchema[TKey]
+    value: TSchema[TKey],
   ): Promise<void>;
   removeItem<TKey extends keyof TSchema>(key: TKey): Promise<void>;
   onChange<TKey extends keyof TSchema>(
     key: TKey,
-    cb: OnChangeCallback<TSchema, TKey>
+    cb: OnChangeCallback<TSchema, TKey>,
   ): RemoveListenerCallback;
 }
 ```
@@ -73,6 +73,18 @@ const managedExtStorage: ExtensionStorage<AnySchema>;
 ```
 
 An implementation of `ExtensionStorage` based on the `browser.storage.managed` storage area.
+
+## `sessionExtStorage`
+
+```ts
+const sessionExtStorage: ExtensionStorage<AnySchema>;
+```
+
+An implementation of `ExtensionStorage` based on the `browser.storage.local` storage area.
+
+- Added to Chrome 102 as of May 24th, 2022.
+- Added to Safari 16.4 as of March 27th, 2023.
+- Added to Firefox 115 as of July 4th, 2023.
 
 ## `syncExtStorage`
 

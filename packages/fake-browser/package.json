@@ -44,23 +44,16 @@
     }
   },
   "scripts": {
-    "build": "pnpm gen && tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreFakeBrowser",
-    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/fake-browser^...",
+    "build": "buildc -- bun gen && tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreFakeBrowser",
     "test": "vitest",
     "test:coverage": "vitest run --coverage",
-    "compile": "tsc --noEmit",
+    "check": "tsc --noEmit",
     "gen": "tsx scripts/generate-base.ts && prettier --write src/base.gen.ts"
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.7",
     "@types/webextension-polyfill": "^0.10.5",
-    "@vitest/coverage-c8": "^0.24.5",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.4.0",
-    "tsx": "^3.12.0",
-    "ts-morph": "^16.0.0",
-    "typescript": "^4.8.4",
-    "vitest": "^0.24.5"
+    "tsconfig": "workspace:*"
   },
   "dependencies": {
     "lodash.merge": "^4.6.2"

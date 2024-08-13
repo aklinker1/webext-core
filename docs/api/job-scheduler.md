@@ -101,11 +101,11 @@ interface JobScheduler {
   removeJob(jobId: string): Promise<void>;
   on(
     event: "success",
-    callback: (job: Job, result: any) => void
+    callback: (job: Job, result: any) => void,
   ): RemoveListenerFn;
   on(
     event: "error",
-    callback: (job: Job, error: unknown) => void
+    callback: (job: Job, error: unknown) => void,
   ): RemoveListenerFn;
 }
 ```

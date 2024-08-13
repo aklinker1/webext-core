@@ -9,9 +9,8 @@ export type Service = ((...args: any[]) => Promise<any>) | { [key: string]: any 
  * - ***If all methods are async***, it returns the original type.
  * - ***If the service has non-async methods***, it returns a `DeepAsync` of the service.
  */
-export type ProxyService<TService> = TService extends DeepAsync<TService>
-  ? TService
-  : DeepAsync<TService>;
+export type ProxyService<TService> =
+  TService extends DeepAsync<TService> ? TService : DeepAsync<TService>;
 
 /**
  * A recursive type that deeply converts all methods in `TService` to be async.
@@ -19,10 +18,10 @@ export type ProxyService<TService> = TService extends DeepAsync<TService>
 export type DeepAsync<TService> = TService extends (...args: any) => any
   ? ToAsyncFunction<TService>
   : TService extends { [key: string]: any }
-  ? {
-      [fn in keyof TService]: DeepAsync<TService[fn]>;
-    }
-  : never;
+    ? {
+        [fn in keyof TService]: DeepAsync<TService[fn]>;
+      }
+    : never;
 
 type ToAsyncFunction<T extends (...args: any) => any> = (
   ...args: Parameters<T>

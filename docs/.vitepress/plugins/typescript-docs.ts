@@ -243,7 +243,7 @@ async function generateProjectDocs(
   const publicSymbols = getPublicSymbols(project, entrypoints);
   // Sort alphabetically
   publicSymbols.sort((l, r) => l.getName().toLowerCase().localeCompare(r.getName().toLowerCase()));
-  const docs = renderDocs(projectDirname, project, publicSymbols);
+  const docs = await renderDocs(projectDirname, project, publicSymbols);
   publicSymbols.forEach(s => {
     (ctx.symbolMap[s.getName()] ??= []).push(projectDirname);
   });
@@ -351,14 +351,24 @@ function collectReferencedSymbols(node: Node, symbols: Symbol[]): void {
   warn(`Unknown kind, cannot extract symbols: ${node.getKindName()}`);
 }
 
-function renderDocs(projectDirname: string, project: Project, symbols: Symbol[]): string {
+async function renderDocs(
+  projectDirname: string,
+  project: Project,
+  symbols: Symbol[],
+): Promise<string> {
+  const renderedSymbols = await Promise.all(
+    symbols.map(async symbol => {
+      const rendered = await renderSymbol(project, symbol);
+      return rendered.trim();
+    }),
+  );
   const sections = [
     // Header
     `<!-- GENERATED FILE, DO NOT EDIT -->`,
     `# API Reference - \`${projectDirname}\``,
     `> [\`@webext-core/${projectDirname}\`](/guide/${projectDirname}/)`,
     // Symbols
-    ...symbols.map(symbol => renderSymbol(project, symbol).trim()),
+    ...renderedSymbols,
     // Footer
     '<br/><br/>',
     '---',
@@ -367,9 +377,9 @@ function renderDocs(projectDirname: string, project: Project, symbols: Symbol[])
   return sections.join('\n\n');
 }
 
-function renderSymbol(project: Project, symbol: Symbol): string {
+async function renderSymbol(project: Project, symbol: Symbol): Promise<string> {
   const { examples, description, parameters, returns, deprecated } = parseJsdoc(symbol);
-  const typeDefinition = getTypeDeclarations(project, symbol).join('\n\n');
+  const typeDefinition = (await getTypeDeclarations(project, symbol)).join('\n\n');
   const properties: string[] = symbol
     .getDeclarations()
     .flatMap(dec => dec.asKind(ts.SyntaxKind.InterfaceDeclaration))
@@ -442,68 +452,73 @@ function cleanTypeText(text: string): string {
   return text;
 }
 
-function getTypeDeclarations(project: Project, symbol: Symbol): string[] {
-  return symbol
-    .getDeclarations()
-    .flatMap(dec => {
-      // Remove body from function declarations.
-      if (dec.isKind(ts.SyntaxKind.FunctionDeclaration)) dec.setBodyText('// ...');
+async function getTypeDeclarations(project: Project, symbol: Symbol): Promise<string[]> {
+  return await Promise.all(
+    symbol
+      .getDeclarations()
+      .flatMap(dec => {
+        // Remove body from function declarations.
+        if (dec.isKind(ts.SyntaxKind.FunctionDeclaration)) dec.setBodyText('// ...');
 
-      const text = cleanTypeText(dec.getText());
-      // console.log(text);
+        const text = cleanTypeText(dec.getText());
+        // console.log(text);
 
-      // text ~= "() => void"
-      if (dec.isKind(ts.SyntaxKind.FunctionType)) return text;
-      // text ~= "type Abc = Something"
-      if (dec.isKind(ts.SyntaxKind.TypeAliasDeclaration)) return text;
-      // text ~= "interface Abc { ... }"
-      if (dec.isKind(ts.SyntaxKind.InterfaceDeclaration)) return text;
-      // text ~= "function abc() { ... }"
-      if (dec.isKind(ts.SyntaxKind.FunctionDeclaration)) return text;
-      // text ~= "T"
-      if (dec.isKind(ts.SyntaxKind.TypeParameter)) return text;
-      // text ~= "varName = ...";
-      if (dec.isKind(ts.SyntaxKind.VariableDeclaration)) {
-        const name = dec.getName();
-        let declarationKeyword = dec.getVariableStatementOrThrow().getDeclarationKind();
-        const type = cleanTypeText(dec.getType().getText());
-        return `${declarationKeyword} ${name}: ${type}`;
-      }
-      // text ~= "class ... extends  { ... }";
-      if (dec.isKind(ts.SyntaxKind.ClassDeclaration)) {
-        const w = new CodeBlockWriter();
-        const extend = dec.getExtends();
-        w.write(`class ${dec.getName()} `)
-          .conditionalWrite(!!extend, () => `extends ${extend?.getText()} `)
-          .inlineBlock(() => {
-            dec.getStaticMethods().forEach(method => {
-              if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-              w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
+        // text ~= "() => void"
+        if (dec.isKind(ts.SyntaxKind.FunctionType)) return text;
+        // text ~= "type Abc = Something"
+        if (dec.isKind(ts.SyntaxKind.TypeAliasDeclaration)) return text;
+        // text ~= "interface Abc { ... }"
+        if (dec.isKind(ts.SyntaxKind.InterfaceDeclaration)) return text;
+        // text ~= "function abc() { ... }"
+        if (dec.isKind(ts.SyntaxKind.FunctionDeclaration)) return text;
+        // text ~= "T"
+        if (dec.isKind(ts.SyntaxKind.TypeParameter)) return text;
+        // text ~= "varName = ...";
+        if (dec.isKind(ts.SyntaxKind.VariableDeclaration)) {
+          const name = dec.getName();
+          let declarationKeyword = dec.getVariableStatementOrThrow().getDeclarationKind();
+          const type = cleanTypeText(dec.getType().getText());
+          return `${declarationKeyword} ${name}: ${type}`;
+        }
+        // text ~= "class ... extends  { ... }";
+        if (dec.isKind(ts.SyntaxKind.ClassDeclaration)) {
+          const w = new CodeBlockWriter();
+          const extend = dec.getExtends();
+          w.write(`class ${dec.getName()} `)
+            .conditionalWrite(!!extend, () => `extends ${extend?.getText()} `)
+            .inlineBlock(() => {
+              dec.getStaticMethods().forEach(method => {
+                if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
+                w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
+              });
+              dec.getConstructors().forEach(con => {
+                if (con.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
+                w.writeLine(
+                  con
+                    .getText()
+                    .replace(con.getBodyText() ?? '', '// ...')
+                    .replace(/(private|readonly) /g, ''),
+                );
+              });
+              dec.getMethods().forEach(method => {
+                if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
+                w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
+              });
             });
-            dec.getConstructors().forEach(con => {
-              if (con.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-              w.writeLine(
-                con
-                  .getText()
-                  .replace(con.getBodyText() ?? '', '// ...')
-                  .replace(/(private|readonly) /g, ''),
-              );
-            });
-            dec.getMethods().forEach(method => {
-              if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-              w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
-            });
-          });
-        return w.toString();
-      }
+          return w.toString();
+        }
 
-      throw Error(
-        `ts.SyntaxKind.${dec.getKindName()} cannot convert to type declaration:\n${
-          dec.getText().split('\n')[0]
-        }`,
-      );
-    })
-    .map(text => prettier.format(text, { printWidth: 80, parser: 'typescript' }).trimEnd());
+        throw Error(
+          `ts.SyntaxKind.${dec.getKindName()} cannot convert to type declaration:\n${
+            dec.getText().split('\n')[0]
+          }`,
+        );
+      })
+      .map(async text => {
+        const res = await prettier.format(text, { printWidth: 80, parser: 'typescript' });
+        return res.trimEnd();
+      }),
+  );
 }
 
 function warn(message: string) {

@@ -73,8 +73,8 @@ describe('defineProxyService', () => {
   it('should support executing deeply nested functions at multiple depths', async () => {
     const expected1 = 5;
     const expected2 = 6;
-    const fn1 = vi.fn<[], Promise<number>>().mockResolvedValue(expected1);
-    const fn2 = vi.fn<[], Promise<number>>().mockResolvedValue(expected2);
+    const fn1 = vi.fn<() => Promise<number>>().mockResolvedValue(expected1);
+    const fn2 = vi.fn<() => Promise<number>>().mockResolvedValue(expected2);
     const [registerDeepObject, getDeepObject] = defineProxyService('DeepObject', () => ({
       fn1,
       path: {

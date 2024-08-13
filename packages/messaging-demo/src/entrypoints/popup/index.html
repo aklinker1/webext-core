@@ -1,11 +1,11 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-    <script type="module" src="./popup.ts"></script>
+    <script type="module" src="./main.ts"></script>
     <style>
       body {
         min-width: 300px;
@@ -21,30 +21,30 @@
     </style>
   </head>
   <body>
-    <h1>Proxy Service Test</h1>
+    <h1>Messaging Test</h1>
 
-    <div id="add">
-      <button><code>MathService.add(1, 2)</code></button>
+    <div id="sleep">
+      <button><code>sendMessage("sleep")</code></button>
       <pre></pre>
     </div>
 
-    <div id="subtract">
-      <button><code>MathService.subtract(2, 1)</code></button>
+    <div id="ping">
+      <button><code>sendMessage("ping")</code></button>
       <pre></pre>
     </div>
 
-    <div id="multiply">
-      <button><code>MathService.multiply(2, 3)</code></button>
+    <div id="ping2">
+      <button><code>sendMessage("ping2")</code></button>
       <pre></pre>
     </div>
 
-    <div id="divide">
-      <button><code>MathService.divide(1, 0)</code></button>
+    <div id="throw">
+      <button><code>sendMessage("throw")</code></button>
       <pre></pre>
     </div>
 
-    <div id="factorial">
-      <button><code>MathService.factorial(100)</code></button>
+    <div id="unknown">
+      <button><code>sendMessage("unknown")</code></button>
       <pre></pre>
     </div>
   </body>

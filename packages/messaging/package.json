@@ -46,11 +46,10 @@
     }
   },
   "scripts": {
-    "build": "tsup src/index.ts src/page.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
-    "build:dependencies": "cd ../.. && turbo run build --filter=@webext-core/messaging^...",
+    "build": "buildc -- tsup src/index.ts src/page.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
     "test": "vitest -r src",
     "test:coverage": "vitest run -r src --coverage",
-    "compile": "vitest typecheck"
+    "check": "vitest typecheck"
   },
   "dependencies": {
     "webextension-polyfill": "^0.10.0",
@@ -58,11 +57,7 @@
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.9.1",
-    "@vitest/coverage-c8": "^0.24.5",
     "@webext-core/fake-browser": "workspace:*",
-    "tsconfig": "workspace:*",
-    "tsup": "^6.4.0",
-    "typescript": "^4.8.4",
-    "vitest": "^0.28.5"
+    "tsconfig": "workspace:*"
   }
 }

@@ -1,5 +1,3 @@
-import { sendMessage1, sendMessage2 } from './utils/messaging';
-
 function getMessageElements(id: string) {
   const parent = document.getElementById(id)!;
   return [

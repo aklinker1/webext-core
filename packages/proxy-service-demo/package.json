@@ -1,14 +1,18 @@
 {
+  "name": "proxy-service-demo",
+  "version": "0.0.0",
   "type": "module",
   "private": true,
   "scripts": {
-    "dev": "vite build --watch"
+    "dev": "buildc --deps-only -- wxt"
   },
   "dependencies": {
     "@webext-core/proxy-service": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^3.2.4",
-    "vite-plugin-web-extension": "3.0.2"
+    "wxt": "^0.19.5"
+  },
+  "buildc": {
+    "cachable": false
   }
 }

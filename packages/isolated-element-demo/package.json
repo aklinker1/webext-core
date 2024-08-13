@@ -4,15 +4,13 @@
   "version": "0.0.0",
   "type": "module",
   "scripts": {
-    "dev": "pnpm build:dependencies && vite",
-    "build": "pnpm build:dependencies && vite build",
-    "build:dependencies": "cd ../.. && turbo run build --filter=isolated-element-demo^...",
-    "preview": "vite preview"
+    "dev": "buildc --deps-only -- vite",
+    "build": "buildc --deps-only -- vite build"
   },
   "dependencies": {
     "@webext-core/isolated-element": "workspace:*"
   },
-  "devDependencies": {
-    "vite": "^4.0.0"
+  "buildc": {
+    "cachable": false
   }
 }

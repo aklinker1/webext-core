@@ -1,5 +1,3 @@
-import { getMathService } from './math-service';
-
 function getMathServiceElements(id: string) {
   const parent = document.getElementById(id)!;
   return [
