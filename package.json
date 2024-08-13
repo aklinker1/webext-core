@@ -33,7 +33,6 @@
     "tsx": "^4.17.0",
     "turbo": "^1.6.3",
     "typescript": "^5.5.4",
-    "vite": "^4.0.0",
     "vitepress": "1.0.0-alpha.75",
     "vitest": "^2.0.5",
     "webextension-polyfill": "^0.10.0"
