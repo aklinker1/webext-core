@@ -1,0 +1,19 @@
+{
+  "name": "docs",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "bun gen && nuxt dev",
+    "build": "bun gen && nuxt generate",
+    "postinstall": "nuxt prepare",
+    "gen": "bun generate-api-references.ts"
+  },
+  "dependencies": {
+    "@nuxt-themes/docus": "^1.15.0",
+    "nuxt": "^3.12.4",
+    "vue": "latest"
+  },
+  "buildc": {
+    "cachable": false
+  }
+}
