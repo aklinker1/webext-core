@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "buildc --deps-only -- vite",
-    "build": "buildc --deps-only -- vite build",
+    "build": "buildc -- vite build",
     "check": "echo 'noop'"
   },
   "dependencies": {

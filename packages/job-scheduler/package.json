@@ -44,9 +44,9 @@
   },
   "scripts": {
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreJobScheduler",
-    "test": "vitest -r src",
-    "test:coverage": "vitest run -r src --coverage",
-    "check": "tsc --noEmit"
+    "test": "buildc --deps-only -- vitest -r src",
+    "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
+    "check": "buildc --deps-only -- tsc --noEmit"
   },
   "dependencies": {
     "cron-parser": "^4.8.1",
@@ -56,5 +56,8 @@
   "devDependencies": {
     "@webext-core/fake-browser": "workspace:*",
     "tsconfig": "workspace:*"
+  },
+  "buildc": {
+    "outDir": "lib"
   }
 }
