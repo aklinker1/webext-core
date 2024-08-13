@@ -43,7 +43,9 @@
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreProxyService",
     "test": "buildc --deps-only -- vitest -r src",
     "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "buildc --deps-only -- bun check:typescript && bun check:type-tests",
+    "check:typescript": "tsc --noEmit",
+    "check:type-tests": "vitest run --typecheck types"
   },
   "dependencies": {
     "get-value": "^3.0.1",
