@@ -180,6 +180,8 @@ export const tabs: BrowserOverrides['tabs'] = {
     if (!tab) throw new Error('Tab not found');
 
     const updatedTab = { ...tab, ...updateInfo };
+    const tabIndex = tabList.findIndex(tab => tab.id === tabId);
+    tabList[tabIndex] = updatedTab;
     const fullTab = mapTab(updatedTab);
     await onUpdated.trigger(fullTab.id!, updateInfo, fullTab);
     return fullTab;
