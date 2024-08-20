@@ -78,6 +78,7 @@ export const tabs: BrowserOverrides['tabs'] = {
       pinned: createProperties.pinned ?? false,
       windowId: window.id,
       id: getNextTabId(),
+      url: createProperties.url,
     };
     const fullTab = mapTab(newTab);
     await onCreated.trigger(fullTab);
@@ -154,6 +155,34 @@ export const tabs: BrowserOverrides['tabs'] = {
     }
     await onHighlighted.trigger({ tabIds, windowId: window!.id! });
     return window!;
+  },
+  // @ts-expect-error the type expects an overload
+  async update(
+    tabIdOrUpdateInfo: number | undefined | Tabs.UpdateUpdatePropertiesType,
+    optionalUpdateInfo: Tabs.UpdateUpdatePropertiesType | never,
+  ) {
+    let updateInfo: Tabs.UpdateUpdatePropertiesType;
+    if (tabIdOrUpdateInfo !== undefined && typeof tabIdOrUpdateInfo === 'object') {
+      updateInfo = tabIdOrUpdateInfo;
+    } else {
+      updateInfo = optionalUpdateInfo;
+    }
+
+    let tabId: number;
+    if (typeof tabIdOrUpdateInfo === 'number') {
+      tabId = tabIdOrUpdateInfo;
+    } else {
+      const currentWindow = await windows.getCurrent();
+      tabId = currentWindow.tabs!.find(tab => tab.active)!.id!;
+    }
+
+    const tab = await tabs.get(tabId);
+    if (!tab) throw new Error('Tab not found');
+
+    const updatedTab = { ...tab, ...updateInfo };
+    const fullTab = mapTab(updatedTab);
+    await onUpdated.trigger(fullTab.id!, updateInfo, fullTab);
+    return fullTab;
   },
   async remove(tabIds) {
     const ids = Array.isArray(tabIds) ? tabIds : [tabIds];

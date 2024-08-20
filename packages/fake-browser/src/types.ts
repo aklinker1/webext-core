@@ -70,7 +70,7 @@ export interface BrowserOverrides {
   };
   tabs: Pick<
     Tabs.Static,
-    'get' | 'getCurrent' | 'create' | 'duplicate' | 'query' | 'highlight' | 'remove'
+    'get' | 'getCurrent' | 'create' | 'duplicate' | 'query' | 'highlight' | 'remove' | 'update'
   > & {
     resetState(): void;
     onCreated: EventForTesting<[tab: Tabs.Tab]>;
