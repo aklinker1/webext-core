@@ -33,19 +33,11 @@ jobs:
       - name: Pull Latest Releases
         run: git pull
 
-      - name: Install PNPM
-        uses: pnpm/action-setup@v2.2.4
-        with:
-          version: 8
+      - uses: actions/setup-node@v3
 
-      - name: Install Node 16
-        uses: actions/setup-node@v3
-        with:
-          node-version: 16
-          cache: 'pnpm'
+      - uses: oven-sh/setup-bun@v2
 
-      - name: Install dependencies
-        run: pnpm install
+      - run: bun install
 
       - id: changelog
         name: Generate changelog
