@@ -50,13 +50,18 @@ export function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
   const namespace = config.namespace;
+  const instanceId = crypto.randomUUID();
 
   let removeAdditionalListeners: Array<() => void> = [];
 
   const sendWindowMessage = (message: Message<TProtocolMap, any>, targetOrigin?: string) =>
     new Promise(res => {
       const responseListener = (event: MessageEvent) => {
-        if (event.data.type === RESPONSE_TYPE) {
+        if (
+          event.data.type === RESPONSE_TYPE &&
+          event.data.instanceId !== instanceId &&
+          event.data.message.type === message.type
+        ) {
           res(event.data.response);
           removeResponseListener();
         }
@@ -65,7 +70,7 @@ export function defineWindowMessaging<
       removeAdditionalListeners.push(removeResponseListener);
       window.addEventListener('message', responseListener);
       window.postMessage(
-        { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace },
+        { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace, instanceId },
         targetOrigin ?? '*',
       );
     });
@@ -79,10 +84,18 @@ export function defineWindowMessaging<
 
     addRootListener(processMessage) {
       const listener = async (event: MessageEvent) => {
-        if (event.data.type !== REQUEST_TYPE || event.data.namespace !== namespace) return;
+        if (
+          event.data.type !== REQUEST_TYPE ||
+          event.data.namespace !== namespace ||
+          event.data.instanceId === instanceId
+        )
+          return;
 
         const response = await processMessage(event.data.message);
-        window.postMessage({ type: RESPONSE_TYPE, response }, event.data.senderOrigin);
+        window.postMessage(
+          { type: RESPONSE_TYPE, response, instanceId, message: event.data.message },
+          event.data.senderOrigin,
+        );
       };
 
       window.addEventListener('message', listener);
