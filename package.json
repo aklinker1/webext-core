@@ -17,12 +17,14 @@
     "@algolia/client-search": "^4.17.0",
     "@types/prettier": "^2.7.2",
     "@types/webextension-polyfill": "^0.9.1",
+    "@vitest/browser": "^2.1.0",
     "@vitest/coverage-v8": "^2.0.5",
     "@webext-core/fake-browser": "workspace:*",
     "chokidar": "^3.5.3",
     "linkedom": "^0.14.26",
     "lint-staged": "^15.2.9",
     "listr2": "^6.4.2",
+    "playwright": "^1.47.0",
     "prettier": "^3.3.3",
     "simple-git-hooks": "^2.11.1",
     "ts-morph": "^23.0.0",
@@ -30,7 +32,7 @@
     "tsx": "^4.17.0",
     "turbo": "^1.6.3",
     "typescript": "^5.5.4",
-    "vitest": "^2.0.5",
+    "vitest": "^2.1.0",
     "webextension-polyfill": "^0.10.0"
   },
   "simple-git-hooks": {

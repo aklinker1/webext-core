@@ -1,10 +1,7 @@
-// @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { defineWindowMessaging, defineCustomEventMessaging } from './page';
-import { GenericMessenger } from './generic';
-import { NamespaceMessagingConfig } from './types';
-
-vi.mock('webextension-polyfill');
+import { defineWindowMessaging, defineCustomEventMessaging } from '../../page';
+import { GenericMessenger } from '../../generic';
+import { NamespaceMessagingConfig } from '../../types';
 
 describe.each<
   [
@@ -115,5 +112,28 @@ describe.each<
     await expect(() => messenger1.sendMessage('test', 'data', ...sendArgs)).rejects.toThrowError(
       error,
     );
+  });
+
+  it('should not mix up messaging between instance', async () => {
+    interface MessageSchema {
+      test(data: string): string;
+    }
+    const messenger1 = defineTestMessaging<MessageSchema>();
+    const messenger2 = defineTestMessaging<MessageSchema>();
+
+    messenger1.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-m2');
+      return 'pong-from-m1';
+    });
+    messenger2.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-m1');
+      return 'pong-from-m2';
+    });
+
+    const res1 = messenger1.sendMessage('test', 'ping-from-m1');
+    const res2 = messenger2.sendMessage('test', 'ping-from-m2');
+
+    expect(res1).resolves.toBe('pong-from-m2');
+    expect(res2).resolves.toBe('pong-from-m1');
   });
 });

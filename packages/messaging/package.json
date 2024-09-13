@@ -47,7 +47,9 @@
   },
   "scripts": {
     "build": "buildc -- tsup src/index.ts src/page.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
-    "test": "buildc --deps-only -- vitest -r src",
+    "test": "buildc --deps-only -- bun run test:node && bun run test:browser",
+    "test:node": "buildc --deps-only -- vitest -r src --config ../vitest.config.node.ts",
+    "test:browser": "buildc --deps-only -- vitest -r src --config ../vitest.config.browser.ts",
     "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
     "check": "buildc --deps-only -- tsc --noEmit"
   },
