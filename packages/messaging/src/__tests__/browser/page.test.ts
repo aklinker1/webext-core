@@ -114,26 +114,40 @@ describe.each<
     );
   });
 
-  it('should not mix up messaging between instance', async () => {
+  it('should not mix up messaging between instances', async () => {
     interface MessageSchema {
       test(data: string): string;
     }
-    const messenger1 = defineTestMessaging<MessageSchema>();
-    const messenger2 = defineTestMessaging<MessageSchema>();
+    const messengerA1 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
+    const messengerA2 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
+    const messengerB1 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
+    const messengerB2 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
 
-    messenger1.onMessage('test', message => {
-      expect(message.data).toBe('ping-from-m2');
-      return 'pong-from-m1';
+    messengerA1.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-A2');
+      return 'pong-from-A1';
     });
-    messenger2.onMessage('test', message => {
-      expect(message.data).toBe('ping-from-m1');
-      return 'pong-from-m2';
+    messengerA2.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-A1');
+      return 'pong-from-A2';
+    });
+    messengerB1.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-B2');
+      return 'pong-from-B1';
+    });
+    messengerB2.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-B1');
+      return 'pong-from-B2';
     });
 
-    const res1 = messenger1.sendMessage('test', 'ping-from-m1');
-    const res2 = messenger2.sendMessage('test', 'ping-from-m2');
+    const resA1 = messengerA1.sendMessage('test', 'ping-from-A1');
+    const resA2 = messengerA2.sendMessage('test', 'ping-from-A2');
+    const resB1 = messengerB1.sendMessage('test', 'ping-from-B1');
+    const resB2 = messengerB2.sendMessage('test', 'ping-from-B2');
 
-    expect(res1).resolves.toBe('pong-from-m2');
-    expect(res2).resolves.toBe('pong-from-m1');
+    expect(resA1).resolves.toBe('pong-from-A2');
+    expect(resA2).resolves.toBe('pong-from-A1');
+    expect(resB1).resolves.toBe('pong-from-B2');
+    expect(resB2).resolves.toBe('pong-from-B1');
   });
 });

@@ -59,6 +59,7 @@ export function defineWindowMessaging<
       const responseListener = (event: MessageEvent) => {
         if (
           event.data.type === RESPONSE_TYPE &&
+          event.data.namespace === namespace &&
           event.data.instanceId !== instanceId &&
           event.data.message.type === message.type
         ) {
@@ -93,7 +94,7 @@ export function defineWindowMessaging<
 
         const response = await processMessage(event.data.message);
         window.postMessage(
-          { type: RESPONSE_TYPE, response, instanceId, message: event.data.message },
+          { type: RESPONSE_TYPE, response, instanceId, message: event.data.message, namespace },
           event.data.senderOrigin,
         );
       };
