@@ -11,7 +11,7 @@ const config = {
         '**/__tests__/browser/**/*.{test,spec}.ts',
       ],
     },
-  } satisfies UserConfig,
+  } as const satisfies UserConfig,
 };
 
 export default defineConfig(config.node);

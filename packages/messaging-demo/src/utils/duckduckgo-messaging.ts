@@ -11,5 +11,4 @@ export interface DuckduckgoMessagingProtocol {
 
 export const duckduckgoMessaging = defineCustomEventMessaging<DuckduckgoMessagingProtocol>({
   namespace: '@webext-core/messaging-demo/duckduckgo',
-  logger: {...console, debug: console.log}
 });
