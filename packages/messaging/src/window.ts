@@ -1,4 +1,4 @@
-import {uid} from 'uid'
+import { uid } from 'uid';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig, Message } from './types';
 
