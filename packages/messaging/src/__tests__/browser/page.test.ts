@@ -114,7 +114,7 @@ describe.each<
     );
   });
 
-  it('should not mix up messaging between instances', async () => {
+  it('should be messaging for the same message type between different instances', async () => {
     interface MessageSchema {
       test(data: string): string;
     }

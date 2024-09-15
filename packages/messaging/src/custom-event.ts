@@ -56,43 +56,55 @@ export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   const namespace = config.namespace;
+  const instanceId = crypto.randomUUID();
+
   const removeAdditionalListeners: Array<() => void> = [];
 
-  const sendCustomMessage = (event: CustomEvent) =>
+  const sendCustomMessage = (requestEvent: CustomEvent) =>
     new Promise(res => {
       const responseListener = (e: Event) => {
         const { detail } = e as CustomEvent;
-        res(detail);
+        if (
+          detail.namespace === namespace &&
+          detail.instanceId !== instanceId &&
+          detail.message.type === requestEvent.detail.message.type
+        ) {
+          res(detail.response);
+        }
       };
       removeAdditionalListeners.push(() =>
         window.removeEventListener(RESPONSE_EVENT, responseListener),
       );
-      window.addEventListener(RESPONSE_EVENT, responseListener, { once: true });
-      window.dispatchEvent(event);
+      window.addEventListener(RESPONSE_EVENT, responseListener);
+      window.dispatchEvent(requestEvent);
     });
 
   const messenger = defineGenericMessanging<TProtocolMap, CustomEventMessage, []>({
     ...config,
 
     sendMessage(message) {
-      const event = new CustomEvent(REQUEST_EVENT, { detail: { message, namespace } });
-      return sendCustomMessage(event);
+      const requestEvent = new CustomEvent(REQUEST_EVENT, {
+        detail: { message, namespace, instanceId },
+      });
+      return sendCustomMessage(requestEvent);
     },
 
     addRootListener(processMessage) {
-      const listener = async (e: Event) => {
+      const requestListener = async (e: Event) => {
         const { detail, ...event } = e as CustomEvent;
-        if (detail.namespace !== namespace) return;
+        if (detail.namespace !== namespace || detail.instanceId === instanceId) return;
 
         const message = { ...detail.message, event };
         const response = await processMessage(message);
 
-        const responseEvent = new CustomEvent(RESPONSE_EVENT, { detail: response });
+        const responseEvent = new CustomEvent(RESPONSE_EVENT, {
+          detail: { response, message, instanceId, namespace },
+        });
         window.dispatchEvent(responseEvent);
       };
 
-      window.addEventListener(REQUEST_EVENT, listener);
-      return () => window.removeEventListener(REQUEST_EVENT, listener);
+      window.addEventListener(REQUEST_EVENT, requestListener);
+      return () => window.removeEventListener(REQUEST_EVENT, requestListener);
     },
   });
 
