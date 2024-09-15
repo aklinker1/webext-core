@@ -1,3 +1,4 @@
+import { uid } from 'uid';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig } from './types';
 
@@ -59,7 +60,7 @@ export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   const namespace = config.namespace;
-  const instanceId = crypto.randomUUID();
+  const instanceId = uid();
 
   const removeAdditionalListeners: Array<() => void> = [];
 

@@ -1,3 +1,4 @@
+import {uid} from 'uid'
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig, Message } from './types';
 
@@ -53,7 +54,7 @@ export function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
   const namespace = config.namespace;
-  const instanceId = crypto.randomUUID();
+  const instanceId = uid();
 
   let removeAdditionalListeners: Array<() => void> = [];
 

@@ -54,8 +54,9 @@
     "check": "buildc --deps-only -- tsc --noEmit"
   },
   "dependencies": {
-    "webextension-polyfill": "^0.10.0",
-    "serialize-error": "^11.0.0"
+    "serialize-error": "^11.0.0",
+    "uid": "^2.0.2",
+    "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.9.1",
