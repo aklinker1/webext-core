@@ -4,10 +4,7 @@ const config = {
   browser: {
     test: {
       name: 'browser mode',
-      include: [
-        '**/*.browser.{test,spec}.ts',
-        '**/__tests__/browser/**/*.{test,spec}.ts',
-      ],
+      include: ['**/*.browser.{test,spec}.ts', '**/__tests__/browser/**/*.{test,spec}.ts'],
       exclude: [...defaultExclude],
       browser: {
         provider: 'playwright',
