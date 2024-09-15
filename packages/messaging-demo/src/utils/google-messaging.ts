@@ -11,4 +11,5 @@ export interface GoogleMessagingProtocol {
 
 export const googleMessaging = defineWindowMessaging<GoogleMessagingProtocol>({
   namespace: '@webext-core/messaging-demo/google',
+  logger: {...console, debug: console.log}
 });
