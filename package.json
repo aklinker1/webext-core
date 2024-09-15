@@ -17,8 +17,8 @@
     "@algolia/client-search": "^4.17.0",
     "@types/prettier": "^2.7.2",
     "@types/webextension-polyfill": "^0.9.1",
-    "@vitest/browser": "^2.1.0",
-    "@vitest/coverage-v8": "^2.0.5",
+    "@vitest/browser": "^2.1.1",
+    "@vitest/coverage-v8": "^2.1.1",
     "@webext-core/fake-browser": "workspace:*",
     "chokidar": "^3.5.3",
     "linkedom": "^0.14.26",
@@ -32,7 +32,7 @@
     "tsx": "^4.17.0",
     "turbo": "^1.6.3",
     "typescript": "^5.5.4",
-    "vitest": "^2.1.0",
+    "vitest": "^2.1.1",
     "webextension-polyfill": "^0.10.0"
   },
   "simple-git-hooks": {
