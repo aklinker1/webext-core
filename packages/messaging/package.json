@@ -50,7 +50,7 @@
     "test": "buildc --deps-only -- bun run test:node && bun run test:browser",
     "test:node": "buildc --deps-only -- vitest -r src --config ../vitest.config.node.ts",
     "test:browser": "buildc --deps-only -- vitest -r src --config ../vitest.config.browser.ts",
-    "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
+    "test:coverage": "buildc --deps-only -- bun run test:node --coverage && bun run test:browser --coverage",
     "check": "buildc --deps-only -- tsc --noEmit"
   },
   "dependencies": {
