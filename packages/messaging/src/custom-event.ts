@@ -1,3 +1,4 @@
+import { uid } from 'uid';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig } from './types';
 
@@ -51,48 +52,67 @@ export type CustomEventMessenger<TProtocolMap extends Record<string, any>> = Gen
  * websiteMessenger.onMessage("initInjectedScript", (...) => {
  *   // ...
  * })
+ *
+ * * @link Spec diagrams
+ * https://mermaid.live/edit#pako:eNqVlG9v2jAQxr-KZamvGv7YyYBYVSTGWgmpwAs6VZqQJpMc1BOxM8fZoIjvPieBACUVLC8SO3ru7vc4l9viUEWAGU7hdwYyhG-CLzWPZxLZa67WaKCkAWka01CLxDzMdSsobkKmhtsAUuy2SPIY0oSHwNBCKbQrMyRcGxGKhEuDbAT5qSTiKVJyBGnKl_CJKgUZ5br8eaa0-yPaUP6C0EDUeoX5VBi4hKP_A0dvgqM3wvWlMm-gi-Nb15ybe4k25_oTNPcmNPcKWrm8uzvWRF_Ld2NlAKk_oA_FnCodQ4PJaPR9PBz0X4aTMXp6nrwW6NP-6BH1p-j58enlkNsCoXKVX9WnbATB_f6AWcHWMpsE2AwnQi7JDNeFNNb7fmFILKXSlu-vLILP1HnOUkv3uCdqDemlOAgaVRWWS2phqjoXluipJVJriX6wRE8s0auWSGWJXLdEjpZovSV6ZqlcHjtBoVDFcSZFyG0LrIQ85D9rCfqhJcbnYUIWHRGJxQK0HRbHBrPJsINj0DEXkR0z2zz5DNs_I4YZZnYZwYJnK5ND7qyUZ0ZNNzLEzOgMHKxVtnzDbMFXqd1lSWTr7WdU9db2P2ZbvMasQYjX9AnteaRN3HbP7XgO3mBG3U6z533p-W637bue5-4c_K6UTUGbpOtT36edLvXaLu06GCJhlB6Vc7EYj0WJH4U-p9r9Aynbsqc
  */
 export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   const namespace = config.namespace;
+  const instanceId = uid();
+
   const removeAdditionalListeners: Array<() => void> = [];
 
-  const sendCustomMessage = (event: CustomEvent) =>
+  const sendCustomMessage = (requestEvent: CustomEvent) =>
     new Promise(res => {
       const responseListener = (e: Event) => {
         const { detail } = e as CustomEvent;
-        res(detail);
+        if (
+          detail.namespace === namespace &&
+          detail.instanceId !== instanceId &&
+          detail.message.type === requestEvent.detail.message.type
+        ) {
+          res(detail.response);
+        }
       };
       removeAdditionalListeners.push(() =>
         window.removeEventListener(RESPONSE_EVENT, responseListener),
       );
-      window.addEventListener(RESPONSE_EVENT, responseListener, { once: true });
-      window.dispatchEvent(event);
+      window.addEventListener(RESPONSE_EVENT, responseListener);
+      window.dispatchEvent(requestEvent);
     });
 
   const messenger = defineGenericMessanging<TProtocolMap, CustomEventMessage, []>({
     ...config,
 
     sendMessage(message) {
-      const event = new CustomEvent(REQUEST_EVENT, { detail: { message, namespace } });
-      return sendCustomMessage(event);
+      const reqDetail = { message, namespace, instanceId };
+      const requestEvent = new CustomEvent(REQUEST_EVENT, {
+        // @ts-expect-error not exist cloneInto types because implemented only in Firefox.
+        detail: typeof cloneInto !== 'undefined' ? cloneInto(reqDetail, window) : reqDetail,
+      });
+      return sendCustomMessage(requestEvent);
     },
 
     addRootListener(processMessage) {
-      const listener = async (e: Event) => {
+      const requestListener = async (e: Event) => {
         const { detail, ...event } = e as CustomEvent;
-        if (detail.namespace !== namespace) return;
+        if (detail.namespace !== namespace || detail.instanceId === instanceId) return;
 
         const message = { ...detail.message, event };
         const response = await processMessage(message);
 
-        const responseEvent = new CustomEvent(RESPONSE_EVENT, { detail: response });
+        const resDetail = { response, message, instanceId, namespace };
+        const responseEvent = new CustomEvent(RESPONSE_EVENT, {
+          // @ts-expect-error not exist cloneInto types because implemented only in Firefox.
+          detail: typeof cloneInto !== 'undefined' ? cloneInto(resDetail, window) : resDetail,
+        });
         window.dispatchEvent(responseEvent);
       };
 
-      window.addEventListener(REQUEST_EVENT, listener);
-      return () => window.removeEventListener(REQUEST_EVENT, listener);
+      window.addEventListener(REQUEST_EVENT, requestListener);
+      return () => window.removeEventListener(REQUEST_EVENT, requestListener);
     },
   });
 

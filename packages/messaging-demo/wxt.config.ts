@@ -8,6 +8,11 @@ export default defineConfig({
         resources: ['google-injected.js'],
         matches: ['*://*.google.com/*'],
       },
+      {
+        resources: ['duckduckgo-injected.js'],
+        matches: ['*://*.duckduckgo.com/*'],
+      },
     ],
   },
+  runner: { startUrls: ['https://google.com/', 'https://duckduckgo.com/'] },
 });

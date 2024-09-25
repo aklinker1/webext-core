@@ -1,10 +1,7 @@
-// @vitest-environment jsdom
 import { describe, it, expect, vi, beforeEach } from 'vitest';
-import { defineWindowMessaging, defineCustomEventMessaging } from './page';
-import { GenericMessenger } from './generic';
-import { NamespaceMessagingConfig } from './types';
-
-vi.mock('webextension-polyfill');
+import { defineWindowMessaging, defineCustomEventMessaging } from '../../page';
+import { GenericMessenger } from '../../generic';
+import { NamespaceMessagingConfig } from '../../types';
 
 describe.each<
   [
@@ -115,5 +112,42 @@ describe.each<
     await expect(() => messenger1.sendMessage('test', 'data', ...sendArgs)).rejects.toThrowError(
       error,
     );
+  });
+
+  it('should be messaging for the same message type between different instances', async () => {
+    interface MessageSchema {
+      test(data: string): string;
+    }
+    const messengerA1 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
+    const messengerA2 = defineTestMessaging<MessageSchema>({ namespace: 'a' });
+    const messengerB1 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
+    const messengerB2 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
+
+    messengerA1.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-A2');
+      return 'pong-from-A1';
+    });
+    messengerA2.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-A1');
+      return 'pong-from-A2';
+    });
+    messengerB1.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-B2');
+      return 'pong-from-B1';
+    });
+    messengerB2.onMessage('test', message => {
+      expect(message.data).toBe('ping-from-B1');
+      return 'pong-from-B2';
+    });
+
+    const resA1 = messengerA1.sendMessage('test', 'ping-from-A1');
+    const resA2 = messengerA2.sendMessage('test', 'ping-from-A2');
+    const resB1 = messengerB1.sendMessage('test', 'ping-from-B1');
+    const resB2 = messengerB2.sendMessage('test', 'ping-from-B2');
+
+    expect(resA1).resolves.toBe('pong-from-A2');
+    expect(resA2).resolves.toBe('pong-from-A1');
+    expect(resB1).resolves.toBe('pong-from-B2');
+    expect(resB2).resolves.toBe('pong-from-B1');
   });
 });

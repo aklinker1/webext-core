@@ -47,13 +47,16 @@
   },
   "scripts": {
     "build": "buildc -- tsup src/index.ts src/page.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
-    "test": "buildc --deps-only -- vitest -r src",
-    "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
+    "test": "buildc --deps-only -- bun run test:node && bun run test:browser",
+    "test:node": "buildc --deps-only -- vitest -r src --config ../vitest.config.node.ts",
+    "test:browser": "buildc --deps-only -- vitest -r src --config ../vitest.config.browser.ts",
+    "test:coverage": "buildc --deps-only -- bun run test:node --coverage && bun run test:browser --coverage",
     "check": "buildc --deps-only -- tsc --noEmit"
   },
   "dependencies": {
-    "webextension-polyfill": "^0.10.0",
-    "serialize-error": "^11.0.0"
+    "serialize-error": "^11.0.0",
+    "uid": "^2.0.2",
+    "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.9.1",
