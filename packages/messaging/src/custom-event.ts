@@ -87,8 +87,10 @@ export function defineCustomEventMessaging<
     ...config,
 
     sendMessage(message) {
+      const reqDetail = { message, namespace, instanceId };
       const requestEvent = new CustomEvent(REQUEST_EVENT, {
-        detail: { message, namespace, instanceId },
+        // @ts-expect-error not exist cloneInto types because implemented only in Firefox.
+        detail: typeof cloneInto !== 'undefined' ? cloneInto(reqDetail, window) : reqDetail,
       });
       return sendCustomMessage(requestEvent);
     },
@@ -101,8 +103,10 @@ export function defineCustomEventMessaging<
         const message = { ...detail.message, event };
         const response = await processMessage(message);
 
+        const resDetail = { response, message, instanceId, namespace };
         const responseEvent = new CustomEvent(RESPONSE_EVENT, {
-          detail: { response, message, instanceId, namespace },
+          // @ts-expect-error not exist cloneInto types because implemented only in Firefox.
+          detail: typeof cloneInto !== 'undefined' ? cloneInto(resDetail, window) : resDetail,
         });
         window.dispatchEvent(responseEvent);
       };
