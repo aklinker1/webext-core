@@ -84,7 +84,9 @@ jobs:
       - name: Publish to NPM
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
         run: |
-          echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
+          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > ~/.npmrc
           bun run build
           bun publish
         working-directory: packages/${{ matrix.package }}
+        env:
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
