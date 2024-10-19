@@ -33,11 +33,6 @@ jobs:
       - name: Pull Latest Releases
         run: git pull
 
-      - uses: pnpm/action-setup@v4
-        with:
-          version: 9
-          standalone: true
-
       - uses: actions/setup-node@v3
 
       - uses: oven-sh/setup-bun@v2
@@ -91,5 +86,5 @@ jobs:
         run: |
           echo "//registry.npmjs.org/:_authToken=${{ secrets.NPM_TOKEN }}" > ~/.npmrc
           bun run build
-          pnpm publish
+          bun publish
         working-directory: packages/${{ matrix.package }}
