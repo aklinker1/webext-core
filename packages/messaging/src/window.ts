@@ -1,3 +1,4 @@
+import { uid } from 'uid';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig, Message } from './types';
 
@@ -45,18 +46,27 @@ export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericM
  * websiteMessenger.onMessage("initInjectedScript", (...) => {
  *   // ...
  * })
+ *
+ * @link Spec diagrams
+ * https://mermaid.live/edit#pako:eNqVlG9v2jAQxr-KZamvGv7YyYBYVSTGWgmpwAs6VZqQJpMc1BOxM8fZoIjvPieBACUVLC8SO3ru7vc4l9viUEWAGU7hdwYyhG-CLzWPZxLZa67WaKCkAWka01CLxDzMdSsobkKmhtsAUuy2SPIY0oSHwNBCKbQrMyRcGxGKhEuDbAT5qSTiKVJyBGnKl_CJKgUZ5br8eaa0-yPaUP6C0EDUeoX5VBi4hKP_A0dvgqM3wvWlMm-gi-Nb15ybe4k25_oTNPcmNPcKWrm8uzvWRF_Ld2NlAKk_oA_FnCodQ4PJaPR9PBz0X4aTMXp6nrwW6NP-6BH1p-j58enlkNsCoXKVX9WnbATB_f6AWcHWMpsE2AwnQi7JDNeFNNb7fmFILKXSlu-vLILP1HnOUkv3uCdqDemlOAgaVRWWS2phqjoXluipJVJriX6wRE8s0auWSGWJXLdEjpZovSV6ZqlcHjtBoVDFcSZFyG0LrIQ85D9rCfqhJcbnYUIWHRGJxQK0HRbHBrPJsINj0DEXkR0z2zz5DNs_I4YZZnYZwYJnK5ND7qyUZ0ZNNzLEzOgMHKxVtnzDbMFXqd1lSWTr7WdU9db2P2ZbvMasQYjX9AnteaRN3HbP7XgO3mBG3U6z533p-W637bue5-4c_K6UTUGbpOtT36edLvXaLu06GCJhlB6Vc7EYj0WJH4U-p9r9Aynbsqc
  */
 export function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
   const namespace = config.namespace;
+  const instanceId = uid();
 
   let removeAdditionalListeners: Array<() => void> = [];
 
   const sendWindowMessage = (message: Message<TProtocolMap, any>, targetOrigin?: string) =>
     new Promise(res => {
       const responseListener = (event: MessageEvent) => {
-        if (event.data.type === RESPONSE_TYPE) {
+        if (
+          event.data.type === RESPONSE_TYPE &&
+          event.data.namespace === namespace &&
+          event.data.instanceId !== instanceId &&
+          event.data.message.type === message.type
+        ) {
           res(event.data.response);
           removeResponseListener();
         }
@@ -65,7 +75,7 @@ export function defineWindowMessaging<
       removeAdditionalListeners.push(removeResponseListener);
       window.addEventListener('message', responseListener);
       window.postMessage(
-        { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace },
+        { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace, instanceId },
         targetOrigin ?? '*',
       );
     });
@@ -79,10 +89,18 @@ export function defineWindowMessaging<
 
     addRootListener(processMessage) {
       const listener = async (event: MessageEvent) => {
-        if (event.data.type !== REQUEST_TYPE || event.data.namespace !== namespace) return;
+        if (
+          event.data.type !== REQUEST_TYPE ||
+          event.data.namespace !== namespace ||
+          event.data.instanceId === instanceId
+        )
+          return;
 
         const response = await processMessage(event.data.message);
-        window.postMessage({ type: RESPONSE_TYPE, response }, event.data.senderOrigin);
+        window.postMessage(
+          { type: RESPONSE_TYPE, response, instanceId, message: event.data.message, namespace },
+          event.data.senderOrigin,
+        );
       };
 
       window.addEventListener('message', listener);
