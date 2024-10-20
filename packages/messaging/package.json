@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/messaging",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "Light weight, type-safe wrapper around the web extension messaging APIs. Supports all browsers (Chrome, Firefox, Safari)",
   "license": "MIT",
   "keywords": [
