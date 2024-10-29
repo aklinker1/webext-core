@@ -86,7 +86,7 @@ jobs:
         run: |
           echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > ~/.npmrc
           bun run build
-          npm publish
+          bun publish
         working-directory: packages/${{ matrix.package }}
         env:
           NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
