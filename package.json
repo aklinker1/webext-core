@@ -41,5 +41,5 @@
   "lint-staged": {
     "*": "prettier --ignore-unknown --write"
   },
-  "packageManager": "bun@1.1.30"
+  "packageManager": "bun@1.1.33"
 }
