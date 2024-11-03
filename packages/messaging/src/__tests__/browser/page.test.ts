@@ -114,6 +114,39 @@ describe.each<
     );
   });
 
+  it('should throw an error if the responder sends non-serializable data', async () => {
+    interface MessageSchema {
+      test(data: string): { getName: () => string };
+    }
+    const messenger1 = defineTestMessaging<MessageSchema>();
+    const messenger2 = defineTestMessaging<MessageSchema>();
+    const invalidFn = () => 'testUser1';
+    const onMessage = vi.fn().mockReturnValue({ getName: invalidFn });
+
+    messenger2.onMessage('test', onMessage);
+
+    await expect(messenger1.sendMessage('test', 'data', ...sendArgs)).rejects.toThrowError(
+      `Failed to execute 'structuredClone' on 'Window': ${invalidFn.toString()} could not be cloned.`,
+    );
+  });
+
+  it('should throw an error if the sender sends non-serializable data', async () => {
+    interface MessageSchema {
+      test(data: { getName: () => string }): boolean;
+    }
+    const messenger1 = defineTestMessaging<MessageSchema>();
+    const messenger2 = defineTestMessaging<MessageSchema>();
+    const invalidFn = () => 'testUser1';
+
+    messenger2.onMessage('test', () => true);
+
+    await expect(
+      messenger1.sendMessage('test', { getName: invalidFn }, ...sendArgs),
+    ).rejects.toThrowError(
+      `Failed to execute 'structuredClone' on 'Window': ${invalidFn.toString()} could not be cloned.`,
+    );
+  });
+
   it('should be messaging for the same message type between different instances', async () => {
     interface MessageSchema {
       test(data: string): string;
