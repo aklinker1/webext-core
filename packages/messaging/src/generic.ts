@@ -25,6 +25,7 @@ interface GenericMessagingConfig<
       message: Message<TProtocolMap, any> & TMessageExtension,
     ) => void | Promise<{ res: any } | { err: unknown }>,
   ): RemoveListenerCallback;
+  verifyMessageData?<T>(data: T): MaybePromise<T>;
 }
 
 /**
@@ -109,12 +110,13 @@ export function defineGenericMessanging<
       data: TProtocolMap[TType],
       ...args: TSendMessageArgs
     ): Promise<any> {
-      const message: Message<TProtocolMap, TType> = {
+      const _message: Message<TProtocolMap, TType> = {
         id: getNextId(),
         type: type,
         data,
         timestamp: Date.now(),
       };
+      const message = (await config.verifyMessageData?.(_message)) ?? _message;
       config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ─ᐅ`, message, ...args);
 
       const response = await config.sendMessage(message, ...args);
@@ -150,6 +152,9 @@ export function defineGenericMessanging<
 
           const res = listener(message);
           return Promise.resolve(res)
+            .then(res => {
+              return config.verifyMessageData?.(res) ?? res;
+            })
             .then(res => {
               config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { res });
               return { res };

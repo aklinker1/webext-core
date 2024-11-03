@@ -106,6 +106,9 @@ export function defineWindowMessaging<
       window.addEventListener('message', listener);
       return () => window.removeEventListener('message', listener);
     },
+    verifyMessageData(data) {
+      return structuredClone(data);
+    },
   });
 
   return {
