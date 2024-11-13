@@ -114,7 +114,7 @@ describe.each<
     );
   });
 
-  it('should throw an error if the responder sends non-serializable data', async () => {
+  it('should throw an error if the responder responds with non-serializable data', async () => {
     interface MessageSchema {
       test(data: string): { getName: () => string };
     }
