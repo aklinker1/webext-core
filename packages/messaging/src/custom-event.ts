@@ -1,6 +1,7 @@
 import { uid } from 'uid';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig } from './types';
+import { prepareCustomEventDict } from './utils';
 
 const REQUEST_EVENT = '@webext-core/messaging/custom-events';
 const RESPONSE_EVENT = '@webext-core/messaging/custom-events/response';
@@ -89,8 +90,7 @@ export function defineCustomEventMessaging<
     sendMessage(message) {
       const reqDetail = { message, namespace, instanceId };
       const requestEvent = new CustomEvent(REQUEST_EVENT, {
-        // @ts-expect-error not exist cloneInto types because implemented only in Firefox.
-        detail: typeof cloneInto !== 'undefined' ? cloneInto(reqDetail, window) : reqDetail,
+        detail: prepareCustomEventDict(reqDetail),
       });
       return sendCustomMessage(requestEvent);
     },
@@ -105,14 +105,16 @@ export function defineCustomEventMessaging<
 
         const resDetail = { response, message, instanceId, namespace };
         const responseEvent = new CustomEvent(RESPONSE_EVENT, {
-          // @ts-expect-error not exist cloneInto types because implemented only in Firefox.
-          detail: typeof cloneInto !== 'undefined' ? cloneInto(resDetail, window) : resDetail,
+          detail: prepareCustomEventDict(resDetail),
         });
         window.dispatchEvent(responseEvent);
       };
 
       window.addEventListener(REQUEST_EVENT, requestListener);
       return () => window.removeEventListener(REQUEST_EVENT, requestListener);
+    },
+    verifyMessageData(data) {
+      return structuredClone(data);
     },
   });
 
