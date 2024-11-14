@@ -136,6 +136,10 @@ export function defineGenericMessanging<
         removeRootListener = config.addRootListener(message => {
           // Validate the message object
           if (typeof message.type != 'string' || typeof message.timestamp !== 'number') {
+            // #77 When the message is invalid, we stop processing the message using return or throw an error (default)
+            if (config.breakError) {
+              return;
+            }
             const err = Error(
               `[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: ${JSON.stringify(
                 message,

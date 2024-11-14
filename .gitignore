@@ -13,3 +13,4 @@ tsconfig.vitest-temp.json
 /.cache
 .output
 .wxt
+.idea
