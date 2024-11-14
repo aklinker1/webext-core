@@ -1,5 +1,6 @@
 {
   "name": "webext-core",
+  "packageManager": "bun@1.1.33",
   "private": true,
   "workspaces": [
     "packages/*",
@@ -40,6 +41,5 @@
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write"
-  },
-  "packageManager": "bun@1.1.33"
+  }
 }
