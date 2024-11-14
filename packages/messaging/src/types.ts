@@ -77,6 +77,13 @@ export interface BaseMessagingConfig {
    * @default console
    */
   logger?: Logger;
+
+  /**
+   * Whether to break an error when an invalid message is received.
+   *
+   * @default undefined
+   */
+  breakError?: boolean;
 }
 
 export interface NamespaceMessagingConfig extends BaseMessagingConfig {
