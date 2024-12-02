@@ -86,6 +86,7 @@ export interface JobScheduler {
    * Schedule a job. If a job with the same `id` has already been scheduled, it will update the job if it is different.
    */
   scheduleJob(job: Job): Promise<void>;
+
   /**
    * Un-schedules a job by it's ID.
    */
@@ -95,10 +96,16 @@ export interface JobScheduler {
    * Listen for a job to finish successfully.
    */
   on(event: 'success', callback: (job: Job, result: any) => void): RemoveListenerFn;
+
   /**
    * Listen for when a job fails.
    */
   on(event: 'error', callback: (job: Job, error: unknown) => void): RemoveListenerFn;
+
+  /**
+   * List all the scheduled jobs.
+   */
+  listJobs(): Promise<Alarms.Alarm>;
 }
 
 /**
@@ -225,6 +232,11 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
         }
         break;
     }
+  }
+
+  async function listJobs() {
+    logger?.debug('Listing jobs: ');
+    return await browser.alarms.getAll();
   }
 
   /**
