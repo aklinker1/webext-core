@@ -239,6 +239,51 @@ describe('defineJobScheduler', () => {
     });
   });
 
+  describe('removeAllJobs', () => {
+    it('no more jobs should exist once called', async () => {
+      const minutes = 2;
+      const jobs_to_schedule = [
+        {
+          id: 'once',
+          type: 'once' as const,
+          date: Date.now() + 60e3,
+          execute: vi.fn(),
+        },
+        {
+          id: 'interval',
+          type: 'interval' as const,
+          duration: minutes * 60e3,
+          immediate: true,
+          execute: vi.fn(),
+        },
+        {
+          id: 'cron',
+          type: 'cron' as const,
+          expression: '0 0/2 * * *', // every 2 hours on the 0th minute of the hour
+          execute: vi.fn(),
+        },
+      ];
+
+      const jobs = defineJobScheduler({ logger: null });
+
+      for (const job of jobs_to_schedule) {
+        await jobs.scheduleJob(job);
+        await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: job.date });
+      }
+
+      await jobs.removeAllJobs();
+
+      for (const job of jobs_to_schedule) {
+        await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: job.date });
+        expect(job.execute).toBeCalledTimes(1);
+      }
+
+      const alarm = await fakeBrowser.alarms.getAll();
+
+      expect(alarm).toBeUndefined();
+    });
+  });
+
   describe('on', () => {
     it('should call success listeners when a job finishes', async () => {
       const result = Math.random();
