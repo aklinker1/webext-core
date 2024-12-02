@@ -93,6 +93,11 @@ export interface JobScheduler {
   removeJob(jobId: string): Promise<void>;
 
   /**
+   * Un-schedules all jobs
+   */
+  removeAllJobs(): Promise<void>;
+
+  /**
    * Listen for a job to finish successfully.
    */
   on(event: 'success', callback: (job: Job, result: any) => void): RemoveListenerFn;
@@ -235,8 +240,10 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   }
 
   async function listJobs() {
-    logger?.debug('Listing jobs: ');
-    return await browser.alarms.getAll();
+    logger?.debug('Listing jobs');
+    const alarms = await browser.alarms.getAll();
+
+    return alarms.map(alarm => jobs[alarm.name]);
   }
 
   /**
@@ -268,6 +275,10 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
     async removeJob(jobId) {
       delete jobs[jobId];
       await browser.alarms.clear(jobId);
+    },
+
+    async removeAllJobs() {
+      await browser.alarms.clearAll();
     },
 
     on(event, callback) {
