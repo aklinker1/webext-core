@@ -110,7 +110,7 @@ export interface JobScheduler {
   /**
    * List all the scheduled jobs.
    */
-  listJobs(): Promise<Alarms.Alarm>;
+  listJobs(): Promise<Record<Job['id'], Job>>;
 }
 
 /**
