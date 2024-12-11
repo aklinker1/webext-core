@@ -68,7 +68,7 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
     },
     async set(items) {
       const changes: Record<string, Storage.StorageChange> = {};
-      for (const [key, newValue] of Object.entries(items)) {
+      for (const [key, newValue] of Object.entries(JSON.parse(JSON.stringigy(items)))) {
         // ignore undefined values
         if (newValue === undefined) continue;
 
