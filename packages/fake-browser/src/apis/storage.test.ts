@@ -127,7 +127,7 @@ describe('Fake Storage API', () => {
     const b = await fakeBrowser.storage.local.get();
     b.a.a = 2;
     b.a.b[0].c = 2;
-    expect(a.a.a === 1).toBe(true);
-    expect(a.a.b[0].c === 1).toBe(true);
+    expect(a.a.a).toBe(1);
+    expect(a.a.b[0].c).toBe(1);
   });
 });
