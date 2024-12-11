@@ -120,4 +120,14 @@ describe('Fake Storage API', () => {
       expect(globalListener).toBeCalledWith(changes, 'sync');
     });
   });
+
+  it('setting a nested object should not mutate the original object', async () => {
+    const a = { a: { a: 1, b: [{ c: 1 }] } };
+    await fakeBrowser.storage.local.set(a);
+    const b = await fakeBrowser.storage.local.get();
+    b.a.a = 2;
+    b.a.b[0].c = 2;
+    expect(a.a.a).toBe(1);
+    expect(a.a.b[0].c).toBe(1);
+  });
 });
