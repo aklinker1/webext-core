@@ -4,10 +4,10 @@ A light-weight, type-safe wrapper around the `browser.runtime` messaging APIs. S
 
 ```ts
 // ./messaging.ts
-import { ProtocolWithReturn, defineExtensionMessaging } from '@webext-core/messaging';
+import { defineExtensionMessaging } from '@webext-core/messaging';
 
 interface ProtocolMap {
-  getStringLength: ProtocolWithReturn<string, number>;
+  getStringLength(s: string): number;
 }
 
 export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>();
