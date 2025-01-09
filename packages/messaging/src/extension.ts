@@ -36,7 +36,9 @@ export interface SendMessageOptions {
  * Send message accepts either:
  * - No arguments to send to background
  * - A tabId number to send to a specific tab
- * - A SendMessageOptions object to target a specific tab and/or frame
+ * - A SendMessageOptions object to target a specific tab and frame
+ *
+ * You cannot message between tabs directly. It must go through the background script.
  */
 export type ExtensionSendMessageArgs = [arg?: number | SendMessageOptions];
 
