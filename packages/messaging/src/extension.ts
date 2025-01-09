@@ -5,7 +5,7 @@ import { BaseMessagingConfig } from './types';
 /**
  * Configuration passed into `defineExtensionMessaging`.
  */
-export interface ExtensionMessagingConfig extends BaseMessagingConfig { }
+export interface ExtensionMessagingConfig extends BaseMessagingConfig {}
 
 /**
  * Additional fields available on the `Message` from an `ExtensionMessenger`.
@@ -68,10 +68,6 @@ export function defineExtensionMessaging<
 
       // Handle both number and options object
       const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
-
-      if (typeof options.tabId !== 'number') {
-        throw new Error('tabId is required when sending a message to a tab');
-      }
 
       return Browser.tabs.sendMessage(
         options.tabId,
