@@ -1,6 +1,6 @@
 import { describe, expectTypeOf, it } from 'vitest';
 import { MaybePromise, ProtocolWithReturn } from './types';
-import { defineExtensionMessaging } from './extension';
+import { defineExtensionMessaging, SendMessageOptions } from './extension';
 
 describe('Messenger Typing', () => {
   it('should use any for data and return type when a protocol map is not passed', () => {
@@ -73,7 +73,7 @@ describe('Messenger Typing', () => {
 
     expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
     expectTypeOf(sendMessage).parameter(1).toBeUndefined();
-    expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined>();
+    expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined | SendMessageOptions>();
   });
 
   it('should require passing undefined to sendMessage when there is no arguments in a function definition', () => {
@@ -83,6 +83,6 @@ describe('Messenger Typing', () => {
 
     expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
     expectTypeOf(sendMessage).parameter(1).toBeUndefined();
-    expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined>();
+    expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined | SendMessageOptions>();
   });
 });
