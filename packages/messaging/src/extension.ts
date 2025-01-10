@@ -19,17 +19,28 @@ export interface ExtensionMessage {
 }
 
 /**
- * Send messsage accepts an additional, optional argument `tabId`. Pass it to send a message to a
- * specific tab from the background script.
+ * Options for sending a message to a specific tab/frame
+ */
+export interface SendMessageOptions {
+  /**
+   * The tab to send a message to
+   */
+  tabId: number;
+  /**
+   * The frame to send a message to. 0 represents the main frame.
+   */
+  frameId?: number;
+}
+
+/**
+ * Send message accepts either:
+ * - No arguments to send to background
+ * - A tabId number to send to a specific tab
+ * - A SendMessageOptions object to target a specific tab and frame
  *
  * You cannot message between tabs directly. It must go through the background script.
  */
-export type ExtensionSendMessageArgs = [
-  /**
-   * The tab to send a message to.
-   */
-  tabId?: number,
-];
+export type ExtensionSendMessageArgs = [arg?: number | SendMessageOptions];
 
 /**
  * Messenger returned by `defineExtensionMessaging`.
@@ -51,9 +62,21 @@ export function defineExtensionMessaging<
 >(config?: ExtensionMessagingConfig): ExtensionMessenger<TProtocolMap> {
   return defineGenericMessanging({
     ...config,
-    sendMessage(message, tabId) {
-      if (tabId == null) return Browser.runtime.sendMessage(message);
-      return Browser.tabs.sendMessage(tabId, message);
+    sendMessage(message, arg) {
+      // No args - send to background
+      if (arg == null) {
+        return Browser.runtime.sendMessage(message);
+      }
+
+      // Handle both number and options object
+      const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
+
+      return Browser.tabs.sendMessage(
+        options.tabId,
+        message,
+        // Pass frameId if specified
+        options.frameId != null ? { frameId: options.frameId } : undefined,
+      );
     },
     addRootListener(processMessage) {
       const listener = (message: any, sender: Runtime.MessageSender) => {

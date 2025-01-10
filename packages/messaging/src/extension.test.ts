@@ -34,7 +34,7 @@ describe('Messaging Wrapper', () => {
     expect(actual).toBe(expected);
   });
 
-  it('should send messages to tabs', async () => {
+  it('should send messages to tabs with only tabId', async () => {
     const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
     const input = 'test';
     const tabId = 0;
@@ -45,12 +45,40 @@ describe('Messaging Wrapper', () => {
 
     expect(actual).toBe(expected);
     expect(fakeBrowser.tabs.sendMessage).toBeCalledTimes(1);
-    expect(fakeBrowser.tabs.sendMessage).toBeCalledWith(tabId, {
-      id: expect.any(Number),
-      timestamp: expect.any(Number),
-      type: 'getLength',
-      data: input,
-    });
+    expect(fakeBrowser.tabs.sendMessage).toBeCalledWith(
+      tabId,
+      {
+        id: expect.any(Number),
+        timestamp: expect.any(Number),
+        type: 'getLength',
+        data: input,
+      },
+      undefined,
+    );
+  });
+
+  it('should send messages to tabs with tabId and frameId', async () => {
+    const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
+    const input = 'test';
+    const tabId = 0;
+    const frameId = 0;
+    const expected = 4;
+    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected });
+
+    const actual = await sendMessage('getLength', input, { tabId, frameId });
+
+    expect(actual).toBe(expected);
+    expect(fakeBrowser.tabs.sendMessage).toBeCalledTimes(1);
+    expect(fakeBrowser.tabs.sendMessage).toBeCalledWith(
+      tabId,
+      {
+        id: expect.any(Number),
+        timestamp: expect.any(Number),
+        type: 'getLength',
+        data: input,
+      },
+      { frameId },
+    );
   });
 
   it('should handle errors', async () => {

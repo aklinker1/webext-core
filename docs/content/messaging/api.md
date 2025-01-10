@@ -13,6 +13,7 @@ See [`@webext-core/messaging`](/messaging/installation/)
 ```ts
 interface BaseMessagingConfig {
   logger?: Logger;
+  breakError?: boolean;
 }
 ```
 
@@ -21,6 +22,8 @@ Shared configuration between all the different messengers.
 ### Properties 
 
 - ***`logger?: Logger`*** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
+
+- ***`breakError?: boolean`*** (default: `undefined`)<br/>Whether to break an error when an invalid message is received.
 
 ## `CustomEventMessage`
 
@@ -87,6 +90,8 @@ websiteMessenger.sendMessage("initInjectedScript", ...);
 websiteMessenger.onMessage("initInjectedScript", (...) => {
   // ...
 })
+
+*
 ```
 
 ## `defineExtensionMessaging`
@@ -173,11 +178,13 @@ Messenger returned by `defineExtensionMessaging`.
 ## `ExtensionSendMessageArgs`
 
 ```ts
-type ExtensionSendMessageArgs = [tabId?: number];
+type ExtensionSendMessageArgs = [arg?: number | SendMessageOptions];
 ```
 
-Send messsage accepts an additional, optional argument `tabId`. Pass it to send a message to a
-specific tab from the background script.
+Send message accepts either:
+- No arguments to send to background
+- A tabId number to send to a specific tab
+- A SendMessageOptions object to target a specific tab and frame
 
 You cannot message between tabs directly. It must go through the background script.
 
@@ -373,6 +380,23 @@ type RemoveListenerCallback = () => void;
 Call to ensure an active listener has been removed.
 
 If the listener has already been removed with `Messenger.removeAllListeners`, this is a noop.
+
+## `SendMessageOptions`
+
+```ts
+interface SendMessageOptions {
+  tabId: number;
+  frameId?: number;
+}
+```
+
+Options for sending a message to a specific tab/frame
+
+### Properties 
+
+- ***`tabId: number`***<br/>The tab to send a message to
+
+- ***`frameId?: number`***<br/>The frame to send a message to. 0 represents the main frame.
 
 ## `WindowMessagingConfig`
 
