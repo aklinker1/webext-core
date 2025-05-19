@@ -54,6 +54,12 @@ export interface GenericMessenger<
    */
   sendMessage<TType extends keyof TProtocolMap>(
     type: TType,
+    ...args: GetDataType<TProtocolMap[TType]> extends undefined
+      ? [undefined?, ...TSendMessageArgs]
+      : never
+  ): Promise<GetReturnType<TProtocolMap[TType]>>;
+  sendMessage<TType extends keyof TProtocolMap>(
+    type: TType,
     data: GetDataType<TProtocolMap[TType]>,
     ...args: TSendMessageArgs
   ): Promise<GetReturnType<TProtocolMap[TType]>>;
