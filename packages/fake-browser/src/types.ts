@@ -1,4 +1,5 @@
 import type {
+  Action,
   Alarms,
   Browser,
   Notifications,
@@ -106,6 +107,20 @@ export interface BrowserOverrides {
     onCreated: EventForTesting<[window: Windows.Window]>;
     onRemoved: EventForTesting<[windowId: number]>;
     onFocusChanged: EventForTesting<[windowId: number]>;
+  };
+  action: Pick<
+    Action.Static,
+    | 'setTitle'
+    | 'getTitle'
+    | 'getBadgeText'
+    | 'setBadgeText'
+    | 'setBadgeTextColor'
+    | 'getBadgeTextColor'
+    | 'getBadgeBackgroundColor'
+    | 'setBadgeBackgroundColor'
+  > & {
+    resetState(): void;
+    onClicked: EventForTesting<[tab: Tabs.Tab, info: Action.OnClickData | undefined]>;
   };
 }
 
