@@ -5,7 +5,7 @@ import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 const onClicked =
   defineEventWithTrigger<(tab: Tabs.Tab, info: Action.OnClickData | undefined) => void>();
 
-let DEFAULT_BADGE_BACKGROUND_COLOR = '#000000';
+let DEFAULT_BADGE_BACKGROUND_COLOR = '#5F5D5B';
 let DEFAULT_BADGE_TEXT_COLOR = '#FFFFFF';
 type ColorArray = [number, number, number, number];
 const badgeTextColorState: ScopedState<string> = {
@@ -150,6 +150,7 @@ export const action: BrowserOverrides['action'] = {
     const value = getScopedValue(badgeBackgroundColorState, details);
     return Promise.resolve(value ?? hexToRgbaArray(DEFAULT_BADGE_BACKGROUND_COLOR));
   },
+
   setBadgeTextColor(details: Action.SetBadgeTextColorDetailsType) {
     const { color, tabId, windowId } = details;
 
@@ -170,13 +171,11 @@ export const action: BrowserOverrides['action'] = {
     } else {
       badgeTextColorState.global = normalizedColor;
     }
-
-    return Promise.resolve();
   },
 
-  getBadgeTextColor(details: Action.Details): Promise<string> {
+  getBadgeTextColor(details: Action.Details, callback?: (value: string) => void): void {
     const value = getScopedValue(badgeTextColorState, details);
-    return Promise.resolve(value ?? DEFAULT_BADGE_TEXT_COLOR);
+    callback?.(value ?? DEFAULT_BADGE_TEXT_COLOR);
   },
 
   onClicked,
