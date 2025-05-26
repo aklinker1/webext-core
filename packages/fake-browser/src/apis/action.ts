@@ -8,8 +8,6 @@ const onClicked =
 let DEFAULT_BADGE_BACKGROUND_COLOR = '#000000';
 let DEFAULT_BADGE_TEXT_COLOR = '#FFFFFF';
 type ColorArray = [number, number, number, number];
-let DEFAULT_ICON: string | null = null;
-let DEFAULT_ICON_PATH: string | null = null;
 const badgeTextColorState: ScopedState<string> = {
   global: DEFAULT_BADGE_TEXT_COLOR,
   tabs: new Map(),
@@ -73,9 +71,6 @@ export const action: BrowserOverrides['action'] = {
     titleState.global = '';
     titleState.tabs.clear();
     titleState.windows.clear();
-
-    DEFAULT_ICON = null;
-    DEFAULT_ICON_PATH = null;
   },
 
   setTitle(details: Action.SetTitleDetailsType) {
