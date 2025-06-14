@@ -19,7 +19,7 @@ interface BaseMessagingConfig {
 
 Shared configuration between all the different messengers.
 
-### Properties 
+### Properties
 
 - ***`logger?: Logger`*** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
 
@@ -35,7 +35,7 @@ interface CustomEventMessage {
 
 Additional fields available on the `Message` from a `CustomEventMessenger`.
 
-### Properties 
+### Properties
 
 - ***`event: CustomEvent`***<br/>The event that was fired, resulting in the message being passed.
 
@@ -153,7 +153,7 @@ interface ExtensionMessage {
 
 Additional fields available on the `Message` from an `ExtensionMessenger`.
 
-### Properties 
+### Properties
 
 - ***`sender: Runtime.MessageSender`***<br/>Information about where the message came from. See
 [`Runtime.MessageSender`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/MessageSender).
@@ -256,7 +256,7 @@ interface Logger {
 }
 ```
 
-Interface used to log text to the console when sending and recieving messages.
+Interface used to log text to the console when sending and receiving messages.
 
 ## `MaybePromise`
 
@@ -281,9 +281,9 @@ interface Message<
 }
 ```
 
-Contains information about the message recieved.
+Contains information about the message received.
 
-### Properties 
+### Properties
 
 - ***`id: number`***<br/>A semi-unique, auto-incrementing number used to trace messages being sent.
 
@@ -306,7 +306,7 @@ interface MessageSender {
 
 An object containing information about the script context that sent a message or request.
 
-### Properties 
+### Properties
 
 - ***`tab?: Tabs.Tab`***<br/>The $(ref:tabs.Tab) which opened the connection, if any. This property will <strong>only</strong>
 be present when the connection was opened from a tab (including content scripts), and <strong>only</strong>
@@ -332,7 +332,7 @@ interface NamespaceMessagingConfig extends BaseMessagingConfig {
 }
 ```
 
-### Properties 
+### Properties
 
 - ***`namespace: string`***<br/>A string used to ensure the messenger only sends messages to and listens for messages from
 other messengers of the same type, with the same namespace.
@@ -354,7 +354,7 @@ Used to add a return type to a message in the protocol map.
 
 > Internally, this is just an object with random keys for the data and return types.
 
-### Properties 
+### Properties
 
 - ***`BtVgCTPYZu: TData`***<br/>Stores the data type. Randomly named so that it isn't accidentally implemented.
 
@@ -392,7 +392,7 @@ interface SendMessageOptions {
 
 Options for sending a message to a specific tab/frame
 
-### Properties 
+### Properties
 
 - ***`tabId: number`***<br/>The tab to send a message to
 

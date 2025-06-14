@@ -60,7 +60,7 @@ All Packages
   #title
   `@webext-core/messaging`
   #description
-  A simpler, type-safe API for sending and recieving messages.
+  A simpler, type-safe API for sending and receiving messages.
   <br />
   <br />
   [Go to docs →](/messaging/installation)

@@ -55,7 +55,7 @@ export interface GenericMessenger<
   sendMessage<TType extends keyof TProtocolMap>(
     type: TType,
     ...args: GetDataType<TProtocolMap[TType]> extends undefined
-      ? [undefined?, ...TSendMessageArgs]
+      ? [data?: undefined, ...args: TSendMessageArgs]
       : never
   ): Promise<GetReturnType<TProtocolMap[TType]>>;
   sendMessage<TType extends keyof TProtocolMap>(
@@ -65,13 +65,13 @@ export interface GenericMessenger<
   ): Promise<GetReturnType<TProtocolMap[TType]>>;
 
   /**
-   * Trigger a callback when a message of the requested type is recieved. You cannot setup multiple
+   * Trigger a callback when a message of the requested type is received. You cannot setup multiple
    * listeners for the same message type in the same JS context.
    *
    * To remove the listener, call the returned message.
    *
-   * @param type The message type to listen for. Call `sendMessage` with the same type to triggern this listener.
-   * @param onReceived The callback executed when a message is recieved.
+   * @param type The message type to listen for. Call `sendMessage` with the same type to trigger this listener.
+   * @param onReceived The callback executed when a message is received.
    */
   onMessage<TType extends keyof TProtocolMap>(
     type: TType,
@@ -113,13 +113,13 @@ export function defineGenericMessanging<
   return {
     async sendMessage<TType extends keyof TProtocolMap>(
       type: TType,
-      data: TProtocolMap[TType],
+      data?: TProtocolMap[TType],
       ...args: TSendMessageArgs
     ): Promise<any> {
       const _message: Message<TProtocolMap, TType> = {
         id: getNextId(),
         type: type,
-        data,
+        data: data as any,
         timestamp: Date.now(),
       };
       const message = (await config.verifyMessageData?.(_message)) ?? _message;
