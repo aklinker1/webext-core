@@ -23,7 +23,7 @@ describe('Messaging Wrapper', () => {
     vi.restoreAllMocks();
   });
 
-  it('should send and recieve messages', async () => {
+  it('should send and receive messages', async () => {
     const { onMessage, sendMessage } = defineExtensionMessaging<ProtocolMap>();
     const input = 'test';
     const expected = 4;
