@@ -54,6 +54,41 @@ of the JS context the they are called from.
 - `registerService`: Used to register your service in the background
 - `getService`: Used to get an instance of the service anywhere in the extension.
 
+### Deprecated
+
+Recommended to use `defineShakableProxyService`.
+
+## `defineShakableProxyService`
+
+```ts
+function defineShakableProxyService<TService extends Service>(
+  name: string,
+  config?: ProxyServiceConfig,
+): [
+  registerService: (
+    init: (...args: any[]) => TService | Promise<TService>,
+    ...args: any[]
+  ) => Promise<TService>,
+  getService: () => ProxyService<TService>
+] {
+  // ...
+}
+```
+
+Utility for creating a service whose functions are executed in the background script regardless
+of the JS context the they are called from.
+
+### Parameters
+
+- ***`name: string`***<br/>A unique name for the service. Used to identify which service is being executed.
+
+- ***`config?: ProxyServiceConfig`***<br />An object that allows configuration of the underlying messaging service
+
+### Returns 
+
+- `registerService`: Used to register your service in the background. Requires an `init()` callback used to create the actual service object.
+- `getService`: Used to get an instance of the service anywhere in the extension.
+
 ## `flattenPromise`
 
 ```ts

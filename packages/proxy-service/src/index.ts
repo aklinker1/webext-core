@@ -1,3 +1,3 @@
-export { defineProxyService } from './defineProxyService';
+export { defineProxyService, defineShakableProxyService } from './defineProxyService';
 export { flattenPromise } from './flattenPromise';
 export type { ProxyServiceConfig, ProxyService, DeepAsync } from './types';

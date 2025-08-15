@@ -1,3 +1,6 @@
 export default defineBackground(() => {
-  registerMathService();
+  registerMathService(async () => {
+    const { MathService } = await import('../utils/math-service');
+    return new MathService();
+  });
 });

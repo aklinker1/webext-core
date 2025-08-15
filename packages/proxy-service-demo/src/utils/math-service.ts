@@ -1,6 +1,6 @@
-import { defineProxyService } from '@webext-core/proxy-service';
+import { defineShakableProxyService } from '@webext-core/proxy-service';
 
-class MathService {
+export class MathService {
   add(x: number, y: number): number {
     console.log(`MathService.add(${x}, ${y})`);
     return x + y;
@@ -25,7 +25,5 @@ class MathService {
   }
 }
 
-export const [registerMathService, getMathService] = defineProxyService(
-  'MathService',
-  () => new MathService(),
-);
+export const [registerMathService, getMathService] =
+  defineShakableProxyService<MathService>('MathService');
