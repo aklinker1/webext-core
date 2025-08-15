@@ -139,7 +139,7 @@ describe('defineShakableProxyService', () => {
   it('should defer execution of the proxy service methods to the real service methods', async () => {
     const version = 10;
     const [registerShakableTestService, getShakableTestService] = defineShakableTestService();
-    registerShakableTestService(() => new ShakableTestService(10));
+    registerShakableTestService((ver: number) => new ShakableTestService(ver), version);
 
     isBackgroundMock.mockReturnValue(true);
     const real = getShakableTestService();
