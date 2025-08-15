@@ -66,9 +66,9 @@ function defineShakableProxyService<TService extends Service>(
   config?: ProxyServiceConfig,
 ): [
   registerService: (
-    init: (...args: any[]) => TService | Promise<TService>,
+    init: (...args: any[]) => TService,
     ...args: any[]
-  ) => Promise<TService>,
+  ) => TService,
   getService: () => ProxyService<TService>
 ] {
   // ...

@@ -97,7 +97,7 @@ export function defineShakableProxyService<TService extends Service>(
   name: string,
   config?: ProxyServiceConfig,
 ): [
-  registerService: (init: (...args: any[]) => TService, ...args: any[]) => Promise<TService>,
+  registerService: (init: (...args: any[]) => TService, ...args: any[]) => TService,
   getService: () => ProxyService<TService>,
 ] {
   let service: TService | undefined;
@@ -137,10 +137,10 @@ export function defineShakableProxyService<TService extends Service>(
   }
 
   return [
-    async function registerService<TArgs extends any[]>(
+    function registerService<TArgs extends any[]>(
       init: (...args: TArgs) => TService,
       ...args: TArgs
-    ): Promise<TService> {
+    ): TService {
       service = init(...args);
       onMessage(messageKey, ({ data }) => {
         const method = data.path == null ? service : get(service ?? {}, data.path);
