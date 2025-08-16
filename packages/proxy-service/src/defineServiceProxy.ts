@@ -5,24 +5,25 @@ import get from 'get-value';
 
 /**
  * Utility for creating a service whose functions are executed in the background script regardless
- * of the JS context the they are called from.
+ * of the JS context they are called from.
  *
  * @param name A unique name for the service. Used to identify which service is being executed.
- * @param init A function that returns your real service implementation. If args are listed,
- *             `registerService` will require the same set of arguments.
- * @param config
- * @returns
- * - `registerService`: Used to register your service in the background
- * - `getService`: Used to get an instance of the service anywhere in the extension.
+ * @param config An object that allows configuration of the underlying messaging service
  *
- * @deprecated
- * Use {@link defineServiceProxy} instead.
+ * @returns
+ * - `registerService`: Used to register your service in the background. Requires an `init()` callback used to create the actual service object.
+ * - `getService`: Used to get an instance of the service anywhere in the extension.
  */
-export function defineProxyService<TService extends Service, TArgs extends any[]>(
+export function defineServiceProxy<TService extends Service>(
   name: string,
-  init: (...args: TArgs) => TService,
   config?: ProxyServiceConfig,
-): [registerService: (...args: TArgs) => TService, getService: () => ProxyService<TService>] {
+): [
+  registerService: (
+    init: (...args: any[]) => TService | Promise<TService>,
+    ...args: any[]
+  ) => Promise<TService>,
+  getService: () => ProxyService<TService>,
+] {
   let service: TService | undefined;
 
   const messageKey = `proxy-service.${name}`;
@@ -60,8 +61,11 @@ export function defineProxyService<TService extends Service, TArgs extends any[]
   }
 
   return [
-    function registerService(...args) {
-      service = init(...args);
+    async function registerService<TArgs extends any[]>(
+      init: (...args: TArgs) => TService | Promise<TService>,
+      ...args: TArgs
+    ): Promise<TService> {
+      service = await init(...args);
       onMessage(messageKey, ({ data }) => {
         const method = data.path == null ? service : get(service ?? {}, data.path);
         if (method) return Promise.resolve(method.bind(service)(...data.args));

@@ -1,7 +1,7 @@
-import { defineProxyService } from './defineProxyService';
 import { beforeEach, describe, expect, it, vi } from 'vitest';
-import { isBackground } from './isBackground';
 import { fakeBrowser } from '@webext-core/fake-browser';
+import { defineServiceProxy } from './defineServiceProxy';
+import { isBackground } from './isBackground';
 
 vi.mock('webextension-polyfill');
 
@@ -10,43 +10,56 @@ vi.mock('./isBackground', () => ({
 }));
 const isBackgroundMock = vi.mocked(isBackground);
 
-const defineTestService = () =>
-  defineProxyService('TestService', (version: number) => ({
-    getVersion: () => version,
-    getNextVersion: () => Promise.resolve(version + 1),
-  }));
+class ShakableTestService {
+  private version: number;
 
-describe('defineProxyService', () => {
+  constructor(version: number) {
+    this.version = version;
+  }
+
+  getVersion() {
+    return this.version;
+  }
+
+  getNextVersion() {
+    return Promise.resolve(this.version + 1);
+  }
+}
+
+const defineShakableTestService = () =>
+  defineServiceProxy<ShakableTestService>('ShakableTestService');
+
+describe('defineServiceProxy', () => {
   beforeEach(() => {
     vi.resetAllMocks();
     fakeBrowser.reset();
   });
 
   it("getService should fail to get the service in the background if one hasn't been registered", () => {
-    const [_, getTestService] = defineTestService();
+    const [_, getShakableTestService] = defineShakableTestService();
     isBackgroundMock.mockReturnValue(true);
 
-    expect(getTestService).toThrowError();
+    expect(getShakableTestService).toThrowError();
   });
 
   it('getService should return a proxy in other contexts', () => {
-    const [registerTestService, getTestService] = defineTestService();
-    registerTestService(1);
+    const [registerShakableTestService, getShakableTestService] = defineShakableTestService();
+    registerShakableTestService(() => new ShakableTestService(1));
     isBackgroundMock.mockReturnValue(false);
 
     // @ts-expect-error: __proxy is not apart of the type, but it's there
-    expect(getTestService().__proxy).toEqual(true);
+    expect(getShakableTestService().__proxy).toEqual(true);
   });
 
   it('should defer execution of the proxy service methods to the real service methods', async () => {
     const version = 10;
-    const [registerTestService, getTestService] = defineTestService();
-    registerTestService(version);
+    const [registerShakableTestService, getShakableTestService] = defineShakableTestService();
+    await registerShakableTestService((ver: number) => new ShakableTestService(ver), version);
 
     isBackgroundMock.mockReturnValue(true);
-    const real = getTestService();
+    const real = getShakableTestService();
     isBackgroundMock.mockReturnValue(false);
-    const proxy = getTestService();
+    const proxy = getShakableTestService();
     const realGetVersionSpy = vi.spyOn(real, 'getVersion');
 
     const actual = await proxy.getVersion();
@@ -58,8 +71,8 @@ describe('defineProxyService', () => {
   it('should support executing functions directly', async () => {
     const expected = 5;
     const fn: () => Promise<void> = vi.fn().mockResolvedValue(expected);
-    const [registerFn, getFn] = defineProxyService('fn', () => fn);
-    registerFn();
+    const [registerFn, getFn] = defineServiceProxy<typeof fn>('fn');
+    registerFn(() => fn);
 
     isBackgroundMock.mockReturnValue(false);
     const proxyFn = getFn();
@@ -75,15 +88,16 @@ describe('defineProxyService', () => {
     const expected2 = 6;
     const fn1 = vi.fn<() => Promise<number>>().mockResolvedValue(expected1);
     const fn2 = vi.fn<() => Promise<number>>().mockResolvedValue(expected2);
-    const [registerDeepObject, getDeepObject] = defineProxyService('DeepObject', () => ({
+    const deepObj = {
       fn1,
       path: {
         to: {
           fn2,
         },
       },
-    }));
-    registerDeepObject();
+    };
+    const [registerDeepObject, getDeepObject] = defineServiceProxy<typeof deepObj>('DeepObject');
+    registerDeepObject(() => deepObj);
 
     isBackgroundMock.mockReturnValue(false);
     const deepObject = getDeepObject();
