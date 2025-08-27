@@ -140,6 +140,15 @@ export function defineGenericMessanging<
           `[messaging] "${type as string}" initialized the message listener for this context`,
         );
         removeRootListener = config.addRootListener(message => {
+          // Filter out messages with ignored namespaces
+          if (config.ignoreNamespaces && message.namespace) {
+            for (const prefix of config.ignoreNamespaces) {
+              if (message.namespace.startsWith(prefix)) {
+                return;
+              }
+            }
+          }
+
           // Validate the message object
           if (typeof message.type != 'string' || typeof message.timestamp !== 'number') {
             // #77 When the message is invalid, we stop processing the message using return or throw an error (default)

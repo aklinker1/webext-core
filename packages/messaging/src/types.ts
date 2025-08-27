@@ -84,6 +84,14 @@ export interface BaseMessagingConfig {
    * @default undefined
    */
   breakError?: boolean;
+
+  /**
+   * Array of namespace prefixes to ignore. Messages with namespaces starting with
+   * any of these prefixes will be filtered out and not processed.
+   *
+   * @default undefined
+   */
+  ignoreNamespaces?: string[];
 }
 
 export interface NamespaceMessagingConfig extends BaseMessagingConfig {
@@ -114,4 +122,8 @@ export interface Message<
    * The timestamp the message was sent in MS since epoch.
    */
   timestamp: number;
+  /**
+   * Optional namespace for the message. Used by external libraries to identify message sources.
+   */
+  namespace?: string;
 }

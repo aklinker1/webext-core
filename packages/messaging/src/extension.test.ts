@@ -163,4 +163,53 @@ describe('Messaging Wrapper', () => {
       onMessage1.mock.invocationCallOrder[0],
     );
   });
+
+  it('should ignore messages with namespaces matching ignoreNamespaces prefixes', async () => {
+    const { onMessage } = defineExtensionMessaging<ProtocolMap>({
+      ignoreNamespaces: ['external:', 'third-party:'],
+    });
+    const messageHandler = vi.fn();
+
+    onMessage('getLength', messageHandler);
+
+    // Send messages with ignored namespaces - these should be filtered out
+    fakeBrowser.runtime.sendMessage({
+      id: 1,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+      namespace: 'external:some-action',
+    });
+
+    fakeBrowser.runtime.sendMessage({
+      id: 2,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+      namespace: 'third-party:track',
+    });
+
+    // Send a message without ignored namespace - this should be processed
+    fakeBrowser.runtime.sendMessage({
+      id: 3,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+      namespace: 'app:action',
+    });
+
+    // Send a message without any namespace - this should be processed
+    fakeBrowser.runtime.sendMessage({
+      id: 4,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+    });
+
+    // Wait for async message processing
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Only the non-ignored messages should have triggered the handler
+    expect(messageHandler).toBeCalledTimes(2);
+  });
 });

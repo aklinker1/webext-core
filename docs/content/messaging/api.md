@@ -14,6 +14,7 @@ See [`@webext-core/messaging`](/messaging/installation/)
 interface BaseMessagingConfig {
   logger?: Logger;
   breakError?: boolean;
+  ignoreNamespaces?: string[];
 }
 ```
 
@@ -24,6 +25,9 @@ Shared configuration between all the different messengers.
 - ***`logger?: Logger`*** (default: `console`)<br/>The logger to use when logging messages. Set to `null` to disable logging.
 
 - ***`breakError?: boolean`*** (default: `undefined`)<br/>Whether to break an error when an invalid message is received.
+
+- ***`ignoreNamespaces?: string[]`*** (default: `undefined`)<br/>Array of namespace prefixes to ignore. Messages with namespaces starting with
+any of these prefixes will be filtered out and not processed.
 
 ## `CustomEventMessage`
 
@@ -278,6 +282,7 @@ interface Message<
   data: GetDataType<TProtocolMap[TType]>;
   type: TType;
   timestamp: number;
+  namespace?: string;
 }
 ```
 
@@ -292,6 +297,8 @@ Contains information about the message received.
 - ***`type: TType`***
 
 - ***`timestamp: number`***<br/>The timestamp the message was sent in MS since epoch.
+
+- ***`namespace?: string`***<br/>Optional namespace for the message. Used by external libraries to identify message sources.
 
 ## `MessageSender`
 
