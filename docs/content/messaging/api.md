@@ -312,6 +312,7 @@ interface Message<
   data: GetDataType<TProtocolMap[TType]>;
   type: TType;
   timestamp: number;
+  namespace?: string;
 }
 ```
 
@@ -326,6 +327,8 @@ Contains information about the message received.
 - ***`type: TType`***
 
 - ***`timestamp: number`***<br/>The timestamp the message was sent in MS since epoch.
+
+- ***`namespace?: string`***<br/>Optional namespace for the message. Used by external libraries to identify message sources.
 
 ## `MessageSender`
 
