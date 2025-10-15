@@ -38,6 +38,23 @@ describe('createIsolatedElement', () => {
     expect(parentElement.textContent).toEqual('');
   });
 
+  it('should not create a full html document structure in shadow DOM', async () => {
+    const name = 'test-element';
+
+    const { shadow, isolatedElement } = await createIsolatedElement({ name });
+
+    // The isolatedElement should be a simple div, not html/body/head
+    expect(isolatedElement.tagName.toLowerCase()).toBe('div');
+
+    // Shadow root should not contain html, head, or body elements
+    expect(shadow.querySelector('html')).toBeNull();
+    expect(shadow.querySelector('head')).toBeNull();
+    expect(shadow.querySelector('body')).toBeNull();
+
+    // Shadow root should contain the isolatedElement directly
+    expect(shadow.contains(isolatedElement)).toBe(true);
+  });
+
   it('should allow event propagation when isolateEvents is not set', async () => {
     const name = 'event-test-element-default';
 
