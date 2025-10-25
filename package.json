@@ -31,8 +31,7 @@
     "turbo": "^1.6.3",
     "typescript": "^5.5.4",
     "vitest": "^2.1.1",
-    "webextension-polyfill": "^0.10.0",
-    "zod": "^4.1.12"
+    "webextension-polyfill": "^0.10.0"
   },
   "simple-git-hooks": {
     "pre-commit": "bun lint-staged"
