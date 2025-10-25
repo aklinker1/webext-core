@@ -3,10 +3,10 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "nuxt dev --extends docus",
-    "build": "nuxt build --extends docus",
+    "dev": "bun gen && nuxt dev --extends docus",
+    "build": "bun gen && nuxt build --extends docus",
     "gen": "bun generate-api-references.ts",
-    "prepare": "nuxt prepare"
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
     "better-sqlite3": "^12.2.0",
