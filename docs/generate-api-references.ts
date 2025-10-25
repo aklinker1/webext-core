@@ -234,9 +234,7 @@ async function renderDocs(
   const sections = [
     // Header
     `<!-- GENERATED FILE, DO NOT EDIT -->`,
-    `---`,
-    `description: ""`,
-    `---`,
+    `---\ndescription: ""\n---`,
     `::alert`,
     `See [\`@webext-core/${projectDirname}\`](/${projectDirname}/installation/)`,
     `::`,
