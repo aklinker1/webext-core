@@ -21,6 +21,7 @@
     "@vitest/coverage-v8": "^2.1.1",
     "@webext-core/fake-browser": "workspace:*",
     "lint-staged": "^16.2.6",
+    "parse-path": "^7.1.0",
     "playwright": "^1.47.0",
     "prettier": "^3.3.3",
     "simple-git-hooks": "^2.13.1",
