@@ -3,10 +3,15 @@
  */
 export interface CreateIsolatedElementOptions {
   /**
-   * A unique HTML tag name (two words, kebab case - [see spec](https://html.spec.whatwg.org/multipage/custom-elements.html#valid-custom-element-name)) used when defining the web component used internally. Don't use the same name twice for different UIs.
+   * An HTML tag name used for the shadow root container.
+   *
+   * Note that you can't attach a shadow root to every type of element. There are some that can't have a shadow DOM for security reasons (for example <a>).
+   *
+   * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
    * @example "sticky-note"
    * @example "anime-skip-player"
    * @example "github-better-line-count-diff"
+   * @example "div"
    */
   name: string;
   /**
