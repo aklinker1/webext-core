@@ -9,6 +9,26 @@ import {
 import { serializeError, deserializeError } from 'serialize-error';
 
 /**
+ * Global ignore list for message namespaces. Messages with namespaces starting with
+ * any of these prefixes will be filtered out and not processed by any messenger.
+ */
+let ignoreNamespaces: string[] = [];
+
+/**
+ * Set ignore namespaces that apply to all messaging instances.
+ */
+export function setIgnoreNamespaces(namespaces: string[]) {
+  ignoreNamespaces = namespaces;
+}
+
+/**
+ * Get current ignore namespaces.
+ */
+export function getIgnoreNamespaces() {
+  return ignoreNamespaces;
+}
+
+/**
  * Config required to call `defineGenericMessenger`.
  */
 interface GenericMessagingConfig<
@@ -140,6 +160,15 @@ export function defineGenericMessanging<
           `[messaging] "${type as string}" initialized the message listener for this context`,
         );
         removeRootListener = config.addRootListener(message => {
+          // Check global ignore namespaces
+          if (ignoreNamespaces.length > 0 && message.namespace) {
+            for (const prefix of ignoreNamespaces) {
+              if (message.namespace.startsWith(prefix)) {
+                return;
+              }
+            }
+          }
+
           // Validate the message object
           if (typeof message.type != 'string' || typeof message.timestamp !== 'number') {
             // #77 When the message is invalid, we stop processing the message using return or throw an error (default)

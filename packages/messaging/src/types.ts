@@ -114,4 +114,8 @@ export interface Message<
    * The timestamp the message was sent in MS since epoch.
    */
   timestamp: number;
+  /**
+   * Optional namespace for the message. Used by external libraries to identify message sources.
+   */
+  namespace?: string;
 }
