@@ -5,7 +5,7 @@ export default defineAppConfig({
       'Web extension development made easy. A collection of easy-to-use utilities for writing and testing web extensions that work on all browsers.',
   },
   github: {
-    url: 'https://github.com/aklinker1/web-ext-core',
+    url: 'https://github.com/aklinker1/webext-core',
     rootDir: 'docs',
   },
   socials: {
