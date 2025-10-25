@@ -41,5 +41,8 @@
   },
   "lint-staged": {
     "*": "prettier --ignore-unknown --write"
+  },
+  "patchedDependencies": {
+    "simple-git-hooks@2.13.1": "patches/simple-git-hooks@2.13.1.patch"
   }
 }
