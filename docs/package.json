@@ -5,14 +5,13 @@
   "scripts": {
     "dev": "nuxt dev --extends docus",
     "build": "nuxt build --extends docus",
-    "gen": "bun generate-api-references.ts"
+    "gen": "bun generate-api-references.ts",
+    "prepare": "nuxt prepare"
   },
   "dependencies": {
     "better-sqlite3": "^12.2.0",
     "docus": "latest",
-    "nuxt": "^4.1.2",
-    "zod": "^3",
-    "zod-to-json-schema": "^3.24.6"
+    "nuxt": "^4.1.2"
   },
   "buildc": {
     "cachable": false

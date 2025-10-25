@@ -3,8 +3,7 @@
   "packageManager": "bun@1.3.1",
   "private": true,
   "workspaces": [
-    "packages/*",
-    "docs"
+    "packages/*"
   ],
   "scripts": {
     "format": "prettier --write .",
@@ -32,7 +31,8 @@
     "turbo": "^1.6.3",
     "typescript": "^5.5.4",
     "vitest": "^2.1.1",
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": "^0.10.0",
+    "zod": "^4.1.12"
   },
   "simple-git-hooks": {
     "pre-commit": "bun lint-staged"
