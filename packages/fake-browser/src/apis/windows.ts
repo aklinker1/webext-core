@@ -106,6 +106,7 @@ export const windows: BrowserOverrides['windows'] = {
     const index = windowList.findIndex(window => window.id === windowId);
     if (index < 0) return;
     windowList.splice(index, 1);
+    await onRemoved.trigger(windowId);
   },
   onCreated,
   onRemoved,
