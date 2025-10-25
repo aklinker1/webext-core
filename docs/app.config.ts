@@ -1,17 +1,23 @@
 export default defineAppConfig({
-  docus: {
+  seo: {
     title: 'Web Ext Core',
-    description: 'Web Extension Development Made Easy',
-    url: 'http://webext-core.aklinker1.io',
-    github: {
-      dir: 'docs',
-      owner: 'aklinker1',
-      repo: 'webext-core',
+    description:
+      'Web extension development made easy. A collection of easy-to-use utilities for writing and testing web extensions that work on all browsers.',
+  },
+  github: {
+    url: 'https://github.com/aklinker1/web-ext-core',
+    rootDir: 'docs',
+  },
+  socials: {
+    github: 'https://github.com/aklinker1/webext-core',
+  },
+  header: {
+    title: 'WebExt Core',
+    logo: { light: '/logo-with-shadow.png', dark: '/logo-with-shadow.png' },
+  },
+  ui: {
+    colors: {
+      primary: 'cyan',
     },
-    socials: {
-      github: 'https://github.com/aklinker1/webext-core',
-    },
-    titleTemplate: '%s - Webext Core',
-    image: '/favicon.ico',
   },
 });

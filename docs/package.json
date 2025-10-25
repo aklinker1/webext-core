@@ -3,15 +3,16 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun gen && nuxt dev",
-    "build": "bun gen && nuxt generate",
-    "postinstall": "nuxt prepare",
+    "dev": "nuxt dev --extends docus",
+    "build": "nuxt build --extends docus",
     "gen": "bun generate-api-references.ts"
   },
   "dependencies": {
-    "@nuxt-themes/docus": "^1.15.0",
-    "nuxt": "^3.12.4",
-    "vue": "latest"
+    "better-sqlite3": "^12.2.0",
+    "docus": "latest",
+    "nuxt": "^4.1.2",
+    "zod": "^3",
+    "zod-to-json-schema": "^3.24.6"
   },
   "buildc": {
     "cachable": false

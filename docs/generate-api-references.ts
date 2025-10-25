@@ -1,10 +1,8 @@
-import fs from 'node:fs/promises';
-import path from 'node:path';
+import * as fs from 'node:fs/promises';
+import * as path from 'node:path';
 import { Listr, type ListrTask, ListrTaskWrapper } from 'listr2';
 import { Project, Symbol, SourceFile, Node, ts, JSDocableNode, JSDoc } from 'ts-morph';
 import * as prettier from 'prettier';
-import chokidar from 'chokidar';
-import { parseHTML } from 'linkedom';
 import { CodeBlockWriter } from 'ts-morph';
 
 const packagesDir = path.resolve('../packages');
@@ -236,7 +234,9 @@ async function renderDocs(
   const sections = [
     // Header
     `<!-- GENERATED FILE, DO NOT EDIT -->`,
-    `# API Reference`,
+    `---`,
+    `description: ""`,
+    `---`,
     `::alert`,
     `See [\`@webext-core/${projectDirname}\`](/${projectDirname}/installation/)`,
     `::`,
