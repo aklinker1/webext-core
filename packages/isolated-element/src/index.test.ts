@@ -9,12 +9,26 @@ describe('createIsolatedElement', () => {
     document.querySelector('body')!.innerHTML = '';
   });
 
-  it('should validate the custom element name', async () => {
+  it('should not allow invalid custom element names', async () => {
     const invalidName = 'test';
 
     await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
-      `"${invalidName}" is not a valid custom element name`,
+      `"${invalidName}" cannot have a shadow root attached to it`,
     );
+  });
+
+  it('should not allow certain built-in elements', async () => {
+    const invalidName = 'a';
+
+    await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
+      `"${invalidName}" cannot have a shadow root attached to it`,
+    );
+  });
+
+  it('should allow certain built-in elements', async () => {
+    const validName = 'div';
+
+    await expect(createIsolatedElement({ name: validName })).resolves.toBeDefined();
   });
 
   it('should insert an app into the UI', async () => {
