@@ -58,6 +58,11 @@ describe('Messenger Typing', () => {
       getStringLength: (data: string) => number;
     }>();
 
+    // @ts-expect-error: Requires one parameter
+    sendMessage('getStringLength');
+    sendMessage('getStringLength', 'test');
+    sendMessage('getStringLength', 'test', 123);
+
     expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'getStringLength'>();
     expectTypeOf(sendMessage).parameter(1).toBeString();
     expectTypeOf(sendMessage).returns.resolves.toBeNumber();
@@ -66,20 +71,32 @@ describe('Messenger Typing', () => {
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeNumber();
   });
 
-  it('should require passing undefined to sendMessage when there is no data', () => {
+  it('should accept passing undefined to sendMessage when there is no data', () => {
     const { sendMessage } = defineExtensionMessaging<{
       ping: ProtocolWithReturn<undefined, 'pong'>;
     }>();
+
+    sendMessage('ping');
+    sendMessage('ping', undefined);
+    // @ts-expect-error: It will still throw an error if you try to pass a target without sending `undefined` for the data.
+    sendMessage('ping', 123);
+    sendMessage('ping', undefined, 123);
 
     expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
     expectTypeOf(sendMessage).parameter(1).toBeUndefined();
     expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined | SendMessageOptions>();
   });
 
-  it('should require passing undefined to sendMessage when there is no arguments in a function definition', () => {
+  it('should accept passing undefined to sendMessage when there is no arguments in a function definition', () => {
     const { sendMessage } = defineExtensionMessaging<{
       ping(): 'pong';
     }>();
+
+    sendMessage('ping');
+    sendMessage('ping', undefined);
+    // @ts-expect-error: It will still throw an error if you try to pass a target without sending `undefined` for the data.
+    sendMessage('ping', 123);
+    sendMessage('ping', undefined, 123);
 
     expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
     expectTypeOf(sendMessage).parameter(1).toBeUndefined();

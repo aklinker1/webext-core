@@ -35,6 +35,7 @@
   "types": "lib/index.d.ts",
   "exports": {
     ".": {
+      "types": "lib/index.d.ts",
       "import": "./lib/index.js",
       "require": "./lib/index.cjs"
     }

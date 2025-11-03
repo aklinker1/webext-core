@@ -1,6 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API Reference
+---
+description: ""
+---
 
 ::alert
 
@@ -198,6 +200,12 @@ interface GenericMessenger<
 > {
   sendMessage<TType extends keyof TProtocolMap>(
     type: TType,
+    ...args: GetDataType<TProtocolMap[TType]> extends undefined
+      ? [data?: undefined, ...args: TSendMessageArgs]
+      : never
+  ): Promise<GetReturnType<TProtocolMap[TType]>>;
+  sendMessage<TType extends keyof TProtocolMap>(
+    type: TType,
     data: GetDataType<TProtocolMap[TType]>,
     ...args: TSendMessageArgs
   ): Promise<GetReturnType<TProtocolMap[TType]>>;
@@ -256,7 +264,7 @@ interface Logger {
 }
 ```
 
-Interface used to log text to the console when sending and recieving messages.
+Interface used to log text to the console when sending and receiving messages.
 
 ## `MaybePromise`
 
@@ -281,7 +289,7 @@ interface Message<
 }
 ```
 
-Contains information about the message recieved.
+Contains information about the message received.
 
 ### Properties 
 

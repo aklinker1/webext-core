@@ -1,5 +1,5 @@
 /**
- * Interface used to log text to the console when sending and recieving messages.
+ * Interface used to log text to the console when sending and receiving messages.
  */
 export interface Logger {
   debug(...args: any[]): void;
@@ -95,7 +95,7 @@ export interface NamespaceMessagingConfig extends BaseMessagingConfig {
 }
 
 /**
- * Contains information about the message recieved.
+ * Contains information about the message received.
  */
 export interface Message<
   TProtocolMap extends Record<string, any>,
