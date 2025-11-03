@@ -63,7 +63,7 @@ describe('Fake Action API', () => {
       expect(result).toEqual([0, 255, 0, 255]);
     });
 
-    it('should fallback to default black if color not set', async () => {
+    it('should fallback to default gray color if any color not set', async () => {
       const result = await fakeBrowser.action.getBadgeBackgroundColor({});
       expect(result).toEqual([95, 93, 91, 255]);
     });

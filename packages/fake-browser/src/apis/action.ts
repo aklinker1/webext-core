@@ -5,8 +5,8 @@ import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 const onClicked =
   defineEventWithTrigger<(tab: Tabs.Tab, info: Action.OnClickData | undefined) => void>();
 
-let DEFAULT_BADGE_BACKGROUND_COLOR = '#5F5D5B';
-let DEFAULT_BADGE_TEXT_COLOR = '#FFFFFF';
+const DEFAULT_BADGE_BACKGROUND_COLOR = '#5F5D5B';
+const DEFAULT_BADGE_TEXT_COLOR = '#FFFFFF';
 type ColorArray = [number, number, number, number];
 const badgeTextColorState: ScopedState<string> = {
   global: DEFAULT_BADGE_TEXT_COLOR,
