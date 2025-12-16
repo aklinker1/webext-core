@@ -2,7 +2,7 @@ name: Publish Packages
 on: [workflow_dispatch]
 
 permissions:
-  contents: write
+  contents: read
 
 jobs:
   validate:
@@ -11,6 +11,9 @@ jobs:
   publish:
     name: Publish
     needs: [validate]
+    permissions:
+      contents: write # Push version changes
+      id-token: write # OIDC for NPM publishing
     strategy:
       max-parallel: 1
       matrix:
@@ -82,9 +85,8 @@ jobs:
       - name: Publish to NPM
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
         run: |
-          echo '//registry.npmjs.org/:_authToken=${NPM_TOKEN}' > ~/.npmrc
+          sudo npm i -g npm@latest
           bun run build
-          npm publish
+          bun pm pack
+          /usr/local/bin/npm publish *.tgz
         working-directory: packages/${{ matrix.package }}
-        env:
-          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
