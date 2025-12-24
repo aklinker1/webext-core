@@ -25,7 +25,7 @@ interface GenericMessagingConfig<
       message: Message<TProtocolMap, any> & TMessageExtension,
     ) => void | Promise<{ res: any } | { err: unknown }>,
   ) => RemoveListenerCallback;
-  verifyMessageData?<T>(data: T): MaybePromise<T>;
+  verifyMessageData?: <T>(data: T) => MaybePromise<T>;
 }
 
 /**
