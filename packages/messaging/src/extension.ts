@@ -62,7 +62,7 @@ export function defineExtensionMessaging<
 >(config?: ExtensionMessagingConfig): ExtensionMessenger<TProtocolMap> {
   return defineGenericMessanging({
     ...config,
-    sendMessage(message, arg) {
+    sendMessage: (message, arg?) => {
       // No args - send to background
       if (arg == null) {
         return Browser.runtime.sendMessage(message);
@@ -78,7 +78,7 @@ export function defineExtensionMessaging<
         options.frameId != null ? { frameId: options.frameId } : undefined,
       );
     },
-    addRootListener(processMessage) {
+    addRootListener: processMessage => {
       const listener = (message: any, sender: Runtime.MessageSender) => {
         if (typeof message === 'object') return processMessage({ ...message, sender });
         else return processMessage(message);

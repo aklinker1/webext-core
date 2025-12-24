@@ -83,11 +83,11 @@ export function defineWindowMessaging<
   const messenger = defineGenericMessanging<TProtocolMap, {}, WindowSendMessageArgs>({
     ...config,
 
-    sendMessage(message, targetOrigin) {
+    sendMessage: (message, targetOrigin) => {
       return sendWindowMessage(message, targetOrigin);
     },
 
-    addRootListener(processMessage) {
+    addRootListener: processMessage => {
       const listener = async (event: MessageEvent) => {
         if (
           event.data.type !== REQUEST_TYPE ||
@@ -106,14 +106,14 @@ export function defineWindowMessaging<
       window.addEventListener('message', listener);
       return () => window.removeEventListener('message', listener);
     },
-    verifyMessageData(data) {
+    verifyMessageData: data => {
       return structuredClone(data);
     },
   });
 
   return {
     ...messenger,
-    removeAllListeners() {
+    removeAllListeners: () => {
       messenger.removeAllListeners();
       removeAdditionalListeners.forEach(removeListener => removeListener());
       removeAdditionalListeners = [];
