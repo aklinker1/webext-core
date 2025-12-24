@@ -87,7 +87,7 @@ export function defineCustomEventMessaging<
   const messenger = defineGenericMessanging<TProtocolMap, CustomEventMessage, []>({
     ...config,
 
-    sendMessage(message) {
+    sendMessage: message => {
       const reqDetail = { message, namespace, instanceId };
       const requestEvent = new CustomEvent(REQUEST_EVENT, {
         detail: prepareCustomEventDict(reqDetail),
@@ -95,7 +95,7 @@ export function defineCustomEventMessaging<
       return sendCustomMessage(requestEvent);
     },
 
-    addRootListener(processMessage) {
+    addRootListener: processMessage => {
       const requestListener = async (e: Event) => {
         const { detail, ...event } = e as CustomEvent;
         if (detail.namespace !== namespace || detail.instanceId === instanceId) return;
@@ -113,14 +113,14 @@ export function defineCustomEventMessaging<
       window.addEventListener(REQUEST_EVENT, requestListener);
       return () => window.removeEventListener(REQUEST_EVENT, requestListener);
     },
-    verifyMessageData(data) {
+    verifyMessageData: data => {
       return structuredClone(data);
     },
   });
 
   return {
     ...messenger,
-    removeAllListeners() {
+    removeAllListeners: () => {
       messenger.removeAllListeners();
       removeAdditionalListeners.forEach(removeListener => removeListener());
     },
