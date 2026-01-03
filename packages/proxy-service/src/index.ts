@@ -1,5 +1,5 @@
 import get from 'get-value';
-import { DeepAsync } from './types';
+import { DeepAsync, Service } from './types';
 import {
   defineExtensionMessaging,
   ExtensionMessagingConfig,
@@ -22,7 +22,7 @@ export type ProxyService<T> = T extends DeepAsync<T> ? T : DeepAsync<T>;
  * @param key The service key to listen for, must be the same string as the one
  *            used in `registerService`.
  */
-export function createProxyService<T>(
+export function createProxyService<T extends Service>(
   key: ProxyServiceKey<T> | string,
   config?: ExtensionMessagingConfig,
 ): ProxyService<T> {
@@ -37,7 +37,7 @@ export function createProxyService<T>(
  *            used in `createProxyService`.
  * @param realService The real service instance that will handle the requests.
  */
-export function registerService<T, K extends string = ProxyServiceKey<T> | string>(
+export function registerService<T extends Service, K extends string = ProxyServiceKey<T> | string>(
   key: K,
   realService: T,
   config?: ExtensionMessagingConfig,
