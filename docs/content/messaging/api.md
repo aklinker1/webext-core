@@ -145,6 +145,40 @@ websiteMessenger.onMessage("initInjectedScript", (...) => {
 })
 ```
 
+## `getIgnoreNamespaces`
+
+```ts
+function getIgnoreNamespaces(): string[]
+```
+
+Get the current list of ignored namespace prefixes that apply globally to all messaging instances.
+
+**Returns:** Array of namespace prefixes currently being ignored.
+
+## `setIgnoreNamespaces`
+
+```ts
+function setIgnoreNamespaces(namespaces: string[]): void
+```
+
+Set the global list of namespace prefixes to ignore across all messaging instances. Messages with namespaces starting with any of these prefixes will be filtered out and not processed.
+
+**Important:** This function should be called in both your background script and content scripts to ensure consistent filtering across all contexts.
+
+### Parameters
+
+- ***`namespaces: string[]`***<br/>Array of namespace prefixes to ignore globally.
+
+### Example
+
+```ts
+import { setIgnoreNamespaces } from '@webext-core/messaging';
+
+// Call this in both background.js and content scripts
+// Ignore messages from external SDKs
+setIgnoreNamespaces(['external-sdk:', 'analytics:', 'tracking:']);
+```
+
 ## `ExtensionMessage`
 
 ```ts
@@ -286,6 +320,7 @@ interface Message<
   data: GetDataType<TProtocolMap[TType]>;
   type: TType;
   timestamp: number;
+  namespace?: string;
 }
 ```
 
@@ -300,6 +335,8 @@ Contains information about the message received.
 - ***`type: TType`***
 
 - ***`timestamp: number`***<br/>The timestamp the message was sent in MS since epoch.
+
+- ***`namespace?: string`***<br/>Optional namespace for the message. Used by external libraries to identify message sources.
 
 ## `MessageSender`
 
