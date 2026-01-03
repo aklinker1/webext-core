@@ -1,6 +1,4 @@
-import { defineProxyService } from '@webext-core/proxy-service';
-
-class MathService {
+export class MathService {
   add(x: number, y: number): number {
     console.log(`MathService.add(${x}, ${y})`);
     return x + y;
@@ -24,8 +22,3 @@ class MathService {
     return x === 1 ? 1 : x * (await this.factorial(x - 1));
   }
 }
-
-export const [registerMathService, getMathService] = defineProxyService(
-  'MathService',
-  () => new MathService(),
-);
