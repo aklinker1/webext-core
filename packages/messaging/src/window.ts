@@ -16,8 +16,14 @@ export interface WindowMessagingConfig extends NamespaceMessagingConfig {}
  *
  * > See <https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin> for more
  * details.
+ *
+ * message is posted on window which can as per your need like
+ * parent window in iframe -> window.parent
+ * iframe content window -> iframe.contentWindow
+ * opener	original window -> window.opener
+ * by default global window is used to send mesage
  */
-export type WindowSendMessageArgs = [targetOrigin?: string];
+export type WindowSendMessageArgs = [targetOrigin?: string, targetWindow?: Window];
 
 export type WindowMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
   TProtocolMap,
@@ -58,7 +64,11 @@ export function defineWindowMessaging<
 
   let removeAdditionalListeners: Array<() => void> = [];
 
-  const sendWindowMessage = (message: Message<TProtocolMap, any>, targetOrigin?: string) =>
+  const sendWindowMessage = (
+    message: Message<TProtocolMap, any>,
+    targetOrigin?: string,
+    targetWindow?: Window,
+  ) =>
     new Promise(res => {
       const responseListener = (event: MessageEvent) => {
         if (
@@ -74,7 +84,7 @@ export function defineWindowMessaging<
       const removeResponseListener = () => window.removeEventListener('message', responseListener);
       removeAdditionalListeners.push(removeResponseListener);
       window.addEventListener('message', responseListener);
-      window.postMessage(
+      (targetWindow ?? window).postMessage(
         { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace, instanceId },
         targetOrigin ?? '*',
       );
@@ -83,8 +93,8 @@ export function defineWindowMessaging<
   const messenger = defineGenericMessanging<TProtocolMap, {}, WindowSendMessageArgs>({
     ...config,
 
-    sendMessage(message, targetOrigin) {
-      return sendWindowMessage(message, targetOrigin);
+    sendMessage(message, targetOrigin, targetWindow) {
+      return sendWindowMessage(message, targetOrigin, targetWindow);
     },
 
     addRootListener(processMessage) {
