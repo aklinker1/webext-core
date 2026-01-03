@@ -1,4 +1,3 @@
-import get from 'get-value';
 import { DeepAsync, Service } from './types';
 import {
   defineExtensionMessaging,
@@ -85,7 +84,7 @@ interface ProxyServiceConstraint<_> {}
 export type ProxyServiceKey<T> = string & ProxyServiceConstraint<T>;
 
 type ProxyMessengerProtocolMap = {
-  [key: string]: (arg: { path?: string; args: any[] }) => any;
+  [key: string]: (arg: { path?: string[]; args: any[] }) => any;
 };
 type ProxyMessenger = ExtensionMessenger<ProxyMessengerProtocolMap> & { messageKey: string };
 
@@ -105,7 +104,7 @@ function defineProxyMessaging(
  * another proxy, and when a function is called at any depth, a message is sent
  * to the background.
  */
-function createProxy<T>(messenger: ProxyMessenger, path?: string): ProxyService<T> {
+function createProxy<T>(messenger: ProxyMessenger, path?: string[]): ProxyService<T> {
   const wrapped = (() => {}) as ProxyService<T>;
 
   const proxy = new Proxy(wrapped, {
@@ -124,7 +123,7 @@ function createProxy<T>(messenger: ProxyMessenger, path?: string): ProxyService<
       }
 
       // Return a new proxy for regular properties
-      return createProxy(messenger, path == null ? propertyName : `${path}.${propertyName}`);
+      return createProxy(messenger, path == null ? [propertyName] : path.concat([propertyName]));
     },
   });
 
@@ -135,3 +134,8 @@ function createProxy<T>(messenger: ProxyMessenger, path?: string): ProxyService<
 }
 
 const ProxyServiceSymbol = Symbol();
+
+function get(obj: any, path: string[]): any {
+  if (path.length === 0) return obj;
+  return path.reduce((acc, key) => acc?.[key], obj);
+}

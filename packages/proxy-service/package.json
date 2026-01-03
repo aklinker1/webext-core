@@ -46,16 +46,13 @@
     "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
     "check": "buildc --deps-only -- tsc --noEmit"
   },
-  "dependencies": {
-    "get-value": "^3.0.1",
-    "webextension-polyfill": "^0.10.0"
-  },
   "devDependencies": {
     "@types/get-value": "^3.0.3",
     "@types/webextension-polyfill": "^0.9.1",
     "@webext-core/fake-browser": "workspace:*",
     "@webext-core/messaging": "workspace:*",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "webextension-polyfill": "^0.10.0"
   },
   "peerDependencies": {
     "webextension-polyfill": ">=0.10.0",
