@@ -107,7 +107,6 @@
       "name": "@webext-core/proxy-service",
       "version": "1.2.2",
       "dependencies": {
-        "@webext-core/messaging": "workspace:~",
         "get-value": "^3.0.1",
         "webextension-polyfill": "^0.10.0",
       },

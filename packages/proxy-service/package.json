@@ -35,7 +35,7 @@
   "types": "lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "lib/index.d.ts",
+      "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
       "require": "./lib/index.cjs"
     }
@@ -49,7 +49,6 @@
     "check:type-tests": "vitest run --typecheck types"
   },
   "dependencies": {
-    "@webext-core/messaging": "workspace:~",
     "get-value": "^3.0.1",
     "webextension-polyfill": "^0.10.0"
   },
