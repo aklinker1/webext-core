@@ -17,10 +17,10 @@ export type ProxyService<T> = T extends DeepAsync<T> ? T : DeepAsync<T>;
 
 /**
  * Create a proxy service that uses the message APIs to proxy function calls to
- * the real service registered in the background with `registerProxyService`.
+ * the real service registered in the background with `registerService`.
  *
  * @param key The service key to listen for, must be the same string as the one
- *            used in `registerProxyService`.
+ *            used in `registerService`.
  */
 export function createProxyService<T>(
   key: ProxyServiceKey<T> | string,
@@ -37,7 +37,7 @@ export function createProxyService<T>(
  *            used in `createProxyService`.
  * @param realService The real service instance that will handle the requests.
  */
-export function registerProxyService<T, K extends string = ProxyServiceKey<T> | string>(
+export function registerService<T, K extends string = ProxyServiceKey<T> | string>(
   key: K,
   realService: T,
   config?: ExtensionMessagingConfig,
@@ -59,7 +59,7 @@ interface ProxyServiceConstraint<_> {}
 
 /**
  * Used to constrain a service's type between calls to `createProxyService` and
- * `registerProxyService`.
+ * `registerService`.
  *
  * @example
  * ```ts
@@ -74,7 +74,7 @@ interface ProxyServiceConstraint<_> {}
  * // background.ts
  * import { ProxyServiceKey } from './utils/proxy-service-keys';
  *
- * registerProxyService(ProxyServiceKey.MathService, new MathService())
+ * registerService(ProxyServiceKey.MathService, new MathService())
  *
  * // content-script.ts
  * import { ProxyServiceKey } from './utils/proxy-service-keys';
