@@ -35,29 +35,24 @@
   "types": "lib/index.d.ts",
   "exports": {
     ".": {
-      "types": "lib/index.d.ts",
-      "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
-    }
+      "types": "./lib/index.d.ts",
+      "default": "./lib/index.js"
+    },
+    "./types": "./lib/types.d.ts"
   },
   "scripts": {
-    "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreProxyService",
+    "build": "buildc -- tsup",
     "test": "buildc --deps-only -- vitest -r src",
     "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
-    "check": "buildc --deps-only -- bun check:typescript && bun check:type-tests",
-    "check:typescript": "tsc --noEmit",
-    "check:type-tests": "vitest run --typecheck types"
-  },
-  "dependencies": {
-    "get-value": "^3.0.1",
-    "webextension-polyfill": "^0.10.0"
+    "check": "buildc --deps-only -- tsc --noEmit"
   },
   "devDependencies": {
     "@types/get-value": "^3.0.3",
     "@types/webextension-polyfill": "^0.9.1",
     "@webext-core/fake-browser": "workspace:*",
     "@webext-core/messaging": "workspace:*",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "webextension-polyfill": "^0.10.0"
   },
   "peerDependencies": {
     "webextension-polyfill": ">=0.10.0",
