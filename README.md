@@ -14,3 +14,10 @@ A set of core libraries and tools for building web extensions. These libraries a
 ## Documentation
 
 To get started, checkout the [documentation website](https://webext-core.aklinker1.io).
+
+## Contributors
+
+Published under the [MIT](https://github.com/aklinker1/webext-core/blob/main/LICENSE) license.
+Made by [@aklinker1](https://github.com/aklinker1) and [community](https://github.com/aklinker1/webext-core/graphs/contributors) 💛
+
+[![webext-core contributors](https://contrib.rocks/image?repo=aklinker1/webext-core)](https://github.com/wxt-dev/wxt/graphs/contributors)
