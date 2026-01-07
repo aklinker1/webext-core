@@ -1,12 +1,12 @@
-import { describe, it, vi, expect, beforeEach, expectTypeOf } from 'vitest';
+import { fakeBrowser } from '@webext-core/fake-browser';
+import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
 import {
   createProxyService,
-  ProxyService,
-  ProxyServiceKey,
-  registerService,
   isProxyService,
+  type ProxyService,
+  type ProxyServiceKey,
+  registerService,
 } from '.';
-import { fakeBrowser } from '@webext-core/fake-browser';
 
 vi.mock('webextension-polyfill');
 

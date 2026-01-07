@@ -1,10 +1,10 @@
 import {
   defineExtensionMessaging,
-  ExtensionMessagingConfig,
-  ExtensionMessenger,
-  RemoveListenerCallback,
+  type ExtensionMessagingConfig,
+  type ExtensionMessenger,
+  type RemoveListenerCallback,
 } from '@webext-core/messaging';
-import { DeepAsync, Service } from './types';
+import type { DeepAsync, Service } from './types';
 
 /**
  * A type that ensures a service has only async methods.
