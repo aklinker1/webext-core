@@ -1,10 +1,10 @@
-import { DeepAsync, Service } from './types';
 import {
   defineExtensionMessaging,
   ExtensionMessagingConfig,
   ExtensionMessenger,
   RemoveListenerCallback,
 } from '@webext-core/messaging';
+import { DeepAsync, Service } from './types';
 
 /**
  * A type that ensures a service has only async methods.
@@ -66,19 +66,17 @@ interface ProxyServiceConstraint<_> {}
  * import type { ProxyServiceKey } from '@webext-core/proxy-service';
  * import type { MathService } from './math-service';
  *
- * export const ProxyServiceKey = {
- *   MathService: 'MathService' as ProxyServiceKey<MathService>,
- * }
+ * export const PROXY_SERVICE_KEY = 'math-service' as ProxyServiceKey<MathService>;
  *
  * // background.ts
- * import { ProxyServiceKey } from './utils/proxy-service-keys';
+ * import { PROXY_SERVICE_KEY } from './utils/proxy-service-keys';
  *
- * registerService(ProxyServiceKey.MathService, new MathService())
+ * registerService(PROXY_SERVICE_KEY, new MathService())
  *
  * // content-script.ts
- * import { ProxyServiceKey } from './utils/proxy-service-keys';
+ * import { PROXY_SERVICE_KEY } from './utils/proxy-service-keys';
  *
- * const mathService = await createProxyService(ProxyServiceKey.MathService);
+ * const mathService = await createProxyService(PROXY_SERVICE_KEY);
  * ```
  */
 export type ProxyServiceKey<T> = string & ProxyServiceConstraint<T>;

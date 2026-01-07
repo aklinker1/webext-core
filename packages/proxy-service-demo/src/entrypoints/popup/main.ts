@@ -14,7 +14,7 @@ const [multiplyButton, multiplyPre] = getMathServiceElements('multiply');
 const [divideButton, dividePre] = getMathServiceElements('divide');
 const [factorialButton, factorialPre] = getMathServiceElements('factorial');
 
-const mathService = createProxyService(MathServiceKey);
+const mathService = createProxyService(MATH_SERVICE_KEY);
 
 addButton.addEventListener('click', async () => {
   addPre.innerText = 'Loading...';
