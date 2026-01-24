@@ -8,4 +8,5 @@ pnpm i -D @webext-core/fake-browser
 
 ## Get Started
 
-See [documentation](https://webext-core.aklinker1.io/guide/fake-browser/) to get started!
+See [documentation](https://webext-core.aklinker1.io/fake-browser/installation)
+to get started!
