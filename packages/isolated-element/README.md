@@ -1,6 +1,7 @@
 # `@webext-core/isolated-element`
 
-Isolate content script UI's styles from the parent page and control event bubbling to the host page. Supports all browsers (Chrome, Firefox, Safari).
+Isolate content script UI's styles from the parent page and control event
+bubbling to the host page. Supports all browsers (Chrome, Firefox, Safari).
 
 ```bash
 pnpm i @webext-core/isolated-element
@@ -30,4 +31,6 @@ document.body.appendChild(parentElement);
 
 ## Get Started
 
-See [documentation](https://webext-core.aklinker1.io/guide/isolated-element/) to get started!
+See
+[documentation](https://webext-core.aklinker1.io/isolated-element/installation)
+to get started!
