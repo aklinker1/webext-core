@@ -69,9 +69,7 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
 
   // Create the shadow and isolated nodes
   const shadow = parentElement.attachShadow({ mode });
-  const isolatedElement = document.createElement('html');
-  const body = document.createElement('body');
-  const head = document.createElement('head');
+  const isolatedElement = document.createElement('div');
 
   // Load the UI's stylesheet
   if (css) {
@@ -81,12 +79,8 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
     } else {
       style.textContent = css.textContent;
     }
-    head.appendChild(style);
+    shadow.appendChild(style);
   }
-
-  // Add head and body to html element
-  isolatedElement.appendChild(head);
-  isolatedElement.appendChild(body);
 
   // Add the isolated element to the shadow so it shows up once the parentElement is mounted
   shadow.appendChild(isolatedElement);
@@ -97,13 +91,13 @@ export async function createIsolatedElement(options: CreateIsolatedElementOption
       ? isolateEvents
       : ['keydown', 'keyup', 'keypress'];
     eventTypes.forEach(eventType => {
-      body.addEventListener(eventType, e => e.stopPropagation());
+      shadow.addEventListener(eventType, e => e.stopPropagation());
     });
   }
 
   return {
     parentElement,
     shadow,
-    isolatedElement: body,
+    isolatedElement,
   };
 }
