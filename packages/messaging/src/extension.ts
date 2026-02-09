@@ -88,9 +88,7 @@ export function defineExtensionMessaging<
 
         const result = processMessage({ ...message, sender });
         if (result instanceof Promise) {
-          result.then(sendResponse).catch(err => {
-            sendResponse({ __webextCoreError: err?.message ?? String(err) });
-          });
+          result.then(sendResponse);
           return true;
         }
       };
