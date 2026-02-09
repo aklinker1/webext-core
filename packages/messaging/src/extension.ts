@@ -79,9 +79,20 @@ export function defineExtensionMessaging<
       );
     },
     addRootListener(processMessage) {
-      const listener = (message: any, sender: Runtime.MessageSender) => {
-        if (typeof message === 'object') return processMessage({ ...message, sender });
-        else return processMessage(message);
+      const listener = (
+        message: any,
+        sender: Runtime.MessageSender,
+        sendResponse: (response?: any) => void,
+      ) => {
+        if (typeof message !== 'object') return;
+
+        const result = processMessage({ ...message, sender });
+        if (result instanceof Promise) {
+          result.then(sendResponse).catch(err => {
+            sendResponse({ __webextCoreError: err?.message ?? String(err) });
+          });
+          return true;
+        }
       };
 
       Browser.runtime.onMessage.addListener(listener);
