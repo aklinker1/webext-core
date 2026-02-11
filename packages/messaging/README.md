@@ -1,6 +1,7 @@
 # `@webext-core/messaging`
 
-A light-weight, type-safe wrapper around the `browser.runtime` messaging APIs. Supports all browsers (Chrome, Firefox, Safari).
+A light-weight, type-safe wrapper around the `browser.runtime` messaging APIs.
+Supports all browsers (Chrome, Firefox, Safari).
 
 ```ts
 // ./messaging.ts
@@ -33,4 +34,5 @@ console.log(length); // 11
 
 ## Get Started
 
-See [documentation](https://webext-core.aklinker1.io/guide/messaging/) to get started!
+See [documentation](https://webext-core.aklinker1.io/messaging/installation) to
+get started!
