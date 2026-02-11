@@ -424,7 +424,7 @@ type WindowMessenger<TProtocolMap extends Record<string, any>> =
 ## `WindowSendMessageArgs`
 
 ```ts
-type WindowSendMessageArgs = [targetOrigin?: string];
+type WindowSendMessageArgs = [targetOrigin?: string, targetWindow?: Window];
 ```
 
 For a `WindowMessenger`, `sendMessage` requires an additional argument, the `targetOrigin`. It
@@ -432,6 +432,12 @@ defines which frames inside the page should receive the message.
 
 > See <https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin> for more
 details.
+
+message is posted on window which can as per your need like
+parent window in iframe -> window.parent 
+iframe content window -> iframe.contentWindow 
+opener	original window -> window.opener 
+by default global window is used to send mesage
 
 <br/><br/>
 
