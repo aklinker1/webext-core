@@ -2,6 +2,7 @@ import { describe, it, vi, beforeEach, expect } from 'vitest';
 import { fakeBrowser } from '@webext-core/fake-browser';
 import { ProtocolWithReturn } from './index';
 import { defineExtensionMessaging } from './extension';
+import { setIgnoreNamespaces, getIgnoreNamespaces } from './generic';
 
 /**
  * This is defined in `@webext-core/fake-browser` when there are no `Browser.runtime.onMessage`
@@ -21,6 +22,8 @@ describe('Messaging Wrapper', () => {
     fakeBrowser.reset();
     vi.resetAllMocks();
     vi.restoreAllMocks();
+    // Clear ignore namespaces before each test
+    setIgnoreNamespaces([]);
   });
 
   it('should send and receive messages', async () => {
@@ -162,5 +165,69 @@ describe('Messaging Wrapper', () => {
     expect(onMessage2.mock.invocationCallOrder[0]).toBeGreaterThan(
       onMessage1.mock.invocationCallOrder[0],
     );
+  });
+
+  it('should ignore messages with namespaces matching global ignore list', async () => {
+    // Set up ignore list
+    setIgnoreNamespaces(['global-external:', 'sdk:']);
+
+    const { onMessage } = defineExtensionMessaging<ProtocolMap>();
+    const messageHandler = vi.fn();
+
+    onMessage('getLength', messageHandler);
+
+    // Send messages with globally ignored namespaces - these should be filtered out
+    fakeBrowser.runtime.sendMessage({
+      id: 1,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+      namespace: 'global-external:action',
+    });
+
+    fakeBrowser.runtime.sendMessage({
+      id: 2,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+      namespace: 'sdk:analytics',
+    });
+
+    // Send a message without globally ignored namespace - this should be processed
+    fakeBrowser.runtime.sendMessage({
+      id: 3,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+      namespace: 'app:action',
+    });
+
+    // Send a message without any namespace - this should be processed
+    fakeBrowser.runtime.sendMessage({
+      id: 4,
+      timestamp: Date.now(),
+      type: 'getLength',
+      data: 'test',
+    });
+
+    // Wait for async message processing
+    await new Promise(resolve => setTimeout(resolve, 0));
+
+    // Only the non-ignored messages should have triggered the handler
+    expect(messageHandler).toBeCalledTimes(2);
+  });
+
+  it('should manage ignore namespaces correctly', () => {
+    // Initially empty
+    expect(getIgnoreNamespaces()).toEqual([]);
+
+    // Set namespaces
+    const namespaces = ['test:', 'example:'];
+    setIgnoreNamespaces(namespaces);
+    expect(getIgnoreNamespaces()).toEqual(namespaces);
+
+    // Clear namespaces
+    setIgnoreNamespaces([]);
+    expect(getIgnoreNamespaces()).toEqual([]);
   });
 });
