@@ -5,6 +5,7 @@ import { storage } from './apis/storage';
 import { tabs } from './apis/tabs';
 import { webNavigation } from './apis/webNavigation';
 import { windows } from './apis/windows';
+import { action } from './apis/action';
 import { BrowserOverrides, FakeBrowser } from './types';
 import { GeneratedBrowser } from './base.gen';
 import merge from 'lodash.merge';
@@ -26,6 +27,7 @@ const overrides: BrowserOverrides = {
   tabs,
   webNavigation,
   windows,
+  action,
 };
 
 /**
