@@ -98,6 +98,21 @@ describe.each<
     expect(actual).toBe(expected);
   });
 
+  it('should properly order responses to the same messenger', async () => {
+    const messenger1 = defineTestMessaging();
+    const messenger2 = defineTestMessaging();
+    const onMessage = vi.fn(async message => {
+      await new Promise(res => setTimeout(res, message.data));
+      return message.data;
+    });
+
+    messenger1.onMessage('test', onMessage);
+    const res1 = messenger2.sendMessage('test', 10);
+    const res2 = messenger2.sendMessage('test', 5);
+    expect(res1).resolves.toBe(10);
+    expect(res2).resolves.toBe(5);
+  });
+
   it('should throw an error if the responder throws an error', async () => {
     interface MessageSchema {
       test(data: string): number;
