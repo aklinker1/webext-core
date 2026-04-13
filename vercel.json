@@ -1,5 +1,78 @@
 {
   "github": {
     "silent": true
-  }
+  },
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/guide/fake-browser",
+      "destination": "/fake-browser/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/fake-browser/",
+      "destination": "/fake-browser/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/isolated-element",
+      "destination": "/isolated-element/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/isolated-element/",
+      "destination": "/isolated-element/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/job-scheduler",
+      "destination": "/job-scheduler/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/job-scheduler/",
+      "destination": "/job-scheduler/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/match-patterns",
+      "destination": "/match-patterns/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/match-patterns/",
+      "destination": "/match-patterns/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/messaging",
+      "destination": "/messaging/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/messaging/",
+      "destination": "/messaging/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/proxy-service",
+      "destination": "/proxy-service/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/proxy-service/",
+      "destination": "/proxy-service/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/storage",
+      "destination": "/storage/installation",
+      "permanent": true
+    },
+    {
+      "source": "/guide/storage/",
+      "destination": "/storage/installation",
+      "permanent": true
+    }
+  ]
 }

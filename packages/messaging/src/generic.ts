@@ -53,12 +53,14 @@ export interface GenericMessenger<
    * @param args Different messengers will have additional arguments to configure how a message gets sent.
    */
   sendMessage<TType extends keyof TProtocolMap>(
+    this: void,
     type: TType,
     ...args: GetDataType<TProtocolMap[TType]> extends undefined
       ? [data?: undefined, ...args: TSendMessageArgs]
       : never
   ): Promise<GetReturnType<TProtocolMap[TType]>>;
   sendMessage<TType extends keyof TProtocolMap>(
+    this: void,
     type: TType,
     data: GetDataType<TProtocolMap[TType]>,
     ...args: TSendMessageArgs
@@ -74,6 +76,7 @@ export interface GenericMessenger<
    * @param onReceived The callback executed when a message is received.
    */
   onMessage<TType extends keyof TProtocolMap>(
+    this: void,
     type: TType,
     onReceived: (
       message: Message<TProtocolMap, TType> & TMessageExtension,
@@ -83,7 +86,7 @@ export interface GenericMessenger<
   /**
    * Removes all listeners.
    */
-  removeAllListeners(): void;
+  removeAllListeners(this: void): void;
 }
 
 export function defineGenericMessanging<
