@@ -1,6 +1,6 @@
 import { Tabs, Windows } from 'webextension-polyfill';
 import { BrowserOverrides } from '../types';
-import { windows } from './windows';
+import { windows, DEFAULT_WINDOW } from './windows';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
 type InMemoryTab = Omit<Tabs.Tab, 'active'>;
@@ -23,6 +23,7 @@ const DEFAULT_TAB: InMemoryTab = {
   highlighted: false,
   incognito: false,
   pinned: false,
+  windowId: DEFAULT_WINDOW.id,
 };
 const DEFAULT_NEXT_TAB_ID = 1;
 
@@ -74,12 +75,13 @@ export const tabs: BrowserOverrides['tabs'] = {
     const newTab: InMemoryTab = {
       highlighted: false,
       incognito: false,
-      index: window.tabs?.length ?? 0,
+      index: window?.tabs?.length ?? 0,
       pinned: createProperties.pinned ?? false,
-      windowId: window.id,
+      windowId: window?.id ?? 0,
       id: getNextTabId(),
       url: createProperties.url,
     };
+    tabList.push(newTab);
     const fullTab = mapTab(newTab);
     await onCreated.trigger(fullTab);
     return fullTab;
@@ -122,6 +124,7 @@ export const tabs: BrowserOverrides['tabs'] = {
           res = res && currentWindow.id === tab.windowId;
         if (queryInfo.currentWindow != null && !queryInfo.currentWindow)
           res = res && currentWindow.id !== tab.windowId;
+        if (queryInfo.windowId != null) res = res && tab.windowId === queryInfo.windowId;
         if (queryInfo.discarded != null) res = res && tab.discarded === queryInfo.discarded;
         if (queryInfo.hidden != null) res = res && tab.hidden === queryInfo.hidden;
         if (queryInfo.highlighted != null) res = res && tab.highlighted === queryInfo.highlighted;

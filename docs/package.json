@@ -3,15 +3,20 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "bun gen && nuxt dev",
-    "build": "bun gen && nuxt generate",
-    "postinstall": "nuxt prepare",
-    "gen": "bun generate-api-references.ts"
+    "dev": "bun gen && nuxt dev --extends docus",
+    "build": "bun gen && nuxt build --extends docus",
+    "gen": "bun generate-api-references.ts",
+    "postinstall": "nuxt prepare"
   },
   "dependencies": {
-    "@nuxt-themes/docus": "^1.15.0",
-    "nuxt": "^3.12.4",
-    "vue": "latest"
+    "better-sqlite3": "^12.2.0",
+    "docus": "latest",
+    "nuxt": "^4.1.2"
+  },
+  "devDependencies": {
+    "listr2": "^9.0.5",
+    "prettier": "^3.6.2",
+    "ts-morph": "^23.0.0"
   },
   "buildc": {
     "cachable": false

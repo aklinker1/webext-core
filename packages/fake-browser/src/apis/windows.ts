@@ -9,7 +9,7 @@ const onCreated = defineEventWithTrigger<(window: Windows.Window) => void>();
 const onRemoved = defineEventWithTrigger<(windowId: number) => void>();
 const onFocusChanged = defineEventWithTrigger<(windowId: number) => void>();
 
-const DEFAULT_WINDOW: InMemoryWindow = {
+export const DEFAULT_WINDOW: InMemoryWindow = {
   id: 0,
   alwaysOnTop: false,
   incognito: false,
@@ -106,6 +106,7 @@ export const windows: BrowserOverrides['windows'] = {
     const index = windowList.findIndex(window => window.id === windowId);
     if (index < 0) return;
     windowList.splice(index, 1);
+    await onRemoved.trigger(windowId);
   },
   onCreated,
   onRemoved,

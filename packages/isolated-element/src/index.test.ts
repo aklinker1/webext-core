@@ -9,12 +9,26 @@ describe('createIsolatedElement', () => {
     document.querySelector('body')!.innerHTML = '';
   });
 
-  it('should validate the custom element name', async () => {
+  it('should not allow invalid custom element names', async () => {
     const invalidName = 'test';
 
     await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
-      `"${invalidName}" is not a valid custom element name`,
+      `"${invalidName}" cannot have a shadow root attached to it`,
     );
+  });
+
+  it('should not allow certain built-in elements', async () => {
+    const invalidName = 'a';
+
+    await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
+      `"${invalidName}" cannot have a shadow root attached to it`,
+    );
+  });
+
+  it('should allow certain built-in elements', async () => {
+    const validName = 'div';
+
+    await expect(createIsolatedElement({ name: validName })).resolves.toBeDefined();
   });
 
   it('should insert an app into the UI', async () => {
@@ -36,6 +50,23 @@ describe('createIsolatedElement', () => {
     expect(document.getElementById('app')).toBeDefined();
     expect(isolatedElement.textContent).toEqual(text);
     expect(parentElement.textContent).toEqual('');
+  });
+
+  it('should not create a full html document structure in shadow DOM', async () => {
+    const name = 'test-element';
+
+    const { shadow, isolatedElement } = await createIsolatedElement({ name });
+
+    // The isolatedElement should be a simple div, not html/body/head
+    expect(isolatedElement.tagName.toLowerCase()).toBe('div');
+
+    // Shadow root should not contain html, head, or body elements
+    expect(shadow.querySelector('html')).toBeNull();
+    expect(shadow.querySelector('head')).toBeNull();
+    expect(shadow.querySelector('body')).toBeNull();
+
+    // Shadow root should contain the isolatedElement directly
+    expect(shadow.contains(isolatedElement)).toBe(true);
   });
 
   it('should allow event propagation when isolateEvents is not set', async () => {

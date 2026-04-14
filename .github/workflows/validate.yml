@@ -5,13 +5,15 @@ on:
   pull_request:
   workflow_call:
 
+permissions:
+  contents: read
+
 jobs:
   checks:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: ./.github/actions/setup
       - run: |
           bun format:check
           bun run --cwd packages/fake-browser check
@@ -26,17 +28,16 @@ jobs:
   build:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: ./.github/actions/setup
+      - run: node --version
       - run: bun run build
 
   tests:
     runs-on: ubuntu-22.04
     steps:
-      - uses: actions/checkout@v3
-      - uses: oven-sh/setup-bun@v2
-      - run: bun install
+      - uses: actions/checkout@08c6903cd8c0fde910a37f88322edcfb5dd907a8 # v5.0.0
+      - uses: ./.github/actions/setup
       - name: Install Playwright Browsers
         run: bun x playwright install --with-deps
       - run: |

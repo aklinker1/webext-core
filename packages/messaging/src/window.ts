@@ -75,7 +75,8 @@ export function defineWindowMessaging<
           event.data.type === RESPONSE_TYPE &&
           event.data.namespace === namespace &&
           event.data.instanceId !== instanceId &&
-          event.data.message.type === message.type
+          event.data.message.type === message.type &&
+          event.data.message.id === message.id
         ) {
           res(event.data.response);
           removeResponseListener();

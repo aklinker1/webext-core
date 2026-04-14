@@ -1,6 +1,8 @@
 <!-- GENERATED FILE, DO NOT EDIT -->
 
-# API Reference
+---
+description: ""
+---
 
 ::alert
 
@@ -346,7 +348,7 @@ other messengers of the same type, with the same namespace.
 ## `ProtocolWithReturn`
 
 :::danger Deprecated
-Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
+Use the function syntax instead: <https://webext-core.aklinker1.io/messaging/protocol-maps.html#syntax>
 :::
 
 ```ts

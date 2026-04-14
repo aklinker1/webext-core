@@ -1,3 +1,5 @@
+import { registerService } from '@webext-core/proxy-service';
+
 export default defineBackground(() => {
-  registerMathService();
+  registerService(MATH_SERVICE_KEY, new MathService());
 });
