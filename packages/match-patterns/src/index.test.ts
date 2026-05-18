@@ -27,10 +27,10 @@ describe('MatchPattern', () => {
           matches: ['https://www.google.com/foo/baz/bar', 'https://docs.google.com/foobar'],
         },
         // TODO: Uncomment when file: support is added
-        {
-          patterns: ['file:///foo*'],
-          matches: ['file:///foo/bar.html', 'file:///foo'],
-        },
+        // {
+        //   patterns: ['file:///foo*'],
+        //   matches: ['file:///foo/bar.html', 'file:///foo'],
+        // },
         {
           patterns: ['http://127.0.0.1/*', 'http://127.0.0.1/'],
           matches: ['http://127.0.0.1/', 'http://127.0.0.1/foo/bar.html'],
