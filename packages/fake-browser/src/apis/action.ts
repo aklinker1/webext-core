@@ -68,6 +68,10 @@ export const action: BrowserOverrides['action'] = {
     badgeBackgroundColorState.tabs.clear();
     badgeBackgroundColorState.windows.clear();
 
+    badgeTextColorState.global = DEFAULT_BADGE_TEXT_COLOR;
+    badgeTextColorState.tabs.clear();
+    badgeTextColorState.windows.clear();
+
     titleState.global = '';
     titleState.tabs.clear();
     titleState.windows.clear();
