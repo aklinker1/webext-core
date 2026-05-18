@@ -2,7 +2,6 @@ import { describe, it, vi, beforeEach, expect } from 'vitest';
 import { fakeBrowser } from '@webext-core/fake-browser';
 import { ProtocolWithReturn } from './index';
 import { defineExtensionMessaging } from './extension';
-import { defineWorkspace } from 'vitest/config';
 
 /**
  * This is defined in `@webext-core/fake-browser` when there are no `Browser.runtime.onMessage`
