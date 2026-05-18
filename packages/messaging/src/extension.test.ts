@@ -91,17 +91,15 @@ describe('Messaging Wrapper', () => {
     await expect(() => sendMessage('getLength', 'test')).rejects.toThrowError('Some error');
   });
 
-  it('should throw an error when the message is not valid', async () => {
+  it('should ignore messages that are not objects', async () => {
     const { onMessage } = defineExtensionMessaging<ProtocolMap>();
 
     onMessage('getLength', () => {
       throw Error('Some error');
     });
-    const res = fakeBrowser.runtime.sendMessage('hello');
+    const res = await fakeBrowser.runtime.sendMessage('hello');
 
-    await expect(res).rejects.toThrowError(
-      "[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: \"hello\"",
-    );
+    expect(res).toBeUndefined();
   });
 
   it('should throw an error when no listeners have been setup', async () => {

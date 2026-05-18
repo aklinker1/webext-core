@@ -163,8 +163,8 @@ export function defineGenericMessanging<
           const listener = perTypeListeners[message.type];
           if (listener == null) return;
 
-          const res = listener(message);
-          return Promise.resolve(res)
+          return Promise.resolve()
+            .then(() => listener(message))
             .then(res => {
               return config.verifyMessageData?.(res) ?? res;
             })

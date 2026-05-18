@@ -51,9 +51,21 @@ export const runtime: BrowserOverrides['runtime'] = {
 
     if (!onMessage.hasListeners()) throw Error('No listeners available');
     const sender: Runtime.MessageSender = {};
-    const res = await onMessage.trigger(message, sender);
 
-    // Return first response
-    return res.find(r => !!r);
+    // Support the sendResponse callback pattern (used by Chrome 144+)
+    let sendResponse!: (response: any) => void;
+    const responsePromise = new Promise<any>(resolve => {
+      sendResponse = resolve;
+    });
+
+    const results = await onMessage.trigger(message, sender, sendResponse as any);
+
+    // If no listener signaled an async response (return true), use the first truthy return value
+    if (!results.some(r => r === true)) {
+      return results.find(r => !!r);
+    }
+
+    // Otherwise wait for sendResponse to be called by the listener
+    return responsePromise;
   },
 };
