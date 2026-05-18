@@ -65,7 +65,6 @@
   },
   "dependencies": {
     "serialize-error": "^11.0.0",
-    "uid": "^2.0.2",
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
