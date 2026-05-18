@@ -93,7 +93,9 @@ export function defineExtensionMessaging<
         }
       };
 
+      // @ts-expect-error: Polyfill doesn't have overload for `sendResponse` callback, but it works
       Browser.runtime.onMessage.addListener(listener);
+      // @ts-expect-error: Polyfill doesn't have overload for `sendResponse` callback, but it works
       return () => Browser.runtime.onMessage.removeListener(listener);
     },
   });
