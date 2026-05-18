@@ -19,7 +19,7 @@ export type MaybePromise<T> = Promise<T> | T;
  *
  * > Internally, this is just an object with random keys for the data and return types.
  *
- * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/guide/messaging/protocol-maps.html#syntax>
+ * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/messaging/protocol-maps.html#syntax>
  *
  * @example
  * interface ProtocolMap {

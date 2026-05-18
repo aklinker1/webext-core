@@ -72,7 +72,8 @@ export function defineCustomEventMessaging<
         if (
           detail.namespace === namespace &&
           detail.instanceId !== instanceId &&
-          detail.message.type === requestEvent.detail.message.type
+          detail.message.type === requestEvent.detail.message.type &&
+          detail.message.id === requestEvent.detail.message.id
         ) {
           res(detail.response);
         }
