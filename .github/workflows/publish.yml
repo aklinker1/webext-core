@@ -1,0 +1,60 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      package:
+        type: choice
+        description: Package to release
+        options:
+          - fake-browser
+          - isolated-element
+          - job-scheduler
+          - match-patterns
+          - messaging
+          - proxy-service
+          - storage
+      bump:
+        description: Blank (auto), a version (1.4.1), or major/minor/patch
+        type: string
+      dryRun:
+        description: Dry Run?
+        type: boolean
+        default: false
+
+jobs:
+  validate:
+    uses: ./.github/workflows/validate.yml
+
+  release:
+    runs-on: ubuntu-latest
+    needs: validate
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - uses: ./.github/actions/setup
+
+      - run: |
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+
+      - name: Update NPM for Provence
+        run: sudo npm i -g npm@latest
+
+      - name: Bump and Release
+        uses: aklinker1/zero-changelog/actions/release@54f981a2004c54e40e2baace696991b79cf8af14 # 0.1.5
+        with:
+          bump: ${{ inputs.bump }}
+          path: packages/${{ inputs.package }}
+          commitTemplate: 'chore(release): ${{ inputs.package }}-v{{version}}'
+          publishCommands: |-
+            npm publish
+          dryRun: ${{ inputs.dryRun }}
+          dryRunPublishCommands: |-
+            npm publish --dry-run
+          githubToken: ${{ secrets.GITHUB_TOKEN }}
