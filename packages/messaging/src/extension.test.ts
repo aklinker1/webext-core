@@ -2,6 +2,7 @@ import { describe, it, vi, beforeEach, expect } from 'vitest';
 import { fakeBrowser } from '@webext-core/fake-browser';
 import { ProtocolWithReturn } from './index';
 import { defineExtensionMessaging } from './extension';
+import { defineWorkspace } from 'vitest/config';
 
 /**
  * This is defined in `@webext-core/fake-browser` when there are no `Browser.runtime.onMessage`
@@ -91,17 +92,33 @@ describe('Messaging Wrapper', () => {
     await expect(() => sendMessage('getLength', 'test')).rejects.toThrowError('Some error');
   });
 
-  it('should throw an error when the message is not valid', async () => {
-    const { onMessage } = defineExtensionMessaging<ProtocolMap>();
+  describe('when the message is not valid', () => {
+    it('should ignore it', async () => {
+      const { onMessage } = defineExtensionMessaging<ProtocolMap>();
+      onMessage('getLength', () => {
+        throw Error('Some error');
+      });
+      const res = await fakeBrowser.runtime.sendMessage('hello');
 
-    onMessage('getLength', () => {
-      throw Error('Some error');
+      expect(res).toBeUndefined();
     });
-    const res = fakeBrowser.runtime.sendMessage('hello');
 
-    await expect(res).rejects.toThrowError(
-      "[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: \"hello\"",
-    );
+    describe('throwOnUnknownMessageFormat: true', () => {
+      it('should throw an error', async () => {
+        const { onMessage } = defineExtensionMessaging<ProtocolMap>({
+          throwOnUnknownMessageFormat: true,
+        });
+
+        onMessage('getLength', () => {
+          throw Error('Some error');
+        });
+        const res = fakeBrowser.runtime.sendMessage('hello');
+
+        await expect(res).rejects.toThrowError(
+          "[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: \"hello\"",
+        );
+      });
+    });
   });
 
   it('should throw an error when no listeners have been setup', async () => {
