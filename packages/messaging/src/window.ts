@@ -1,6 +1,6 @@
-import { uid } from 'uid';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig, Message } from './types';
+import { createId } from './utils';
 
 const REQUEST_TYPE = '@webext-core/messaging/window';
 const RESPONSE_TYPE = '@webext-core/messaging/window/response';
@@ -60,7 +60,7 @@ export function defineWindowMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: WindowMessagingConfig): WindowMessenger<TProtocolMap> {
   const namespace = config.namespace;
-  const instanceId = uid();
+  const instanceId = createId();
 
   let removeAdditionalListeners: Array<() => void> = [];
 

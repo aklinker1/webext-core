@@ -8,3 +8,7 @@ export function prepareCustomEventDict<T>(
   // @ts-expect-error not exist cloneInto types because implemented only in Firefox.
   return typeof cloneInto !== 'undefined' ? cloneInto(data, options.targetScope) : data;
 }
+
+export function createId(): string {
+  return Math.random().toString(36).substring(2, 10);
+}

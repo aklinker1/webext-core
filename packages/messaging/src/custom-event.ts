@@ -1,7 +1,6 @@
-import { uid } from 'uid';
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { NamespaceMessagingConfig } from './types';
-import { prepareCustomEventDict } from './utils';
+import { prepareCustomEventDict, createId } from './utils';
 
 const REQUEST_EVENT = '@webext-core/messaging/custom-events';
 const RESPONSE_EVENT = '@webext-core/messaging/custom-events/response';
@@ -61,7 +60,7 @@ export function defineCustomEventMessaging<
   TProtocolMap extends Record<string, any> = Record<string, any>,
 >(config: CustomEventMessagingConfig): CustomEventMessenger<TProtocolMap> {
   const namespace = config.namespace;
-  const instanceId = uid();
+  const instanceId = createId();
 
   const removeAdditionalListeners: Array<() => void> = [];
 
