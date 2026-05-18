@@ -1,6 +1,7 @@
 # `@webext-core/match-patterns`
 
-Utilities for working with [match patterns](https://developer.chrome.com/docs/extensions/mv3/match_patterns/).
+Utilities for working with
+[match patterns](https://developer.chrome.com/docs/extensions/mv3/match_patterns/).
 
 ```bash
 pnpm i @webext-core/match-patterns
@@ -18,7 +19,9 @@ pattern.includes('https://youtube.com/watch'); // false
 
 ## Get Started
 
-See [documentation](https://webext-core.aklinker1.io/guide/match-patterns/) to get started!
+See
+[documentation](https://webext-core.aklinker1.io/match-patterns/installation) to
+get started!
 
 ### Supported Protocols
 
