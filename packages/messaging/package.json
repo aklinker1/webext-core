@@ -64,7 +64,7 @@
     "check": "buildc --deps-only -- tsc --noEmit"
   },
   "dependencies": {
-    "serialize-error": "^11.0.0",
+    "@aklinker1/zero-serialize-error": "^1.0.2",
     "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {

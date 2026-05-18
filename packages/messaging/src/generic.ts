@@ -6,7 +6,7 @@ import {
   BaseMessagingConfig,
   Message,
 } from './types';
-import { serializeError, deserializeError } from 'serialize-error';
+import { serializeError, deserializeError } from '@aklinker1/zero-serialize-error';
 
 /**
  * Config required to call `defineGenericMessenger`.
