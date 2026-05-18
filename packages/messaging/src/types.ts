@@ -79,11 +79,13 @@ export interface BaseMessagingConfig {
   logger?: Logger;
 
   /**
-   * Whether to break an error when an invalid message is received.
+   * When a message is received that doesn't follow `@webext-core/messaging`'s format, it is ignored.
    *
-   * @default undefined
+   * Set this value to true to throw an error instead of ignoring it.
+   *
+   * @default false
    */
-  breakError?: boolean;
+  throwOnUnknownMessageFormat?: boolean;
 }
 
 export interface NamespaceMessagingConfig extends BaseMessagingConfig {
