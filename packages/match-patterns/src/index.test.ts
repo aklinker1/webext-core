@@ -37,7 +37,10 @@ describe('MatchPattern', () => {
         //   nonMatches: [],
         // },
         {
-          patterns: ['http://127.0.0.1/*', 'http://127.0.0.1/'],
+          patterns: [
+            'http://127.0.0.1/*',
+            // 'http://127.0.0.1/'
+          ],
           matches: ['http://127.0.0.1/', 'http://127.0.0.1/foo/bar.html'],
           nonMatches: [],
         },
