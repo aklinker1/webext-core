@@ -47,11 +47,12 @@ jobs:
         run: sudo npm i -g npm@latest
 
       - name: Bump and Release
-        uses: aklinker1/zero-changelog/actions/release@8665cd8ee780342ab4a3234ec6b3f28bf6b14e4f # 0.1.6
+        uses: aklinker1/zero-changelog/actions/release@d2ef2f7967983e3e457a6117239e1c95010cd868 # 0.1.8
         with:
           bump: ${{ inputs.bump }}
           path: packages/${{ inputs.package }}
           commitTemplate: 'chore(release): ${{ inputs.package }}-v{{version}}'
+          releaseNameTemplate: '@webext-core/${{ inputs.package }} v{{version}}'
           publishCommands: |-
             npm publish
           dryRun: ${{ inputs.dryRun }}
