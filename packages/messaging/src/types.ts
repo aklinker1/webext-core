@@ -85,7 +85,7 @@ export interface BaseMessagingConfig {
    *
    * @default false
    */
-  throwOnInvalidMessage?: boolean;
+  throwOnUnknownMessageFormat?: boolean;
 }
 
 export interface NamespaceMessagingConfig extends BaseMessagingConfig {
