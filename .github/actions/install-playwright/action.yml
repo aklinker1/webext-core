@@ -1,0 +1,23 @@
+name: Install Playwright Browsers
+description: Install and cache browsers installed via playwright install --with-deps
+runs:
+  using: composite
+  steps:
+    - name: Store Playwright's Version
+      run: |
+        PLAYWRIGHT_VERSION=$(bun pm ls | grep playwright | sed 's/.*@//')
+        echo "Playwright's Version: $PLAYWRIGHT_VERSION"
+        echo "PLAYWRIGHT_VERSION=$PLAYWRIGHT_VERSION" >> $GITHUB_ENV
+      shell: bash
+
+    - name: Cache Playwright Browsers for Playwright's Version
+      id: cache-playwright-browsers
+      uses: actions/cache@27d5ce7f107fe9357f9df03efb73ab90386fccae # v5.0.5
+      with:
+        path: ~/.cache/ms-playwright
+        key: playwright-browsers-${{ env.PLAYWRIGHT_VERSION }}
+
+    - name: Setup Playwright
+      if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
+      run: npx playwright install --with-deps
+      shell: bash
