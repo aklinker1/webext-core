@@ -46,6 +46,9 @@ jobs:
       - name: Update NPM for Provence
         run: sudo npm i -g npm@latest
 
+      - name: Build package
+        run: bun run --cwd packages/${{ inputs.package }} build
+
       - name: Bump and Release
         uses: aklinker1/zero-changelog/actions/release@3c6754fb743552a2694a1a8efcc50bd4a67299ad # 0.1.10
         with:
