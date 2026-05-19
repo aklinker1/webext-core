@@ -45,7 +45,8 @@
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreIsolatedElement",
     "test": "buildc --deps-only -- vitest -r src",
     "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "buildc --deps-only -- tsc --noEmit",
+    "prepack": "bun run build"
   },
   "devDependencies": {
     "@types/is-potential-custom-element-name": "^1.0.0",

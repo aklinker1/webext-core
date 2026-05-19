@@ -42,7 +42,8 @@
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreStorage",
     "test": "buildc --deps-only -- vitest -r src",
     "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "buildc --deps-only -- tsc --noEmit",
+    "prepack": "bun run build"
   },
   "dependencies": {
     "webextension-polyfill": "^0.10.0"

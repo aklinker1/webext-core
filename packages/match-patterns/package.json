@@ -45,7 +45,8 @@
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMatchPatterns",
     "test": "buildc --deps-only -- vitest",
     "test:coverage": "buildc --deps-only -- vitest run --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "buildc --deps-only -- tsc --noEmit",
+    "prepack": "bun run build"
   },
   "devDependencies": {
     "tsconfig": "workspace:*"

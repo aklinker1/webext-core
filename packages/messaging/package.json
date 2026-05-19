@@ -61,7 +61,8 @@
     "test:node": "buildc --deps-only -- vitest -r src --config ../vitest.config.node.ts",
     "test:browser": "buildc --deps-only -- vitest -r src --config ../vitest.config.browser.ts",
     "test:coverage": "buildc --deps-only -- bun run test:node --coverage && bun run test:browser --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "buildc --deps-only -- tsc --noEmit",
+    "prepack": "bun run build"
   },
   "dependencies": {
     "@aklinker1/zero-serialize-error": "^1.0.2",

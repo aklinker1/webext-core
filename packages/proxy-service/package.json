@@ -44,7 +44,8 @@
     "build": "buildc -- tsup",
     "test": "buildc --deps-only -- vitest -r src",
     "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "buildc --deps-only -- tsc --noEmit",
+    "prepack": "bun run build"
   },
   "devDependencies": {
     "@types/get-value": "^3.0.3",

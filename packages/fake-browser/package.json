@@ -48,7 +48,8 @@
     "test": "buildc --deps-only -- vitest",
     "test:coverage": "buildc --deps-only -- vitest run --coverage",
     "check": "buildc --deps-only -- tsc --noEmit",
-    "gen": "bun scripts/generate-base.ts && prettier --write src/base.gen.ts"
+    "gen": "bun scripts/generate-base.ts && prettier --write src/base.gen.ts",
+    "prepack": "bun run build"
   },
   "dependencies": {
     "@types/webextension-polyfill": "^0.10.5",
