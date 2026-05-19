@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.4.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.4.0...fake-browser-v1.4.1)
+
+### 🩹 Fixes
+
+- Add prepack script to fix new publish workflow ([`536c73e`](https://github.com/aklinker1/webext-core/commit/536c73e710cbebf41d0afeeca7a2100d904401ac))
+
+### ❤️ Contributors
+
+- Aaron <aaronklinker1@gmail.com>
+
 ## v1.4.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.3.4...fake-browser-v1.4.0)
