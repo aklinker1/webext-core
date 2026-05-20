@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.0
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.4.1...fake-browser-v1.5.0)
+
+### 🚀 Features
+
+- Add `/auto` submodule for auto-stubbing (#146)
+
+### ❤️ Contributors
+
+- Aaron <aaronklinker1@gmail.com>
+
 ## v1.4.1
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.4.0...fake-browser-v1.4.1)
