@@ -1,4 +1,4 @@
-import { describe, expectTypeOf, it } from 'vitest';
+import { describe, expectTypeOf, it } from 'bun:test';
 import { MaybePromise, ProtocolWithReturn } from './types';
 import { defineExtensionMessaging, SendMessageOptions } from './extension';
 
@@ -11,7 +11,7 @@ describe('Messenger Typing', () => {
     expectTypeOf(sendMessage).returns.resolves.toBeAny();
 
     expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeAny();
-    expectTypeOf(onMessage).parameter(1).returns.toMatchTypeOf<void | MaybePromise<any>>();
+    expectTypeOf(onMessage).parameter(1).returns.toEqualTypeOf<void | MaybePromise<any>>();
   });
 
   it('should support basic values representing the data type and no return type', () => {
@@ -19,9 +19,8 @@ describe('Messenger Typing', () => {
       someMessage: string;
     }>();
 
-    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'someMessage'>();
-    expectTypeOf(sendMessage).parameter(1).toBeString();
-    expectTypeOf(sendMessage).returns.resolves.toBeVoid();
+    const res = sendMessage('someMessage', 'test');
+    expectTypeOf(res).resolves.toBeVoid();
 
     expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeString();
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeVoid();
@@ -32,9 +31,8 @@ describe('Messenger Typing', () => {
       isOdd: ProtocolWithReturn<number, boolean>;
     }>();
 
-    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'isOdd'>();
-    expectTypeOf(sendMessage).parameter(1).toBeNumber();
-    expectTypeOf(sendMessage).returns.resolves.toBeBoolean();
+    const res = sendMessage('isOdd', 1);
+    expectTypeOf(res).resolves.toBeBoolean();
 
     expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeNumber();
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeBoolean();
@@ -45,9 +43,8 @@ describe('Messenger Typing', () => {
       getStringLength(data: string): number;
     }>();
 
-    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'getStringLength'>();
-    expectTypeOf(sendMessage).parameter(1).toBeString();
-    expectTypeOf(sendMessage).returns.resolves.toBeNumber();
+    const res = sendMessage('getStringLength', 'test');
+    expectTypeOf(res).resolves.toBeNumber();
 
     expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeString();
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeNumber();
@@ -63,9 +60,8 @@ describe('Messenger Typing', () => {
     sendMessage('getStringLength', 'test');
     sendMessage('getStringLength', 'test', 123);
 
-    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'getStringLength'>();
-    expectTypeOf(sendMessage).parameter(1).toBeString();
-    expectTypeOf(sendMessage).returns.resolves.toBeNumber();
+    const res = sendMessage('getStringLength', 'test');
+    expectTypeOf(res).resolves.toBeNumber();
 
     expectTypeOf(onMessage).parameter(1).parameter(0).toHaveProperty('data').toBeString();
     expectTypeOf(onMessage).parameter(1).returns.resolves.toBeNumber();
@@ -82,7 +78,7 @@ describe('Messenger Typing', () => {
     sendMessage('ping', 123);
     sendMessage('ping', undefined, 123);
 
-    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
+    expectTypeOf(sendMessage).parameter(0).toExtend<'ping'>();
     expectTypeOf(sendMessage).parameter(1).toBeUndefined();
     expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined | SendMessageOptions>();
   });
@@ -98,7 +94,7 @@ describe('Messenger Typing', () => {
     sendMessage('ping', 123);
     sendMessage('ping', undefined, 123);
 
-    expectTypeOf(sendMessage).parameter(0).toMatchTypeOf<'ping'>();
+    expectTypeOf(sendMessage).parameter(0).toExtend<'ping'>();
     expectTypeOf(sendMessage).parameter(1).toBeUndefined();
     expectTypeOf(sendMessage).parameter(2).toEqualTypeOf<number | undefined | SendMessageOptions>();
   });

@@ -1,14 +1,12 @@
-import { describe, it, expect, vi, beforeEach } from 'vitest';
+import { describe, it, expect, vi, beforeEach, setSystemTime } from 'bun:test';
 import { defineJobScheduler } from './index';
 import { fakeBrowser } from '@webext-core/fake-browser';
 import { Alarms } from 'webextension-polyfill';
 
-vi.mock('webextension-polyfill');
-
 describe('defineJobScheduler', () => {
   beforeEach(() => {
     fakeBrowser.reset();
-    vi.setSystemTime('2023-01-30T11:30:49.000Z');
+    setSystemTime(new Date('2023-01-30T11:30:49.000Z'));
   });
 
   describe('scheduleJob', () => {
@@ -194,7 +192,7 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm1 = await fakeBrowser.alarms.get(job.id);
-        vi.setSystemTime(alarm1!.scheduledTime + 1);
+        setSystemTime(alarm1!.scheduledTime + 1);
         await fakeBrowser.alarms.onAlarm.trigger(alarm1!);
         const alarm2 = await fakeBrowser.alarms.get(job.id);
 

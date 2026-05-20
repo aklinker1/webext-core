@@ -1,5 +1,5 @@
 import { fakeBrowser } from '@webext-core/fake-browser';
-import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'vitest';
+import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'bun:test';
 import {
   createProxyService,
   isProxyService,
@@ -7,8 +7,6 @@ import {
   type ProxyServiceKey,
   registerService,
 } from '.';
-
-vi.mock('webextension-polyfill');
 
 describe('Proxy Services', () => {
   beforeEach(fakeBrowser.reset);

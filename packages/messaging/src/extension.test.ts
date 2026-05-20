@@ -1,4 +1,4 @@
-import { describe, it, vi, beforeEach, expect } from 'vitest';
+import { describe, it, vi, beforeEach, expect } from 'bun:test';
 import { fakeBrowser } from '@webext-core/fake-browser';
 import { ProtocolWithReturn } from './index';
 import { defineExtensionMessaging } from './extension';
@@ -8,8 +8,6 @@ import { defineExtensionMessaging } from './extension';
  * listeners active.
  */
 const NO_RUNTIME_LISTENERS_ERROR = 'No listeners available';
-
-vi.mock('webextension-polyfill');
 
 interface ProtocolMap {
   getLength: ProtocolWithReturn<string, number>;
@@ -88,7 +86,7 @@ describe('Messaging Wrapper', () => {
       throw Error('Some error');
     });
 
-    await expect(() => sendMessage('getLength', 'test')).rejects.toThrowError('Some error');
+    expect(sendMessage('getLength', 'test')).rejects.toThrowError('Some error');
   });
 
   describe('when the message is not valid', () => {

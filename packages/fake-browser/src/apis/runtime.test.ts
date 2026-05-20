@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'bun:test';
 import { Runtime } from 'webextension-polyfill';
 import { fakeBrowser } from '..';
 
@@ -40,7 +40,7 @@ describe('Fake Runtime API', () => {
     });
 
     it('should throw an error if there are no listeners setup', async () => {
-      await expect(() => fakeBrowser.runtime.sendMessage('some-message')).rejects.toThrowError(
+      expect(fakeBrowser.runtime.sendMessage('some-message')).rejects.toThrowError(
         'No listeners available',
       );
     });

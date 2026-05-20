@@ -44,8 +44,8 @@
   },
   "scripts": {
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreJobScheduler",
-    "test": "buildc --deps-only -- vitest -r src",
-    "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
+    "test": "buildc --deps-only -- bun test",
+    "test:coverage": "buildc --deps-only -- bun test --coverage",
     "check": "buildc --deps-only -- tsc --noEmit",
     "prepack": "bun run build"
   },
@@ -55,12 +55,10 @@
     "format-duration": "^3.0.2"
   },
   "devDependencies": {
-    "@vitest/coverage-v8": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "typescript": "catalog:"
   },
   "buildc": {
     "outDir": "lib"
