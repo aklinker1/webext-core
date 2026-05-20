@@ -6,6 +6,8 @@
     "packages/*"
   ],
   "catalog": {
+    "@aklinker1/buildc": "^1.1.5",
+    "@aklinker1/check": "^2.4.0",
     "@vitest/browser": "^2.1.1",
     "@vitest/coverage-v8": "^2.1.1",
     "tsup": "^6.4.0",
@@ -13,13 +15,16 @@
     "vitest": "^2.1.1"
   },
   "scripts": {
-    "format": "prettier --write .",
-    "format:check": "prettier --check .",
-    "build": "buildc all",
+    "check": "check",
+    "check:all": "check && bun run --workspaces check",
+    "test:all": "CI=true bun run --workspaces test",
+    "test:coverage:all": "CI=true bun run --workspaces test:coverage",
+    "build:all": "buildc all",
     "prepare": "simple-git-hooks"
   },
   "devDependencies": {
-    "@aklinker1/buildc": "^1.1.5",
+    "@aklinker1/buildc": "catalog:",
+    "@aklinker1/check": "catalog:",
     "@algolia/client-search": "^4.17.0",
     "nano-staged": "^1.0.2",
     "playwright": "^1.47.0",

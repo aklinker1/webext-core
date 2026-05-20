@@ -6,7 +6,9 @@
   "scripts": {
     "dev": "buildc --deps-only -- wxt",
     "build": "buildc -- wxt build",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "buildc --deps-only -- check",
+    "test": "echo 'noop'",
+    "test:coverage": "echo 'noop'"
   },
   "dependencies": {
     "@webext-core/proxy-service": "workspace:*"
