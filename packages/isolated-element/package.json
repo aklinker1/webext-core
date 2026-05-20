@@ -51,7 +51,8 @@
   "devDependencies": {
     "@types/is-potential-custom-element-name": "^1.0.0",
     "jsdom": "^20.0.3",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsup": "^6.4.0"
   },
   "dependencies": {
     "is-potential-custom-element-name": "^1.0.1"
