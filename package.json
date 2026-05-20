@@ -8,17 +8,15 @@
   "catalog": {
     "@aklinker1/buildc": "^1.1.5",
     "@aklinker1/check": "^2.4.0",
-    "@vitest/browser": "^2.1.1",
-    "@vitest/coverage-v8": "^2.1.1",
+    "@happy-dom/global-registrator": "^20.9.0",
     "tsup": "^6.4.0",
-    "typescript": "^5.5.4",
-    "vitest": "^2.1.1"
+    "typescript": "^5.5.4"
   },
   "scripts": {
     "check": "check",
-    "check:all": "check && bun run --workspaces check",
-    "test:all": "CI=true bun run --workspaces test",
-    "test:coverage:all": "CI=true bun run --workspaces test:coverage",
+    "check:all": "check && bun run --workspaces --sequential check",
+    "test:all": "CI=true bun run --workspaces --sequential test",
+    "test:coverage:all": "CI=true bun run --workspaces --sequential test:coverage",
     "build:all": "buildc all",
     "prepare": "simple-git-hooks"
   },
@@ -26,6 +24,7 @@
     "@aklinker1/buildc": "catalog:",
     "@aklinker1/check": "catalog:",
     "@algolia/client-search": "^4.17.0",
+    "@types/bun": "^1.3.14",
     "nano-staged": "^1.0.2",
     "playwright": "^1.47.0",
     "prettier": "^3.3.3",

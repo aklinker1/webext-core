@@ -13,7 +13,8 @@
     "skipLibCheck": true,
     "strict": true,
     "noEmit": true,
-    "allowSyntheticDefaultImports": true
+    "allowSyntheticDefaultImports": true,
+    "types": ["bun"]
   },
   "exclude": ["node_modules"]
 }

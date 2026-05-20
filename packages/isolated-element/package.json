@@ -43,19 +43,18 @@
   },
   "scripts": {
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreIsolatedElement",
-    "test": "buildc --deps-only -- vitest -r src",
-    "test:coverage": "buildc --deps-only -- vitest run -r src --coverage",
+    "test": "buildc --deps-only -- bun test",
+    "test:coverage": "buildc --deps-only -- bun test --coverage",
     "check": "buildc --deps-only -- tsc --noEmit",
     "prepack": "bun run build"
   },
   "devDependencies": {
+    "@happy-dom/global-registrator": "catalog:",
     "@types/is-potential-custom-element-name": "^1.0.0",
-    "@vitest/coverage-v8": "catalog:",
     "jsdom": "^20.0.3",
     "tsconfig": "workspace:*",
     "tsup": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "typescript": "catalog:"
   },
   "dependencies": {
     "is-potential-custom-element-name": "^1.0.1"

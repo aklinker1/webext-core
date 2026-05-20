@@ -1,10 +1,8 @@
 import { fakeBrowser } from '@webext-core/fake-browser';
-import { beforeEach, describe, expect, it, vi } from 'vitest';
+import { beforeEach, describe, expect, it, vi } from 'bun:test';
 import Browser from 'webextension-polyfill';
 import { defineExtensionStorage } from './defineExtensionStorage';
 import { AnySchema, ExtensionStorage } from './types';
-
-vi.mock('webextension-polyfill');
 
 interface TestStorageSchema {
   key1: string;

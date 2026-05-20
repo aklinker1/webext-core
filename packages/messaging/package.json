@@ -57,10 +57,8 @@
   },
   "scripts": {
     "build": "buildc -- tsup src/index.ts src/page.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
-    "test": "buildc --deps-only -- bun run test:node && bun run test:browser",
-    "test:node": "buildc --deps-only -- vitest -r src --config ../vitest.config.node.ts",
-    "test:browser": "buildc --deps-only -- vitest -r src --config ../vitest.config.browser.ts",
-    "test:coverage": "buildc --deps-only -- bun run test:node --coverage && bun run test:browser --coverage",
+    "test": "buildc --deps-only -- bun test",
+    "test:coverage": "buildc --deps-only -- bun  test --coverage",
     "check": "buildc --deps-only -- tsc --noEmit",
     "prepack": "bun run build"
   },
@@ -70,14 +68,11 @@
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.9.1",
-    "@vitest/browser": "catalog:",
-    "@vitest/coverage-v8": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
     "publint": "^0.2.11",
     "tsconfig": "workspace:*",
     "tsup": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "typescript": "catalog:"
   },
   "buildc": {
     "outDir": "lib"

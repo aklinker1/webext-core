@@ -1,4 +1,4 @@
-import { describe, expectTypeOf, it } from 'vitest';
+import { describe, expectTypeOf, it } from 'bun:test';
 import { MaybePromise, ProtocolWithReturn } from './types';
 import { defineExtensionMessaging, SendMessageOptions } from './extension';
 

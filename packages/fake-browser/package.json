@@ -51,8 +51,8 @@
   },
   "scripts": {
     "build": "buildc -- bun gen && tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreFakeBrowser && cp src/auto.{d.ts,cjs,js} lib",
-    "test": "buildc --deps-only -- vitest",
-    "test:coverage": "buildc --deps-only -- vitest run --coverage",
+    "test": "buildc --deps-only -- bun test",
+    "test:coverage": "buildc --deps-only -- bun test --coverage",
     "check": "buildc --deps-only -- tsc --noEmit",
     "gen": "bun scripts/generate-base.ts && prettier --write src/base.gen.ts",
     "prepack": "bun run build"
@@ -63,12 +63,10 @@
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.7",
-    "@vitest/coverage-v8": "catalog:",
     "ts-morph": "^23.0.0",
     "tsconfig": "workspace:*",
     "tsup": "catalog:",
-    "typescript": "catalog:",
-    "vitest": "catalog:"
+    "typescript": "catalog:"
   },
   "buildc": {
     "outDir": "lib"
