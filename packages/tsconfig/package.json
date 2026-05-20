@@ -5,6 +5,8 @@
   "license": "MIT",
   "scripts": {
     "check": "echo 'noop'",
-    "build": "echo 'noop'"
+    "build": "echo 'noop'",
+    "test": "echo 'noop'",
+    "test:coverage": "echo 'noop'"
   }
 }

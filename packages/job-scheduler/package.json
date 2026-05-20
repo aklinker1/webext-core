@@ -55,8 +55,12 @@
     "format-duration": "^3.0.2"
   },
   "devDependencies": {
+    "@vitest/coverage-v8": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "buildc": {
     "outDir": "lib"

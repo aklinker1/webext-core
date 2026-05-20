@@ -43,13 +43,15 @@
   },
   "scripts": {
     "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMatchPatterns",
-    "test": "buildc --deps-only -- vitest",
-    "test:coverage": "buildc --deps-only -- vitest run --coverage",
+    "test": "buildc --deps-only -- bun test",
+    "test:coverage": "buildc --deps-only -- bun test --coverage",
     "check": "buildc --deps-only -- tsc --noEmit",
     "prepack": "bun run build"
   },
   "devDependencies": {
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsup": "catalog:",
+    "typescript": "catalog:"
   },
   "buildc": {
     "outDir": "lib"

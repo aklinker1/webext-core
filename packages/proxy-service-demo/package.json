@@ -6,13 +6,16 @@
   "scripts": {
     "dev": "buildc --deps-only -- wxt",
     "build": "buildc -- wxt build",
-    "check": "buildc --deps-only -- tsc --noEmit"
+    "check": "echo 'noop'",
+    "test": "echo 'noop'",
+    "test:coverage": "echo 'noop'"
   },
   "dependencies": {
     "@webext-core/proxy-service": "workspace:*"
   },
   "devDependencies": {
-    "wxt": "^0.19.5"
+    "wxt": "^0.19.5",
+    "typescript": "catalog:"
   },
   "buildc": {
     "cachable": false

@@ -6,13 +6,16 @@
   "scripts": {
     "dev": "buildc --deps-only -- vite",
     "build": "buildc -- vite build",
-    "check": "echo 'noop'"
+    "check": "echo 'noop'",
+    "test": "echo 'noop'",
+    "test:coverage": "echo 'noop'"
   },
   "dependencies": {
     "@webext-core/isolated-element": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^4.0.0",
+    "typescript": "catalog:"
   },
   "buildc": {
     "cachable": false

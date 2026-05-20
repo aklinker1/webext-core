@@ -63,8 +63,12 @@
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.7",
+    "@vitest/coverage-v8": "catalog:",
     "ts-morph": "^23.0.0",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "buildc": {
     "outDir": "lib"
