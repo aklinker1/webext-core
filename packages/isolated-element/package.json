@@ -51,7 +51,6 @@
   "devDependencies": {
     "@happy-dom/global-registrator": "catalog:",
     "@types/is-potential-custom-element-name": "^1.0.0",
-    "jsdom": "^20.0.3",
     "tsconfig": "workspace:*",
     "tsup": "catalog:",
     "typescript": "catalog:"

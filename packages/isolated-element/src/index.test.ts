@@ -1,6 +1,3 @@
-/**
- * @bun:test-environment jsdom
- */
 import { describe, beforeEach, it, expect, vi } from 'bun:test';
 import { createIsolatedElement } from './index';
 
