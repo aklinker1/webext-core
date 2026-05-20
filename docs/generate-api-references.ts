@@ -1,7 +1,7 @@
 import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
-import { Listr, type ListrTask, ListrTaskWrapper } from 'listr2';
+import { Listr, type ListrTask, type ListrTaskWrapper } from 'listr2';
 import { format } from 'oxfmt';
 import { Project, Symbol, SourceFile, Node, ts, JSDocableNode, JSDoc } from 'ts-morph';
 import { CodeBlockWriter } from 'ts-morph';
@@ -226,11 +226,8 @@ async function renderDocs(
   );
   const sections = [
     // Header
+    `---\ntitle: API Reference\ndescription: ""\n---`,
     `<!-- GENERATED FILE, DO NOT EDIT -->`,
-    `---\ndescription: ""\n---`,
-    `::alert`,
-    `See [\`@webext-core/${projectDirname}\`](/${projectDirname}/installation/)`,
-    `::`,
     // Symbols
     ...renderedSymbols,
     // Footer
