@@ -23,7 +23,7 @@
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/job-scheduler",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aklinker1/webext-core",
+    "url": "git+https://github.com/aklinker1/webext-core.git",
     "directory": "packages/job-scheduler"
   },
   "type": "module",
@@ -33,20 +33,30 @@
   "files": [
     "lib"
   ],
+  "engines": {
+    "node": "*"
+  },
+  "sideEffects": false,
   "main": "lib/index.cjs",
-  "module": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.mts",
   "exports": {
     ".": {
-      "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
+      "import": {
+        "types": "./lib/index.d.mts",
+        "default": "./lib/index.mjs"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
     }
   },
   "scripts": {
-    "build": "buildc -- tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreJobScheduler",
+    "build": "buildc -- tsdown",
     "test": "buildc --deps-only -- bun test",
     "test:coverage": "buildc --deps-only -- bun test --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit",
+    "check": "bun run build && check",
     "prepack": "bun run build"
   },
   "dependencies": {
@@ -56,8 +66,9 @@
   },
   "devDependencies": {
     "@webext-core/fake-browser": "workspace:*",
+    "publint": "catalog:",
     "tsconfig": "workspace:*",
-    "tsup": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:"
   },
   "buildc": {
