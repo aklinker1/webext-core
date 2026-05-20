@@ -39,12 +39,18 @@
   "types": "lib/index.d.ts",
   "exports": {
     ".": {
+      "types": "./lib/index.d.ts",
       "import": "./lib/index.js",
       "require": "./lib/index.cjs"
+    },
+    "./auto": {
+      "types": "./lib/auto.d.ts",
+      "import": "./lib/auto.js",
+      "require": "./lib/auto.cjs"
     }
   },
   "scripts": {
-    "build": "buildc -- bun gen && tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreFakeBrowser",
+    "build": "buildc -- bun gen && tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreFakeBrowser && cp src/auto.{d.ts,cjs,js} lib",
     "test": "buildc --deps-only -- vitest",
     "test:coverage": "buildc --deps-only -- vitest run --coverage",
     "check": "buildc --deps-only -- tsc --noEmit",
