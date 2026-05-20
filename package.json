@@ -13,28 +13,17 @@
   },
   "devDependencies": {
     "@aklinker1/buildc": "^1.1.5",
-    "@aklinker1/generate-changelog": "*",
     "@algolia/client-search": "^4.17.0",
-    "@types/prettier": "^2.7.2",
-    "@types/webextension-polyfill": "^0.9.1",
-    "@vitest/browser": "^2.1.1",
-    "@vitest/coverage-v8": "^2.1.1",
-    "@webext-core/fake-browser": "workspace:*",
-    "lint-staged": "^16.2.6",
-    "parse-path": "^7.1.0",
+    "nano-staged": "^1.0.2",
     "playwright": "^1.47.0",
     "prettier": "^3.3.3",
     "simple-git-hooks": "^2.13.1",
-    "tsup": "^6.4.0",
-    "turbo": "^1.6.3",
-    "typescript": "^5.5.4",
-    "vitest": "^2.1.1",
-    "webextension-polyfill": "^0.10.0"
+    "typescript": "^5.5.4"
   },
   "simple-git-hooks": {
-    "pre-commit": "bun lint-staged"
+    "pre-commit": "./node_modules/.bin/nano-staged"
   },
-  "lint-staged": {
+  "nano-staged": {
     "*": "prettier --ignore-unknown --write"
   },
   "patchedDependencies": {
