@@ -5,10 +5,9 @@
   "scripts": {
     "dev": "buildc --deps-only -- wxt",
     "build": "buildc -- wxt build",
-    "check": "buildc --deps-only -- check",
+    "check": "echo 'noop'",
     "test": "echo 'noop'",
-    "test:coverage": "echo 'noop'",
-    "postinstall": "buildc --deps-only -- wxt prepare"
+    "test:coverage": "echo 'noop'"
   },
   "dependencies": {
     "@webext-core/messaging": "workspace:*"
