@@ -15,4 +15,5 @@
   "jsdoc": true,
   "sortImports": true,
   "sortPackageJson": true,
+  "singleQuote": true,
 }

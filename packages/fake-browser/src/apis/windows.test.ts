@@ -1,12 +1,12 @@
-import { describe, it, expect, vi, beforeEach } from "bun:test";
+import { describe, it, expect, vi, beforeEach } from 'bun:test';
 
-import { fakeBrowser } from "../index";
+import { fakeBrowser } from '../index';
 
-describe("windows", () => {
+describe('windows', () => {
   beforeEach(fakeBrowser.reset);
 
-  describe("remove", () => {
-    it("should trigger onRemoved event when removing a window", async () => {
+  describe('remove', () => {
+    it('should trigger onRemoved event when removing a window', async () => {
       const listener = vi.fn();
       fakeBrowser.windows.onRemoved.addListener(listener);
 
@@ -16,7 +16,7 @@ describe("windows", () => {
       expect(listener).toHaveBeenCalledWith(newWindow.id);
     });
 
-    it("should remove window from windowList", async () => {
+    it('should remove window from windowList', async () => {
       const window1 = await fakeBrowser.windows.create();
       await fakeBrowser.windows.create();
 
@@ -31,8 +31,8 @@ describe("windows", () => {
     });
   });
 
-  describe("create", () => {
-    it("should trigger onCreated event", async () => {
+  describe('create', () => {
+    it('should trigger onCreated event', async () => {
       const listener = vi.fn();
       fakeBrowser.windows.onCreated.addListener(listener);
 
@@ -47,8 +47,8 @@ describe("windows", () => {
     });
   });
 
-  describe("tabs and windows interaction", () => {
-    it("should remove window when last tab is removed", async () => {
+  describe('tabs and windows interaction', () => {
+    it('should remove window when last tab is removed', async () => {
       const windowListener = vi.fn();
       fakeBrowser.windows.onRemoved.addListener(windowListener);
 

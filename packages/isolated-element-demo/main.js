@@ -1,11 +1,11 @@
-import { createIsolatedElement } from "@webext-core/isolated-element";
+import { createIsolatedElement } from '@webext-core/isolated-element';
 
-import isolatedStyles from "./isolated-style.css?raw";
+import isolatedStyles from './isolated-style.css?raw';
 
 const createLink = () => {
-  const a = document.createElement("a");
-  a.href = "https://github.com/aklinker1/webext-core";
-  a.textContent = "Link";
+  const a = document.createElement('a');
+  a.href = 'https://github.com/aklinker1/webext-core';
+  a.textContent = 'Link';
   return a;
 };
 
@@ -14,7 +14,7 @@ document.body.appendChild(createLink());
 
 // Create an isolated link that doesn't use the red color style
 createIsolatedElement({
-  name: "isolated-style",
+  name: 'isolated-style',
   css: { textContent: isolatedStyles },
 }).then(({ isolatedElement, parentElement }) => {
   // Add link inside isolation

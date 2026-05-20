@@ -8,9 +8,9 @@ pnpm i @webext-core/storage
 ```
 
 ```ts
-import { localExtStorage } from "@webext-core/storage";
+import { localExtStorage } from '@webext-core/storage';
 
-const value = await localExtStorage.getItem("some-key");
+const value = await localExtStorage.getItem('some-key');
 ```
 
 ## Get Started

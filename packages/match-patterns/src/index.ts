@@ -2,13 +2,13 @@
  * Class for parsing and performing operations on match patterns.
  *
  * @example
- *   const pattern = new MatchPattern("*://google.com/*");
+ *   const pattern = new MatchPattern('*://google.com/*');
  *
- *   pattern.includes("https://google.com"); // true
- *   pattern.includes("http://youtube.com/watch?v=123"); // false
+ *   pattern.includes('https://google.com'); // true
+ *   pattern.includes('http://youtube.com/watch?v=123'); // false
  */
 export class MatchPattern {
-  static PROTOCOLS = ["http", "https", "file", "ftp", "urn"];
+  static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn'];
 
   private protocolMatches: string[];
   private hostnameMatch: string | undefined;
@@ -22,21 +22,21 @@ export class MatchPattern {
    * @param matchPattern The match pattern to parse.
    */
   constructor(matchPattern: string) {
-    if (matchPattern === "<all_urls>") {
+    if (matchPattern === '<all_urls>') {
       this.isAllUrls = true;
       this.protocolMatches = [...MatchPattern.PROTOCOLS];
-      this.hostnameMatch = "*";
-      this.pathnameMatch = "*";
+      this.hostnameMatch = '*';
+      this.pathnameMatch = '*';
     } else {
       const groups = /(.*):\/\/(.*?)(\/.*)/.exec(matchPattern);
-      if (groups == null) throw new InvalidMatchPattern(matchPattern, "Incorrect format");
+      if (groups == null) throw new InvalidMatchPattern(matchPattern, 'Incorrect format');
 
       const [_, protocol, hostname, pathname] = groups;
       validateProtocol(matchPattern, protocol);
       validateHostname(matchPattern, hostname);
       validatePathname(matchPattern, pathname);
 
-      this.protocolMatches = protocol === "*" ? ["http", "https"] : [protocol];
+      this.protocolMatches = protocol === '*' ? ['http', 'https'] : [protocol];
       this.hostnameMatch = hostname;
       this.pathnameMatch = pathname;
     }
@@ -47,23 +47,23 @@ export class MatchPattern {
     if (this.isAllUrls) return true;
 
     const u: URL =
-      typeof url === "string" ? new URL(url) : url instanceof Location ? new URL(url.href) : url;
+      typeof url === 'string' ? new URL(url) : url instanceof Location ? new URL(url.href) : url;
 
     return !!this.protocolMatches.find((protocol) => {
-      if (protocol === "http") return this.isHttpMatch(u);
-      if (protocol === "https") return this.isHttpsMatch(u);
-      if (protocol === "file") return this.isFileMatch(u);
-      if (protocol === "ftp") return this.isFtpMatch(u);
-      if (protocol === "urn") return this.isUrnMatch(u);
+      if (protocol === 'http') return this.isHttpMatch(u);
+      if (protocol === 'https') return this.isHttpsMatch(u);
+      if (protocol === 'file') return this.isFileMatch(u);
+      if (protocol === 'ftp') return this.isFtpMatch(u);
+      if (protocol === 'urn') return this.isUrnMatch(u);
     });
   }
 
   private isHttpMatch(url: URL): boolean {
-    return url.protocol === "http:" && this.isHostPathMatch(url);
+    return url.protocol === 'http:' && this.isHostPathMatch(url);
   }
 
   private isHttpsMatch(url: URL): boolean {
-    return url.protocol === "https:" && this.isHostPathMatch(url);
+    return url.protocol === 'https:' && this.isHostPathMatch(url);
   }
 
   private isHostPathMatch(url: URL): boolean {
@@ -71,7 +71,7 @@ export class MatchPattern {
 
     const hostnameMatchRegexs = [
       this.convertPatternToRegex(this.hostnameMatch),
-      this.convertPatternToRegex(this.hostnameMatch.replace(/^\*\./, "")),
+      this.convertPatternToRegex(this.hostnameMatch.replace(/^\*\./, '')),
     ];
     const pathnameMatchRegex = this.convertPatternToRegex(this.pathnameMatch);
     return (
@@ -81,25 +81,25 @@ export class MatchPattern {
   }
 
   private isFileMatch(_url: URL): boolean {
-    throw Error("Not implemented: file:// pattern matching. Open a PR to add support");
+    throw Error('Not implemented: file:// pattern matching. Open a PR to add support');
   }
 
   private isFtpMatch(_url: URL): boolean {
-    throw Error("Not implemented: ftp:// pattern matching. Open a PR to add support");
+    throw Error('Not implemented: ftp:// pattern matching. Open a PR to add support');
   }
 
   private isUrnMatch(_url: URL): boolean {
-    throw Error("Not implemented: urn:// pattern matching. Open a PR to add support");
+    throw Error('Not implemented: urn:// pattern matching. Open a PR to add support');
   }
 
   private convertPatternToRegex(pattern: string): RegExp {
     const escaped = this.escapeForRegex(pattern);
-    const starsReplaced = escaped.replace(/\\\*/g, ".*");
+    const starsReplaced = escaped.replace(/\\\*/g, '.*');
     return RegExp(`^${starsReplaced}$`);
   }
 
   private escapeForRegex(string: string): string {
-    return string.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+    return string.replace(/[.*+?^${}()|[\]\\]/g, '\\$&');
   }
 }
 
@@ -110,18 +110,18 @@ export class InvalidMatchPattern extends Error {
 }
 
 function validateProtocol(matchPattern: string, protocol: string): void {
-  if (!MatchPattern.PROTOCOLS.includes(protocol) && protocol !== "*")
+  if (!MatchPattern.PROTOCOLS.includes(protocol) && protocol !== '*')
     throw new InvalidMatchPattern(
       matchPattern,
-      `${protocol} not a valid protocol (${MatchPattern.PROTOCOLS.join(", ")})`,
+      `${protocol} not a valid protocol (${MatchPattern.PROTOCOLS.join(', ')})`,
     );
 }
 
 function validateHostname(matchPattern: string, hostname: string): void {
-  if (hostname.includes(":"))
+  if (hostname.includes(':'))
     throw new InvalidMatchPattern(matchPattern, `Hostname cannot include a port`);
 
-  if (hostname.includes("*") && hostname.length > 1 && !hostname.startsWith("*."))
+  if (hostname.includes('*') && hostname.length > 1 && !hostname.startsWith('*.'))
     throw new InvalidMatchPattern(
       matchPattern,
       `If using a wildcard (*), it must go at the start of the hostname`,

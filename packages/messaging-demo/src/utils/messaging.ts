@@ -1,7 +1,7 @@
-import { defineExtensionMessaging } from "@webext-core/messaging";
+import { defineExtensionMessaging } from '@webext-core/messaging';
 
 interface MessageProtocol1 {
-  ping: () => "pong";
+  ping: () => 'pong';
   sleep: number;
 }
 

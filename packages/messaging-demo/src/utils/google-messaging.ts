@@ -1,4 +1,4 @@
-import { defineWindowMessaging } from "@webext-core/messaging/page";
+import { defineWindowMessaging } from '@webext-core/messaging/page';
 
 export interface GoogleMessagingProtocol {
   ping(): string;
@@ -8,5 +8,5 @@ export interface GoogleMessagingProtocol {
 }
 
 export const googleMessaging = defineWindowMessaging<GoogleMessagingProtocol>({
-  namespace: "@webext-core/messaging-demo/google",
+  namespace: '@webext-core/messaging-demo/google',
 });

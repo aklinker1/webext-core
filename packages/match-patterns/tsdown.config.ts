@@ -1,24 +1,24 @@
-import { defineConfig } from "tsdown";
+import { defineConfig } from 'tsdown';
 // import pkgJson from './package.json' with { type: 'json' };
 
 export default defineConfig([
   {
-    outDir: "lib",
-    entry: "src/index.ts",
-    format: ["esm", "cjs"],
+    outDir: 'lib',
+    entry: 'src/index.ts',
+    format: ['esm', 'cjs'],
   },
   {
-    outDir: "lib",
-    entry: "src/index.ts",
-    format: "iife",
-    globalName: "webExtCoreMatchPatterns",
+    outDir: 'lib',
+    entry: 'src/index.ts',
+    format: 'iife',
+    globalName: 'webExtCoreMatchPatterns',
     deps: {
       onlyBundle: false,
       // alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
     outputOptions: {
-      entryFileNames: () => "index.global.js",
+      entryFileNames: () => 'index.global.js',
     },
   },
 ]);

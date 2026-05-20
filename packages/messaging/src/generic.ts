@@ -1,4 +1,4 @@
-import { serializeError, deserializeError } from "@aklinker1/zero-serialize-error";
+import { serializeError, deserializeError } from '@aklinker1/zero-serialize-error';
 
 import {
   RemoveListenerCallback,
@@ -7,7 +7,7 @@ import {
   MaybePromise,
   BaseMessagingConfig,
   Message,
-} from "./types";
+} from './types';
 
 /** Config required to call `defineGenericMessenger`. */
 interface GenericMessagingConfig<
@@ -128,7 +128,7 @@ export function defineGenericMessanging<
       config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ─ᐅ`, message, ...args);
 
       const response = await config.sendMessage(message, ...args);
-      const { res, err } = response ?? { err: new Error("No response") };
+      const { res, err } = response ?? { err: new Error('No response') };
       config.logger?.debug(`[messaging] sendMessage {id=${message.id}} ᐊ─`, { res, err });
 
       if (err != null) throw deserializeError(err);
@@ -143,7 +143,7 @@ export function defineGenericMessanging<
         );
         removeRootListener = config.addRootListener((message) => {
           // Validate the message object
-          if (typeof message.type != "string" || typeof message.timestamp !== "number") {
+          if (typeof message.type != 'string' || typeof message.timestamp !== 'number') {
             if (config.throwOnUnknownMessageFormat) {
               const err = Error(
                 `[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: ${JSON.stringify(
@@ -159,7 +159,7 @@ export function defineGenericMessanging<
           }
 
           // Execute the type's listener
-          config?.logger?.debug("[messaging] Received message", message);
+          config?.logger?.debug('[messaging] Received message', message);
           const listener = perTypeListeners[message.type];
           if (listener == null) return;
 

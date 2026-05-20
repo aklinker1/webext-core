@@ -1,10 +1,10 @@
-import { Windows } from "webextension-polyfill";
+import { Windows } from 'webextension-polyfill';
 
-import { BrowserOverrides } from "../types";
-import { defineEventWithTrigger } from "../utils/defineEventWithTrigger";
-import { mapTab, tabList } from "./tabs";
+import { BrowserOverrides } from '../types';
+import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+import { mapTab, tabList } from './tabs';
 
-type InMemoryWindow = Omit<Windows.Window, "focused" | "tabs">;
+type InMemoryWindow = Omit<Windows.Window, 'focused' | 'tabs'>;
 
 const onCreated = defineEventWithTrigger<(window: Windows.Window) => void>();
 const onRemoved = defineEventWithTrigger<(windowId: number) => void>();
@@ -18,15 +18,15 @@ export const DEFAULT_WINDOW: InMemoryWindow = {
 const DEFAULT_NEXT_WINDOW_ID = 1;
 
 export const windowList: InMemoryWindow[] = [DEFAULT_WINDOW];
-export let focusedWindowId: Windows.Window["id"];
-export let lastFocusedWindowId: Windows.Window["id"];
+export let focusedWindowId: Windows.Window['id'];
+export let lastFocusedWindowId: Windows.Window['id'];
 let nextWindowId = DEFAULT_NEXT_WINDOW_ID;
 
-function setFocusedWindowId(id: Windows.Window["id"]): void {
+function setFocusedWindowId(id: Windows.Window['id']): void {
   lastFocusedWindowId = focusedWindowId;
   focusedWindowId = id;
 }
-function getNextWindowId(): Windows.Window["id"] {
+function getNextWindowId(): Windows.Window['id'] {
   const id = nextWindowId;
   nextWindowId++;
   return id;
@@ -44,11 +44,11 @@ function mapWindow(window: InMemoryWindow, getInfo?: Windows.GetInfo): Windows.W
 
 function mapCreateType(type: Windows.CreateType | undefined): Windows.WindowType | undefined {
   if (type == null) return undefined;
-  if (type == "detached_panel") return "panel";
+  if (type == 'detached_panel') return 'panel';
   return type;
 }
 
-export const windows: BrowserOverrides["windows"] = {
+export const windows: BrowserOverrides['windows'] = {
   resetState() {
     windowList.length = 1;
     windowList[0] = DEFAULT_WINDOW;

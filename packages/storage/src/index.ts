@@ -1,7 +1,7 @@
-export type { ExtensionStorage } from "./types";
-import Browser from "webextension-polyfill";
+export type { ExtensionStorage } from './types';
+import Browser from 'webextension-polyfill';
 
-import { defineExtensionStorage } from "./defineExtensionStorage";
+import { defineExtensionStorage } from './defineExtensionStorage';
 
 export { defineExtensionStorage };
 

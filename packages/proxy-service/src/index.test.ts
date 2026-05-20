@@ -1,6 +1,6 @@
-import { beforeEach, describe, expect, expectTypeOf, it } from "bun:test";
+import { beforeEach, describe, expect, expectTypeOf, it } from 'bun:test';
 
-import { fakeBrowser } from "@webext-core/fake-browser";
+import { fakeBrowser } from '@webext-core/fake-browser';
 
 import {
   createProxyService,
@@ -8,13 +8,13 @@ import {
   type ProxyService,
   type ProxyServiceKey,
   registerService,
-} from ".";
+} from '.';
 
-describe("Proxy Services", () => {
+describe('Proxy Services', () => {
   beforeEach(fakeBrowser.reset);
 
-  describe("RPC", () => {
-    describe("Objects", () => {
+  describe('RPC', () => {
+    describe('Objects', () => {
       interface TestService {
         getVersion(): number;
         getNextVersion(): Promise<number>;
@@ -26,12 +26,12 @@ describe("Proxy Services", () => {
         };
       }
 
-      it("should proxy function calls to the real service", async () => {
+      it('should proxy function calls to the real service', async () => {
         const version = 4;
         const nextVersion = 5;
 
         const testService = createTestService(version);
-        const key = "test-service" as ProxyServiceKey<TestService>;
+        const key = 'test-service' as ProxyServiceKey<TestService>;
 
         registerService(key, testService);
         const proxy = createProxyService(key);
@@ -41,7 +41,7 @@ describe("Proxy Services", () => {
       });
     });
 
-    describe("Classes", () => {
+    describe('Classes', () => {
       class TestService {
         constructor(private readonly version: number) {}
 
@@ -54,12 +54,12 @@ describe("Proxy Services", () => {
         }
       }
 
-      it("should proxy function calls to the real service", async () => {
+      it('should proxy function calls to the real service', async () => {
         const version = 4;
         const nextVersion = 5;
 
         const testService = new TestService(version);
-        const key = "test-service" as ProxyServiceKey<TestService>;
+        const key = 'test-service' as ProxyServiceKey<TestService>;
 
         registerService(key, testService);
         const proxy = createProxyService(key);
@@ -69,15 +69,15 @@ describe("Proxy Services", () => {
       });
     });
 
-    describe("Function", () => {
+    describe('Function', () => {
       type SayHello = (name: string) => Promise<string>;
       const sayHello: SayHello = async (name) => `Hello, ${name}!`;
 
-      it("should proxy function calls to the function", async () => {
-        const name = "Aaron";
+      it('should proxy function calls to the function', async () => {
+        const name = 'Aaron';
         const expected = `Hello, ${name}!`;
 
-        const key = "say-hello" as ProxyServiceKey<SayHello>;
+        const key = 'say-hello' as ProxyServiceKey<SayHello>;
 
         registerService(key, sayHello);
         const proxy = createProxyService(key);
@@ -86,7 +86,7 @@ describe("Proxy Services", () => {
       });
     });
 
-    describe("Deeply nested objects and classes", () => {
+    describe('Deeply nested objects and classes', () => {
       interface Api {
         one: () => 1;
         two: {
@@ -112,8 +112,8 @@ describe("Proxy Services", () => {
         two: new Two(),
       };
 
-      it("should be able to proxy function calls at any level", async () => {
-        const key = "api" as ProxyServiceKey<Api>;
+      it('should be able to proxy function calls at any level', async () => {
+        const key = 'api' as ProxyServiceKey<Api>;
 
         registerService(key, api);
         const proxy = createProxyService(key);
@@ -125,24 +125,24 @@ describe("Proxy Services", () => {
     });
   });
 
-  describe("isProxyService", () => {
-    it("should return true for proxies created by the library", () => {
-      const proxy = createProxyService("test");
+  describe('isProxyService', () => {
+    it('should return true for proxies created by the library', () => {
+      const proxy = createProxyService('test');
       expect(isProxyService(proxy)).toBe(true);
     });
 
-    it("should return false for normal proxies", () => {
+    it('should return false for normal proxies', () => {
       const proxy = new Proxy({}, {});
       expect(isProxyService(proxy)).toBe(false);
     });
 
-    it("should return false for non-proxies", () => {
+    it('should return false for non-proxies', () => {
       expect(isProxyService({})).toBe(false);
     });
   });
 
-  describe("ProxyService", () => {
-    it("should leave fully async services as-is", () => {
+  describe('ProxyService', () => {
+    it('should leave fully async services as-is', () => {
       type Service = {
         one: () => Promise<1>;
         two(): Promise<2>;
@@ -153,7 +153,7 @@ describe("Proxy Services", () => {
       expectTypeOf<Actual>().toEqualTypeOf<Service>();
     });
 
-    it("should make non-async functions async", () => {
+    it('should make non-async functions async', () => {
       type Service = {
         one: () => 1;
         two(): Promise<2>;
@@ -170,7 +170,7 @@ describe("Proxy Services", () => {
 
     it('should make non-function properties "never"', () => {
       type Service = {
-        a: "a";
+        a: 'a';
         one: () => 1;
       };
       type Expected = {

@@ -7,16 +7,16 @@ export interface CreateIsolatedElementOptions {
    * have a shadow DOM for security reasons (for example <a>).
    *
    * @example
-   *   "sticky-note";
+   *   'sticky-note';
    *
    * @example
-   *   "anime-skip-player";
+   *   'anime-skip-player';
    *
    * @example
-   *   "github-better-line-count-diff";
+   *   'github-better-line-count-diff';
    *
    * @example
-   *   "div";
+   *   'div';
    *
    * @see https://developer.mozilla.org/en-US/docs/Web/API/Element/attachShadow#elements_you_can_attach_a_shadow_to
    */
@@ -24,9 +24,9 @@ export interface CreateIsolatedElementOptions {
   /**
    * See [`ShadowRoot.mode`](https://developer.mozilla.org/en-US/docs/Web/API/ShadowRoot/mode).
    *
-   * @default "closed"
+   * @default 'closed'
    */
-  mode?: "open" | "closed";
+  mode?: 'open' | 'closed';
   /**
    * Either the URL to a CSS file or the text contents of a CSS file. The styles will be mounted
    * inside the shadow DOM so they don't effect the rest of the page.

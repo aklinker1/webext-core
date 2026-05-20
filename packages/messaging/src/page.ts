@@ -1,2 +1,2 @@
-export * from "./window";
-export * from "./custom-event";
+export * from './window';
+export * from './custom-event';

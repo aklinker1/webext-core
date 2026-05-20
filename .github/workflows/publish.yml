@@ -51,8 +51,8 @@ jobs:
         with:
           bump: ${{ inputs.bump }}
           path: packages/${{ inputs.package }}
-          commitTemplate: "chore(release): ${{ inputs.package }}-v{{version}}"
-          releaseNameTemplate: "@webext-core/${{ inputs.package }} v{{version}}"
+          commitTemplate: 'chore(release): ${{ inputs.package }}-v{{version}}'
+          releaseNameTemplate: '@webext-core/${{ inputs.package }} v{{version}}'
           publishCommands: |-
             npm publish
           dryRun: ${{ inputs.dryRun }}

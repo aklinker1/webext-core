@@ -1,6 +1,6 @@
-import browser, { Storage } from "webextension-polyfill";
+import browser, { Storage } from 'webextension-polyfill';
 
-import { AnySchema, ExtensionStorage, OnChangeCallback } from "./types";
+import { AnySchema, ExtensionStorage, OnChangeCallback } from './types';
 
 interface RegisteredChangeListener<TSchema extends AnySchema> {
   key: keyof TSchema;
@@ -11,14 +11,14 @@ interface RegisteredChangeListener<TSchema extends AnySchema> {
  * Create a storage instance with an optional schema, `TSchema`, for type safety.
  *
  * @example
- *   import browser from "webextension-polyfill";
+ *   import browser from 'webextension-polyfill';
  *
  *   interface Schema {
  *     installDate: number;
  *   }
  *   const extensionStorage = defineExtensionStorage<Schema>(browser.storage.local);
  *
- *   const date = await extensionStorage.getItem("installDate");
+ *   const date = await extensionStorage.getItem('installDate');
  *
  * @param storage The storage to to use. Either `Browser.storage.local`, `Browser.storage.sync`, or
  *   `Browser.storage.managed`.

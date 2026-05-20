@@ -8,7 +8,7 @@ import type {
   Tabs,
   WebNavigation,
   Windows,
-} from "webextension-polyfill";
+} from 'webextension-polyfill';
 
 interface EventForTesting<TParams extends any[], TReturn = void> {
   /** Trigger all listeners for an event and return all their responses. */
@@ -37,7 +37,7 @@ export interface BrowserOverrides {
     onButtonClicked: EventForTesting<[notificationId: string, buttonIndex: number]>;
     onShown: EventForTesting<[notificationId: string]>;
   };
-  runtime: Pick<Runtime.Static, "id" | "getURL"> & {
+  runtime: Pick<Runtime.Static, 'id' | 'getURL'> & {
     resetState(): void;
     onSuspend: EventForTesting<[]>;
     onSuspendCanceled: EventForTesting<[]>;
@@ -65,7 +65,7 @@ export interface BrowserOverrides {
   };
   tabs: Pick<
     Tabs.Static,
-    "get" | "getCurrent" | "create" | "duplicate" | "query" | "highlight" | "remove" | "update"
+    'get' | 'getCurrent' | 'create' | 'duplicate' | 'query' | 'highlight' | 'remove' | 'update'
   > & {
     resetState(): void;
     onCreated: EventForTesting<[tab: Tabs.Tab]>;
@@ -95,7 +95,7 @@ export interface BrowserOverrides {
   };
   windows: Pick<
     Windows.Static,
-    "get" | "getAll" | "create" | "getCurrent" | "getLastFocused" | "remove" | "update"
+    'get' | 'getAll' | 'create' | 'getCurrent' | 'getLastFocused' | 'remove' | 'update'
   > & {
     resetState(): void;
     onCreated: EventForTesting<[window: Windows.Window]>;
@@ -104,14 +104,14 @@ export interface BrowserOverrides {
   };
   action: Pick<
     Action.Static,
-    | "setTitle"
-    | "getTitle"
-    | "getBadgeText"
-    | "setBadgeText"
-    | "setBadgeTextColor"
-    | "getBadgeTextColor"
-    | "getBadgeBackgroundColor"
-    | "setBadgeBackgroundColor"
+    | 'setTitle'
+    | 'getTitle'
+    | 'getBadgeText'
+    | 'setBadgeText'
+    | 'setBadgeTextColor'
+    | 'getBadgeTextColor'
+    | 'getBadgeBackgroundColor'
+    | 'setBadgeBackgroundColor'
   > & {
     resetState(): void;
     onClicked: EventForTesting<[tab: Tabs.Tab, info: Action.OnClickData | undefined]>;

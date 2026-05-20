@@ -1,9 +1,9 @@
-import { GenericMessenger, defineGenericMessanging } from "./generic";
-import { NamespaceMessagingConfig } from "./types";
-import { prepareCustomEventDict, createId } from "./utils";
+import { GenericMessenger, defineGenericMessanging } from './generic';
+import { NamespaceMessagingConfig } from './types';
+import { prepareCustomEventDict, createId } from './utils';
 
-const REQUEST_EVENT = "@webext-core/messaging/custom-events";
-const RESPONSE_EVENT = "@webext-core/messaging/custom-events/response";
+const REQUEST_EVENT = '@webext-core/messaging/custom-events';
+const RESPONSE_EVENT = '@webext-core/messaging/custom-events/response';
 
 /** Configuration passed into `defineCustomEventMessaging`. */
 export interface CustomEventMessagingConfig extends NamespaceMessagingConfig {}

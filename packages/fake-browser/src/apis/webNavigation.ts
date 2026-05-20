@@ -1,7 +1,7 @@
-import { BrowserOverrides } from "../types";
-import { defineEventWithTrigger } from "../utils/defineEventWithTrigger";
+import { BrowserOverrides } from '../types';
+import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
-export const webNavigation: BrowserOverrides["webNavigation"] = {
+export const webNavigation: BrowserOverrides['webNavigation'] = {
   onBeforeNavigate: defineEventWithTrigger(),
   onCommitted: defineEventWithTrigger(),
   onCompleted: defineEventWithTrigger(),

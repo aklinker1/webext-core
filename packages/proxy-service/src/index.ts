@@ -3,9 +3,9 @@ import {
   type ExtensionMessagingConfig,
   type ExtensionMessenger,
   type RemoveListenerCallback,
-} from "@webext-core/messaging";
+} from '@webext-core/messaging';
 
-import type { DeepAsync, Service } from "./types";
+import type { DeepAsync, Service } from './types';
 
 /**
  * A type that ensures a service has only async methods.
@@ -114,7 +114,7 @@ function createProxy<T>(messenger: ProxyMessenger, path?: string[]): ProxyServic
 
     get(target, propertyName, receiver) {
       // Return the value if the property is a symbol
-      if (typeof propertyName === "symbol") {
+      if (typeof propertyName === 'symbol') {
         return Reflect.get(target, propertyName, receiver);
       }
 

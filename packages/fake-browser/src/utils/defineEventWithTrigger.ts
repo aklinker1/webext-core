@@ -1,4 +1,4 @@
-import { Events } from "webextension-polyfill";
+import { Events } from 'webextension-polyfill';
 
 type EventCallback = (...args: any[]) => any;
 

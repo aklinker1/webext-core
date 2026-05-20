@@ -1,41 +1,41 @@
-import { describe, beforeEach, it, expect, vi } from "bun:test";
+import { describe, beforeEach, it, expect, vi } from 'bun:test';
 
-import { createIsolatedElement } from "./index";
+import { createIsolatedElement } from './index';
 
-describe("createIsolatedElement", () => {
+describe('createIsolatedElement', () => {
   beforeEach(() => {
-    document.querySelector("body")!.innerHTML = "";
+    document.querySelector('body')!.innerHTML = '';
   });
 
-  it("should not allow invalid custom element names", async () => {
-    const invalidName = "test";
+  it('should not allow invalid custom element names', async () => {
+    const invalidName = 'test';
 
     await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
       `"${invalidName}" cannot have a shadow root attached to it`,
     );
   });
 
-  it("should not allow certain built-in elements", async () => {
-    const invalidName = "a";
+  it('should not allow certain built-in elements', async () => {
+    const invalidName = 'a';
 
     await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
       `"${invalidName}" cannot have a shadow root attached to it`,
     );
   });
 
-  it("should allow certain built-in elements", async () => {
-    const validName = "div";
+  it('should allow certain built-in elements', async () => {
+    const validName = 'div';
 
     await expect(createIsolatedElement({ name: validName })).resolves.toBeDefined();
   });
 
-  it("should insert an app into the UI", async () => {
-    const text = "Example";
-    const appId = "app";
-    const name = "test-element";
+  it('should insert an app into the UI', async () => {
+    const text = 'Example';
+    const appId = 'app';
+    const name = 'test-element';
 
     const app = (element: HTMLElement) => {
-      const p = document.createElement("p");
+      const p = document.createElement('p');
       p.id = appId;
       p.textContent = text;
       element.append(p);
@@ -45,40 +45,40 @@ describe("createIsolatedElement", () => {
     document.body.append(parentElement);
 
     expect(document.querySelector(name)).toBeDefined();
-    expect(document.getElementById("app")).toBeDefined();
+    expect(document.getElementById('app')).toBeDefined();
     expect(isolatedElement.textContent).toEqual(text);
-    expect(parentElement.textContent).toEqual("");
+    expect(parentElement.textContent).toEqual('');
   });
 
-  it("should not create a full html document structure in shadow DOM", async () => {
-    const name = "test-element";
+  it('should not create a full html document structure in shadow DOM', async () => {
+    const name = 'test-element';
 
     const { shadow, isolatedElement } = await createIsolatedElement({ name });
 
     // The isolatedElement should be a simple div, not html/body/head
-    expect(isolatedElement.tagName.toLowerCase()).toBe("div");
+    expect(isolatedElement.tagName.toLowerCase()).toBe('div');
 
     // Shadow root should not contain html, head, or body elements
-    expect(shadow.querySelector("html")).toBeNull();
-    expect(shadow.querySelector("head")).toBeNull();
-    expect(shadow.querySelector("body")).toBeNull();
+    expect(shadow.querySelector('html')).toBeNull();
+    expect(shadow.querySelector('head')).toBeNull();
+    expect(shadow.querySelector('body')).toBeNull();
 
     // Shadow root should contain the isolatedElement directly
     expect(shadow.contains(isolatedElement)).toBe(true);
   });
 
-  it("should allow event propagation when isolateEvents is not set", async () => {
-    const name = "event-test-element-default";
+  it('should allow event propagation when isolateEvents is not set', async () => {
+    const name = 'event-test-element-default';
 
     const { isolatedElement, parentElement } = await createIsolatedElement({ name });
-    const input = document.createElement("input");
+    const input = document.createElement('input');
     isolatedElement.append(input);
     document.body.append(parentElement);
 
     const listener = vi.fn();
-    document.body.addEventListener("keyup", listener);
+    document.body.addEventListener('keyup', listener);
 
-    const event = new KeyboardEvent("keyup", {
+    const event = new KeyboardEvent('keyup', {
       bubbles: true,
       composed: true,
     });
@@ -88,21 +88,21 @@ describe("createIsolatedElement", () => {
     expect(listener).toBeCalledWith(event);
   });
 
-  it("should not allow event propagation when isolateEvents is set to true", async () => {
-    const name = "event-test-element-isolated";
+  it('should not allow event propagation when isolateEvents is set to true', async () => {
+    const name = 'event-test-element-isolated';
 
     const { isolatedElement, parentElement } = await createIsolatedElement({
       name,
       isolateEvents: true,
     });
-    const input = document.createElement("input");
+    const input = document.createElement('input');
     isolatedElement.append(input);
     document.body.append(parentElement);
 
     const listener = vi.fn();
-    document.body.addEventListener("keyup", listener);
+    document.body.addEventListener('keyup', listener);
 
-    const event = new KeyboardEvent("keyup", {
+    const event = new KeyboardEvent('keyup', {
       bubbles: true,
       composed: true,
     });
@@ -111,27 +111,27 @@ describe("createIsolatedElement", () => {
     expect(listener).not.toBeCalled();
   });
 
-  it("should allow event propagation conditionally when isolateEvents is set to an array of events", async () => {
-    const name = "event-test-element-isolated";
+  it('should allow event propagation conditionally when isolateEvents is set to an array of events', async () => {
+    const name = 'event-test-element-isolated';
 
     const { isolatedElement, parentElement } = await createIsolatedElement({
       name,
-      isolateEvents: ["click"],
+      isolateEvents: ['click'],
     });
-    const input = document.createElement("input");
+    const input = document.createElement('input');
     isolatedElement.append(input);
     document.body.append(parentElement);
 
     const clickListener = vi.fn();
     const keyupListener = vi.fn();
-    document.body.addEventListener("click", clickListener);
-    document.body.addEventListener("keyup", keyupListener);
+    document.body.addEventListener('click', clickListener);
+    document.body.addEventListener('keyup', keyupListener);
 
-    const clickEvent = new MouseEvent("click", {
+    const clickEvent = new MouseEvent('click', {
       bubbles: true,
       composed: true,
     });
-    const keyupEvent = new KeyboardEvent("keyup", {
+    const keyupEvent = new KeyboardEvent('keyup', {
       bubbles: true,
       composed: true,
     });

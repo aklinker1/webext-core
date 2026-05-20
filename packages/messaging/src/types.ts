@@ -36,18 +36,18 @@ export interface ProtocolWithReturn<TData, TReturn> {
 
 /** Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type. */
 export type GetDataType<T> = T extends (...args: infer Args) => any
-  ? Args["length"] extends 0 | 1
+  ? Args['length'] extends 0 | 1
     ? Args[0]
     : never
   : T extends ProtocolWithReturn<any, any>
-    ? T["BtVgCTPYZu"]
+    ? T['BtVgCTPYZu']
     : T;
 
 /** Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type. */
 export type GetReturnType<T> = T extends (...args: any[]) => infer R
   ? R
   : T extends ProtocolWithReturn<any, any>
-    ? T["RrhVseLgZW"]
+    ? T['RrhVseLgZW']
     : void;
 
 /**

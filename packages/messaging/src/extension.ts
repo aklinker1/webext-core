@@ -1,7 +1,7 @@
-import Browser, { Runtime } from "webextension-polyfill";
+import Browser, { Runtime } from 'webextension-polyfill';
 
-import { GenericMessenger, defineGenericMessanging } from "./generic";
-import { BaseMessagingConfig } from "./types";
+import { GenericMessenger, defineGenericMessanging } from './generic';
+import { BaseMessagingConfig } from './types';
 
 /** Configuration passed into `defineExtensionMessaging`. */
 export interface ExtensionMessagingConfig extends BaseMessagingConfig {}
@@ -56,7 +56,7 @@ export function defineExtensionMessaging<
       }
 
       // Handle both number and options object
-      const options: SendMessageOptions = typeof arg === "number" ? { tabId: arg } : arg;
+      const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
 
       return Browser.tabs.sendMessage(
         options.tabId,
@@ -67,7 +67,7 @@ export function defineExtensionMessaging<
     },
     addRootListener(processMessage) {
       const listener = (message: any, sender: Runtime.MessageSender) => {
-        if (typeof message === "object") return processMessage({ ...message, sender });
+        if (typeof message === 'object') return processMessage({ ...message, sender });
         else return processMessage(message);
       };
 

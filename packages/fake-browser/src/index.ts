@@ -1,22 +1,22 @@
-import merge from "lodash.merge";
+import merge from 'lodash.merge';
 
-import { action } from "./apis/action";
-import { alarms } from "./apis/alarms";
-import { notifications } from "./apis/notifications";
-import { runtime } from "./apis/runtime";
-import { storage } from "./apis/storage";
-import { tabs } from "./apis/tabs";
-import { webNavigation } from "./apis/webNavigation";
-import { windows } from "./apis/windows";
-import { GeneratedBrowser } from "./base.gen";
-import { BrowserOverrides, FakeBrowser } from "./types";
+import { action } from './apis/action';
+import { alarms } from './apis/alarms';
+import { notifications } from './apis/notifications';
+import { runtime } from './apis/runtime';
+import { storage } from './apis/storage';
+import { tabs } from './apis/tabs';
+import { webNavigation } from './apis/webNavigation';
+import { windows } from './apis/windows';
+import { GeneratedBrowser } from './base.gen';
+import { BrowserOverrides, FakeBrowser } from './types';
 
 export type { FakeBrowser };
 
 const overrides: BrowserOverrides = {
   reset() {
     for (const [name, api] of Object.entries(fakeBrowser)) {
-      if (name !== "reset") (api as any).resetState?.();
+      if (name !== 'reset') (api as any).resetState?.();
     }
   },
 

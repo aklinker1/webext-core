@@ -1,13 +1,13 @@
-import { Action, Tabs } from "webextension-polyfill";
+import { Action, Tabs } from 'webextension-polyfill';
 
-import { BrowserOverrides } from "../types";
-import { defineEventWithTrigger } from "../utils/defineEventWithTrigger";
+import { BrowserOverrides } from '../types';
+import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
 const onClicked =
   defineEventWithTrigger<(tab: Tabs.Tab, info: Action.OnClickData | undefined) => void>();
 
-const DEFAULT_BADGE_BACKGROUND_COLOR = "#5F5D5B";
-const DEFAULT_BADGE_TEXT_COLOR = "#FFFFFF";
+const DEFAULT_BADGE_BACKGROUND_COLOR = '#5F5D5B';
+const DEFAULT_BADGE_TEXT_COLOR = '#FFFFFF';
 type ColorArray = [number, number, number, number];
 const badgeTextColorState: ScopedState<string> = {
   global: DEFAULT_BADGE_TEXT_COLOR,
@@ -22,7 +22,7 @@ interface ScopedState<T> {
 }
 
 const badgeTextState: ScopedState<string> = {
-  global: "",
+  global: '',
   tabs: new Map(),
   windows: new Map(),
 };
@@ -34,13 +34,13 @@ const badgeBackgroundColorState: ScopedState<ColorArray> = {
 };
 
 const titleState: ScopedState<string> = {
-  global: "",
+  global: '',
   tabs: new Map(),
   windows: new Map(),
 };
 
 function hexToRgbaArray(hex: string): ColorArray {
-  hex = hex.replace("#", "");
+  hex = hex.replace('#', '');
   let hasAlpha = hex.length === 8;
   let bigint = parseInt(hex, 16);
   let r = (bigint >> (hasAlpha ? 24 : 16)) & 255;
@@ -58,10 +58,10 @@ function getScopedValue<T>(state: ScopedState<T>, details?: Action.Details): T |
   return state.global;
 }
 
-export const action: BrowserOverrides["action"] = {
+export const action: BrowserOverrides['action'] = {
   resetState() {
     onClicked.removeAllListeners();
-    badgeTextState.global = "";
+    badgeTextState.global = '';
     badgeTextState.tabs.clear();
     badgeTextState.windows.clear();
 
@@ -73,7 +73,7 @@ export const action: BrowserOverrides["action"] = {
     badgeTextColorState.tabs.clear();
     badgeTextColorState.windows.clear();
 
-    titleState.global = "";
+    titleState.global = '';
     titleState.tabs.clear();
     titleState.windows.clear();
   },
@@ -93,14 +93,14 @@ export const action: BrowserOverrides["action"] = {
         titleState.windows.set(windowId, title);
       }
     } else {
-      titleState.global = title ?? "";
+      titleState.global = title ?? '';
     }
     return Promise.resolve();
   },
 
   getTitle(details: Action.Details): Promise<string> {
     const value = getScopedValue(titleState, details);
-    return Promise.resolve(value ?? "");
+    return Promise.resolve(value ?? '');
   },
 
   setBadgeText(details: Action.SetBadgeTextDetailsType) {
@@ -118,21 +118,21 @@ export const action: BrowserOverrides["action"] = {
         badgeTextState.windows.set(windowId, text);
       }
     } else {
-      badgeTextState.global = text ?? "";
+      badgeTextState.global = text ?? '';
     }
     return Promise.resolve();
   },
 
   getBadgeText(details: Action.Details): Promise<string> {
     const value = getScopedValue(badgeTextState, details);
-    return Promise.resolve(value ?? "");
+    return Promise.resolve(value ?? '');
   },
 
   setBadgeBackgroundColor(details: Action.SetBadgeBackgroundColorDetailsType) {
     const { color, tabId, windowId } = details;
     let rgbaColor: ColorArray;
 
-    if (typeof color === "string") {
+    if (typeof color === 'string') {
       rgbaColor = hexToRgbaArray(color);
     } else if (Array.isArray(color)) {
       rgbaColor = [...color] as ColorArray;
@@ -159,7 +159,7 @@ export const action: BrowserOverrides["action"] = {
   setBadgeTextColor(details: Action.SetBadgeTextColorDetailsType) {
     const { color, tabId, windowId } = details;
 
-    let normalizedColor = typeof color === "string" ? color : DEFAULT_BADGE_TEXT_COLOR;
+    let normalizedColor = typeof color === 'string' ? color : DEFAULT_BADGE_TEXT_COLOR;
 
     if (tabId !== undefined) {
       if (color === null || color === undefined) {

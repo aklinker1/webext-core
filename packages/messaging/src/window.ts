@@ -1,9 +1,9 @@
-import { GenericMessenger, defineGenericMessanging } from "./generic";
-import { NamespaceMessagingConfig, Message } from "./types";
-import { createId } from "./utils";
+import { GenericMessenger, defineGenericMessanging } from './generic';
+import { NamespaceMessagingConfig, Message } from './types';
+import { createId } from './utils';
 
-const REQUEST_TYPE = "@webext-core/messaging/window";
-const RESPONSE_TYPE = "@webext-core/messaging/window/response";
+const REQUEST_TYPE = '@webext-core/messaging/window';
+const RESPONSE_TYPE = '@webext-core/messaging/window/response';
 
 /** Configuration passed into `defineWindowMessaging`. */
 export interface WindowMessagingConfig extends NamespaceMessagingConfig {}
@@ -79,12 +79,12 @@ export function defineWindowMessaging<
           removeResponseListener();
         }
       };
-      const removeResponseListener = () => window.removeEventListener("message", responseListener);
+      const removeResponseListener = () => window.removeEventListener('message', responseListener);
       removeAdditionalListeners.push(removeResponseListener);
-      window.addEventListener("message", responseListener);
+      window.addEventListener('message', responseListener);
       (targetWindow ?? window).postMessage(
         { type: REQUEST_TYPE, message, senderOrigin: location.origin, namespace, instanceId },
-        targetOrigin ?? "*",
+        targetOrigin ?? '*',
       );
     });
 
@@ -111,8 +111,8 @@ export function defineWindowMessaging<
         );
       };
 
-      window.addEventListener("message", listener);
-      return () => window.removeEventListener("message", listener);
+      window.addEventListener('message', listener);
+      return () => window.removeEventListener('message', listener);
     },
     verifyMessageData(data) {
       return structuredClone(data);

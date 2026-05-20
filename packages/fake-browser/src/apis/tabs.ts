@@ -1,10 +1,10 @@
-import { Tabs, Windows } from "webextension-polyfill";
+import { Tabs, Windows } from 'webextension-polyfill';
 
-import { BrowserOverrides } from "../types";
-import { defineEventWithTrigger } from "../utils/defineEventWithTrigger";
-import { windows, DEFAULT_WINDOW } from "./windows";
+import { BrowserOverrides } from '../types';
+import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+import { windows, DEFAULT_WINDOW } from './windows';
 
-type InMemoryTab = Omit<Tabs.Tab, "active">;
+type InMemoryTab = Omit<Tabs.Tab, 'active'>;
 
 const onActivated = defineEventWithTrigger<(activeInfo: Tabs.OnActivatedActiveInfoType) => void>();
 const onCreated = defineEventWithTrigger<(tab: Tabs.Tab) => void>();
@@ -29,13 +29,13 @@ const DEFAULT_TAB: InMemoryTab = {
 const DEFAULT_NEXT_TAB_ID = 1;
 
 export const tabList: InMemoryTab[] = [DEFAULT_TAB];
-export let activeTabId: Tabs.Tab["id"];
+export let activeTabId: Tabs.Tab['id'];
 let nextTabId = DEFAULT_NEXT_TAB_ID;
 
-function setActiveTabId(id: Tabs.Tab["id"]): void {
+function setActiveTabId(id: Tabs.Tab['id']): void {
   activeTabId = id;
 }
-function getNextTabId(): Tabs.Tab["id"] {
+function getNextTabId(): Tabs.Tab['id'] {
   const id = nextTabId;
   nextTabId++;
   return id;
@@ -48,7 +48,7 @@ export function mapTab(tab: InMemoryTab): Tabs.Tab {
   };
 }
 
-export const tabs: BrowserOverrides["tabs"] = {
+export const tabs: BrowserOverrides['tabs'] = {
   resetState() {
     tabList.length = 1;
     tabList[0] = DEFAULT_TAB;
@@ -166,14 +166,14 @@ export const tabs: BrowserOverrides["tabs"] = {
     optionalUpdateInfo: Tabs.UpdateUpdatePropertiesType | never,
   ) {
     let updateInfo: Tabs.UpdateUpdatePropertiesType;
-    if (tabIdOrUpdateInfo !== undefined && typeof tabIdOrUpdateInfo === "object") {
+    if (tabIdOrUpdateInfo !== undefined && typeof tabIdOrUpdateInfo === 'object') {
       updateInfo = tabIdOrUpdateInfo;
     } else {
       updateInfo = optionalUpdateInfo;
     }
 
     let tabId: number;
-    if (typeof tabIdOrUpdateInfo === "number") {
+    if (typeof tabIdOrUpdateInfo === 'number') {
       tabId = tabIdOrUpdateInfo;
     } else {
       const currentWindow = await windows.getCurrent();
@@ -181,7 +181,7 @@ export const tabs: BrowserOverrides["tabs"] = {
     }
 
     const tab = await tabs.get(tabId);
-    if (!tab) throw new Error("Tab not found");
+    if (!tab) throw new Error('Tab not found');
 
     const updatedTab = { ...tab, ...updateInfo };
     const tabIndex = tabList.findIndex((tab) => tab.id === tabId);

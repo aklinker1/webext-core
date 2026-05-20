@@ -1,16 +1,16 @@
-import { beforeEach, describe, expect, it, vi } from "bun:test";
+import { beforeEach, describe, expect, it, vi } from 'bun:test';
 
-import { Runtime } from "webextension-polyfill";
+import { Runtime } from 'webextension-polyfill';
 
-import { fakeBrowser } from "..";
+import { fakeBrowser } from '..';
 
-describe("Fake Runtime API", () => {
+describe('Fake Runtime API', () => {
   beforeEach(fakeBrowser.reset);
 
-  describe("messaging", () => {
-    it("should allow sending and receieving messages", async () => {
+  describe('messaging', () => {
+    it('should allow sending and receieving messages', async () => {
       fakeBrowser.runtime.onMessage.addListener((message) => message + 1);
-      const actual = await fakeBrowser.runtime.sendMessage("", 1);
+      const actual = await fakeBrowser.runtime.sendMessage('', 1);
 
       expect(actual).toEqual(2);
     });
@@ -19,12 +19,12 @@ describe("Fake Runtime API", () => {
       fakeBrowser.runtime.onMessage.addListener((message) => message + 1);
       fakeBrowser.runtime.onMessage.addListener((message) => message + 2);
 
-      const actual = await fakeBrowser.runtime.sendMessage("", 1);
+      const actual = await fakeBrowser.runtime.sendMessage('', 1);
 
       expect(actual).toEqual(2);
     });
 
-    it("should call all the ", async () => {
+    it('should call all the ', async () => {
       const listener1 = vi.fn().mockReturnValue(1);
       const listener2 = vi.fn().mockReturnValue(2);
       fakeBrowser.runtime.onMessage.addListener(listener1);
@@ -41,14 +41,14 @@ describe("Fake Runtime API", () => {
       expect(listener2).toBeCalledWith(message, sender);
     });
 
-    it("should throw an error if there are no listeners setup", async () => {
-      expect(fakeBrowser.runtime.sendMessage("some-message")).rejects.toThrowError(
-        "No listeners available",
+    it('should throw an error if there are no listeners setup', async () => {
+      expect(fakeBrowser.runtime.sendMessage('some-message')).rejects.toThrowError(
+        'No listeners available',
       );
     });
   });
 
-  it("should trigger onStartup listeners", async () => {
+  it('should trigger onStartup listeners', async () => {
     const listener = vi.fn();
 
     fakeBrowser.runtime.onStartup.addListener(listener);
@@ -58,7 +58,7 @@ describe("Fake Runtime API", () => {
     expect(listener).toBeCalledWith();
   });
 
-  it("should trigger onSuspend listeners", async () => {
+  it('should trigger onSuspend listeners', async () => {
     const listener = vi.fn();
 
     fakeBrowser.runtime.onSuspend.addListener(listener);
@@ -68,7 +68,7 @@ describe("Fake Runtime API", () => {
     expect(listener).toBeCalledWith();
   });
 
-  it("should trigger onSuspendCanceled listeners", async () => {
+  it('should trigger onSuspendCanceled listeners', async () => {
     const listener = vi.fn();
 
     fakeBrowser.runtime.onSuspendCanceled.addListener(listener);
@@ -78,10 +78,10 @@ describe("Fake Runtime API", () => {
     expect(listener).toBeCalledWith();
   });
 
-  it("should trigger onUpdateAvailable listeners", async () => {
+  it('should trigger onUpdateAvailable listeners', async () => {
     const listener = vi.fn();
     const input: Runtime.OnUpdateAvailableDetailsType = {
-      version: "1.0.2",
+      version: '1.0.2',
     };
 
     fakeBrowser.runtime.onUpdateAvailable.addListener(listener);
@@ -91,12 +91,12 @@ describe("Fake Runtime API", () => {
     expect(listener).toBeCalledWith(input);
   });
 
-  it("should trigger onInstalled listeners", async () => {
+  it('should trigger onInstalled listeners', async () => {
     const listener = vi.fn();
     const input: Runtime.OnInstalledDetailsType = {
-      reason: "browser_update",
+      reason: 'browser_update',
       temporary: true,
-      previousVersion: "1.0.1",
+      previousVersion: '1.0.1',
     };
 
     fakeBrowser.runtime.onInstalled.addListener(listener);
@@ -106,15 +106,15 @@ describe("Fake Runtime API", () => {
     expect(listener).toBeCalledWith(input);
   });
 
-  describe("getURL", () => {
-    it("should return an extension URL", () => {
-      expect(fakeBrowser.runtime.getURL("options.html")).toBe(
+  describe('getURL', () => {
+    it('should return an extension URL', () => {
+      expect(fakeBrowser.runtime.getURL('options.html')).toBe(
         `chrome-extension://test-extension-id/options.html`,
       );
     });
 
-    it("should return an extension URL, ignoring leading slashes", () => {
-      expect(fakeBrowser.runtime.getURL("/options.html")).toBe(
+    it('should return an extension URL, ignoring leading slashes', () => {
+      expect(fakeBrowser.runtime.getURL('/options.html')).toBe(
         `chrome-extension://test-extension-id/options.html`,
       );
     });
