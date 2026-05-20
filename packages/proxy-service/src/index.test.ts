@@ -1,5 +1,7 @@
+import { beforeEach, describe, expect, expectTypeOf, it } from 'bun:test';
+
 import { fakeBrowser } from '@webext-core/fake-browser';
-import { beforeEach, describe, expect, expectTypeOf, it, vi } from 'bun:test';
+
 import {
   createProxyService,
   isProxyService,
@@ -69,7 +71,7 @@ describe('Proxy Services', () => {
 
     describe('Function', () => {
       type SayHello = (name: string) => Promise<string>;
-      const sayHello: SayHello = async name => `Hello, ${name}!`;
+      const sayHello: SayHello = async (name) => `Hello, ${name}!`;
 
       it('should proxy function calls to the function', async () => {
         const name = 'Aaron';

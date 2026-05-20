@@ -1,3 +1,5 @@
+import { serializeError, deserializeError } from '@aklinker1/zero-serialize-error';
+
 import {
   RemoveListenerCallback,
   GetDataType,
@@ -6,11 +8,8 @@ import {
   BaseMessagingConfig,
   Message,
 } from './types';
-import { serializeError, deserializeError } from '@aklinker1/zero-serialize-error';
 
-/**
- * Config required to call `defineGenericMessenger`.
- */
+/** Config required to call `defineGenericMessenger`. */
 interface GenericMessagingConfig<
   TProtocolMap extends Record<string, any>,
   TMessageExtension,
@@ -32,9 +31,10 @@ interface GenericMessagingConfig<
  * Messaging interface shared by all messengers.
  *
  * Type parameters accept:
+ *
  * - `TProtocolMap` to define the data and return types of messages.
  * - `TMessageExtension` to define additional fields that are available on a message inside
- *    `onMessage`'s callback
+ *   `onMessage`'s callback
  * - `TSendMessageArgs` to define a list of additional arguments for `sendMessage`
  */
 export interface GenericMessenger<
@@ -48,9 +48,11 @@ export interface GenericMessenger<
    *
    * If you haven't setup a listener for the sent `type`, an error will be thrown.
    *
-   * @param type The message type being sent. Call `onMessage` with the same type to listen for that message.
+   * @param type The message type being sent. Call `onMessage` with the same type to listen for that
+   *   message.
    * @param data The data to send with the message.
-   * @param args Different messengers will have additional arguments to configure how a message gets sent.
+   * @param args Different messengers will have additional arguments to configure how a message gets
+   *   sent.
    */
   sendMessage<TType extends keyof TProtocolMap>(
     this: void,
@@ -72,7 +74,8 @@ export interface GenericMessenger<
    *
    * To remove the listener, call the returned message.
    *
-   * @param type The message type to listen for. Call `sendMessage` with the same type to trigger this listener.
+   * @param type The message type to listen for. Call `sendMessage` with the same type to trigger
+   *   this listener.
    * @param onReceived The callback executed when a message is received.
    */
   onMessage<TType extends keyof TProtocolMap>(
@@ -83,9 +86,7 @@ export interface GenericMessenger<
     ) => void | MaybePromise<GetReturnType<TProtocolMap[TType]>>,
   ): RemoveListenerCallback;
 
-  /**
-   * Removes all listeners.
-   */
+  /** Removes all listeners. */
   removeAllListeners(this: void): void;
 }
 
@@ -142,7 +143,7 @@ export function defineGenericMessanging<
         config.logger?.debug(
           `[messaging] "${type as string}" initialized the message listener for this context`,
         );
-        removeRootListener = config.addRootListener(message => {
+        removeRootListener = config.addRootListener((message) => {
           // Validate the message object
           if (typeof message.type != 'string' || typeof message.timestamp !== 'number') {
             if (config.throwOnUnknownMessageFormat) {
@@ -166,14 +167,14 @@ export function defineGenericMessanging<
 
           const res = listener(message);
           return Promise.resolve(res)
-            .then(res => {
+            .then((res) => {
               return config.verifyMessageData?.(res) ?? res;
             })
-            .then(res => {
+            .then((res) => {
               config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { res });
               return { res };
             })
-            .catch(err => {
+            .catch((err) => {
               config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { err });
               return { err: serializeError(err) };
             });
@@ -202,7 +203,7 @@ export function defineGenericMessanging<
     },
 
     removeAllListeners() {
-      Object.keys(perTypeListeners).forEach(type => {
+      Object.keys(perTypeListeners).forEach((type) => {
         delete perTypeListeners[type as keyof TProtocolMap];
       });
       cleanupRootListener();

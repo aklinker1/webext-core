@@ -2,40 +2,34 @@
   "name": "@webext-core/job-scheduler",
   "version": "1.0.0",
   "description": "Schedule and run jobs in your background script",
-  "license": "MIT",
   "keywords": [
-    "web-extension",
-    "browser-extension",
-    "chrome-extension",
-    "webext",
-    "web-ext",
-    "chrome",
-    "firefox",
-    "safari",
     "browser",
-    "extension",
-    "job",
-    "scheduler",
+    "browser-extension",
+    "chrome",
+    "chrome-extension",
     "cron",
+    "extension",
+    "firefox",
+    "job",
     "period",
-    "periodic"
+    "periodic",
+    "safari",
+    "scheduler",
+    "web-ext",
+    "web-extension",
+    "webext"
   ],
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/job-scheduler",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aklinker1/webext-core.git",
     "directory": "packages/job-scheduler"
   },
-  "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "lib"
   ],
-  "engines": {
-    "node": "*"
-  },
+  "type": "module",
   "sideEffects": false,
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
@@ -52,6 +46,9 @@
       }
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "buildc -- tsdown",
     "test": "buildc --deps-only -- bun test",
@@ -61,8 +58,8 @@
   },
   "dependencies": {
     "cron-parser": "^4.8.1",
-    "webextension-polyfill": "^0.10.0",
-    "format-duration": "^3.0.2"
+    "format-duration": "^3.0.2",
+    "webextension-polyfill": "^0.10.0"
   },
   "devDependencies": {
     "@webext-core/fake-browser": "workspace:*",
@@ -70,6 +67,9 @@
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
+  },
+  "engines": {
+    "node": "*"
   },
   "buildc": {
     "outDir": "lib"

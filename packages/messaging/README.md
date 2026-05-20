@@ -18,7 +18,7 @@ export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>(
 // ./background.ts
 import { onMessage } from './messaging';
 
-onMessage('getStringLength', message => {
+onMessage('getStringLength', (message) => {
   return message.data.length;
 });
 ```

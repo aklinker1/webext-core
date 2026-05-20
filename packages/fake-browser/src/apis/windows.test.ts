@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'bun:test';
+
 import { fakeBrowser } from '../index';
 
 describe('windows', () => {
@@ -17,7 +18,7 @@ describe('windows', () => {
 
     it('should remove window from windowList', async () => {
       const window1 = await fakeBrowser.windows.create();
-      const window2 = await fakeBrowser.windows.create();
+      await fakeBrowser.windows.create();
 
       const allWindowsBefore = await fakeBrowser.windows.getAll();
       expect(allWindowsBefore).toHaveLength(3); // default + 2 new
@@ -26,7 +27,7 @@ describe('windows', () => {
 
       const allWindowsAfter = await fakeBrowser.windows.getAll();
       expect(allWindowsAfter).toHaveLength(2);
-      expect(allWindowsAfter.find(w => w.id === window1.id)).toBeUndefined();
+      expect(allWindowsAfter.find((w) => w.id === window1.id)).toBeUndefined();
     });
   });
 
@@ -61,7 +62,7 @@ describe('windows', () => {
       expect(windowListener).toHaveBeenCalledWith(window.id);
 
       const allWindows = await fakeBrowser.windows.getAll();
-      expect(allWindows.find(w => w.id === window.id)).toBeUndefined();
+      expect(allWindows.find((w) => w.id === window.id)).toBeUndefined();
     });
   });
 });

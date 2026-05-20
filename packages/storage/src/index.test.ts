@@ -1,6 +1,8 @@
-import { fakeBrowser } from '@webext-core/fake-browser';
 import { beforeEach, describe, expect, it, vi } from 'bun:test';
+
+import { fakeBrowser } from '@webext-core/fake-browser';
 import Browser from 'webextension-polyfill';
+
 import { defineExtensionStorage } from './defineExtensionStorage';
 import { AnySchema, ExtensionStorage } from './types';
 

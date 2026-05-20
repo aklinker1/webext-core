@@ -1,4 +1,5 @@
 import { describe, it, expect, vi, beforeEach } from 'bun:test';
+
 import { fakeBrowser } from '../index';
 
 describe('tabs', () => {
@@ -34,8 +35,8 @@ describe('tabs', () => {
   describe('query', () => {
     it('should filter tabs by windowId', async () => {
       const window2 = await fakeBrowser.windows.create();
-      const tab1 = await fakeBrowser.tabs.create({ url: 'https://window1.com' });
-      const tab2 = await fakeBrowser.tabs.create({
+      await fakeBrowser.tabs.create({ url: 'https://window1.com' });
+      await fakeBrowser.tabs.create({
         url: 'https://window2.com',
         windowId: window2.id,
       });

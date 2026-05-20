@@ -1,4 +1,5 @@
 import { describe, it, expect, beforeEach } from 'bun:test';
+
 import { fakeBrowser } from '..';
 
 describe('webNavigation', () => {

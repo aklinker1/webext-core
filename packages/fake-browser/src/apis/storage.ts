@@ -1,5 +1,6 @@
 import { Storage } from 'webextension-polyfill';
-import { BrowserOverrides, FakeBrowser } from '../types';
+
+import { BrowserOverrides } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
 const globalOnChanged =
@@ -48,10 +49,10 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
       const res: Record<string, any> = {};
       if (typeof keys === 'object' && !Array.isArray(keys)) {
         // Return all the keys + the values as the defaults
-        Object.keys(keys).forEach(key => (res[key] = data[key] ?? keys[key]));
+        Object.keys(keys).forEach((key) => (res[key] = data[key] ?? keys[key]));
       } else {
         // return just the keys or null
-        getKeyList(keys).forEach(key => (res[key] = data[key]));
+        getKeyList(keys).forEach((key) => (res[key] = data[key]));
       }
       return res;
     },

@@ -1,15 +1,15 @@
 export default defineContentScript({
   matches: ['*://*.duckduckgo.com/*'],
 
-  main(ctx) {
+  main() {
     console.log('[duckduckgo.content.ts] Content script loaded');
 
-    duckduckgoMessaging.onMessage('fromInjected', event => {
+    duckduckgoMessaging.onMessage('fromInjected', (event) => {
       console.log('[duckduckgo.content.ts] Received:', event);
       return 'hello injected';
     });
 
-    duckduckgoMessaging.onMessage('fromInjected2', event => {
+    duckduckgoMessaging.onMessage('fromInjected2', (event) => {
       console.log('[duckduckgo.content.ts] Received:', event);
       return 'hello injected2';
     });

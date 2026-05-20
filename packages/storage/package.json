@@ -2,36 +2,30 @@
   "name": "@webext-core/storage",
   "version": "1.2.0",
   "description": "A type-safe, localStorage-esk wrapper around the web extension storage APIs. Supports all browsers (Chrome, Firefox, Safari, etc)",
-  "license": "MIT",
   "keywords": [
-    "web-extension",
+    "browser",
     "browser-extension",
-    "chrome-extension",
-    "webext",
-    "web-ext",
     "chrome",
+    "chrome-extension",
+    "extension",
     "firefox",
     "safari",
-    "browser",
-    "extension",
-    "storage"
+    "storage",
+    "web-ext",
+    "web-extension",
+    "webext"
   ],
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/storage",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aklinker1/webext-core.git",
     "directory": "packages/storage"
   },
-  "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "lib"
   ],
-  "engines": {
-    "node": "*"
-  },
+  "type": "module",
   "sideEffects": false,
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
@@ -47,6 +41,9 @@
         "default": "./lib/index.cjs"
       }
     }
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "scripts": {
     "build": "buildc -- tsdown",
@@ -65,6 +62,9 @@
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
+  },
+  "engines": {
+    "node": "*"
   },
   "buildc": {
     "outDir": "lib"

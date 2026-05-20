@@ -2,37 +2,31 @@
   "name": "@webext-core/messaging",
   "version": "3.0.1",
   "description": "Light weight, type-safe wrapper around the web extension messaging APIs. Supports all browsers (Chrome, Firefox, Safari)",
-  "license": "MIT",
   "keywords": [
-    "web-extension",
-    "browser-extension",
-    "chrome-extension",
-    "webext",
-    "web-ext",
-    "chrome",
-    "firefox",
-    "safari",
     "browser",
+    "browser-extension",
+    "chrome",
+    "chrome-extension",
     "extension",
+    "firefox",
     "message",
-    "messaging"
+    "messaging",
+    "safari",
+    "web-ext",
+    "web-extension",
+    "webext"
   ],
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/messaging",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aklinker1/webext-core.git",
     "directory": "packages/messaging"
   },
-  "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "lib"
   ],
-  "engines": {
-    "node": "*"
-  },
+  "type": "module",
   "sideEffects": false,
   "main": "./lib/index.cjs",
   "module": "./lib/index.mjs",
@@ -59,6 +53,9 @@
       }
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "buildc -- tsdown",
     "test": "buildc --deps-only -- bun test",
@@ -77,6 +74,9 @@
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
+  },
+  "engines": {
+    "node": "*"
   },
   "buildc": {
     "outDir": "lib"

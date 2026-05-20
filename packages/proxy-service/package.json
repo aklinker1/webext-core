@@ -2,37 +2,31 @@
   "name": "@webext-core/proxy-service",
   "version": "2.0.0",
   "description": "A type-safe wrapper around the web extension messaging APIs that lets you call a function from anywhere, but execute it in the background. Supports all browsers (Chrome, Firefox, Safari, etc)",
-  "license": "MIT",
   "keywords": [
-    "web-extension",
-    "browser-extension",
-    "chrome-extension",
-    "webext",
-    "web-ext",
-    "chrome",
-    "firefox",
-    "safari",
     "browser",
+    "browser-extension",
+    "chrome",
+    "chrome-extension",
     "extension",
+    "firefox",
     "rpc",
-    "service"
+    "safari",
+    "service",
+    "web-ext",
+    "web-extension",
+    "webext"
   ],
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/proxy-service",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git+https://github.com/aklinker1/webext-core.git",
     "directory": "packages/proxy-service"
   },
-  "type": "module",
-  "publishConfig": {
-    "access": "public"
-  },
   "files": [
     "lib"
   ],
-  "engines": {
-    "node": "*"
-  },
+  "type": "module",
   "sideEffects": false,
   "main": "lib/index.cjs",
   "module": "lib/index.mjs",
@@ -59,6 +53,9 @@
       }
     }
   },
+  "publishConfig": {
+    "access": "public"
+  },
   "scripts": {
     "build": "buildc -- tsdown",
     "test": "buildc --deps-only -- bun test",
@@ -78,8 +75,11 @@
     "webextension-polyfill": "^0.10.0"
   },
   "peerDependencies": {
-    "webextension-polyfill": ">=0.10.0",
-    "@webext-core/messaging": ">=1.3.1"
+    "@webext-core/messaging": ">=1.3.1",
+    "webextension-polyfill": ">=0.10.0"
+  },
+  "engines": {
+    "node": "*"
   },
   "buildc": {
     "outDir": "lib"

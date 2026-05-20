@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'bun:test';
+
 import { fakeBrowser } from '..';
 
 describe('Fake Storage API', () => {
@@ -6,7 +7,7 @@ describe('Fake Storage API', () => {
 
   it.each(['local', 'session', 'sync'] as const)(
     'should allow getting and setting %s storage',
-    async area => {
+    async (area) => {
       const key1 = '1';
       const value1 = '1';
       const key2 = '2';
@@ -39,7 +40,7 @@ describe('Fake Storage API', () => {
 
   it.each(['local', 'session', 'sync'] as const)(
     'setting a value to undefined should do nothing',
-    async area => {
+    async (area) => {
       const key = 'key';
       const value = 'test';
 

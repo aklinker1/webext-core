@@ -1,7 +1,9 @@
 import { describe, it, vi, beforeEach, expect } from 'bun:test';
+
 import { fakeBrowser } from '@webext-core/fake-browser';
-import { ProtocolWithReturn } from './index';
+
 import { defineExtensionMessaging } from './extension';
+import { ProtocolWithReturn } from './index';
 
 /**
  * This is defined in `@webext-core/fake-browser` when there are no `Browser.runtime.onMessage`

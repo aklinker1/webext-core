@@ -1,0 +1,19 @@
+{
+  "$schema": "./node_modules/oxfmt/configuration_schema.json",
+  "ignorePatterns": [
+    "node_modules/",
+    "dist/",
+    "lib/",
+    "/docs/.vitepress/cache",
+    "/docs/api/*",
+    ".nuxt",
+    ".wxt",
+    ".output",
+    "docs/content/index.md",
+    "docs/content/*/api.md",
+  ],
+  "jsdoc": true,
+  "sortImports": true,
+  "sortPackageJson": true,
+  "singleQuote": true,
+}

@@ -1,8 +1,8 @@
 {
   "name": "proxy-service-demo",
   "version": "0.0.0",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "buildc --deps-only -- wxt",
     "build": "buildc -- wxt build",
@@ -14,8 +14,8 @@
     "@webext-core/proxy-service": "workspace:*"
   },
   "devDependencies": {
-    "wxt": "^0.19.5",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "wxt": "^0.19.5"
   },
   "buildc": {
     "cachable": false

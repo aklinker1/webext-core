@@ -2,9 +2,7 @@ export type Proimsify<T> = T extends Promise<any> ? T : Promise<T>;
 
 export type Service = ((...args: any[]) => Promise<any>) | { [key: string]: any | Service };
 
-/**
- * A recursive type that deeply converts all methods in `TService` to be async.
- */
+/** A recursive type that deeply converts all methods in `TService` to be async. */
 export type DeepAsync<TService> = TService extends (...args: any) => any
   ? ToAsyncFunction<TService>
   : TService extends { [key: string]: any }

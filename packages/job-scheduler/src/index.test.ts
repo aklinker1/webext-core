@@ -1,7 +1,9 @@
 import { describe, it, expect, vi, beforeEach, setSystemTime } from 'bun:test';
-import { defineJobScheduler } from './index';
+
 import { fakeBrowser } from '@webext-core/fake-browser';
 import { Alarms } from 'webextension-polyfill';
+
+import { defineJobScheduler } from './index';
 
 describe('defineJobScheduler', () => {
   beforeEach(() => {
@@ -102,7 +104,7 @@ describe('defineJobScheduler', () => {
 
       it.each([undefined, false])(
         'should schedule the job after the interval when immediate=%s',
-        async immediate => {
+        async (immediate) => {
           const minutes = 2;
           const job = {
             id: 'interval',

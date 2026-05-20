@@ -11,13 +11,9 @@ import type {
 } from 'webextension-polyfill';
 
 interface EventForTesting<TParams extends any[], TReturn = void> {
-  /**
-   * Trigger all listeners for an event and return all their responses.
-   */
+  /** Trigger all listeners for an event and return all their responses. */
   trigger(...args: TParams): Promise<TReturn[]>;
-  /**
-   * Remove all listeners for the event.
-   */
+  /** Remove all listeners for the event. */
   removeAllListeners(): void;
 }
 
@@ -51,9 +47,7 @@ export interface BrowserOverrides {
     onMessage: EventForTesting<[message: any, sender: Runtime.MessageSender], void | Promise<any>>;
   };
   storage: {
-    /**
-     * Remove all listeners and clear in-memory storages.
-     */
+    /** Remove all listeners and clear in-memory storages. */
     resetState(): void;
     local: {
       onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
@@ -125,6 +119,7 @@ export interface BrowserOverrides {
 }
 
 /**
- * The standard `Browser` interface from `webextension-polyfill`, but with additional functions for triggering events and reseting state.
+ * The standard `Browser` interface from `webextension-polyfill`, but with additional functions for
+ * triggering events and reseting state.
  */
 export type FakeBrowser = BrowserOverrides & Browser;

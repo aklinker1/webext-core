@@ -1,7 +1,7 @@
 {
   "name": "isolated-element-demo",
-  "private": true,
   "version": "0.0.0",
+  "private": true,
   "type": "module",
   "scripts": {
     "dev": "buildc --deps-only -- vite",
@@ -14,8 +14,8 @@
     "@webext-core/isolated-element": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^4.0.0",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "vite": "^4.0.0"
   },
   "buildc": {
     "cachable": false

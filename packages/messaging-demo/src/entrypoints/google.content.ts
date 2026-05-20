@@ -1,15 +1,15 @@
 export default defineContentScript({
   matches: ['*://*.google.com/*'],
 
-  main(ctx) {
+  main() {
     console.log('[google.content.ts] Content script loaded');
 
-    googleMessaging.onMessage('fromInjected', event => {
+    googleMessaging.onMessage('fromInjected', (event) => {
       console.log('[google.content.ts] Received:', event);
       return 'hello injected';
     });
 
-    googleMessaging.onMessage('fromInjected2', event => {
+    googleMessaging.onMessage('fromInjected2', (event) => {
       console.log('[google.content.ts] Received:', event);
       return 'hello injected2';
     });

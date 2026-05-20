@@ -2,10 +2,10 @@
  * Class for parsing and performing operations on match patterns.
  *
  * @example
- * const pattern = new MatchPattern("*://google.com/*");
+ *   const pattern = new MatchPattern('*://google.com/*');
  *
- * pattern.includes("https://google.com");            // true
- * pattern.includes("http://youtube.com/watch?v=123") // false
+ *   pattern.includes('https://google.com'); // true
+ *   pattern.includes('http://youtube.com/watch?v=123'); // false
  */
 export class MatchPattern {
   static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn'];
@@ -42,16 +42,14 @@ export class MatchPattern {
     }
   }
 
-  /**
-   * Check if a URL is included in a pattern.
-   */
+  /** Check if a URL is included in a pattern. */
   includes(url: string | URL | Location): boolean {
     if (this.isAllUrls) return true;
 
     const u: URL =
       typeof url === 'string' ? new URL(url) : url instanceof Location ? new URL(url.href) : url;
 
-    return !!this.protocolMatches.find(protocol => {
+    return !!this.protocolMatches.find((protocol) => {
       if (protocol === 'http') return this.isHttpMatch(u);
       if (protocol === 'https') return this.isHttpsMatch(u);
       if (protocol === 'file') return this.isFileMatch(u);
@@ -77,20 +75,20 @@ export class MatchPattern {
     ];
     const pathnameMatchRegex = this.convertPatternToRegex(this.pathnameMatch);
     return (
-      !!hostnameMatchRegexs.find(regex => regex.test(url.hostname)) &&
+      !!hostnameMatchRegexs.find((regex) => regex.test(url.hostname)) &&
       pathnameMatchRegex.test(url.pathname)
     );
   }
 
-  private isFileMatch(url: URL): boolean {
+  private isFileMatch(_url: URL): boolean {
     throw Error('Not implemented: file:// pattern matching. Open a PR to add support');
   }
 
-  private isFtpMatch(url: URL): boolean {
+  private isFtpMatch(_url: URL): boolean {
     throw Error('Not implemented: ftp:// pattern matching. Open a PR to add support');
   }
 
-  private isUrnMatch(url: URL): boolean {
+  private isUrnMatch(_url: URL): boolean {
     throw Error('Not implemented: urn:// pattern matching. Open a PR to add support');
   }
 
@@ -130,6 +128,6 @@ function validateHostname(matchPattern: string, hostname: string): void {
     );
 }
 
-function validatePathname(matchPattern: string, pathname: string): void {
+function validatePathname(_matchPattern: string, _pathname: string): void {
   return;
 }

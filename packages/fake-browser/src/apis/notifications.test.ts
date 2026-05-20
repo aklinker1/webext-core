@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it } from 'bun:test';
+
 import { Notifications } from 'webextension-polyfill';
+
 import { fakeBrowser } from '..';
 
 describe('Fake Notifications API', () => {

@@ -74,7 +74,7 @@ describe('Fake Action API', () => {
       const color = '#0000FF';
       fakeBrowser.action.setBadgeTextColor({ color });
       //@ts-ignore
-      fakeBrowser.action.getBadgeTextColor({}, result => {
+      fakeBrowser.action.getBadgeTextColor({}, (result) => {
         expect(result).toEqual(color);
       });
     });
@@ -84,7 +84,7 @@ describe('Fake Action API', () => {
       const color = '#00FFFF';
       fakeBrowser.action.setBadgeTextColor({ tabId, color });
       //@ts-ignore
-      fakeBrowser.action.getBadgeTextColor({ tabId }, result => {
+      fakeBrowser.action.getBadgeTextColor({ tabId }, (result) => {
         expect(result).toBe(color);
       });
     });

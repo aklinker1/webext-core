@@ -1,5 +1,6 @@
 import { Windows } from 'webextension-polyfill';
-import { BrowserOverrides, FakeBrowser } from '../types';
+
+import { BrowserOverrides } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { mapTab, tabList } from './tabs';
 
@@ -35,7 +36,7 @@ function mapWindow(window: InMemoryWindow, getInfo?: Windows.GetInfo): Windows.W
   return {
     ...window,
     tabs: getInfo?.populate
-      ? tabList.filter(tab => tab.windowId === window.id).map(mapTab)
+      ? tabList.filter((tab) => tab.windowId === window.id).map(mapTab)
       : undefined,
     focused: window.id === focusedWindowId,
   };
@@ -59,7 +60,7 @@ export const windows: BrowserOverrides['windows'] = {
     onFocusChanged.removeAllListeners();
   },
   async get(windowId, getInfo?) {
-    const window = windowList.find(window => window.id === windowId);
+    const window = windowList.find((window) => window.id === windowId);
     if (!window) return undefined!;
     return mapWindow(window, getInfo);
   },
@@ -72,7 +73,7 @@ export const windows: BrowserOverrides['windows'] = {
     return windows.get(lastFocusedWindowId, getInfo);
   },
   async getAll(getInfo?) {
-    return windowList.map(window => mapWindow(window, getInfo));
+    return windowList.map((window) => mapWindow(window, getInfo));
   },
   async create(createData?) {
     const newWindow: InMemoryWindow = {
@@ -95,15 +96,15 @@ export const windows: BrowserOverrides['windows'] = {
 
     return fullWindow;
   },
-  async update(windowId, updateInfo) {
-    const window = windowList.find(window => window.id === windowId);
+  async update(windowId, _updateInfo) {
+    const window = windowList.find((window) => window.id === windowId);
     // TODO: Verify this behavior
     if (!window) return undefined!;
 
     return mapWindow(window);
   },
   async remove(windowId) {
-    const index = windowList.findIndex(window => window.id === windowId);
+    const index = windowList.findIndex((window) => window.id === windowId);
     if (index < 0) return;
     windowList.splice(index, 1);
     await onRemoved.trigger(windowId);

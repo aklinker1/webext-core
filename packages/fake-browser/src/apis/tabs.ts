@@ -1,7 +1,8 @@
 import { Tabs, Windows } from 'webextension-polyfill';
+
 import { BrowserOverrides } from '../types';
-import { windows, DEFAULT_WINDOW } from './windows';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+import { windows, DEFAULT_WINDOW } from './windows';
 
 type InMemoryTab = Omit<Tabs.Tab, 'active'>;
 
@@ -60,7 +61,7 @@ export const tabs: BrowserOverrides['tabs'] = {
     onRemoved.removeAllListeners();
   },
   async get(tabId) {
-    const tab = tabList.find(tab => tab.id === tabId);
+    const tab = tabList.find((tab) => tab.id === tabId);
     if (!tab) return undefined!;
     return mapTab(tab);
   },
@@ -110,7 +111,7 @@ export const tabs: BrowserOverrides['tabs'] = {
     const currentWindow = await windows.getCurrent();
     const lastFocusedWindow = await windows.getLastFocused();
     return tabList
-      .filter(tab => {
+      .filter((tab) => {
         let res = true;
         if (queryInfo.active != null) res = res && activeTabId === tab.id;
         if (queryInfo.attention != null) res = res && tab.attention === queryInfo.attention;
@@ -176,14 +177,14 @@ export const tabs: BrowserOverrides['tabs'] = {
       tabId = tabIdOrUpdateInfo;
     } else {
       const currentWindow = await windows.getCurrent();
-      tabId = currentWindow.tabs!.find(tab => tab.active)!.id!;
+      tabId = currentWindow.tabs!.find((tab) => tab.active)!.id!;
     }
 
     const tab = await tabs.get(tabId);
     if (!tab) throw new Error('Tab not found');
 
     const updatedTab = { ...tab, ...updateInfo };
-    const tabIndex = tabList.findIndex(tab => tab.id === tabId);
+    const tabIndex = tabList.findIndex((tab) => tab.id === tabId);
     tabList[tabIndex] = updatedTab;
     const fullTab = mapTab(updatedTab);
     await onUpdated.trigger(fullTab.id!, updateInfo, fullTab);
@@ -192,7 +193,7 @@ export const tabs: BrowserOverrides['tabs'] = {
   async remove(tabIds) {
     const ids = Array.isArray(tabIds) ? tabIds : [tabIds];
     for (const id of ids) {
-      const index = tabList.findIndex(tab => tab.id === id);
+      const index = tabList.findIndex((tab) => tab.id === id);
       if (index >= 0) {
         const [removed] = tabList.splice(index, 1);
         const window = await windows.get(removed.id!, { populate: true });

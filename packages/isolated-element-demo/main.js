@@ -1,4 +1,5 @@
 import { createIsolatedElement } from '@webext-core/isolated-element';
+
 import isolatedStyles from './isolated-style.css?raw';
 
 const createLink = () => {

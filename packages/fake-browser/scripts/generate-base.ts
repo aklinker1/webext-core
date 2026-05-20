@@ -1,6 +1,8 @@
-import { printNode, Project, Symbol, ts, Type, TypeAliasDeclaration } from 'ts-morph';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
+import { dirname, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
+
+import { Project, ts, Type } from 'ts-morph';
+
 import { writeJsdoc } from './code-writer';
 
 const __dirname = dirname(fileURLToPath(import.meta.url));
@@ -45,7 +47,7 @@ function generateType(parents: string[], name: string, type: Type<ts.Type> | und
   } else if (type.isObject()) {
     // Interfaces have properties that need generated
     w.inlineBlock(() => {
-      type.getProperties().forEach(prop => {
+      type.getProperties().forEach((prop) => {
         const nextPropertyChain = [propertyChain, prop.getName()].join('.');
         if (TS_FIELDS_WITH_ERRORS.includes(nextPropertyChain)) {
           w.writeLine('// @ts-expect-error: Generated type is known to be wrong');

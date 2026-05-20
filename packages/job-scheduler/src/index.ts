@@ -1,10 +1,8 @@
-import browser, { Alarms } from 'webextension-polyfill';
-import formatDuration from 'format-duration';
 import cron from 'cron-parser';
+import formatDuration from 'format-duration';
+import browser, { Alarms } from 'webextension-polyfill';
 
-/**
- * Interface used to log text to the console when creating and executing jobs.
- */
+/** Interface used to log text to the console when creating and executing jobs. */
 export interface Logger {
   debug(...args: any[]): void;
   log(...args: any[]): void;
@@ -12,9 +10,7 @@ export interface Logger {
   error(...args: any[]): void;
 }
 
-/**
- * Configures how the job scheduler behaves.
- */
+/** Configures how the job scheduler behaves. */
 export interface JobSchedulerConfig {
   /**
    * The logger to use when logging messages. Set to `null` to disable logging.
@@ -30,9 +26,7 @@ export interface JobSchedulerConfig {
  */
 export type ExecuteFn = () => Promise<any> | any;
 
-/**
- * A job that executes on a set interval, starting when the job is scheduled for the first time.
- */
+/** A job that executes on a set interval, starting when the job is scheduled for the first time. */
 export interface IntervalJob {
   id: string;
   type: 'interval';
@@ -54,27 +48,25 @@ export interface IntervalJob {
 /**
  * A job that is executed based on a CRON expression. Backed by `cron-parser`.
  *
- * [`cron.ParserOptions`](https://github.com/harrisiirak/cron-parser#options) includes options like timezone.
+ * [`cron.ParserOptions`](https://github.com/harrisiirak/cron-parser#options) includes options like
+ * timezone.
  */
 export interface CronJob extends cron.ParserOptions<false> {
   id: string;
   type: 'cron';
   /**
-   * See `cron-parser`'s [supported expressions](https://github.com/harrisiirak/cron-parser#supported-format)
+   * See `cron-parser`'s [supported
+   * expressions](https://github.com/harrisiirak/cron-parser#supported-format)
    */
   expression: string;
   execute: ExecuteFn;
 }
 
-/**
- * Runs a job once, at a specific date/time.
- */
+/** Runs a job once, at a specific date/time. */
 export interface OnceJob {
   id: string;
   type: 'once';
-  /**
-   * The date to run the job on.
-   */
+  /** The date to run the job on. */
   date: Date | string | number;
   execute: ExecuteFn;
 }
@@ -83,34 +75,27 @@ export type Job = IntervalJob | CronJob | OnceJob;
 
 export interface JobScheduler {
   /**
-   * Schedule a job. If a job with the same `id` has already been scheduled, it will update the job if it is different.
+   * Schedule a job. If a job with the same `id` has already been scheduled, it will update the job
+   * if it is different.
    */
   scheduleJob(job: Job): Promise<void>;
-  /**
-   * Un-schedules a job by it's ID.
-   */
+  /** Un-schedules a job by it's ID. */
   removeJob(jobId: string): Promise<void>;
 
-  /**
-   * Listen for a job to finish successfully.
-   */
+  /** Listen for a job to finish successfully. */
   on(event: 'success', callback: (job: Job, result: any) => void): RemoveListenerFn;
-  /**
-   * Listen for when a job fails.
-   */
+  /** Listen for when a job fails. */
   on(event: 'error', callback: (job: Job, error: unknown) => void): RemoveListenerFn;
 }
 
-/**
- * Call to remove the listener that was added.
- */
+/** Call to remove the listener that was added. */
 type RemoveListenerFn = () => void;
 
 /**
  * > Requires the `alarms` permission.
  *
- * Creates a `JobScheduler` backed by the
- * [alarms API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms).
+ * Creates a `JobScheduler` backed by the [alarms
+ * API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms).
  *
  * @param options
  * @returns A `JobScheduler` that can be used to schedule and manage jobs.
@@ -118,22 +103,20 @@ type RemoveListenerFn = () => void;
 export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   const logger = options?.logger === undefined ? console : options.logger;
   if (browser.alarms == null) {
-    options;
+    throw Error('alarms API is not available');
   }
 
   const successListeners: Array<(job: Job, result: any) => void> = [];
   function triggerSuccessListeners(job: Job, result: any) {
-    successListeners.forEach(l => l(job, result));
+    successListeners.forEach((l) => l(job, result));
   }
 
   const errorListeners: Array<(job: Job, result: any) => void> = [];
   function triggerErrorListeners(job: Job, error: unknown) {
-    errorListeners.forEach(l => l(job, error));
+    errorListeners.forEach((l) => l(job, error));
   }
 
-  /**
-   * Stores the job callbacks for `onAlarm`
-   */
+  /** Stores the job callbacks for `onAlarm` */
   const jobs: Record<Job['id'], Job> = {};
 
   async function executeJob(job: Job) {
@@ -245,7 +228,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   }
 
   // Listen for alarms and execute jobs
-  browser.alarms.onAlarm.addListener(async alarm => {
+  browser.alarms.onAlarm.addListener(async (alarm) => {
     const job = jobs[alarm.name];
     if (job) await executeJob(job);
   });

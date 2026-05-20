@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, vi } from 'bun:test';
+
 import { Runtime } from 'webextension-polyfill';
+
 import { fakeBrowser } from '..';
 
 describe('Fake Runtime API', () => {
@@ -7,15 +9,15 @@ describe('Fake Runtime API', () => {
 
   describe('messaging', () => {
     it('should allow sending and receieving messages', async () => {
-      fakeBrowser.runtime.onMessage.addListener(message => message + 1);
+      fakeBrowser.runtime.onMessage.addListener((message) => message + 1);
       const actual = await fakeBrowser.runtime.sendMessage('', 1);
 
       expect(actual).toEqual(2);
     });
 
     it("should return the first responder's response", async () => {
-      fakeBrowser.runtime.onMessage.addListener(message => message + 1);
-      fakeBrowser.runtime.onMessage.addListener(message => message + 2);
+      fakeBrowser.runtime.onMessage.addListener((message) => message + 1);
+      fakeBrowser.runtime.onMessage.addListener((message) => message + 2);
 
       const actual = await fakeBrowser.runtime.sendMessage('', 1);
 

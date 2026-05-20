@@ -1,18 +1,9 @@
 {
   "name": "webext-core",
-  "packageManager": "bun@1.3.14",
   "private": true,
   "workspaces": [
     "packages/*"
   ],
-  "catalog": {
-    "@aklinker1/buildc": "^1.1.5",
-    "@aklinker1/check": "^2.4.0",
-    "@happy-dom/global-registrator": "^20.9.0",
-    "publint": "^0.3.21",
-    "tsdown": "^0.22.0",
-    "typescript": "^5.5.4"
-  },
   "scripts": {
     "check": "check",
     "check:all": "check && bun run --workspaces --sequential check",
@@ -27,8 +18,9 @@
     "@algolia/client-search": "^4.17.0",
     "@types/bun": "^1.3.14",
     "nano-staged": "^1.0.2",
+    "oxfmt": "^0.51.0",
+    "oxlint": "^1.66.0",
     "playwright": "^1.47.0",
-    "prettier": "^3.3.3",
     "simple-git-hooks": "^2.13.1",
     "typescript": "catalog:"
   },
@@ -36,7 +28,16 @@
     "pre-commit": "./node_modules/.bin/nano-staged"
   },
   "nano-staged": {
-    "*": "prettier --ignore-unknown --write"
+    "*": "oxfmt --no-error-on-unmatched-pattern"
+  },
+  "packageManager": "bun@1.3.14",
+  "catalog": {
+    "@aklinker1/buildc": "^1.1.5",
+    "@aklinker1/check": "^2.4.0",
+    "@happy-dom/global-registrator": "^20.9.0",
+    "publint": "^0.3.21",
+    "tsdown": "^0.22.0",
+    "typescript": "^5.5.4"
   },
   "patchedDependencies": {
     "simple-git-hooks@2.13.1": "patches/simple-git-hooks@2.13.1.patch"

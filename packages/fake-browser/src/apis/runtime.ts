@@ -1,6 +1,7 @@
+import { Runtime } from 'webextension-polyfill';
+
 import { BrowserOverrides } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
-import { Runtime } from 'webextension-polyfill';
 
 const onMessage =
   defineEventWithTrigger<(message: any, sender: Runtime.MessageSender) => void | Promise<any>>();
@@ -35,8 +36,10 @@ export const runtime: BrowserOverrides['runtime'] = {
   onUpdateAvailable,
   // @ts-expect-error: Method has overrides :/
   async sendMessage(arg0, arg1, arg2) {
+    // oxlint-disable-next-line no-unused-vars - TODO: We should be using this somewhere...
     let extensionId: string | undefined;
     let message: any;
+    // oxlint-disable-next-line no-unused-vars - TODO: We should be using this somewhere...
     let options: Runtime.SendMessageOptionsType | undefined;
 
     if (arguments.length === 1 || (arguments.length === 2 && typeof arg1 === 'object')) {
@@ -54,6 +57,6 @@ export const runtime: BrowserOverrides['runtime'] = {
     const res = await onMessage.trigger(message, sender);
 
     // Return first response
-    return res.find(r => !!r);
+    return res.find((r) => !!r);
   },
 };

@@ -13,3 +13,4 @@ coverage
 .output
 .wxt
 .idea
+docs/content/*/api.md

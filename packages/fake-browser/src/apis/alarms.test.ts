@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, setSystemTime, vi } from 'bun:test';
+
 import { Alarms } from 'webextension-polyfill';
+
 import { fakeBrowser } from '..';
 
 const now = Date.now();

@@ -1,5 +1,7 @@
 /**
- * @description In firefox, when dispatching events externally from web-extension, it's necessary to clone all properties of the dictionary. ref: https://github.com/aklinker1/webext-core/pull/70#discussion_r1775031410
+ * In firefox, when dispatching events externally from web-extension, it's necessary to clone all
+ * properties of the dictionary. ref:
+ * https://github.com/aklinker1/webext-core/pull/70#discussion_r1775031410
  */
 export function prepareCustomEventDict<T>(
   data: T,

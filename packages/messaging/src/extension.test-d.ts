@@ -1,6 +1,7 @@
 import { describe, expectTypeOf, it } from 'bun:test';
-import { MaybePromise, ProtocolWithReturn } from './types';
+
 import { defineExtensionMessaging, SendMessageOptions } from './extension';
+import { MaybePromise, ProtocolWithReturn } from './types';
 
 describe('Messenger Typing', () => {
   it('should use any for data and return type when a protocol map is not passed', () => {

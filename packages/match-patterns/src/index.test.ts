@@ -1,10 +1,11 @@
 import { describe, it, expect } from 'bun:test';
+
 import { InvalidMatchPattern, MatchPattern } from './index';
 
 describe('MatchPattern', () => {
   it.each(['', '<all_url>', '*://*', '*', 'test://*/*'])(
     'should throw an error for invalid pattern "%s"',
-    pattern => {
+    (pattern) => {
       expect(() => new MatchPattern(pattern)).toThrowError(InvalidMatchPattern);
     },
   );
@@ -221,7 +222,7 @@ describe('MatchPattern', () => {
       });
     });
 
-    describe.each(['http', 'https'])('%s protocol', protocol => {
+    describe.each(['http', 'https'])('%s protocol', (protocol) => {
       it.each([
         [`${protocol}://google.com/*`, `${protocol}://google.com/search1`, true],
         [`${protocol}://google.com/*`, `${protocol}://google.com/search2`, true],

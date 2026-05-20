@@ -1,6 +1,7 @@
 import { describe, it, expect, vi, beforeEach } from 'bun:test';
-import { defineWindowMessaging, defineCustomEventMessaging } from '../../page';
+
 import { GenericMessenger } from '../../generic';
+import { defineWindowMessaging, defineCustomEventMessaging } from '../../page';
 import { NamespaceMessagingConfig } from '../../types';
 
 describe.each<
@@ -24,7 +25,7 @@ describe.each<
     return messenger;
   }
   beforeEach(() => {
-    messengers.forEach(m => m.removeAllListeners());
+    messengers.forEach((m) => m.removeAllListeners());
     messengers = [];
   });
 
@@ -77,15 +78,15 @@ describe.each<
       test(data: string): number;
     }
     const expected = 3 + Math.random();
-    const messenger1 = defineTestMessaging();
-    const messenger2 = defineTestMessaging();
-    const messenger3 = defineTestMessaging();
+    const messenger1 = defineTestMessaging<MessageSchema>();
+    const messenger2 = defineTestMessaging<MessageSchema>();
+    const messenger3 = defineTestMessaging<MessageSchema>();
     const onMessageFast = vi.fn(async () => {
-      await new Promise(res => setTimeout(res, 5));
+      await new Promise((res) => setTimeout(res, 5));
       return expected;
     });
     const onMessageSlow = vi.fn(async () => {
-      await new Promise(res => setTimeout(res, 10));
+      await new Promise((res) => setTimeout(res, 10));
       return 3;
     });
 
@@ -101,8 +102,8 @@ describe.each<
   it('should properly order responses to the same messenger', async () => {
     const messenger1 = defineTestMessaging();
     const messenger2 = defineTestMessaging();
-    const onMessage = vi.fn(async message => {
-      await new Promise(res => setTimeout(res, message.data));
+    const onMessage = vi.fn(async (message) => {
+      await new Promise((res) => setTimeout(res, message.data));
       return message.data;
     });
 
@@ -167,19 +168,19 @@ describe.each<
     const messengerB1 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
     const messengerB2 = defineTestMessaging<MessageSchema>({ namespace: 'b' });
 
-    messengerA1.onMessage('test', message => {
+    messengerA1.onMessage('test', (message) => {
       expect(message.data).toBe('ping-from-A2');
       return 'pong-from-A1';
     });
-    messengerA2.onMessage('test', message => {
+    messengerA2.onMessage('test', (message) => {
       expect(message.data).toBe('ping-from-A1');
       return 'pong-from-A2';
     });
-    messengerB1.onMessage('test', message => {
+    messengerB1.onMessage('test', (message) => {
       expect(message.data).toBe('ping-from-B2');
       return 'pong-from-B1';
     });
-    messengerB2.onMessage('test', message => {
+    messengerB2.onMessage('test', (message) => {
       expect(message.data).toBe('ping-from-B1');
       return 'pong-from-B2';
     });
