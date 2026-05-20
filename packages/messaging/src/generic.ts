@@ -30,10 +30,12 @@ interface GenericMessagingConfig<
 /**
  * Messaging interface shared by all messengers.
  *
- * Type parameters accept: - `TProtocolMap` to define the data and return types of messages. -
- * `TMessageExtension` to define additional fields that are available on a message inside
- * `onMessage`'s callback - `TSendMessageArgs` to define a list of additional arguments for
- * `sendMessage`
+ * Type parameters accept:
+ *
+ * - `TProtocolMap` to define the data and return types of messages.
+ * - `TMessageExtension` to define additional fields that are available on a message inside
+ *   `onMessage`'s callback
+ * - `TSendMessageArgs` to define a list of additional arguments for `sendMessage`
  */
 export interface GenericMessenger<
   TProtocolMap extends Record<string, any>,

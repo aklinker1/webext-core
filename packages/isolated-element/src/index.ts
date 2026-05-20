@@ -49,10 +49,8 @@ export type { CreateIsolatedElementOptions };
  *   document.body.appendChild(parentElement);
  *
  * @param options
- * @returns - A `parentElement` that can be added to the DOM
- *
- *   - The `shadow` root
- *   - An `isolatedElement` that you should mount your UI to.
+ * @returns A `parentElement` that can be added to the DOM, the `shadow` root, and an
+ *   `isolatedElement` that you should mount your UI to.
  */
 export async function createIsolatedElement(options: CreateIsolatedElementOptions): Promise<{
   parentElement: HTMLElement;

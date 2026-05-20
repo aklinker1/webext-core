@@ -60,23 +60,21 @@ interface ProxyServiceConstraint<_> {}
  * Used to constrain a service's type between calls to `createProxyService` and `registerService`.
  *
  * @example
- *   ```ts
  *   // utils/proxy-service-keys.ts
- *   import type { ProxyServiceKey } from "@webext-core/proxy-service";
- *   import type { MathService } from "./math-service";
+ *   import type { ProxyServiceKey } from '@webext-core/proxy-service';
+ *   import type { MathService } from './math-service';
  *
- *   export const PROXY_SERVICE_KEY = "math-service" as ProxyServiceKey<MathService>;
+ *   export const PROXY_SERVICE_KEY = 'math-service' as ProxyServiceKey<MathService>;
  *
  *   // background.ts
- *   import { PROXY_SERVICE_KEY } from "./utils/proxy-service-keys";
+ *   import { PROXY_SERVICE_KEY } from './utils/proxy-service-keys';
  *
  *   registerService(PROXY_SERVICE_KEY, new MathService());
  *
  *   // content-script.ts
- *   import { PROXY_SERVICE_KEY } from "./utils/proxy-service-keys";
+ *   import { PROXY_SERVICE_KEY } from './utils/proxy-service-keys';
  *
  *   const mathService = await createProxyService(PROXY_SERVICE_KEY);
- *   ```;
  */
 export type ProxyServiceKey<T> = string & ProxyServiceConstraint<T>;
 

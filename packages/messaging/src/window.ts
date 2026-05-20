@@ -16,9 +16,12 @@ export interface WindowMessagingConfig extends NamespaceMessagingConfig {}
  * > [https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin](https://developer.mozilla.org/en-US/docs/Web/API/Window/postMessage#targetorigin)
  * > for more details.
  *
- * Message is posted on window which can as per your need like parent window in iframe ->
- * window.parent iframe content window -> iframe.contentWindow opener original window ->
- * window.opener by default global window is used to send mesage
+ * Message is posted on window which can as per your need like:
+ *
+ * - Parent window in iframe -> window.parent
+ * - Iframe content window -> iframe.contentWindow
+ * - Opener original window -> window.opener
+ * - By default global window is used to send message
  */
 export type WindowSendMessageArgs = [targetOrigin?: string, targetWindow?: Window];
 

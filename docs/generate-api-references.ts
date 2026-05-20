@@ -2,7 +2,7 @@ import * as fs from 'node:fs/promises';
 import * as path from 'node:path';
 
 import { Listr, type ListrTask, ListrTaskWrapper } from 'listr2';
-import * as prettier from 'prettier';
+import { format } from 'oxfmt';
 import { Project, Symbol, SourceFile, Node, ts, JSDocableNode, JSDoc } from 'ts-morph';
 import { CodeBlockWriter } from 'ts-morph';
 
@@ -83,7 +83,7 @@ async function generateAll(ctx: Ctx, projectDirNames: string[]) {
 
 async function generateProjectDocs(
   ctx: Ctx,
-  task: ListrTaskWrapper<Ctx, any>,
+  task: ListrTaskWrapper<Ctx, any, any>,
   projectDirname: string,
 ) {
   // Project setup
@@ -129,7 +129,7 @@ function getPublicSymbols(project: Project, entrypoints: SourceFile[]): Symbol[]
   // Collect all referenced symbols in exported declarations
   const referencedSymbols: Symbol[] = [];
   for (const declaration of exportedSymbols) {
-    const declarationNode = declaration.getDeclarations()[0];
+    const declarationNode = declaration.getDeclarations()[0]!;
     collectReferencedSymbols(declarationNode, referencedSymbols);
   }
 
@@ -249,7 +249,7 @@ async function renderSymbol(project: Project, symbol: Symbol): Promise<string> {
     .flatMap((dec) => dec.asKind(ts.SyntaxKind.InterfaceDeclaration))
     .flatMap((i) => i?.getProperties() ?? [])
     .map((prop) => {
-      const dec = prop.getSymbolOrThrow().getDeclarations()[0];
+      const dec = prop.getSymbolOrThrow().getDeclarations()[0]!;
       const docs = prop
         .getJsDocs()
         .map((doc) => doc.getCommentText())
@@ -379,8 +379,8 @@ async function getTypeDeclarations(project: Project, symbol: Symbol): Promise<st
         );
       })
       .map(async (text) => {
-        const res = await prettier.format(text, { printWidth: 80, parser: 'typescript' });
-        return res.trimEnd();
+        const res = await format('test.ts', text);
+        return res.code.trimEnd();
       }),
   );
 }
@@ -403,7 +403,7 @@ function parseJsdoc(symbol: Symbol) {
     .flatMap((tag) => tag.getText())
     .map((part) => part.text);
 
-  const functionDec = symbol.getDeclarations()[0].asKind(ts.SyntaxKind.FunctionDeclaration);
+  const functionDec = symbol.getDeclarations()[0]!.asKind(ts.SyntaxKind.FunctionDeclaration);
   const parameters: string[] = symbol
     .getJsDocTags()
     .filter((tag) => tag.getName() === 'param')
@@ -412,7 +412,7 @@ function parseJsdoc(symbol: Symbol) {
       let name: string;
       let docs: string[] = [];
       if (parts.length === 1) {
-        name = parts[0].text;
+        name = parts[0]!.text;
       } else {
         name = parts.find((p) => p.kind === 'parameterName')!.text;
         docs = parts.filter((p) => p.kind === 'text').map((p) => p.text);
