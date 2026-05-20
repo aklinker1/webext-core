@@ -5,8 +5,8 @@
     "": {
       "name": "webext-core",
       "devDependencies": {
-        "@aklinker1/buildc": "^1.1.5",
-        "@aklinker1/check": "^2.4.0",
+        "@aklinker1/buildc": "catalog:",
+        "@aklinker1/check": "catalog:",
         "@algolia/client-search": "^4.17.0",
         "nano-staged": "^1.0.2",
         "playwright": "^1.47.0",
@@ -170,6 +170,8 @@
     "simple-git-hooks@2.13.1": "patches/simple-git-hooks@2.13.1.patch",
   },
   "catalog": {
+    "@aklinker1/buildc": "^1.1.5",
+    "@aklinker1/check": "^2.4.0",
     "@vitest/browser": "^2.1.1",
     "@vitest/coverage-v8": "^2.1.1",
     "tsup": "^6.4.0",
