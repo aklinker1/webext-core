@@ -24,7 +24,7 @@
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/fake-browser",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aklinker1/webext-core",
+    "url": "git+https://github.com/aklinker1/webext-core.git",
     "directory": "packages/fake-browser"
   },
   "type": "module",
@@ -34,26 +34,40 @@
   "files": [
     "lib"
   ],
+  "engines": {
+    "node": "*"
+  },
+  "sideEffects": false,
   "main": "lib/index.cjs",
-  "module": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.mts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "import": "./lib/index.js",
-      "require": "./lib/index.cjs"
+      "import": {
+        "types": "./lib/index.d.mts",
+        "default": "./lib/index.mjs"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
     },
     "./auto": {
-      "types": "./lib/auto.d.ts",
-      "import": "./lib/auto.js",
-      "require": "./lib/auto.cjs"
+      "import": {
+        "types": "./lib/auto.d.mts",
+        "default": "./lib/auto.mjs"
+      },
+      "require": {
+        "types": "./lib/auto.d.cts",
+        "default": "./lib/auto.cjs"
+      }
     }
   },
   "scripts": {
-    "build": "buildc -- bun gen && tsup src/index.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreFakeBrowser && cp src/auto.{d.ts,cjs,js} lib",
+    "build": "buildc -- tsdown",
     "test": "buildc --deps-only -- bun test",
     "test:coverage": "buildc --deps-only -- bun test --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit",
+    "check": "bun run build && check",
     "gen": "bun scripts/generate-base.ts && prettier --write src/base.gen.ts",
     "prepack": "bun run build"
   },
@@ -63,9 +77,10 @@
   },
   "devDependencies": {
     "@types/lodash.merge": "^4.6.7",
+    "publint": "catalog:",
     "ts-morph": "^23.0.0",
     "tsconfig": "workspace:*",
-    "tsup": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:"
   },
   "buildc": {

@@ -30,36 +30,40 @@
   "files": [
     "lib"
   ],
+  "engines": {
+    "node": "*"
+  },
+  "sideEffects": false,
   "main": "./lib/index.cjs",
-  "module": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "module": "./lib/index.mjs",
+  "types": "./lib/index.d.mts",
   "exports": {
     ".": {
       "import": {
-        "types": "./lib/index.d.ts",
-        "default": "./lib/index.js"
+        "types": "./lib/index.d.mts",
+        "default": "./lib/index.mjs"
       },
       "require": {
-        "types": "./lib/index.d.ts",
+        "types": "./lib/index.d.cts",
         "default": "./lib/index.cjs"
       }
     },
     "./page": {
       "import": {
-        "types": "./lib/page.d.ts",
-        "default": "./lib/page.js"
+        "types": "./lib/page.d.mts",
+        "default": "./lib/page.mjs"
       },
       "require": {
-        "types": "./lib/page.d.ts",
+        "types": "./lib/page.d.cts",
         "default": "./lib/page.cjs"
       }
     }
   },
   "scripts": {
-    "build": "buildc -- tsup src/index.ts src/page.ts --clean --out-dir lib --dts --format esm,cjs,iife --global-name webExtCoreMessaging",
+    "build": "buildc -- tsdown",
     "test": "buildc --deps-only -- bun test",
     "test:coverage": "buildc --deps-only -- bun  test --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit",
+    "check": "bun run build && check",
     "prepack": "bun run build"
   },
   "dependencies": {
@@ -71,7 +75,7 @@
     "@webext-core/fake-browser": "workspace:*",
     "publint": "^0.2.11",
     "tsconfig": "workspace:*",
-    "tsup": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:"
   },
   "buildc": {

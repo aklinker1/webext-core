@@ -9,7 +9,8 @@
     "@aklinker1/buildc": "^1.1.5",
     "@aklinker1/check": "^2.4.0",
     "@happy-dom/global-registrator": "^20.9.0",
-    "tsup": "^6.4.0",
+    "publint": "^0.3.21",
+    "tsdown": "^0.22.0",
     "typescript": "^5.5.4"
   },
   "scripts": {

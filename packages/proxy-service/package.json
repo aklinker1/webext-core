@@ -20,7 +20,7 @@
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/proxy-service",
   "repository": {
     "type": "git",
-    "url": "https://github.com/aklinker1/webext-core",
+    "url": "git+https://github.com/aklinker1/webext-core.git",
     "directory": "packages/proxy-service"
   },
   "type": "module",
@@ -30,21 +30,40 @@
   "files": [
     "lib"
   ],
+  "engines": {
+    "node": "*"
+  },
+  "sideEffects": false,
   "main": "lib/index.cjs",
-  "module": "lib/index.js",
-  "types": "lib/index.d.ts",
+  "module": "lib/index.mjs",
+  "types": "lib/index.d.mts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.ts",
-      "default": "./lib/index.js"
+      "import": {
+        "types": "./lib/index.d.mts",
+        "default": "./lib/index.mjs"
+      },
+      "require": {
+        "types": "./lib/index.d.cts",
+        "default": "./lib/index.cjs"
+      }
     },
-    "./types": "./lib/types.d.ts"
+    "./types": {
+      "import": {
+        "types": "./lib/types.d.mts",
+        "default": "./lib/types.mjs"
+      },
+      "require": {
+        "types": "./lib/types.d.cts",
+        "default": "./lib/types.cjs"
+      }
+    }
   },
   "scripts": {
-    "build": "buildc -- tsup",
+    "build": "buildc -- tsdown",
     "test": "buildc --deps-only -- bun test",
     "test:coverage": "buildc --deps-only -- bun test --coverage",
-    "check": "buildc --deps-only -- tsc --noEmit",
+    "check": "bun run build && check",
     "prepack": "bun run build"
   },
   "devDependencies": {
@@ -52,8 +71,9 @@
     "@types/webextension-polyfill": "^0.9.1",
     "@webext-core/fake-browser": "workspace:*",
     "@webext-core/messaging": "workspace:*",
+    "publint": "catalog:",
     "tsconfig": "workspace:*",
-    "tsup": "catalog:",
+    "tsdown": "catalog:",
     "typescript": "catalog:",
     "webextension-polyfill": "^0.10.0"
   },
