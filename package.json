@@ -5,6 +5,9 @@
   "workspaces": [
     "packages/*"
   ],
+  "catalog": {
+    "tsup": "^6.4.0"
+  },
   "scripts": {
     "format": "prettier --write .",
     "format:check": "prettier --check .",

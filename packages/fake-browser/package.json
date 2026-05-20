@@ -64,7 +64,8 @@
   "devDependencies": {
     "@types/lodash.merge": "^4.6.7",
     "ts-morph": "^23.0.0",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsup": "catalog:"
   },
   "buildc": {
     "outDir": "lib"

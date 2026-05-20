@@ -72,7 +72,8 @@
     "@types/webextension-polyfill": "^0.9.1",
     "@webext-core/fake-browser": "workspace:*",
     "publint": "^0.2.11",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsup": "catalog:"
   },
   "buildc": {
     "outDir": "lib"

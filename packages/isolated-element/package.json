@@ -52,7 +52,7 @@
     "@types/is-potential-custom-element-name": "^1.0.0",
     "jsdom": "^20.0.3",
     "tsconfig": "workspace:*",
-    "tsup": "^6.4.0"
+    "tsup": "catalog:"
   },
   "dependencies": {
     "is-potential-custom-element-name": "^1.0.1"

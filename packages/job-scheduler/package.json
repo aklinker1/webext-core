@@ -56,7 +56,8 @@
   },
   "devDependencies": {
     "@webext-core/fake-browser": "workspace:*",
-    "tsconfig": "workspace:*"
+    "tsconfig": "workspace:*",
+    "tsup": "catalog:"
   },
   "buildc": {
     "outDir": "lib"

@@ -53,6 +53,7 @@
     "@webext-core/fake-browser": "workspace:*",
     "@webext-core/messaging": "workspace:*",
     "tsconfig": "workspace:*",
+    "tsup": "catalog:",
     "webextension-polyfill": "^0.10.0"
   },
   "peerDependencies": {
