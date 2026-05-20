@@ -9,7 +9,7 @@
     "check": "buildc --deps-only -- check",
     "test": "echo 'noop'",
     "test:coverage": "echo 'noop'",
-    "postinstall": "wxt prepare"
+    "postinstall": "buildc --deps-only -- wxt prepare"
   },
   "dependencies": {
     "@webext-core/proxy-service": "workspace:*"
