@@ -13,12 +13,12 @@ export class MathService {
   }
   divide(x: number, y: number): number {
     console.log(`MathService.divide(${x}, ${y})`);
-    if (y === 0) throw Error('Cannot divide by zero');
+    if (y === 0) throw Error("Cannot divide by zero");
     return x / y;
   }
   async factorial(x: number): Promise<number> {
     console.log(`MathService.factorial(${x})`);
-    await new Promise(res => setTimeout(res, 0));
+    await new Promise((res) => setTimeout(res, 0));
     return x === 1 ? 1 : x * (await this.factorial(x - 1));
   }
 }

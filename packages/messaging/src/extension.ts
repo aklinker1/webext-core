@@ -1,15 +1,12 @@
-import Browser, { Runtime } from 'webextension-polyfill';
-import { GenericMessenger, defineGenericMessanging } from './generic';
-import { BaseMessagingConfig } from './types';
+import Browser, { Runtime } from "webextension-polyfill";
 
-/**
- * Configuration passed into `defineExtensionMessaging`.
- */
+import { GenericMessenger, defineGenericMessanging } from "./generic";
+import { BaseMessagingConfig } from "./types";
+
+/** Configuration passed into `defineExtensionMessaging`. */
 export interface ExtensionMessagingConfig extends BaseMessagingConfig {}
 
-/**
- * Additional fields available on the `Message` from an `ExtensionMessenger`.
- */
+/** Additional fields available on the `Message` from an `ExtensionMessenger`. */
 export interface ExtensionMessage {
   /**
    * Information about where the message came from. See
@@ -18,33 +15,23 @@ export interface ExtensionMessage {
   sender: Runtime.MessageSender;
 }
 
-/**
- * Options for sending a message to a specific tab/frame
- */
+/** Options for sending a message to a specific tab/frame */
 export interface SendMessageOptions {
-  /**
-   * The tab to send a message to
-   */
+  /** The tab to send a message to */
   tabId: number;
-  /**
-   * The frame to send a message to. 0 represents the main frame.
-   */
+  /** The frame to send a message to. 0 represents the main frame. */
   frameId?: number;
 }
 
 /**
- * Send message accepts either:
- * - No arguments to send to background
- * - A tabId number to send to a specific tab
- * - A SendMessageOptions object to target a specific tab and frame
+ * Send message accepts either: - No arguments to send to background - A tabId number to send to a
+ * specific tab - A SendMessageOptions object to target a specific tab and frame
  *
  * You cannot message between tabs directly. It must go through the background script.
  */
 export type ExtensionSendMessageArgs = [arg?: number | SendMessageOptions];
 
-/**
- * Messenger returned by `defineExtensionMessaging`.
- */
+/** Messenger returned by `defineExtensionMessaging`. */
 export type ExtensionMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
   TProtocolMap,
   ExtensionMessage,
@@ -69,7 +56,7 @@ export function defineExtensionMessaging<
       }
 
       // Handle both number and options object
-      const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
+      const options: SendMessageOptions = typeof arg === "number" ? { tabId: arg } : arg;
 
       return Browser.tabs.sendMessage(
         options.tabId,
@@ -80,7 +67,7 @@ export function defineExtensionMessaging<
     },
     addRootListener(processMessage) {
       const listener = (message: any, sender: Runtime.MessageSender) => {
-        if (typeof message === 'object') return processMessage({ ...message, sender });
+        if (typeof message === "object") return processMessage({ ...message, sender });
         else return processMessage(message);
       };
 

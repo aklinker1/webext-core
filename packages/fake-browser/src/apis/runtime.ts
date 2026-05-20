@@ -1,6 +1,7 @@
-import { BrowserOverrides } from '../types';
-import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
-import { Runtime } from 'webextension-polyfill';
+import { Runtime } from "webextension-polyfill";
+
+import { BrowserOverrides } from "../types";
+import { defineEventWithTrigger } from "../utils/defineEventWithTrigger";
 
 const onMessage =
   defineEventWithTrigger<(message: any, sender: Runtime.MessageSender) => void | Promise<any>>();
@@ -11,9 +12,9 @@ const onSuspendCanceled = defineEventWithTrigger<() => void>();
 const onUpdateAvailable =
   defineEventWithTrigger<(details: Runtime.OnUpdateAvailableDetailsType) => void>();
 
-const TEST_ID = 'test-extension-id';
+const TEST_ID = "test-extension-id";
 
-export const runtime: BrowserOverrides['runtime'] = {
+export const runtime: BrowserOverrides["runtime"] = {
   resetState() {
     onMessage.removeAllListeners();
     onInstalled.removeAllListeners();
@@ -25,7 +26,7 @@ export const runtime: BrowserOverrides['runtime'] = {
   },
   id: TEST_ID,
   getURL(path: string) {
-    return `chrome-extension://${runtime.id}/${path.replace(/^\//, '')}`;
+    return `chrome-extension://${runtime.id}/${path.replace(/^\//, "")}`;
   },
   onInstalled,
   onMessage,
@@ -35,11 +36,13 @@ export const runtime: BrowserOverrides['runtime'] = {
   onUpdateAvailable,
   // @ts-expect-error: Method has overrides :/
   async sendMessage(arg0, arg1, arg2) {
+    // oxlint-disable-next-line no-unused-vars - TODO: We should be using this somewhere...
     let extensionId: string | undefined;
     let message: any;
+    // oxlint-disable-next-line no-unused-vars - TODO: We should be using this somewhere...
     let options: Runtime.SendMessageOptionsType | undefined;
 
-    if (arguments.length === 1 || (arguments.length === 2 && typeof arg1 === 'object')) {
+    if (arguments.length === 1 || (arguments.length === 2 && typeof arg1 === "object")) {
       extensionId = undefined;
       message = arg0;
       options = arg2;
@@ -49,11 +52,11 @@ export const runtime: BrowserOverrides['runtime'] = {
       options = arg2;
     }
 
-    if (!onMessage.hasListeners()) throw Error('No listeners available');
+    if (!onMessage.hasListeners()) throw Error("No listeners available");
     const sender: Runtime.MessageSender = {};
     const res = await onMessage.trigger(message, sender);
 
     // Return first response
-    return res.find(r => !!r);
+    return res.find((r) => !!r);
   },
 };

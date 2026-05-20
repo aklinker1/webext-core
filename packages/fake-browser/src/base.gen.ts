@@ -6,7 +6,7 @@
  * ```
  */
 
-import type { Browser } from 'webextension-polyfill';
+import type { Browser } from "webextension-polyfill";
 
 export const GeneratedBrowser: Browser = {
   activityLog: {
@@ -1629,13 +1629,13 @@ Mock the function yourself using your testing framework, or submit a PR with an 
 
 Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
     },
-    DYNAMIC_RULESET_ID: '_dynamic',
+    DYNAMIC_RULESET_ID: "_dynamic",
     GUARANTEED_MINIMUM_STATIC_RULES: 0,
     MAX_NUMBER_OF_STATIC_RULESETS: 0,
     MAX_NUMBER_OF_ENABLED_STATIC_RULESETS: 0,
     MAX_NUMBER_OF_DYNAMIC_AND_SESSION_RULES: 0,
     MAX_NUMBER_OF_REGEX_RULES: 0,
-    SESSION_RULESET_ID: '_session',
+    SESSION_RULESET_ID: "_session",
   },
   devtools: {
     inspectedWindow: {
@@ -1760,7 +1760,7 @@ Mock the function yourself using your testing framework, or submit a PR with an 
         },
       },
       sources: {},
-      themeName: '',
+      themeName: "",
     },
   },
   dns: {
@@ -3817,9 +3817,9 @@ Mock the function yourself using your testing framework, or submit a PR with an 
       },
     },
     lastError: {
-      message: '',
+      message: "",
     },
-    id: '',
+    id: "",
   },
   scripting: {
     executeScript: () => {

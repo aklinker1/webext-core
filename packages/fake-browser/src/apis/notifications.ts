@@ -1,6 +1,7 @@
-import { Notifications } from 'webextension-polyfill';
-import { BrowserOverrides } from '../types';
-import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+import { Notifications } from "webextension-polyfill";
+
+import { BrowserOverrides } from "../types";
+import { defineEventWithTrigger } from "../utils/defineEventWithTrigger";
 
 let notificationMap: { [id: string]: Notifications.CreateNotificationOptions } = {};
 const onClosed = defineEventWithTrigger<(notificationId: string, byUser: boolean) => void>();
@@ -36,7 +37,7 @@ function notificationExists(id: string): boolean {
   return !!notificationMap[id];
 }
 
-export const notifications: BrowserOverrides['notifications'] = {
+export const notifications: BrowserOverrides["notifications"] = {
   resetState() {
     notificationMap = {};
     onClosed.removeAllListeners();

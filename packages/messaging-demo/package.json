@@ -1,7 +1,7 @@
 {
   "name": "messaging-demo",
-  "type": "module",
   "private": true,
+  "type": "module",
   "scripts": {
     "dev": "buildc --deps-only -- wxt",
     "build": "buildc -- wxt build",
@@ -13,8 +13,8 @@
     "@webext-core/messaging": "workspace:*"
   },
   "devDependencies": {
-    "wxt": "^0.19.5",
-    "typescript": "catalog:"
+    "typescript": "catalog:",
+    "wxt": "^0.19.5"
   },
   "buildc": {
     "cachable": false

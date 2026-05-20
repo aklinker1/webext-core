@@ -1,15 +1,16 @@
-import { afterEach, beforeEach, describe, expect, it, vi } from 'bun:test';
-import { fakeBrowser } from '..';
+import { afterEach, beforeEach, describe, expect, it, vi } from "bun:test";
 
-describe('Fake Storage API', () => {
+import { fakeBrowser } from "..";
+
+describe("Fake Storage API", () => {
   beforeEach(fakeBrowser.reset);
 
-  it.each(['local', 'session', 'sync'] as const)(
-    'should allow getting and setting %s storage',
-    async area => {
-      const key1 = '1';
-      const value1 = '1';
-      const key2 = '2';
+  it.each(["local", "session", "sync"] as const)(
+    "should allow getting and setting %s storage",
+    async (area) => {
+      const key1 = "1";
+      const value1 = "1";
+      const key2 = "2";
       const value2 = 2;
 
       await fakeBrowser.storage[area].set({ [key1]: value1 });
@@ -25,8 +26,8 @@ describe('Fake Storage API', () => {
 
       await fakeBrowser.storage[area].remove(key1);
       expect(await fakeBrowser.storage[area].get(key1)).toEqual({});
-      expect(await fakeBrowser.storage[area].get({ [key1]: 'fallback' })).toEqual({
-        [key1]: 'fallback',
+      expect(await fakeBrowser.storage[area].get({ [key1]: "fallback" })).toEqual({
+        [key1]: "fallback",
       });
       expect(await fakeBrowser.storage[area].get([key1, key2])).toEqual({
         [key2]: value2,
@@ -37,11 +38,11 @@ describe('Fake Storage API', () => {
     },
   );
 
-  it.each(['local', 'session', 'sync'] as const)(
-    'setting a value to undefined should do nothing',
-    async area => {
-      const key = 'key';
-      const value = 'test';
+  it.each(["local", "session", "sync"] as const)(
+    "setting a value to undefined should do nothing",
+    async (area) => {
+      const key = "key";
+      const value = "test";
 
       await fakeBrowser.storage[area].set({ [key]: value });
       await fakeBrowser.storage[area].set({ [key]: undefined });
@@ -51,9 +52,9 @@ describe('Fake Storage API', () => {
     },
   );
 
-  it('setting a value to null should remove it', async () => {
-    const key = 'key';
-    const value = 'test';
+  it("setting a value to null should remove it", async () => {
+    const key = "key";
+    const value = "test";
 
     await fakeBrowser.storage.local.set({ [key]: value });
     await fakeBrowser.storage.local.set({ [key]: null });
@@ -61,11 +62,11 @@ describe('Fake Storage API', () => {
     expect(await fakeBrowser.storage.local.get(key)).toEqual({});
   });
 
-  it('sync.getBytesInUse should throw an error', () => {
+  it("sync.getBytesInUse should throw an error", () => {
     expect(fakeBrowser.storage.sync.getBytesInUse).toThrowError();
   });
 
-  describe('setting a value should trigger change listeners', () => {
+  describe("setting a value should trigger change listeners", () => {
     const localListener = vi.fn();
     const syncListener = vi.fn();
     const sessionListener = vi.fn();
@@ -84,44 +85,44 @@ describe('Fake Storage API', () => {
       globalListener.mockClear();
     });
 
-    it('setting a value to local storage should trigger change listeners', async () => {
-      await fakeBrowser.storage.local.set({ key: 'value' });
+    it("setting a value to local storage should trigger change listeners", async () => {
+      await fakeBrowser.storage.local.set({ key: "value" });
       expect(localListener).toBeCalledTimes(1);
       expect(syncListener).not.toBeCalled();
       expect(sessionListener).not.toBeCalled();
       expect(globalListener).toBeCalledTimes(1);
 
-      const changes = { key: { oldValue: null, newValue: 'value' } };
+      const changes = { key: { oldValue: null, newValue: "value" } };
       expect(localListener).toBeCalledWith(changes);
-      expect(globalListener).toBeCalledWith(changes, 'local');
+      expect(globalListener).toBeCalledWith(changes, "local");
     });
 
-    it('setting a value to session storage should trigger change listeners', async () => {
-      await fakeBrowser.storage.session.set({ key: 'value' });
+    it("setting a value to session storage should trigger change listeners", async () => {
+      await fakeBrowser.storage.session.set({ key: "value" });
       expect(localListener).not.toBeCalled();
       expect(syncListener).not.toBeCalled();
       expect(sessionListener).toBeCalledTimes(1);
       expect(globalListener).toBeCalledTimes(1);
 
-      const changes = { key: { oldValue: null, newValue: 'value' } };
+      const changes = { key: { oldValue: null, newValue: "value" } };
       expect(sessionListener).toBeCalledWith(changes);
-      expect(globalListener).toBeCalledWith(changes, 'session');
+      expect(globalListener).toBeCalledWith(changes, "session");
     });
 
-    it('setting a value to sync storage should trigger change listeners', async () => {
-      await fakeBrowser.storage.sync.set({ key: 'value' });
+    it("setting a value to sync storage should trigger change listeners", async () => {
+      await fakeBrowser.storage.sync.set({ key: "value" });
       expect(localListener).not.toBeCalled();
       expect(syncListener).toBeCalledTimes(1);
       expect(sessionListener).not.toBeCalled();
       expect(globalListener).toBeCalledTimes(1);
 
-      const changes = { key: { oldValue: null, newValue: 'value' } };
+      const changes = { key: { oldValue: null, newValue: "value" } };
       expect(syncListener).toBeCalledWith(changes);
-      expect(globalListener).toBeCalledWith(changes, 'sync');
+      expect(globalListener).toBeCalledWith(changes, "sync");
     });
   });
 
-  it('setting a nested object should not mutate the original object', async () => {
+  it("setting a nested object should not mutate the original object", async () => {
     const a = { a: { a: 1, b: [{ c: 1 }] } };
     await fakeBrowser.storage.local.set(a);
     const b = await fakeBrowser.storage.local.get();

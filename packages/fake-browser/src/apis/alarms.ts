@@ -1,18 +1,19 @@
-import { Alarms } from 'webextension-polyfill';
-import { BrowserOverrides } from '../types';
-import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+import { Alarms } from "webextension-polyfill";
+
+import { BrowserOverrides } from "../types";
+import { defineEventWithTrigger } from "../utils/defineEventWithTrigger";
 
 const alarmList: Alarms.Alarm[] = [];
 const onAlarm = defineEventWithTrigger<(name: Alarms.Alarm) => void>();
 
-export const alarms: BrowserOverrides['alarms'] = {
+export const alarms: BrowserOverrides["alarms"] = {
   resetState() {
     alarmList.length = 0;
     onAlarm.removeAllListeners();
   },
   async clear(name) {
-    name ??= '';
-    const index = alarmList.findIndex(alarm => alarm.name === name);
+    name ??= "";
+    const index = alarmList.findIndex((alarm) => alarm.name === name);
     if (index >= 0) {
       alarmList.splice(index, 1);
       return true;
@@ -31,14 +32,14 @@ export const alarms: BrowserOverrides['alarms'] = {
   ) {
     let name: string;
     let alarmInfo: Alarms.CreateAlarmInfoType;
-    if (typeof arg0 === 'object') {
-      name = '';
+    if (typeof arg0 === "object") {
+      name = "";
       alarmInfo = arg0;
     } else {
-      name = arg0 ?? '';
+      name = arg0 ?? "";
       alarmInfo = arg1 as Alarms.CreateAlarmInfoType;
     }
-    const i = alarmList.findIndex(alarm => alarm.name === name);
+    const i = alarmList.findIndex((alarm) => alarm.name === name);
     if (i >= 0) alarmList.splice(i, 1);
 
     alarmList.push({
@@ -48,8 +49,8 @@ export const alarms: BrowserOverrides['alarms'] = {
     });
   },
   async get(name) {
-    name ??= '';
-    return alarmList.find(alarm => alarm.name === name)!;
+    name ??= "";
+    return alarmList.find((alarm) => alarm.name === name)!;
   },
   async getAll() {
     return alarmList;

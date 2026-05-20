@@ -1,17 +1,16 @@
-import * as fs from 'node:fs/promises';
-import * as path from 'node:path';
-import { Listr, type ListrTask, ListrTaskWrapper } from 'listr2';
-import { Project, Symbol, SourceFile, Node, ts, JSDocableNode, JSDoc } from 'ts-morph';
-import * as prettier from 'prettier';
-import { CodeBlockWriter } from 'ts-morph';
+import * as fs from "node:fs/promises";
+import * as path from "node:path";
 
-const packagesDir = path.resolve('../packages');
+import { Listr, type ListrTask, ListrTaskWrapper } from "listr2";
+import * as prettier from "prettier";
+import { Project, Symbol, SourceFile, Node, ts, JSDocableNode, JSDoc } from "ts-morph";
+import { CodeBlockWriter } from "ts-morph";
 
-/**
- * If the main entrypoint for a file is different than src/index.ts, list them below.
- */
+const packagesDir = path.resolve("../packages");
+
+/** If the main entrypoint for a file is different than src/index.ts, list them below. */
 const CUSTOM_ENTRYPOINTS: Record<string, string[]> = {
-  messaging: ['src/index.ts', 'src/page.ts'],
+  messaging: ["src/index.ts", "src/page.ts"],
 };
 
 export async function generateApiReferences() {
@@ -26,48 +25,42 @@ type SymbolLinks = { [symbolName: string]: string };
 
 const EXTERNAL_SYMBOLS: SymbolLinks = {
   Promise:
-    'https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise',
-  'Storage.StorageArea':
-    'https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea',
+    "https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Promise",
+  "Storage.StorageArea":
+    "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea",
   StorageArea:
-    'https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea',
-  CustomEvent: 'https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent',
+    "https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/storage/StorageArea",
+  CustomEvent: "https://developer.mozilla.org/en-US/docs/Web/API/CustomEvent",
 };
 
 const EXCLUDED_SYMBOLS = [
   // name of an anonymous type
-  '__type',
+  "__type",
   // Generic type params
-  'TData',
-  'TReturn',
-  'TType',
+  "TData",
+  "TReturn",
+  "TType",
 ];
 
-/**
- * context passed into each task
- */
+/** Context passed into each task */
 interface Ctx {
-  /**
-   * Map of symbols to the packages they are found in.
-   */
+  /** Map of symbols to the packages they are found in. */
   symbolMap: { [symbolName: string]: string[] };
 }
 
-/**
- * Return the package folder names that documentation will be generated for.
- */
+/** Return the package folder names that documentation will be generated for. */
 async function getPackages(): Promise<string[]> {
   const all = await fs.readdir(packagesDir);
-  return all.filter(folderName => !folderName.endsWith('-demo') && folderName !== 'tsconfig');
+  return all.filter((folderName) => !folderName.endsWith("-demo") && folderName !== "tsconfig");
 }
 
 async function generateAll(ctx: Ctx, projectDirNames: string[]) {
   const tasks = new Listr<Ctx>(
     {
-      title: 'Generating TS Docs',
+      title: "Generating TS Docs",
       task: (ctx, topTask) =>
         topTask.newListr(
-          projectDirNames.map<ListrTask<Ctx>>(dirname => ({
+          projectDirNames.map<ListrTask<Ctx>>((dirname) => ({
             title: dirname,
             task: (ctx, task) => {
               return generateProjectDocs(ctx, task, dirname);
@@ -96,14 +89,14 @@ async function generateProjectDocs(
   // Project setup
 
   const projectDir = path.resolve(packagesDir, projectDirname);
-  const entrypointPaths = (CUSTOM_ENTRYPOINTS[projectDirname] ?? ['src/index.ts']).map(entry =>
+  const entrypointPaths = (CUSTOM_ENTRYPOINTS[projectDirname] ?? ["src/index.ts"]).map((entry) =>
     path.resolve(projectDir, entry),
   );
   const outputFile = path.resolve(`content/${projectDirname}/api.md`);
-  const tsConfigFilePath = path.resolve(projectDir, 'tsconfig.json');
+  const tsConfigFilePath = path.resolve(projectDir, "tsconfig.json");
   // Load TS Project
   const project = new Project({ tsConfigFilePath });
-  const entrypoints = entrypointPaths.map(entrypointPath =>
+  const entrypoints = entrypointPaths.map((entrypointPath) =>
     project.addSourceFileAtPath(entrypointPath),
   );
   project.resolveSourceFileDependencies();
@@ -114,17 +107,17 @@ async function generateProjectDocs(
   // Sort alphabetically
   publicSymbols.sort((l, r) => l.getName().toLowerCase().localeCompare(r.getName().toLowerCase()));
   const docs = await renderDocs(projectDirname, project, publicSymbols);
-  publicSymbols.forEach(s => {
+  publicSymbols.forEach((s) => {
     (ctx.symbolMap[s.getName()] ??= []).push(projectDirname);
   });
   // Write to file
-  await fs.writeFile(outputFile, docs, 'utf-8');
+  await fs.writeFile(outputFile, docs, "utf-8");
 }
 
 function getPublicSymbols(project: Project, entrypoints: SourceFile[]): Symbol[] {
   // Get all exported declarations from the source file
   const exportedDeclarations = entrypoints
-    .flatMap(entry => Array.from(entry.getExportedDeclarations().values()))
+    .flatMap((entry) => Array.from(entry.getExportedDeclarations().values()))
     .flat();
 
   // Collect all exported symbols
@@ -143,7 +136,7 @@ function getPublicSymbols(project: Project, entrypoints: SourceFile[]): Symbol[]
   // Combine and return the package's exported and referenced symbols
   const allSymbols = Array.from(new Set([...exportedSymbols, ...referencedSymbols]));
   return allSymbols.filter(
-    s => !EXTERNAL_SYMBOLS[s.getName()] && !EXCLUDED_SYMBOLS.includes(s.getName()),
+    (s) => !EXTERNAL_SYMBOLS[s.getName()] && !EXCLUDED_SYMBOLS.includes(s.getName()),
   );
 }
 
@@ -160,7 +153,7 @@ function collectReferencedSymbols(node: Node, symbols: Symbol[]): void {
     symbols.push(typeSymbol);
 
     // Check type arguments for additional referenced symbols
-    node.getTypeArguments().forEach(typeArg => {
+    node.getTypeArguments().forEach((typeArg) => {
       collectReferencedSymbols(typeArg, symbols);
     });
     return;
@@ -170,7 +163,7 @@ function collectReferencedSymbols(node: Node, symbols: Symbol[]): void {
     symbols.push(symbol);
 
     // Check properties for additional referenced symbols
-    node.getProperties().forEach(property => {
+    node.getProperties().forEach((property) => {
       collectReferencedSymbols(property, symbols);
     });
 
@@ -196,7 +189,7 @@ function collectReferencedSymbols(node: Node, symbols: Symbol[]): void {
   }
 
   if (node.isKind(ts.SyntaxKind.FunctionDeclaration)) {
-    node.getParameters().forEach(parameter => collectReferencedSymbols(parameter, symbols));
+    node.getParameters().forEach((parameter) => collectReferencedSymbols(parameter, symbols));
     const returnTypeSymbol = node.getReturnType().getSymbol();
     if (returnTypeSymbol) symbols.push(returnTypeSymbol);
     return;
@@ -226,7 +219,7 @@ async function renderDocs(
   symbols: Symbol[],
 ): Promise<string> {
   const renderedSymbols = await Promise.all(
-    symbols.map(async symbol => {
+    symbols.map(async (symbol) => {
       const rendered = await renderSymbol(project, symbol);
       return rendered.trim();
     }),
@@ -241,42 +234,42 @@ async function renderDocs(
     // Symbols
     ...renderedSymbols,
     // Footer
-    '<br/><br/>',
-    '---',
-    '_API reference generated by [`docs/generate-api-references.ts`](https://github.com/aklinker1/webext-core/blob/main/docs/generate-api-references.ts)_',
+    "<br/><br/>",
+    "---",
+    "_API reference generated by [`docs/generate-api-references.ts`](https://github.com/aklinker1/webext-core/blob/main/docs/generate-api-references.ts)_",
   ];
-  return sections.join('\n\n');
+  return sections.join("\n\n");
 }
 
 async function renderSymbol(project: Project, symbol: Symbol): Promise<string> {
   const { examples, description, parameters, returns, deprecated } = parseJsdoc(symbol);
-  const typeDefinition = (await getTypeDeclarations(project, symbol)).join('\n\n');
+  const typeDefinition = (await getTypeDeclarations(project, symbol)).join("\n\n");
   const properties: string[] = symbol
     .getDeclarations()
-    .flatMap(dec => dec.asKind(ts.SyntaxKind.InterfaceDeclaration))
-    .flatMap(i => i?.getProperties() ?? [])
-    .map(prop => {
+    .flatMap((dec) => dec.asKind(ts.SyntaxKind.InterfaceDeclaration))
+    .flatMap((i) => i?.getProperties() ?? [])
+    .map((prop) => {
       const dec = prop.getSymbolOrThrow().getDeclarations()[0];
       const docs = prop
         .getJsDocs()
-        .map(doc => doc.getCommentText())
-        .join(' ');
+        .map((doc) => doc.getCommentText())
+        .join(" ");
       const defaultValue = prop
         .getSymbol()
         ?.getJsDocTags()
-        .find(tag => tag.getName() === 'default')
+        .find((tag) => tag.getName() === "default")
         ?.getText()
-        .map(part => part.text)
-        .join(' ');
-      return `***\`${dec.getText().replace(/;$/, '')}\`***${
-        defaultValue ? ` (default: \`${defaultValue}\`)` : ''
-      }${docs ? '<br/>' + docs : ''}`;
+        .map((part) => part.text)
+        .join(" ");
+      return `***\`${dec.getText().replace(/;$/, "")}\`***${
+        defaultValue ? ` (default: \`${defaultValue}\`)` : ""
+      }${docs ? "<br/>" + docs : ""}`;
     });
 
   let template = `
 ## \`${symbol.getName()}\`
 
-${deprecated ? `:::danger Deprecated\n${deprecated}\n:::` : ''}
+${deprecated ? `:::danger Deprecated\n${deprecated}\n:::` : ""}
 
 \`\`\`ts
 ${typeDefinition}
@@ -286,39 +279,39 @@ ${description}
 
 ${
   parameters.length > 0
-    ? `### Parameters\n\n${parameters.map(parameter => `- ${parameter}`).join('\n\n')}`
-    : ''
+    ? `### Parameters\n\n${parameters.map((parameter) => `- ${parameter}`).join("\n\n")}`
+    : ""
 }
 
-${returns ? `### Returns \n\n${returns}` : ''}
+${returns ? `### Returns \n\n${returns}` : ""}
 
 ${
   properties.length > 0
-    ? `### Properties \n\n${properties.map(property => `- ${property}`).join('\n\n')}`
-    : ''
+    ? `### Properties \n\n${properties.map((property) => `- ${property}`).join("\n\n")}`
+    : ""
 }
 
 ${
   examples.length > 0
-    ? `### Examples\n\n${examples.map(ex => `\`\`\`ts\n${ex}\n\`\`\``).join('\n\n')}`
-    : ''
+    ? `### Examples\n\n${examples.map((ex) => `\`\`\`ts\n${ex}\n\`\`\``).join("\n\n")}`
+    : ""
 }
 `;
 
-  while (template.includes('\n\n\n')) template = template.replace('\n\n\n', '\n\n');
-  return template.replace(/\n\n\n/gm, '\n\n');
+  while (template.includes("\n\n\n")) template = template.replace("\n\n\n", "\n\n");
+  return template.replace(/\n\n\n/gm, "\n\n");
 }
 
 function cleanTypeText(text: string): string {
   text = text
     // Remove "export " from start
-    .replace(/^export /, '')
+    .replace(/^export /, "")
     // Remove any inline JSDoc and whitespace
-    .replace(/\s*\/\*\*[\S\s]*?\*\//gm, '');
+    .replace(/\s*\/\*\*[\S\s]*?\*\//gm, "");
 
   // Remove "import(...)." from types
-  text.match(/import\(.*?\)\./gm)?.forEach(importText => {
-    text = text.replace(importText, '');
+  text.match(/import\(.*?\)\./gm)?.forEach((importText) => {
+    text = text.replace(importText, "");
   });
   return text;
 }
@@ -327,9 +320,9 @@ async function getTypeDeclarations(project: Project, symbol: Symbol): Promise<st
   return await Promise.all(
     symbol
       .getDeclarations()
-      .flatMap(dec => {
+      .flatMap((dec) => {
         // Remove body from function declarations.
-        if (dec.isKind(ts.SyntaxKind.FunctionDeclaration)) dec.setBodyText('// ...');
+        if (dec.isKind(ts.SyntaxKind.FunctionDeclaration)) dec.setBodyText("// ...");
 
         const text = cleanTypeText(dec.getText());
         // console.log(text);
@@ -358,22 +351,22 @@ async function getTypeDeclarations(project: Project, symbol: Symbol): Promise<st
           w.write(`class ${dec.getName()} `)
             .conditionalWrite(!!extend, () => `extends ${extend?.getText()} `)
             .inlineBlock(() => {
-              dec.getStaticMethods().forEach(method => {
+              dec.getStaticMethods().forEach((method) => {
                 if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-                w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
+                w.writeLine(method.getText().replace(method.getBodyText() ?? "", "// ..."));
               });
-              dec.getConstructors().forEach(con => {
+              dec.getConstructors().forEach((con) => {
                 if (con.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
                 w.writeLine(
                   con
                     .getText()
-                    .replace(con.getBodyText() ?? '', '// ...')
-                    .replace(/(private|readonly) /g, ''),
+                    .replace(con.getBodyText() ?? "", "// ...")
+                    .replace(/(private|readonly) /g, ""),
                 );
               });
-              dec.getMethods().forEach(method => {
+              dec.getMethods().forEach((method) => {
                 if (method.hasModifier(ts.SyntaxKind.PrivateKeyword)) return;
-                w.writeLine(method.getText().replace(method.getBodyText() ?? '', '// ...'));
+                w.writeLine(method.getText().replace(method.getBodyText() ?? "", "// ..."));
               });
             });
           return w.toString();
@@ -381,12 +374,12 @@ async function getTypeDeclarations(project: Project, symbol: Symbol): Promise<st
 
         throw Error(
           `ts.SyntaxKind.${dec.getKindName()} cannot convert to type declaration:\n${
-            dec.getText().split('\n')[0]
+            dec.getText().split("\n")[0]
           }`,
         );
       })
-      .map(async text => {
-        const res = await prettier.format(text, { printWidth: 80, parser: 'typescript' });
+      .map(async (text) => {
+        const res = await prettier.format(text, { printWidth: 80, parser: "typescript" });
         return res.trimEnd();
       }),
   );
@@ -400,49 +393,49 @@ function parseJsdoc(symbol: Symbol) {
   const dec = symbol.getDeclarations()[0] as Node;
   const docsNode = dec.getFirstAncestorByKind(ts.SyntaxKind.VariableStatement) ?? dec;
   let docs: JSDoc[] | undefined;
-  if ('getJsDocs' in docsNode) {
+  if ("getJsDocs" in docsNode) {
     docs = (docsNode as unknown as JSDocableNode).getJsDocs();
   }
 
   const examples: string[] = symbol
     .getJsDocTags()
-    .filter(tag => tag.getName() === 'example')
-    .flatMap(tag => tag.getText())
-    .map(part => part.text);
+    .filter((tag) => tag.getName() === "example")
+    .flatMap((tag) => tag.getText())
+    .map((part) => part.text);
 
   const functionDec = symbol.getDeclarations()[0].asKind(ts.SyntaxKind.FunctionDeclaration);
   const parameters: string[] = symbol
     .getJsDocTags()
-    .filter(tag => tag.getName() === 'param')
-    .map(tag => {
+    .filter((tag) => tag.getName() === "param")
+    .map((tag) => {
       const parts = tag.getText();
       let name: string;
       let docs: string[] = [];
       if (parts.length === 1) {
         name = parts[0].text;
       } else {
-        name = parts.find(p => p.kind === 'parameterName')!.text;
-        docs = parts.filter(p => p.kind === 'text').map(p => p.text);
+        name = parts.find((p) => p.kind === "parameterName")!.text;
+        docs = parts.filter((p) => p.kind === "text").map((p) => p.text);
       }
-      const type = functionDec?.getParameterOrThrow(name).print() ?? 'unknown';
-      return `***\`${type}\`***${docs.length > 0 ? '<br/>' + docs.join('\n\n') : ''}`;
+      const type = functionDec?.getParameterOrThrow(name).print() ?? "unknown";
+      return `***\`${type}\`***${docs.length > 0 ? "<br/>" + docs.join("\n\n") : ""}`;
     });
 
-  const description: string | undefined = docs?.flatMap(doc => doc.getCommentText()).join('\n\n');
+  const description: string | undefined = docs?.flatMap((doc) => doc.getCommentText()).join("\n\n");
 
   const returns = symbol
     .getJsDocTags()
-    .find(tag => tag.getName() === 'returns')
+    .find((tag) => tag.getName() === "returns")
     ?.getText()
-    .map(part => part.text)
-    .join(' ');
+    .map((part) => part.text)
+    .join(" ");
 
   const deprecated = symbol
     .getJsDocTags()
-    .find(tag => tag.getName() === 'deprecated')
+    .find((tag) => tag.getName() === "deprecated")
     ?.getText()
-    .map(part => part.text)
-    .join(' ');
+    .map((part) => part.text)
+    .join(" ");
 
   return {
     examples,

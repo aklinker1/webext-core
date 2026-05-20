@@ -3,23 +3,24 @@ import {
   type ExtensionMessagingConfig,
   type ExtensionMessenger,
   type RemoveListenerCallback,
-} from '@webext-core/messaging';
-import type { DeepAsync, Service } from './types';
+} from "@webext-core/messaging";
+
+import type { DeepAsync, Service } from "./types";
 
 /**
  * A type that ensures a service has only async methods.
  *
- * - ***If all methods are async***, it returns the original type.
- * - ***If the service has non-async methods***, it returns a `DeepAsync` of the service.
+ * - _**If all methods are async**_, it returns the original type.
+ * - _**If the service has non-async methods**_, it returns a `DeepAsync` of the service.
  */
 export type ProxyService<T> = T extends DeepAsync<T> ? T : DeepAsync<T>;
 
 /**
- * Create a proxy service that uses the message APIs to proxy function calls to
- * the real service registered in the background with `registerService`.
+ * Create a proxy service that uses the message APIs to proxy function calls to the real service
+ * registered in the background with `registerService`.
  *
- * @param key The service key to listen for, must be the same string as the one
- *            used in `registerService`.
+ * @param key The service key to listen for, must be the same string as the one used in
+ *   `registerService`.
  */
 export function createProxyService<T extends Service>(
   key: ProxyServiceKey<T> | string,
@@ -29,11 +30,10 @@ export function createProxyService<T extends Service>(
 }
 
 /**
- * Sets up message listeners that receive messages from proxies created with
- * `createProxyService`.
+ * Sets up message listeners that receive messages from proxies created with `createProxyService`.
  *
- * @param key The service key to listen for, must be the same string as the one
- *            used in `createProxyService`.
+ * @param key The service key to listen for, must be the same string as the one used in
+ *   `createProxyService`.
  * @param realService The real service instance that will handle the requests.
  */
 export function registerService<T extends Service, K extends string = ProxyServiceKey<T> | string>(
@@ -57,27 +57,26 @@ export function isProxyService<T>(obj: unknown): obj is ProxyService<T> {
 interface ProxyServiceConstraint<_> {}
 
 /**
- * Used to constrain a service's type between calls to `createProxyService` and
- * `registerService`.
+ * Used to constrain a service's type between calls to `createProxyService` and `registerService`.
  *
  * @example
- * ```ts
- * // utils/proxy-service-keys.ts
- * import type { ProxyServiceKey } from '@webext-core/proxy-service';
- * import type { MathService } from './math-service';
+ *   ```ts
+ *   // utils/proxy-service-keys.ts
+ *   import type { ProxyServiceKey } from "@webext-core/proxy-service";
+ *   import type { MathService } from "./math-service";
  *
- * export const PROXY_SERVICE_KEY = 'math-service' as ProxyServiceKey<MathService>;
+ *   export const PROXY_SERVICE_KEY = "math-service" as ProxyServiceKey<MathService>;
  *
- * // background.ts
- * import { PROXY_SERVICE_KEY } from './utils/proxy-service-keys';
+ *   // background.ts
+ *   import { PROXY_SERVICE_KEY } from "./utils/proxy-service-keys";
  *
- * registerService(PROXY_SERVICE_KEY, new MathService())
+ *   registerService(PROXY_SERVICE_KEY, new MathService());
  *
- * // content-script.ts
- * import { PROXY_SERVICE_KEY } from './utils/proxy-service-keys';
+ *   // content-script.ts
+ *   import { PROXY_SERVICE_KEY } from "./utils/proxy-service-keys";
  *
- * const mathService = await createProxyService(PROXY_SERVICE_KEY);
- * ```
+ *   const mathService = await createProxyService(PROXY_SERVICE_KEY);
+ *   ```;
  */
 export type ProxyServiceKey<T> = string & ProxyServiceConstraint<T>;
 
@@ -98,9 +97,8 @@ function defineProxyMessaging(
 }
 
 /**
- * Create and returns a "deep" proxy. Every property that is accessed returns
- * another proxy, and when a function is called at any depth, a message is sent
- * to the background.
+ * Create and returns a "deep" proxy. Every property that is accessed returns another proxy, and
+ * when a function is called at any depth, a message is sent to the background.
  */
 function createProxy<T>(messenger: ProxyMessenger, path?: string[]): ProxyService<T> {
   const wrapped = (() => {}) as ProxyService<T>;
@@ -116,7 +114,7 @@ function createProxy<T>(messenger: ProxyMessenger, path?: string[]): ProxyServic
 
     get(target, propertyName, receiver) {
       // Return the value if the property is a symbol
-      if (typeof propertyName === 'symbol') {
+      if (typeof propertyName === "symbol") {
         return Reflect.get(target, propertyName, receiver);
       }
 

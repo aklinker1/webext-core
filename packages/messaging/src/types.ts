@@ -1,6 +1,4 @@
-/**
- * Interface used to log text to the console when sending and receiving messages.
- */
+/** Interface used to log text to the console when sending and receiving messages. */
 export interface Logger {
   debug(...args: any[]): void;
   log(...args: any[]): void;
@@ -19,45 +17,37 @@ export type MaybePromise<T> = Promise<T> | T;
  *
  * > Internally, this is just an object with random keys for the data and return types.
  *
- * @deprecated Use the function syntax instead: <https://webext-core.aklinker1.io/messaging/protocol-maps.html#syntax>
- *
+ * @deprecated Use the function syntax instead:
+ *   [https://webext-core.aklinker1.io/messaging/protocol-maps.html#syntax](https://webext-core.aklinker1.io/messaging/protocol-maps.html#syntax)
  * @example
- * interface ProtocolMap {
- *   // data is a string, returns undefined
- *   type1: string;
- *   // data is a string, returns a number
- *   type2: ProtocolWithReturn<string, number>;
- * }
+ *   interface ProtocolMap {
+ *     // data is a string, returns undefined
+ *     type1: string;
+ *     // data is a string, returns a number
+ *     type2: ProtocolWithReturn<string, number>;
+ *   }
  */
 export interface ProtocolWithReturn<TData, TReturn> {
-  /**
-   * Stores the data type. Randomly named so that it isn't accidentally implemented.
-   */
+  /** Stores the data type. Randomly named so that it isn't accidentally implemented. */
   BtVgCTPYZu: TData;
-  /**
-   * Stores the return type. Randomly named so that it isn't accidentally implemented.
-   */
+  /** Stores the return type. Randomly named so that it isn't accidentally implemented. */
   RrhVseLgZW: TReturn;
 }
 
-/**
- * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type.
- */
+/** Given a function declaration, `ProtocolWithReturn`, or a value, return the message's data type. */
 export type GetDataType<T> = T extends (...args: infer Args) => any
-  ? Args['length'] extends 0 | 1
+  ? Args["length"] extends 0 | 1
     ? Args[0]
     : never
   : T extends ProtocolWithReturn<any, any>
-    ? T['BtVgCTPYZu']
+    ? T["BtVgCTPYZu"]
     : T;
 
-/**
- * Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type.
- */
+/** Given a function declaration, `ProtocolWithReturn`, or a value, return the message's return type. */
 export type GetReturnType<T> = T extends (...args: any[]) => infer R
   ? R
   : T extends ProtocolWithReturn<any, any>
-    ? T['RrhVseLgZW']
+    ? T["RrhVseLgZW"]
     : void;
 
 /**
@@ -67,9 +57,7 @@ export type GetReturnType<T> = T extends (...args: any[]) => infer R
  */
 export type RemoveListenerCallback = () => void;
 
-/**
- * Shared configuration between all the different messengers.
- */
+/** Shared configuration between all the different messengers. */
 export interface BaseMessagingConfig {
   /**
    * The logger to use when logging messages. Set to `null` to disable logging.
@@ -79,7 +67,8 @@ export interface BaseMessagingConfig {
   logger?: Logger;
 
   /**
-   * When a message is received that doesn't follow `@webext-core/messaging`'s format, it is ignored.
+   * When a message is received that doesn't follow `@webext-core/messaging`'s format, it is
+   * ignored.
    *
    * Set this value to true to throw an error instead of ignoring it.
    *
@@ -96,24 +85,16 @@ export interface NamespaceMessagingConfig extends BaseMessagingConfig {
   namespace: string;
 }
 
-/**
- * Contains information about the message received.
- */
+/** Contains information about the message received. */
 export interface Message<
   TProtocolMap extends Record<string, any>,
   TType extends keyof TProtocolMap,
 > {
-  /**
-   * A semi-unique, auto-incrementing number used to trace messages being sent.
-   */
+  /** A semi-unique, auto-incrementing number used to trace messages being sent. */
   id: number;
-  /**
-   * The data that was passed into `sendMessage`
-   */
+  /** The data that was passed into `sendMessage` */
   data: GetDataType<TProtocolMap[TType]>;
   type: TType;
-  /**
-   * The timestamp the message was sent in MS since epoch.
-   */
+  /** The timestamp the message was sent in MS since epoch. */
   timestamp: number;
 }

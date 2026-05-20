@@ -1,4 +1,5 @@
-import { ProxyServiceKey } from '@webext-core/proxy-service';
-import type { MathService } from './math-service';
+import { ProxyServiceKey } from "@webext-core/proxy-service";
 
-export const MATH_SERVICE_KEY = 'math-service' as ProxyServiceKey<MathService>;
+import type { MathService } from "./math-service";
+
+export const MATH_SERVICE_KEY = "math-service" as ProxyServiceKey<MathService>;

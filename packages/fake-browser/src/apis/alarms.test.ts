@@ -1,14 +1,16 @@
-import { beforeEach, describe, expect, it, setSystemTime, vi } from 'bun:test';
-import { Alarms } from 'webextension-polyfill';
-import { fakeBrowser } from '..';
+import { beforeEach, describe, expect, it, setSystemTime, vi } from "bun:test";
+
+import { Alarms } from "webextension-polyfill";
+
+import { fakeBrowser } from "..";
 
 const now = Date.now();
 setSystemTime(now);
 
-describe('Fake Alarms API', () => {
+describe("Fake Alarms API", () => {
   beforeEach(fakeBrowser.reset);
 
-  it('should allow creating an unnamed alarm', async () => {
+  it("should allow creating an unnamed alarm", async () => {
     fakeBrowser.alarms.create(undefined, {
       delayInMinutes: 1,
       periodInMinutes: 5,
@@ -16,24 +18,24 @@ describe('Fake Alarms API', () => {
     const alarm = await fakeBrowser.alarms.get();
 
     expect(alarm).toEqual({
-      name: '',
+      name: "",
       periodInMinutes: 5,
       scheduledTime: now + 60e3,
     });
   });
 
-  it('should allow creating an unnamed alarm using a single parameter', async () => {
+  it("should allow creating an unnamed alarm using a single parameter", async () => {
     fakeBrowser.alarms.create({});
     const alarm = await fakeBrowser.alarms.get();
 
     expect(alarm).toEqual({
-      name: '',
+      name: "",
       scheduledTime: now,
     });
   });
 
-  it('should replace an existing alarm with the same name', async () => {
-    const name = '1';
+  it("should replace an existing alarm with the same name", async () => {
+    const name = "1";
     fakeBrowser.alarms.create(name, { when: 1 });
     fakeBrowser.alarms.create(name, { when: 2 });
 
@@ -45,8 +47,8 @@ describe('Fake Alarms API', () => {
     });
   });
 
-  it('should allow creating a named alarm', async () => {
-    const name = 'test';
+  it("should allow creating a named alarm", async () => {
+    const name = "test";
     fakeBrowser.alarms.create(name, {
       delayInMinutes: 2,
       periodInMinutes: 10,
@@ -60,34 +62,34 @@ describe('Fake Alarms API', () => {
     });
   });
 
-  it('should return all created alarms', async () => {
-    fakeBrowser.alarms.create('1', {});
-    fakeBrowser.alarms.create('2', {});
+  it("should return all created alarms", async () => {
+    fakeBrowser.alarms.create("1", {});
+    fakeBrowser.alarms.create("2", {});
 
     const actual = await fakeBrowser.alarms.getAll();
 
     expect(actual).toHaveLength(2);
   });
 
-  it('should remove the specified alarm', async () => {
+  it("should remove the specified alarm", async () => {
     fakeBrowser.alarms.create(undefined, {});
-    fakeBrowser.alarms.create('1', {});
-    fakeBrowser.alarms.create('2', {});
-    const expected = [{ name: '2', scheduledTime: now }];
+    fakeBrowser.alarms.create("1", {});
+    fakeBrowser.alarms.create("2", {});
+    const expected = [{ name: "2", scheduledTime: now }];
 
     await fakeBrowser.alarms.clear();
-    await fakeBrowser.alarms.clear('1');
-    await fakeBrowser.alarms.clear('1');
+    await fakeBrowser.alarms.clear("1");
+    await fakeBrowser.alarms.clear("1");
 
     const actual = await fakeBrowser.alarms.getAll();
 
     expect(actual).toEqual(expected);
   });
 
-  it('should remove all alarms', async () => {
+  it("should remove all alarms", async () => {
     fakeBrowser.alarms.create(undefined, {});
-    fakeBrowser.alarms.create('1', {});
-    fakeBrowser.alarms.create('2', {});
+    fakeBrowser.alarms.create("1", {});
+    fakeBrowser.alarms.create("2", {});
 
     await fakeBrowser.alarms.clearAll();
 
@@ -96,12 +98,12 @@ describe('Fake Alarms API', () => {
     expect(actual).toHaveLength(0);
   });
 
-  it('should call active onAlarm listeners when the event is triggered', async () => {
+  it("should call active onAlarm listeners when the event is triggered", async () => {
     const listener1 = vi.fn();
     const listener2 = vi.fn();
     const listener3 = vi.fn();
     const alarm: Alarms.Alarm = {
-      name: 'test',
+      name: "test",
       scheduledTime: now + 1000,
     };
 

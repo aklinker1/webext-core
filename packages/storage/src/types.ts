@@ -1,8 +1,6 @@
 export type AnySchema = Record<string, any>;
 
-/**
- * Call this method to remove the listener that was added.
- */
+/** Call this method to remove the listener that was added. */
 export type RemoveListenerCallback = () => void;
 
 export type OnChangeCallback<
@@ -11,20 +9,17 @@ export type OnChangeCallback<
 > = (newValue: TSchema[TKey], oldValue: TSchema[TKey] | null) => void;
 
 /**
- * This is the interface for the storage objects exported from the package. It is similar to `localStorage`, except for a few differences:
+ * This is the interface for the storage objects exported from the package. It is similar to
+ * `localStorage`, except for a few differences:
  *
- * - ***It's async*** since the web extension storage APIs are async.
- * - It can store any data type, ***not just strings***.
+ * - _**It's async**_ since the web extension storage APIs are async.
+ * - It can store any data type, _**not just strings**_.
  */
 export interface ExtensionStorage<TSchema extends AnySchema> {
-  /**
-   * Clear all values from storage.
-   */
+  /** Clear all values from storage. */
   clear(): Promise<void>;
 
-  /**
-   * Return the value in storage or `null` if the item is missing.
-   */
+  /** Return the value in storage or `null` if the item is missing. */
   getItem<TKey extends keyof TSchema>(key: TKey): Promise<Required<TSchema>[TKey] | null>;
 
   /**
@@ -33,9 +28,7 @@ export interface ExtensionStorage<TSchema extends AnySchema> {
    */
   setItem<TKey extends keyof TSchema>(key: TKey, value: TSchema[TKey]): Promise<void>;
 
-  /**
-   * Remove the value from storage at a key.
-   */
+  /** Remove the value from storage at a key. */
   removeItem<TKey extends keyof TSchema>(key: TKey): Promise<void>;
 
   /**

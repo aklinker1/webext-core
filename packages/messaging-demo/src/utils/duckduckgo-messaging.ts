@@ -1,4 +1,4 @@
-import { defineCustomEventMessaging } from '@webext-core/messaging/page';
+import { defineCustomEventMessaging } from "@webext-core/messaging/page";
 
 export interface DuckduckgoMessagingProtocol {
   ping(): string;
@@ -8,5 +8,5 @@ export interface DuckduckgoMessagingProtocol {
 }
 
 export const duckduckgoMessaging = defineCustomEventMessaging<DuckduckgoMessagingProtocol>({
-  namespace: '@webext-core/messaging-demo/duckduckgo',
+  namespace: "@webext-core/messaging-demo/duckduckgo",
 });

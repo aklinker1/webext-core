@@ -5,7 +5,7 @@ Supports all browsers (Chrome, Firefox, Safari).
 
 ```ts
 // ./messaging.ts
-import { defineExtensionMessaging } from '@webext-core/messaging';
+import { defineExtensionMessaging } from "@webext-core/messaging";
 
 interface ProtocolMap {
   getStringLength(s: string): number;
@@ -16,18 +16,18 @@ export const { sendMessage, onMessage } = defineExtensionMessaging<ProtocolMap>(
 
 ```ts
 // ./background.ts
-import { onMessage } from './messaging';
+import { onMessage } from "./messaging";
 
-onMessage('getStringLength', message => {
+onMessage("getStringLength", (message) => {
   return message.data.length;
 });
 ```
 
 ```ts
 // ./content-script.js or anywhere else
-import { sendMessage } from './messaging';
+import { sendMessage } from "./messaging";
 
-const length = await sendMessage('getStringLength', 'hello world');
+const length = await sendMessage("getStringLength", "hello world");
 
 console.log(length); // 11
 ```

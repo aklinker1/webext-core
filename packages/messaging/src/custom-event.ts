@@ -1,28 +1,20 @@
-import { GenericMessenger, defineGenericMessanging } from './generic';
-import { NamespaceMessagingConfig } from './types';
-import { prepareCustomEventDict, createId } from './utils';
+import { GenericMessenger, defineGenericMessanging } from "./generic";
+import { NamespaceMessagingConfig } from "./types";
+import { prepareCustomEventDict, createId } from "./utils";
 
-const REQUEST_EVENT = '@webext-core/messaging/custom-events';
-const RESPONSE_EVENT = '@webext-core/messaging/custom-events/response';
+const REQUEST_EVENT = "@webext-core/messaging/custom-events";
+const RESPONSE_EVENT = "@webext-core/messaging/custom-events/response";
 
-/**
- * Configuration passed into `defineCustomEventMessaging`.
- */
+/** Configuration passed into `defineCustomEventMessaging`. */
 export interface CustomEventMessagingConfig extends NamespaceMessagingConfig {}
 
-/**
- * Additional fields available on the `Message` from a `CustomEventMessenger`.
- */
+/** Additional fields available on the `Message` from a `CustomEventMessenger`. */
 export interface CustomEventMessage {
-  /**
-   * The event that was fired, resulting in the message being passed.
-   */
+  /** The event that was fired, resulting in the message being passed. */
   event: CustomEvent;
 }
 
-/**
- * Messenger returned by `defineCustomEventMessenger`.
- */
+/** Messenger returned by `defineCustomEventMessenger`. */
 export type CustomEventMessenger<TProtocolMap extends Record<string, any>> = GenericMessenger<
   TProtocolMap,
   CustomEventMessage,
@@ -39,21 +31,23 @@ export type CustomEventMessenger<TProtocolMap extends Record<string, any>> = Gen
  * `sendMessage` does not accept any additional arguments..
  *
  * @example
- * interface WebsiteMessengerSchema {
+ *   interface WebsiteMessengerSchema {
  *   initInjectedScript(data: ...): void;
- * }
+ *   }
  *
- * export const websiteMessenger = defineCustomEventMessenger<initInjectedScript>();
+ *   export const websiteMessenger = defineCustomEventMessenger<initInjectedScript>();
  *
- * // Content script
- * websiteMessenger.sendMessage("initInjectedScript", ...);
+ *   // Content script
+ *   websiteMessenger.sendMessage("initInjectedScript", ...);
  *
- * // Injected script
- * websiteMessenger.onMessage("initInjectedScript", (...) => {
+ *   // Injected script
+ *   websiteMessenger.onMessage("initInjectedScript", (...) => {
  *   // ...
- * })
+ *   })
  *
- * * @link Spec diagrams
+ *   *
+ *
+ * @link Spec diagrams
  * https://mermaid.live/edit#pako:eNqVlG9v2jAQxr-KZamvGv7YyYBYVSTGWgmpwAs6VZqQJpMc1BOxM8fZoIjvPieBACUVLC8SO3ru7vc4l9viUEWAGU7hdwYyhG-CLzWPZxLZa67WaKCkAWka01CLxDzMdSsobkKmhtsAUuy2SPIY0oSHwNBCKbQrMyRcGxGKhEuDbAT5qSTiKVJyBGnKl_CJKgUZ5br8eaa0-yPaUP6C0EDUeoX5VBi4hKP_A0dvgqM3wvWlMm-gi-Nb15ybe4k25_oTNPcmNPcKWrm8uzvWRF_Ld2NlAKk_oA_FnCodQ4PJaPR9PBz0X4aTMXp6nrwW6NP-6BH1p-j58enlkNsCoXKVX9WnbATB_f6AWcHWMpsE2AwnQi7JDNeFNNb7fmFILKXSlu-vLILP1HnOUkv3uCdqDemlOAgaVRWWS2phqjoXluipJVJriX6wRE8s0auWSGWJXLdEjpZovSV6ZqlcHjtBoVDFcSZFyG0LrIQ85D9rCfqhJcbnYUIWHRGJxQK0HRbHBrPJsINj0DEXkR0z2zz5DNs_I4YZZnYZwYJnK5ND7qyUZ0ZNNzLEzOgMHKxVtnzDbMFXqd1lSWTr7WdU9db2P2ZbvMasQYjX9AnteaRN3HbP7XgO3mBG3U6z533p-W637bue5-4c_K6UTUGbpOtT36edLvXaLu06GCJhlB6Vc7EYj0WJH4U-p9r9Aynbsqc
  */
 export function defineCustomEventMessaging<
@@ -65,7 +59,7 @@ export function defineCustomEventMessaging<
   const removeAdditionalListeners: Array<() => void> = [];
 
   const sendCustomMessage = (requestEvent: CustomEvent) =>
-    new Promise(res => {
+    new Promise((res) => {
       const responseListener = (e: Event) => {
         const { detail } = e as CustomEvent;
         if (
@@ -122,7 +116,7 @@ export function defineCustomEventMessaging<
     ...messenger,
     removeAllListeners() {
       messenger.removeAllListeners();
-      removeAdditionalListeners.forEach(removeListener => removeListener());
+      removeAdditionalListeners.forEach((removeListener) => removeListener());
     },
   };
 }

@@ -1,12 +1,11 @@
-export type { ExtensionStorage } from './types';
-import { defineExtensionStorage } from './defineExtensionStorage';
-import Browser from 'webextension-polyfill';
+export type { ExtensionStorage } from "./types";
+import Browser from "webextension-polyfill";
+
+import { defineExtensionStorage } from "./defineExtensionStorage";
 
 export { defineExtensionStorage };
 
-/**
- * An implementation of `ExtensionStorage` based on the `browser.storage.local` storage area.
- */
+/** An implementation of `ExtensionStorage` based on the `browser.storage.local` storage area. */
 export const localExtStorage = defineExtensionStorage(Browser.storage.local);
 /**
  * An implementation of `ExtensionStorage` based on the `browser.storage.local` storage area.
@@ -16,11 +15,7 @@ export const localExtStorage = defineExtensionStorage(Browser.storage.local);
  * - Added to Firefox 115 as of July 4th, 2023.
  */
 export const sessionExtStorage = defineExtensionStorage(Browser.storage.session);
-/**
- * An implementation of `ExtensionStorage` based on the `browser.storage.sync` storage area.
- */
+/** An implementation of `ExtensionStorage` based on the `browser.storage.sync` storage area. */
 export const syncExtStorage = defineExtensionStorage(Browser.storage.sync);
-/**
- * An implementation of `ExtensionStorage` based on the `browser.storage.managed` storage area.
- */
+/** An implementation of `ExtensionStorage` based on the `browser.storage.managed` storage area. */
 export const managedExtStorage = defineExtensionStorage(Browser.storage.managed);

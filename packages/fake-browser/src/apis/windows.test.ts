@@ -1,11 +1,12 @@
-import { describe, it, expect, vi, beforeEach } from 'bun:test';
-import { fakeBrowser } from '../index';
+import { describe, it, expect, vi, beforeEach } from "bun:test";
 
-describe('windows', () => {
+import { fakeBrowser } from "../index";
+
+describe("windows", () => {
   beforeEach(fakeBrowser.reset);
 
-  describe('remove', () => {
-    it('should trigger onRemoved event when removing a window', async () => {
+  describe("remove", () => {
+    it("should trigger onRemoved event when removing a window", async () => {
       const listener = vi.fn();
       fakeBrowser.windows.onRemoved.addListener(listener);
 
@@ -15,9 +16,9 @@ describe('windows', () => {
       expect(listener).toHaveBeenCalledWith(newWindow.id);
     });
 
-    it('should remove window from windowList', async () => {
+    it("should remove window from windowList", async () => {
       const window1 = await fakeBrowser.windows.create();
-      const window2 = await fakeBrowser.windows.create();
+      await fakeBrowser.windows.create();
 
       const allWindowsBefore = await fakeBrowser.windows.getAll();
       expect(allWindowsBefore).toHaveLength(3); // default + 2 new
@@ -26,12 +27,12 @@ describe('windows', () => {
 
       const allWindowsAfter = await fakeBrowser.windows.getAll();
       expect(allWindowsAfter).toHaveLength(2);
-      expect(allWindowsAfter.find(w => w.id === window1.id)).toBeUndefined();
+      expect(allWindowsAfter.find((w) => w.id === window1.id)).toBeUndefined();
     });
   });
 
-  describe('create', () => {
-    it('should trigger onCreated event', async () => {
+  describe("create", () => {
+    it("should trigger onCreated event", async () => {
       const listener = vi.fn();
       fakeBrowser.windows.onCreated.addListener(listener);
 
@@ -46,8 +47,8 @@ describe('windows', () => {
     });
   });
 
-  describe('tabs and windows interaction', () => {
-    it('should remove window when last tab is removed', async () => {
+  describe("tabs and windows interaction", () => {
+    it("should remove window when last tab is removed", async () => {
       const windowListener = vi.fn();
       fakeBrowser.windows.onRemoved.addListener(windowListener);
 
@@ -61,7 +62,7 @@ describe('windows', () => {
       expect(windowListener).toHaveBeenCalledWith(window.id);
 
       const allWindows = await fakeBrowser.windows.getAll();
-      expect(allWindows.find(w => w.id === window.id)).toBeUndefined();
+      expect(allWindows.find((w) => w.id === window.id)).toBeUndefined();
     });
   });
 });

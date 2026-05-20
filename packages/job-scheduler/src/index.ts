@@ -1,10 +1,8 @@
-import browser, { Alarms } from 'webextension-polyfill';
-import formatDuration from 'format-duration';
-import cron from 'cron-parser';
+import cron from "cron-parser";
+import formatDuration from "format-duration";
+import browser, { Alarms } from "webextension-polyfill";
 
-/**
- * Interface used to log text to the console when creating and executing jobs.
- */
+/** Interface used to log text to the console when creating and executing jobs. */
 export interface Logger {
   debug(...args: any[]): void;
   log(...args: any[]): void;
@@ -12,9 +10,7 @@ export interface Logger {
   error(...args: any[]): void;
 }
 
-/**
- * Configures how the job scheduler behaves.
- */
+/** Configures how the job scheduler behaves. */
 export interface JobSchedulerConfig {
   /**
    * The logger to use when logging messages. Set to `null` to disable logging.
@@ -30,12 +26,10 @@ export interface JobSchedulerConfig {
  */
 export type ExecuteFn = () => Promise<any> | any;
 
-/**
- * A job that executes on a set interval, starting when the job is scheduled for the first time.
- */
+/** A job that executes on a set interval, starting when the job is scheduled for the first time. */
 export interface IntervalJob {
   id: string;
-  type: 'interval';
+  type: "interval";
   /**
    * Interval in milliseconds. Due to limitations of the alarms API, it must be greater than 1
    * minute.
@@ -54,27 +48,25 @@ export interface IntervalJob {
 /**
  * A job that is executed based on a CRON expression. Backed by `cron-parser`.
  *
- * [`cron.ParserOptions`](https://github.com/harrisiirak/cron-parser#options) includes options like timezone.
+ * [`cron.ParserOptions`](https://github.com/harrisiirak/cron-parser#options) includes options like
+ * timezone.
  */
 export interface CronJob extends cron.ParserOptions<false> {
   id: string;
-  type: 'cron';
+  type: "cron";
   /**
-   * See `cron-parser`'s [supported expressions](https://github.com/harrisiirak/cron-parser#supported-format)
+   * See `cron-parser`'s [supported
+   * expressions](https://github.com/harrisiirak/cron-parser#supported-format)
    */
   expression: string;
   execute: ExecuteFn;
 }
 
-/**
- * Runs a job once, at a specific date/time.
- */
+/** Runs a job once, at a specific date/time. */
 export interface OnceJob {
   id: string;
-  type: 'once';
-  /**
-   * The date to run the job on.
-   */
+  type: "once";
+  /** The date to run the job on. */
   date: Date | string | number;
   execute: ExecuteFn;
 }
@@ -83,34 +75,27 @@ export type Job = IntervalJob | CronJob | OnceJob;
 
 export interface JobScheduler {
   /**
-   * Schedule a job. If a job with the same `id` has already been scheduled, it will update the job if it is different.
+   * Schedule a job. If a job with the same `id` has already been scheduled, it will update the job
+   * if it is different.
    */
   scheduleJob(job: Job): Promise<void>;
-  /**
-   * Un-schedules a job by it's ID.
-   */
+  /** Un-schedules a job by it's ID. */
   removeJob(jobId: string): Promise<void>;
 
-  /**
-   * Listen for a job to finish successfully.
-   */
-  on(event: 'success', callback: (job: Job, result: any) => void): RemoveListenerFn;
-  /**
-   * Listen for when a job fails.
-   */
-  on(event: 'error', callback: (job: Job, error: unknown) => void): RemoveListenerFn;
+  /** Listen for a job to finish successfully. */
+  on(event: "success", callback: (job: Job, result: any) => void): RemoveListenerFn;
+  /** Listen for when a job fails. */
+  on(event: "error", callback: (job: Job, error: unknown) => void): RemoveListenerFn;
 }
 
-/**
- * Call to remove the listener that was added.
- */
+/** Call to remove the listener that was added. */
 type RemoveListenerFn = () => void;
 
 /**
  * > Requires the `alarms` permission.
  *
- * Creates a `JobScheduler` backed by the
- * [alarms API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms).
+ * Creates a `JobScheduler` backed by the [alarms
+ * API](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/alarms).
  *
  * @param options
  * @returns A `JobScheduler` that can be used to schedule and manage jobs.
@@ -118,30 +103,28 @@ type RemoveListenerFn = () => void;
 export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   const logger = options?.logger === undefined ? console : options.logger;
   if (browser.alarms == null) {
-    options;
+    throw Error("alarms API is not available");
   }
 
   const successListeners: Array<(job: Job, result: any) => void> = [];
   function triggerSuccessListeners(job: Job, result: any) {
-    successListeners.forEach(l => l(job, result));
+    successListeners.forEach((l) => l(job, result));
   }
 
   const errorListeners: Array<(job: Job, result: any) => void> = [];
   function triggerErrorListeners(job: Job, error: unknown) {
-    errorListeners.forEach(l => l(job, error));
+    errorListeners.forEach((l) => l(job, error));
   }
 
-  /**
-   * Stores the job callbacks for `onAlarm`
-   */
-  const jobs: Record<Job['id'], Job> = {};
+  /** Stores the job callbacks for `onAlarm` */
+  const jobs: Record<Job["id"], Job> = {};
 
   async function executeJob(job: Job) {
-    const executionId = String(Math.floor(Math.random() * 1000)).padStart(3, '0');
+    const executionId = String(Math.floor(Math.random() * 1000)).padStart(3, "0");
     logger?.log(`[${executionId}] Executing job:`, job);
 
     const startTime = Date.now();
-    let status = 'success';
+    let status = "success";
     try {
       // Schedule next alarm ASAP so that it happens even if the job is killed by non-persistent
       // background scripts.
@@ -151,7 +134,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
 
       triggerSuccessListeners(job, result);
     } catch (err) {
-      status = 'failure';
+      status = "failure";
       triggerErrorListeners(job, err);
     }
 
@@ -170,16 +153,16 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
     let scheduledTime: number;
     let periodInMinutes: number | undefined;
     switch (job.type) {
-      case 'once':
+      case "once":
         scheduledTime = new Date(job.date).getTime();
         if (scheduledTime < Date.now()) return;
         break;
-      case 'interval':
+      case "interval":
         scheduledTime = Date.now();
         if (!job.immediate) scheduledTime += job.duration;
         periodInMinutes = job.duration / 60e3;
         break;
-      case 'cron':
+      case "cron":
         const expression = cron.parseExpression(job.expression, {
           ...job,
           currentDate: Date.now(),
@@ -197,7 +180,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   }
 
   async function scheduleJob(job: Job) {
-    logger?.debug('Scheduling job: ', job);
+    logger?.debug("Scheduling job: ", job);
 
     // If there's not a future alarm, don't schedule a job.
     const alarm = jobToAlarm(job);
@@ -210,13 +193,13 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
     jobs[job.id] = job;
     const existing = (await browser.alarms.get(job.id)) as Alarms.Alarm | undefined;
     switch (job.type) {
-      case 'cron':
-      case 'once':
+      case "cron":
+      case "once":
         if (alarm.scheduledTime !== existing?.scheduledTime) {
           browser.alarms.create(alarm.name, { when: alarm.scheduledTime });
         }
         break;
-      case 'interval':
+      case "interval":
         if (!existing || alarm.periodInMinutes !== existing.periodInMinutes) {
           browser.alarms.create(alarm.name, {
             delayInMinutes: job.immediate && !existing ? 0 : alarm.periodInMinutes,
@@ -234,18 +217,18 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   async function scheduleNextAlarm(job: Job) {
     switch (job.type) {
       // A one-time alarm doesn't need a next alarm
-      case 'once':
+      case "once":
       // Handled by alarms API
-      case 'interval':
+      case "interval":
         break;
-      case 'cron':
+      case "cron":
         await scheduleJob(job);
         break;
     }
   }
 
   // Listen for alarms and execute jobs
-  browser.alarms.onAlarm.addListener(async alarm => {
+  browser.alarms.onAlarm.addListener(async (alarm) => {
     const job = jobs[alarm.name];
     if (job) await executeJob(job);
   });
@@ -259,7 +242,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
     },
 
     on(event, callback) {
-      const listeners = event === 'success' ? successListeners : errorListeners;
+      const listeners = event === "success" ? successListeners : errorListeners;
       listeners.push(callback);
       return () => {
         const i = listeners.indexOf(callback);
