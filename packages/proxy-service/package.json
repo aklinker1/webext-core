@@ -50,10 +50,13 @@
   "devDependencies": {
     "@types/get-value": "^3.0.3",
     "@types/webextension-polyfill": "^0.9.1",
+    "@vitest/coverage-v8": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
     "@webext-core/messaging": "workspace:*",
     "tsconfig": "workspace:*",
     "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:",
     "webextension-polyfill": "^0.10.0"
   },
   "peerDependencies": {

@@ -50,9 +50,12 @@
   },
   "devDependencies": {
     "@types/is-potential-custom-element-name": "^1.0.0",
+    "@vitest/coverage-v8": "catalog:",
     "jsdom": "^20.0.3",
     "tsconfig": "workspace:*",
-    "tsup": "catalog:"
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "dependencies": {
     "is-potential-custom-element-name": "^1.0.1"

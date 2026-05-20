@@ -50,9 +50,12 @@
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.10.5",
+    "@vitest/coverage-v8": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
     "tsconfig": "workspace:*",
-    "tsup": "catalog:"
+    "tsup": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
   },
   "buildc": {
     "outDir": "lib"

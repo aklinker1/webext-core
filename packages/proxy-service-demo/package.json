@@ -12,7 +12,8 @@
     "@webext-core/proxy-service": "workspace:*"
   },
   "devDependencies": {
-    "wxt": "^0.19.5"
+    "wxt": "^0.19.5",
+    "typescript": "catalog:"
   },
   "buildc": {
     "cachable": false

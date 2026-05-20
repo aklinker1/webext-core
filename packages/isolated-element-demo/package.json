@@ -12,7 +12,8 @@
     "@webext-core/isolated-element": "workspace:*"
   },
   "devDependencies": {
-    "vite": "^4.0.0"
+    "vite": "^4.0.0",
+    "typescript": "catalog:"
   },
   "buildc": {
     "cachable": false
