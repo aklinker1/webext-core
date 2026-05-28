@@ -1,4 +1,4 @@
-import { fakeBrowser } from '.';
+import { fakeBrowser } from './index';
 
 // @ts-expect-error: chrome not typed in node environment
 globalThis.chrome = fakeBrowser;
