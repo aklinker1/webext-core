@@ -1,5 +1,28 @@
 # Changelog
 
+## v1.5.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.5.0...fake-browser-v1.5.1)
+
+### 🩹 Fixes
+
+- Don't use directory import for auto-setup module ([`8168516`](https://github.com/aklinker1/webext-core/commit/816851683f3bf7fd5d79e938ec213a5eabb5140d))
+
+### 📖 Documentation
+
+- Add historical release notes to CHANGELOG.md files ([`e9762ad`](https://github.com/aklinker1/webext-core/commit/e9762adc1dad49f44812759a4fade8e326fe78fa))
+
+### 🏡 Chore
+
+- Use `oxlint` and `oxfmt` (#152)
+- Move to `tsdown`, add `publint`, cleanup `package.json`s (#149)
+- Move to `bun test` (#148)
+- Cleanup dependencies (#147)
+
+### ❤️ Contributors
+
+- Aaron <aaronklinker1@gmail.com>
+
 ## v1.5.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.4.1...fake-browser-v1.5.0)
