@@ -1,5 +1,28 @@
 # Changelog
 
+## v3.0.2
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/messaging-v3.0.1...messaging-v3.0.2)
+
+### 🩹 Fixes
+
+- Relax `webextension-polyfill` version range (#153)
+
+### 📖 Documentation
+
+- Add historical release notes to CHANGELOG.md files ([`e9762ad`](https://github.com/aklinker1/webext-core/commit/e9762adc1dad49f44812759a4fade8e326fe78fa))
+
+### 🏡 Chore
+
+- Use `oxlint` and `oxfmt` (#152)
+- Move to `tsdown`, add `publint`, cleanup `package.json`s (#149)
+- Move to `bun test` (#148)
+- Cleanup dependencies (#147)
+
+### ❤️ Contributors
+
+- Aaron <aaronklinker1@gmail.com>
+
 ## v3.0.1
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/messaging-v3.0.0...messaging-v3.0.1)
