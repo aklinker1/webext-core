@@ -53,6 +53,9 @@ jobs:
           path: packages/${{ inputs.package }}
           commitTemplate: 'chore(release): ${{ inputs.package }}-v{{version}}'
           releaseNameTemplate: '@webext-core/${{ inputs.package }} v{{version}}'
+          # Update lockfile with new versions since it includes the package versions
+          preCommitCommands: |-
+            bun i
           publishCommands: |-
             npm publish
           dryRun: ${{ inputs.dryRun }}
