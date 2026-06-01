@@ -1,5 +1,17 @@
 # Changelog
 
+## v1.5.2
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.5.1...fake-browser-v1.5.2)
+
+### 🩹 Fixes
+
+- Relax `webextension-polyfill` version range (#153)
+
+### ❤️ Contributors
+
+- Aaron <aaronklinker1@gmail.com>
+
 ## v1.5.1
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.5.0...fake-browser-v1.5.1)
