@@ -1,5 +1,32 @@
 # Changelog
 
+## v2.0.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/proxy-service-v2.0.0...proxy-service-v2.0.1)
+
+### 🩹 Fixes
+
+- Add prepack script to fix new publish workflow ([`536c73e`](https://github.com/aklinker1/webext-core/commit/536c73e710cbebf41d0afeeca7a2100d904401ac))
+- Relax `webextension-polyfill` version range ([#153](https://github.com/aklinker1/webext-core/pull/153))
+
+### 📖 Documentation
+
+- Fix redirects ([#127](https://github.com/aklinker1/webext-core/pull/127))
+- Add historical release notes to CHANGELOG.md files ([`e9762ad`](https://github.com/aklinker1/webext-core/commit/e9762adc1dad49f44812759a4fade8e326fe78fa))
+
+### 🏡 Chore
+
+- Cleanup dependencies ([#147](https://github.com/aklinker1/webext-core/pull/147))
+- Move to `bun test` ([#148](https://github.com/aklinker1/webext-core/pull/148))
+- Move to `tsdown`, add `publint`, cleanup `package.json`s ([#149](https://github.com/aklinker1/webext-core/pull/149))
+- Use `oxlint` and `oxfmt` ([#152](https://github.com/aklinker1/webext-core/pull/152))
+
+### ❤️ Contributors
+
+- spookyuser <spookyuser@users.noreply.github.com>
+- Aaron <aaronklinker1@gmail.com>
+- Artem Prokop <44642024+ExposedCat@users.noreply.github.com>
+
 ## v2.0.0
 
 ### Features

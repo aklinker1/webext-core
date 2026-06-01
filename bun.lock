@@ -61,7 +61,7 @@
     },
     "packages/job-scheduler": {
       "name": "@webext-core/job-scheduler",
-      "version": "1.0.0",
+      "version": "1.1.0",
       "dependencies": {
         "cron-parser": "^4.8.1",
         "format-duration": "^3.0.2",
@@ -87,7 +87,7 @@
     },
     "packages/messaging": {
       "name": "@webext-core/messaging",
-      "version": "3.0.1",
+      "version": "3.0.2",
       "dependencies": {
         "@aklinker1/zero-serialize-error": "^1.0.2",
         "webextension-polyfill": ">=0.10.0",
@@ -113,7 +113,7 @@
     },
     "packages/proxy-service": {
       "name": "@webext-core/proxy-service",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "devDependencies": {
         "@types/get-value": "^3.0.3",
         "@types/webextension-polyfill": "^0.9.1",
