@@ -53,7 +53,7 @@
     "prepack": "bun run build"
   },
   "dependencies": {
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": ">=0.10.0"
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.10.5",
