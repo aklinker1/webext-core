@@ -65,7 +65,7 @@
   },
   "dependencies": {
     "@aklinker1/zero-serialize-error": "^1.0.2",
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": ">=0.10.0"
   },
   "devDependencies": {
     "@types/webextension-polyfill": "^0.9.1",

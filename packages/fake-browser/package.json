@@ -69,7 +69,7 @@
     "prepack": "bun run build"
   },
   "dependencies": {
-    "@types/webextension-polyfill": "^0.10.5",
+    "@types/webextension-polyfill": ">=0.10.5",
     "lodash.merge": "^4.6.2"
   },
   "devDependencies": {

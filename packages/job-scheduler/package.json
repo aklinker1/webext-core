@@ -59,7 +59,7 @@
   "dependencies": {
     "cron-parser": "^4.8.1",
     "format-duration": "^3.0.2",
-    "webextension-polyfill": "^0.10.0"
+    "webextension-polyfill": ">=0.10.0"
   },
   "devDependencies": {
     "@webext-core/fake-browser": "workspace:*",

@@ -19,9 +19,9 @@
     },
     "packages/fake-browser": {
       "name": "@webext-core/fake-browser",
-      "version": "1.5.0",
+      "version": "1.5.1",
       "dependencies": {
-        "@types/webextension-polyfill": "^0.10.5",
+        "@types/webextension-polyfill": ">=0.10.5",
         "lodash.merge": "^4.6.2",
       },
       "devDependencies": {
@@ -65,7 +65,7 @@
       "dependencies": {
         "cron-parser": "^4.8.1",
         "format-duration": "^3.0.2",
-        "webextension-polyfill": "^0.10.0",
+        "webextension-polyfill": ">=0.10.0",
       },
       "devDependencies": {
         "@webext-core/fake-browser": "workspace:*",
@@ -90,7 +90,7 @@
       "version": "3.0.1",
       "dependencies": {
         "@aklinker1/zero-serialize-error": "^1.0.2",
-        "webextension-polyfill": "^0.10.0",
+        "webextension-polyfill": ">=0.10.0",
       },
       "devDependencies": {
         "@types/webextension-polyfill": "^0.9.1",
@@ -127,7 +127,6 @@
       },
       "peerDependencies": {
         "@webext-core/messaging": ">=1.3.1",
-        "webextension-polyfill": ">=0.10.0",
       },
     },
     "packages/proxy-service-demo": {
@@ -145,7 +144,7 @@
       "name": "@webext-core/storage",
       "version": "1.2.0",
       "dependencies": {
-        "webextension-polyfill": "^0.10.0",
+        "webextension-polyfill": ">=0.10.0",
       },
       "devDependencies": {
         "@types/webextension-polyfill": "^0.10.5",
@@ -1293,7 +1292,7 @@
 
     "web-ext-run": ["web-ext-run@0.2.1", "", { "dependencies": { "@babel/runtime": "7.24.7", "@devicefarmer/adbkit": "3.2.6", "bunyan": "1.8.15", "chrome-launcher": "1.1.0", "debounce": "1.2.1", "es6-error": "4.1.1", "firefox-profile": "4.6.0", "fs-extra": "11.2.0", "fx-runner": "1.4.0", "mkdirp": "3.0.1", "multimatch": "6.0.0", "mz": "2.7.0", "node-notifier": "10.0.1", "parse-json": "7.1.1", "promise-toolbox": "0.21.0", "set-value": "4.1.0", "source-map-support": "0.5.21", "strip-bom": "5.0.0", "strip-json-comments": "5.0.1", "tmp": "0.2.3", "update-notifier": "6.0.2", "watchpack": "2.4.1", "ws": "8.18.0", "zip-dir": "2.0.0" } }, "sha512-5D11VcjdGkA1/xax5UWL0YeAbDySKHzWFe6EpsoPNUMw5Uk9tKk9p6GUOfcaI5N7sINKfBMZYNsTBiu5dzJB9A=="],
 
-    "webextension-polyfill": ["webextension-polyfill@0.10.0", "", {}, "sha512-c5s35LgVa5tFaHhrZDnr3FpQpjj1BB+RXhLTYUxGqBVN460HkbM8TBtEqdXWbpTKfzwCcjAZVF7zXCYSKtcp9g=="],
+    "webextension-polyfill": ["webextension-polyfill@0.12.0", "", {}, "sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q=="],
 
     "webpack-sources": ["webpack-sources@3.2.3", "", {}, "sha512-/DyMEOrDgLKKIG0fmvtz+4dUX/3Ghozwgm6iPp8KRhvn+eQf9+Q7GWxVNMk3+uCPWfdXYC4ExGBckIXdFEfH1w=="],
 
@@ -1386,6 +1385,8 @@
     "@webext-core/messaging/publint": ["publint@0.2.11", "", { "dependencies": { "npm-packlist": "^5.1.3", "picocolors": "^1.1.0", "sade": "^1.8.1" }, "bin": { "publint": "lib/cli.js" } }, "sha512-/kxbd+sD/uEG515N/ZYpC6gYs8h89cQ4UIsAq1y6VT4qlNh8xmiSwcP2xU2MbzXFl8J0l2IdONKFweLfYoqhcA=="],
 
     "@webext-core/proxy-service/@types/webextension-polyfill": ["@types/webextension-polyfill@0.9.2", "", {}, "sha512-op8YeoK60K6/GIx3snWs3JowBZ+/aeSnZzZuuwynA7VARWfzr3st9aQNk9RWfoBx5xqlNZjAsh2QttPUZnabCw=="],
+
+    "@webext-core/proxy-service/webextension-polyfill": ["webextension-polyfill@0.10.0", "", {}, "sha512-c5s35LgVa5tFaHhrZDnr3FpQpjj1BB+RXhLTYUxGqBVN460HkbM8TBtEqdXWbpTKfzwCcjAZVF7zXCYSKtcp9g=="],
 
     "ansi-align/string-width": ["string-width@4.2.3", "", { "dependencies": { "emoji-regex": "^8.0.0", "is-fullwidth-code-point": "^3.0.0", "strip-ansi": "^6.0.1" } }, "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g=="],
 
@@ -1542,8 +1543,6 @@
     "wxt/picocolors": ["picocolors@1.0.1", "", {}, "sha512-anP1Z8qwhkbmu7MFP5iTt+wQKXgwzf7zTyGlcdzabySa9vd0Xt392U0rVmz9poOaBj0uHJKyyo9/upk0HrEQew=="],
 
     "wxt/vite": ["vite@5.4.0", "", { "dependencies": { "esbuild": "^0.21.3", "postcss": "^8.4.40", "rollup": "^4.13.0" }, "optionalDependencies": { "fsevents": "~2.3.3" }, "peerDependencies": { "@types/node": "^18.0.0 || >=20.0.0", "less": "*", "lightningcss": "^1.21.0", "sass": "*", "sass-embedded": "*", "stylus": "*", "sugarss": "*", "terser": "^5.4.0" }, "optionalPeers": ["@types/node", "less", "lightningcss", "sass", "sass-embedded", "stylus", "sugarss", "terser"], "bin": { "vite": "bin/vite.js" } }, "sha512-5xokfMX0PIiwCMCMb9ZJcMyh5wbBun0zUzKib+L65vAZ8GY9ePZMXxFrHbr/Kyll2+LSCY7xtERPpxkBDKngwg=="],
-
-    "wxt/webextension-polyfill": ["webextension-polyfill@0.12.0", "", {}, "sha512-97TBmpoWJEE+3nFBQ4VocyCdLKfw54rFaJ6EVQYLBCXqCIpLSZkwGgASpv4oPt9gdKCJ80RJlcmNzNn008Ag6Q=="],
 
     "yargs/string-width": ["string-width@4.2.3", "", { "dependencies": { "emoji-regex": "^8.0.0", "is-fullwidth-code-point": "^3.0.0", "strip-ansi": "^6.0.1" } }, "sha512-wKyQRQpjJ0sIp62ErSZdGsjMJWsap5oRNihHhu6G7JVO/9jIB6UyevL+tXuOqrng8j/cxKTWyWUwvSTriiZz/g=="],
 
