@@ -142,7 +142,7 @@
     },
     "packages/storage": {
       "name": "@webext-core/storage",
-      "version": "1.2.0",
+      "version": "1.2.1",
       "dependencies": {
         "webextension-polyfill": ">=0.10.0",
       },

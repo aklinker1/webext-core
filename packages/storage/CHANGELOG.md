@@ -1,5 +1,34 @@
 # Changelog
 
+## v1.2.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/storage-v1.2.0...storage-v1.2.1)
+
+### 🩹 Fixes
+
+- **fake-browser**: Correctly handle when a key is set to `null` in storage ([`,cb5dec`](https://github.com/aklinker1/webext-core/commit/,cb5dec730a7bee96394610a210083447de1e22d7))
+- Add prepack script to fix new publish workflow ([`536c73e`](https://github.com/aklinker1/webext-core/commit/536c73e710cbebf41d0afeeca7a2100d904401ac))
+- Relax `webextension-polyfill` version range ([#153](https://github.com/aklinker1/webext-core/pull/153))
+
+### 📖 Documentation
+
+- Fix redirects ([#127](https://github.com/aklinker1/webext-core/pull/127))
+- Add historical release notes to CHANGELOG.md files ([`e9762ad`](https://github.com/aklinker1/webext-core/commit/e9762adc1dad49f44812759a4fade8e326fe78fa))
+
+### 🏡 Chore
+
+- Refactor to bun workspaces ([#66](https://github.com/aklinker1/webext-core/pull/66))
+- Cleanup dependencies ([#147](https://github.com/aklinker1/webext-core/pull/147))
+- Move to `bun test` ([#148](https://github.com/aklinker1/webext-core/pull/148))
+- Move to `tsdown`, add `publint`, cleanup `package.json`s ([#149](https://github.com/aklinker1/webext-core/pull/149))
+- Use `oxlint` and `oxfmt` ([#152](https://github.com/aklinker1/webext-core/pull/152))
+
+### ❤️ Contributors
+
+- spookyuser <spookyuser@users.noreply.github.com>
+- Aaron Klinker <aaronklinker1@gmail.com>
+- Artem Prokop <44642024+ExposedCat@users.noreply.github.com>
+
 ## v1.2.0
 
 ### Features
