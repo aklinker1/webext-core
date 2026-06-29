@@ -9,8 +9,10 @@
  */
 export class MatchPattern {
   static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn'];
+  static UNSUPPORTED_PROTOCOLS = ['resource', 'ftps'];
 
   private protocolMatches: string[];
+  private unsupportedProtocolMatches: string[];
   private hostnameMatch: string | undefined;
   private pathnameMatch: string | undefined;
   private isAllUrls?: boolean;
@@ -25,6 +27,7 @@ export class MatchPattern {
     if (matchPattern === '<all_urls>') {
       this.isAllUrls = true;
       this.protocolMatches = [...MatchPattern.PROTOCOLS];
+      this.unsupportedProtocolMatches = [...MatchPattern.UNSUPPORTED_PROTOCOLS];
       this.hostnameMatch = '*';
       this.pathnameMatch = '*';
     } else {
@@ -37,6 +40,7 @@ export class MatchPattern {
       validatePathname(matchPattern, pathname);
 
       this.protocolMatches = protocol === '*' ? ['http', 'https'] : [protocol];
+      this.unsupportedProtocolMatches = [];
       this.hostnameMatch = hostname;
       this.pathnameMatch = pathname;
     }
@@ -44,10 +48,14 @@ export class MatchPattern {
 
   /** Check if a URL is included in a pattern. */
   includes(url: string | URL | Location): boolean {
-    if (this.isAllUrls) return true;
-
     const u: URL =
       typeof url === 'string' ? new URL(url) : url instanceof Location ? new URL(url.href) : url;
+
+    if (this.isAllUrls) {
+      return !this.unsupportedProtocolMatches.some(
+        (protocol) => u.protocol.slice(0, -1) === protocol,
+      );
+    }
 
     return !!this.protocolMatches.find((protocol) => {
       if (protocol === 'http') return this.isHttpMatch(u);
