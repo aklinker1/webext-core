@@ -8,7 +8,7 @@
  *   pattern.includes('http://youtube.com/watch?v=123'); // false
  */
 export class MatchPattern {
-  static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn'];
+  static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn', 'ws', 'wss'];
 
   private protocolMatches: string[];
   private hostnameMatch: string | undefined;
@@ -44,10 +44,12 @@ export class MatchPattern {
 
   /** Check if a URL is included in a pattern. */
   includes(url: string | URL | Location): boolean {
-    if (this.isAllUrls) return true;
-
     const u: URL =
       typeof url === 'string' ? new URL(url) : url instanceof Location ? new URL(url.href) : url;
+
+    if (this.isAllUrls) {
+      return !this.isUnknownProtocol(u);
+    }
 
     return !!this.protocolMatches.find((protocol) => {
       if (protocol === 'http') return this.isHttpMatch(u);
@@ -78,6 +80,10 @@ export class MatchPattern {
       !!hostnameMatchRegexs.find((regex) => regex.test(url.hostname)) &&
       pathnameMatchRegex.test(url.pathname)
     );
+  }
+
+  private isUnknownProtocol(url: URL): boolean {
+    return !this.protocolMatches.includes(url.protocol.slice(0, -1));
   }
 
   private isPathMatch(url: URL): boolean {

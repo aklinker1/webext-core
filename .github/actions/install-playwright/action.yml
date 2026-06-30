@@ -19,5 +19,5 @@ runs:
 
     - name: Setup Playwright
       if: steps.cache-playwright-browsers.outputs.cache-hit != 'true'
-      run: npx playwright install --with-deps
+      run: bunx playwright install chromium --with-deps
       shell: bash

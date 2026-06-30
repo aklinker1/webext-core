@@ -10,7 +10,7 @@ pnpm i @webext-core/match-patterns
 ```ts
 import { MatchPattern } from '@webext-core/match-patterns';
 
-const pattern = MatchPattern('*://*.google.com/*');
+const pattern = new MatchPattern('*://*.google.com/*');
 
 pattern.includes('http://google.com/search?q=test'); // true
 pattern.includes('https://accounts.google.com'); // true
