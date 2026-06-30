@@ -35,7 +35,7 @@
     },
     "packages/isolated-element": {
       "name": "@webext-core/isolated-element",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "dependencies": {
         "is-potential-custom-element-name": "^1.0.1",
       },

@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/isolated-element",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "Isolate content script UI's styles from the parent page. Supports all browsers (Chrome, Firefox, Safari)",
   "keywords": [
     "browser",
