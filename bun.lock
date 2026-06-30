@@ -77,7 +77,7 @@
     },
     "packages/match-patterns": {
       "name": "@webext-core/match-patterns",
-      "version": "1.0.3",
+      "version": "1.1.0",
       "devDependencies": {
         "publint": "catalog:",
         "tsconfig": "workspace:*",
