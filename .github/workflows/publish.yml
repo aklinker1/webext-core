@@ -47,7 +47,7 @@ jobs:
         run: sudo npm i -g npm@latest
 
       - name: Bump and Release
-        uses: aklinker1/zero-changelog/actions/release@b352bed6e2cad74077baace38bf4eb7fd89883e1 # 0.1.11
+        uses: aklinker1/zero-changelog/actions/release@201ada74fa1e8b0887b73f1eea6610aa57e3ef3f # 0.2.0
         with:
           bump: ${{ inputs.bump }}
           path: packages/${{ inputs.package }}
