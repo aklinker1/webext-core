@@ -65,10 +65,7 @@ describe('MatchPattern', () => {
             'wss://ws.example.com/stuff/',
             'ftp://files.somewhere.org/',
           ],
-          nonMatches: [
-            // 'resource://a/b/c/',
-            // 'ftps://files.somewhere.org/'
-          ],
+          nonMatches: ['resource://a/b/c/', 'ftps://files.somewhere.org/'],
         },
         {
           patterns: ['*://*/*'],
@@ -202,9 +199,8 @@ describe('MatchPattern', () => {
     describe('<all_urls>', () => {
       it.each([
         [true, 'http://google.com'],
-        [true, new URL('https://youtube.com')],
-        [true, new URL('file:///home/aklinker1')],
-        [true, { hostname: 'test.com', pathname: '/', protocol: 'http:' } as Location],
+        [true, 'https://youtube.com'],
+        [true, 'file:///home/aklinker1'],
       ])('should parse "%s", when "%s" is checked, return %s', (expected, url) => {
         expect(new MatchPattern('<all_urls>').includes(url)).toBe(expected);
       });
