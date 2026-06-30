@@ -8,11 +8,9 @@
  *   pattern.includes('http://youtube.com/watch?v=123'); // false
  */
 export class MatchPattern {
-  static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn'];
-  static UNSUPPORTED_PROTOCOLS = ['resource', 'ftps'];
+  static PROTOCOLS = ['http', 'https', 'file', 'ftp', 'urn', 'ws', 'wss'];
 
   private protocolMatches: string[];
-  private unsupportedProtocolMatches: string[];
   private hostnameMatch: string | undefined;
   private pathnameMatch: string | undefined;
   private isAllUrls?: boolean;
@@ -27,7 +25,6 @@ export class MatchPattern {
     if (matchPattern === '<all_urls>') {
       this.isAllUrls = true;
       this.protocolMatches = [...MatchPattern.PROTOCOLS];
-      this.unsupportedProtocolMatches = [...MatchPattern.UNSUPPORTED_PROTOCOLS];
       this.hostnameMatch = '*';
       this.pathnameMatch = '*';
     } else {
@@ -40,7 +37,6 @@ export class MatchPattern {
       validatePathname(matchPattern, pathname);
 
       this.protocolMatches = protocol === '*' ? ['http', 'https'] : [protocol];
-      this.unsupportedProtocolMatches = [];
       this.hostnameMatch = hostname;
       this.pathnameMatch = pathname;
     }
@@ -52,9 +48,7 @@ export class MatchPattern {
       typeof url === 'string' ? new URL(url) : url instanceof Location ? new URL(url.href) : url;
 
     if (this.isAllUrls) {
-      return !this.unsupportedProtocolMatches.some(
-        (protocol) => u.protocol.slice(0, -1) === protocol,
-      );
+      return !this.isUnknownProtocol(u);
     }
 
     return !!this.protocolMatches.find((protocol) => {
@@ -86,6 +80,10 @@ export class MatchPattern {
       !!hostnameMatchRegexs.find((regex) => regex.test(url.hostname)) &&
       pathnameMatchRegex.test(url.pathname)
     );
+  }
+
+  private isUnknownProtocol(url: URL): boolean {
+    return !this.protocolMatches.includes(url.protocol.slice(0, -1));
   }
 
   private isFileMatch(_url: URL): boolean {
