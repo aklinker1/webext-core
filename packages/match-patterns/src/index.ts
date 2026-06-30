@@ -86,8 +86,14 @@ export class MatchPattern {
     return !this.protocolMatches.includes(url.protocol.slice(0, -1));
   }
 
-  private isFileMatch(_url: URL): boolean {
-    throw Error('Not implemented: file:// pattern matching. Open a PR to add support');
+  private isPathMatch(url: URL): boolean {
+    if (!this.pathnameMatch) return false;
+    const pathnameMatchRegex = this.convertPatternToRegex(this.pathnameMatch);
+    return pathnameMatchRegex.test(url.pathname);
+  }
+
+  private isFileMatch(url: URL): boolean {
+    return url.protocol === 'file:' && this.isPathMatch(url);
   }
 
   private isFtpMatch(_url: URL): boolean {

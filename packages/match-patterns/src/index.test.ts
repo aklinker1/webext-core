@@ -31,11 +31,11 @@ describe('MatchPattern', () => {
           matches: ['https://www.google.com/foo/baz/bar', 'https://docs.google.com/foobar'],
           nonMatches: [],
         },
-        // {
-        //   patterns: ['file:///foo*'],
-        //   matches: ['file:///foo/bar.html', 'file:///foo'],
-        //   nonMatches: [],
-        // },
+        {
+          patterns: ['file:///foo*'],
+          matches: ['file:///foo/bar.html', 'file:///foo'],
+          nonMatches: [],
+        },
         {
           patterns: [
             'http://127.0.0.1/*',
@@ -156,11 +156,11 @@ describe('MatchPattern', () => {
           matches: ['https://mozilla.org/a/b/c/', 'https://mozilla.org/a/b/c/#section1'],
           nonMatches: ['https://mozilla.org/a/b/c/d'],
         },
-        // {
-        //   patterns: ['file:///blah/*'],
-        //   matches: ['file:///blah/', 'file:///blah/bleh'],
-        //   nonMatches: ['file:///bleh/'],
-        // },
+        {
+          patterns: ['file:///blah/*'],
+          matches: ['file:///blah/', 'file:///blah/bleh'],
+          nonMatches: ['file:///bleh/'],
+        },
         {
           patterns: ['https://mozilla.org/*/b/*/'],
           matches: [
@@ -226,6 +226,16 @@ describe('MatchPattern', () => {
         [`${protocol}://*.google.com/search`, `${protocol}://google.com/search`, true],
         [`${protocol}://*.google.com/search`, `${protocol}://www.google.com/search`, true],
         [`${protocol}://*.google.com/search`, `${protocol}://images.google.com/search`, true],
+      ])('should parse "%s", when "%s" is checked, return %s', (pattern, url, expected) => {
+        expect(new MatchPattern(pattern).includes(url)).toBe(expected);
+      });
+    });
+
+    describe('file protocol', () => {
+      it.each([
+        ['file:///foo*', 'file:///foo/bar.html', true],
+        ['file:///foo*', 'file:///foo/bar/', true],
+        ['file:///foo*', 'https://google.com/search', false],
       ])('should parse "%s", when "%s" is checked, return %s', (pattern, url, expected) => {
         expect(new MatchPattern(pattern).includes(url)).toBe(expected);
       });

@@ -15,6 +15,7 @@ const pattern = new MatchPattern('*://*.google.com/*');
 pattern.includes('http://google.com/search?q=test'); // true
 pattern.includes('https://accounts.google.com'); // true
 pattern.includes('https://youtube.com/watch'); // false
+pattern.includes('file:///home'); // true
 ```
 
 ## Get Started
@@ -30,6 +31,6 @@ Not all protocols are supported. Open a PR to add support.
 - [x] `<all_urls>`
 - [x] `https` protocol
 - [x] `http` protocol
-- [ ] `file` protocol
+- [x] `file` protocol
 - [ ] `ftp` protocol
 - [ ] `urn` protocol
