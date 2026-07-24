@@ -38,13 +38,13 @@ describe('tabs', () => {
       await fakeBrowser.tabs.create({ url: 'https://window1.com' });
       await fakeBrowser.tabs.create({
         url: 'https://window2.com',
-        windowId: window2.id,
+        windowId: window2!.id,
       });
 
       const window1Tabs = await fakeBrowser.tabs.query({ windowId: 0 });
       expect(window1Tabs).toHaveLength(2); // default + tab1
 
-      const window2Tabs = await fakeBrowser.tabs.query({ windowId: window2.id });
+      const window2Tabs = await fakeBrowser.tabs.query({ windowId: window2!.id });
       expect(window2Tabs).toHaveLength(1);
       expect(window2Tabs[0].url).toBe('https://window2.com');
     });

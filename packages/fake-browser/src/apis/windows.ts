@@ -66,82 +66,91 @@ export const windows: BrowserOverrides['windows'] = {
     onRemoved.removeAllListeners();
     onFocusChanged.removeAllListeners();
   },
-  async get(windowId, arg2?, arg3?) {
+  get(windowId, arg2?, arg3?) {
     const queryOptions = typeof arg2 === 'function' ? undefined : arg2;
     const callback = typeof arg2 === 'function' ? arg2 : (arg3 as WindowCallback);
 
-    const window = windowList.find((window) => window.id === windowId);
-    if (!window) return undefined!;
+    return promiseOrCallback(callback, async () => {
+      const window = windowList.find((window) => window.id === windowId);
+      if (!window) return undefined!;
 
-    const res = mapWindow(window, queryOptions);
-    return promiseOrCallback(res, callback);
+      return mapWindow(window, queryOptions);
+    });
   },
   getCurrent(arg1, arg2?) {
     const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
     const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowCallback);
 
-    const res = focusedWindowId == null ? undefined! : windows.get(focusedWindowId, queryOptions);
-
-    return promiseOrCallback(res, callback);
+    return promiseOrCallback(callback, () => {
+      if (focusedWindowId == null) return undefined!;
+      return windows.get(focusedWindowId, queryOptions);
+    });
   },
   getLastFocused(arg1, arg2?) {
     const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
     const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowCallback);
 
-    const res =
-      lastFocusedWindowId == null ? undefined! : windows.get(lastFocusedWindowId, queryOptions);
-    return promiseOrCallback(res, callback);
+    return promiseOrCallback(callback, () => {
+      if (lastFocusedWindowId == null) return undefined!;
+      return windows.get(lastFocusedWindowId, queryOptions);
+    });
   },
-  async getAll(arg1, arg2?) {
+  getAll(arg1, arg2?) {
     const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
     const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowsCallback);
 
-    const res = windowList.map((window) => mapWindow(window, queryOptions));
-    return promiseOrCallback(res, callback);
+    return promiseOrCallback(callback, () =>
+      windowList.map((window) => mapWindow(window, queryOptions)),
+    );
   },
-  async create(arg1, arg2?) {
+  create(arg1, arg2?) {
     const createData = typeof arg1 === 'function' ? undefined : arg1;
     const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowCallback);
 
-    const newWindow: InMemoryWindow = {
-      id: getNextWindowId(),
-      alwaysOnTop: false,
-      incognito: createData?.incognito ?? false,
-      height: createData?.height,
-      left: createData?.left,
-      state: createData?.state,
-      top: createData?.top,
-      type: mapCreateType(createData?.type),
-      width: createData?.width,
-    };
-    windowList.push(newWindow);
-    if (createData?.focused) setFocusedWindowId(newWindow.id);
+    return promiseOrCallback(callback, async () => {
+      const newWindow: InMemoryWindow = {
+        id: getNextWindowId(),
+        alwaysOnTop: false,
+        incognito: createData?.incognito ?? false,
+        height: createData?.height,
+        left: createData?.left,
+        state: createData?.state,
+        top: createData?.top,
+        type: mapCreateType(createData?.type),
+        width: createData?.width,
+      };
+      windowList.push(newWindow);
+      if (createData?.focused) setFocusedWindowId(newWindow.id);
 
-    const fullWindow = mapWindow(newWindow);
-    await onCreated.trigger(fullWindow);
-    if (createData?.focused) onFocusChanged.trigger(fullWindow.id!);
+      const fullWindow = mapWindow(newWindow);
+      await onCreated.trigger(fullWindow);
+      if (createData?.focused) onFocusChanged.trigger(fullWindow.id!);
 
-    return promiseOrCallback(fullWindow, callback);
+      return fullWindow;
+    });
   },
-  async update(windowId, arg2, arg3?) {
+  update(windowId, arg2, arg3?) {
     const _updateInfo = typeof arg2 === 'function' ? undefined : arg2;
     const callback = typeof arg2 === 'function' ? arg2 : (arg3 as WindowCallback);
 
-    const window = windowList.find((window) => window.id === windowId);
-    // TODO: Verify this behavior
-    if (!window) return undefined!;
+    return promiseOrCallback(callback, () => {
+      const window = windowList.find((window) => window.id === windowId);
+      // TODO: Verify this behavior
+      if (!window) return undefined!;
 
-    return promiseOrCallback(mapWindow(window), callback);
+      return mapWindow(window);
+    });
   },
   remove(windowId, arg1?) {
     const callback = typeof arg1 === 'function' ? (arg1 as () => void) : undefined;
 
-    const index = windowList.findIndex((window) => window.id === windowId);
-    if (index < 0) return promiseOrCallback(Promise.resolve(), callback);
-    windowList.splice(index, 1);
+    return promiseOrCallback(callback, async () => {
+      const index = windowList.findIndex((window) => window.id === windowId);
+      if (index < 0) return;
+      windowList.splice(index, 1);
 
-    const res = onRemoved.trigger(windowId).then(() => {});
-    return promiseOrCallback(res, callback);
+      await onRemoved.trigger(windowId);
+    });
   },
   onCreated,
   onRemoved,

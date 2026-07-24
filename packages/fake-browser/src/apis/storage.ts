@@ -54,7 +54,7 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
     clear(arg1?) {
       const callback = callbackOrUndefined(arg1);
 
-      const run = async () => {
+      return promiseOrCallback(callback, async () => {
         const changes: StorageChanges = {};
         for (const key of Object.keys(data)) {
           const oldValue = data[key] ?? null;
@@ -64,28 +64,28 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
         }
         await onChanged.trigger(changes);
         await globalOnChanged.trigger(changes, area);
-      };
-      return promiseOrCallback(run(), callback);
+      });
     },
     get(arg1?, arg2?) {
       const { keys, callback } = keysAndCallback(arg1, arg2);
 
-      if (keys == null) return { ...data };
-      const res: Record<string, any> = {};
-      if (typeof keys === 'object' && !Array.isArray(keys)) {
-        // Return all the keys + the values as the defaults
-        Object.keys(keys).forEach((key) => (res[key] = data[key] ?? keys[key]));
-      } else {
-        // return just the keys or null
-        getKeyList(keys).forEach((key) => (res[key] = data[key]));
-      }
-
-      return promiseOrCallback(res, callback) as any;
+      return promiseOrCallback(callback, () => {
+        if (keys == null) return { ...data };
+        const res: Record<string, any> = {};
+        if (typeof keys === 'object' && !Array.isArray(keys)) {
+          // Return all the keys + the values as the defaults
+          Object.keys(keys).forEach((key) => (res[key] = data[key] ?? keys[key]));
+        } else {
+          // return just the keys or null
+          getKeyList(keys).forEach((key) => (res[key] = data[key]));
+        }
+        return res;
+      });
     },
     remove(arg1?, arg2?) {
       const { keys, callback } = keysAndCallback(arg1, arg2);
 
-      const run = async () => {
+      return promiseOrCallback(callback, async () => {
         const changes: StorageChanges = {};
         for (const key of getKeyList(keys!)) {
           const oldValue = data[key] ?? null;
@@ -95,14 +95,12 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
         }
         await onChanged.trigger(changes);
         await globalOnChanged.trigger(changes, area);
-      };
-
-      return promiseOrCallback(run(), callback);
+      });
     },
     set(items, arg2?) {
       const callback = callbackOrUndefined(arg2);
 
-      const run = async () => {
+      return promiseOrCallback(callback, async () => {
         const changes: StorageChanges = {};
         for (const [key, newValue] of Object.entries(JSON.parse(JSON.stringify(items)))) {
           // ignore undefined values
@@ -116,9 +114,7 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
         }
         await onChanged.trigger(changes);
         await globalOnChanged.trigger(changes, area);
-      };
-
-      return promiseOrCallback(run(), callback);
+      });
     },
     // @ts-expect-error: Does not implement "rule" functions
     onChanged,

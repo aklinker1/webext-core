@@ -3,9 +3,11 @@ export function callbackOrUndefined<T>(value: unknown): ((t: T) => void) | undef
 }
 
 export function promiseOrCallback<T>(
-  res: T,
-  callback: ((t: Awaited<T>) => void) | undefined,
-): Promise<Awaited<T>> {
+  callback: ((t: T) => void) | undefined,
+  fn: () => Promise<T> | T,
+): Promise<T> {
+  const res = fn();
+
   if (callback == null) return res instanceof Promise ? res : Promise.resolve(res);
 
   // @ts-expect-error: Intentionally return void here - this is the runtime
@@ -14,5 +16,7 @@ export function promiseOrCallback<T>(
   return res instanceof Promise ? void res.then(callback) : callback(res);
 }
 
+export type Callback<T> = (t: T) => void;
+
 export type EmptyCallback = () => void;
-export type AnyCallback = (v: any) => void;
+export type AnyCallback = Callback<any>;

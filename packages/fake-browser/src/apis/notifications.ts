@@ -44,31 +44,34 @@ export const notifications: BrowserOverrides['notifications'] = {
     } else {
       options = arg1 as Browser.notifications.NotificationCreateOptions;
     }
-    id ??= String(Math.random());
 
-    const run = async (): Promise<string> => {
+    return promiseOrCallback(callback, async () => {
+      id ??= String(Math.random());
+
       if (notificationExists(id)) await notifications.clear(id);
+
       notificationMap[id] = options;
       return id;
-    };
-
-    return promiseOrCallback(run(), callback);
+    });
   },
-  async clear(notificationId, arg2?) {
+  clear(notificationId, arg2?) {
     const callback = callbackOrUndefined(arg2);
 
-    const wasCleared = notificationExists(notificationId);
-    delete notificationMap[notificationId];
-
-    return promiseOrCallback(wasCleared, callback);
+    return promiseOrCallback(callback, () => {
+      const wasCleared = notificationExists(notificationId);
+      delete notificationMap[notificationId];
+      return wasCleared;
+    });
   },
   getAllCreateOptions() {
     return { ...notificationMap };
   },
   getAll(arg1?) {
     const callback = callbackOrUndefined(arg1);
-    const values = Object.fromEntries<true>(Object.keys(notificationMap).map((k) => [k, true]));
-    return promiseOrCallback(values, callback);
+
+    return promiseOrCallback(callback, () =>
+      Object.fromEntries<true>(Object.keys(notificationMap).map((k) => [k, true])),
+    );
   },
   // @ts-expect-error: Does not implement "rule" functions
   onClosed,
