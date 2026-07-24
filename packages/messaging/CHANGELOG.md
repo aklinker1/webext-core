@@ -1,5 +1,17 @@
 # Changelog
 
+## v3.0.3
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/messaging-v3.0.2...messaging-v3.0.3)
+
+### 🩹 Fixes
+
+- Remove event listener when event is received ([#159](https://github.com/aklinker1/webext-core/pull/159))
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v3.0.2
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/messaging-v3.0.1...messaging-v3.0.2)
