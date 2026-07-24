@@ -1,5 +1,7 @@
 import { beforeEach, describe, expect, it, setSystemTime, vi } from 'bun:test';
 
+import { Browser } from '@wxt-dev/browser';
+
 import { fakeBrowser } from '..';
 
 const now = Date.now();
@@ -19,16 +21,18 @@ describe('Fake Alarms API', () => {
       name: '',
       periodInMinutes: 5,
       scheduledTime: now + 60e3,
+      persistAcrossSessions: undefined!,
     });
   });
 
   it('should allow creating an unnamed alarm using a single parameter', async () => {
-    fakeBrowser.alarms.create({});
+    fakeBrowser.alarms.create({} as Browser.alarms.AlarmCreateInfo);
     const alarm = await fakeBrowser.alarms.get();
 
     expect(alarm).toEqual({
       name: '',
       scheduledTime: now,
+      persistAcrossSessions: undefined!,
     });
   });
 
@@ -42,6 +46,7 @@ describe('Fake Alarms API', () => {
     expect(alarm).toEqual({
       name,
       scheduledTime: 2,
+      persistAcrossSessions: undefined!,
     });
   });
 
@@ -57,12 +62,13 @@ describe('Fake Alarms API', () => {
       name,
       periodInMinutes: 10,
       scheduledTime: now + 2 * 60e3,
+      persistAcrossSessions: undefined!,
     });
   });
 
   it('should return all created alarms', async () => {
-    fakeBrowser.alarms.create('1', {});
-    fakeBrowser.alarms.create('2', {});
+    fakeBrowser.alarms.create('1', {} as Browser.alarms.AlarmCreateInfo);
+    fakeBrowser.alarms.create('2', {} as Browser.alarms.AlarmCreateInfo);
 
     const actual = await fakeBrowser.alarms.getAll();
 
@@ -70,10 +76,10 @@ describe('Fake Alarms API', () => {
   });
 
   it('should remove the specified alarm', async () => {
-    fakeBrowser.alarms.create(undefined, {});
-    fakeBrowser.alarms.create('1', {});
-    fakeBrowser.alarms.create('2', {});
-    const expected = [{ name: '2', scheduledTime: now }];
+    fakeBrowser.alarms.create(undefined, {} as Browser.alarms.AlarmCreateInfo);
+    fakeBrowser.alarms.create('1', {} as Browser.alarms.AlarmCreateInfo);
+    fakeBrowser.alarms.create('2', {} as Browser.alarms.AlarmCreateInfo);
+    const expected = [{ name: '2', scheduledTime: now, persistAcrossSessions: undefined! }];
 
     await fakeBrowser.alarms.clear();
     await fakeBrowser.alarms.clear('1');
@@ -85,9 +91,9 @@ describe('Fake Alarms API', () => {
   });
 
   it('should remove all alarms', async () => {
-    fakeBrowser.alarms.create(undefined, {});
-    fakeBrowser.alarms.create('1', {});
-    fakeBrowser.alarms.create('2', {});
+    fakeBrowser.alarms.create(undefined, {} as Browser.alarms.AlarmCreateInfo);
+    fakeBrowser.alarms.create('1', {} as Browser.alarms.AlarmCreateInfo);
+    fakeBrowser.alarms.create('2', {} as Browser.alarms.AlarmCreateInfo);
 
     await fakeBrowser.alarms.clearAll();
 
@@ -100,9 +106,10 @@ describe('Fake Alarms API', () => {
     const listener1 = vi.fn();
     const listener2 = vi.fn();
     const listener3 = vi.fn();
-    const alarm: Alarms.Alarm = {
+    const alarm: Browser.alarms.Alarm = {
       name: 'test',
       scheduledTime: now + 1000,
+      persistAcrossSessions: undefined!,
     };
 
     fakeBrowser.alarms.onAlarm.addListener(listener1);

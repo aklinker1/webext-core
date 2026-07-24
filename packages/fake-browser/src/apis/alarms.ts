@@ -43,7 +43,7 @@ export const alarms: BrowserOverrides['alarms'] = {
     return promiseOrCallback(hasAlarms, callback);
   },
   create(arg1, arg2?, arg3?) {
-    let name: string = Math.random().toString(36);
+    let name = '';
     let alarmInfo: Browser.alarms.AlarmCreateInfo;
     let callback: EmptyCallback | undefined;
 
@@ -52,8 +52,8 @@ export const alarms: BrowserOverrides['alarms'] = {
       alarmInfo = arg2 as Browser.alarms.AlarmCreateInfo;
       callback = arg3 as EmptyCallback;
     } else if (arg2 != null) {
-      if (typeof arg1 === 'string') {
-        name = arg1 as string;
+      if (arg1 == null || typeof arg1 === 'string') {
+        name = (arg1 ?? '') as string;
         alarmInfo = arg2 as Browser.alarms.AlarmCreateInfo;
       } else {
         alarmInfo = arg1 as Browser.alarms.AlarmCreateInfo;
