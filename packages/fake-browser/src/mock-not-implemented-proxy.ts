@@ -7,14 +7,14 @@ export class MockNotImplementedError extends Error {
 }
 
 export function createMockNotImplementedProxy(chain: string, obj: any): any {
-  return new Proxy(obj, {
-    get(target, p, receiver) {
-      const value = Reflect.get(target, p, receiver) ?? {};
+  return new Proxy(() => {}, {
+    get(_, p, receiver) {
+      const value = Reflect.get(obj, p, receiver) ?? {};
       if (typeof value !== 'object') return value;
       return createMockNotImplementedProxy(chain + '.' + String(p), value);
     },
-    set(target, p, newValue, receiver) {
-      return Reflect.set(target, p, newValue, receiver);
+    set(_, p, newValue, receiver) {
+      return Reflect.set(obj, p, newValue, receiver);
     },
     apply() {
       throw new MockNotImplementedError(chain);

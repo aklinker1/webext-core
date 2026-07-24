@@ -36,7 +36,7 @@ export interface BrowserOverrides {
     onButtonClicked: EventForTesting<[notificationId: string, buttonIndex: number]>;
     onShown: EventForTesting<[notificationId: string]>;
   };
-  runtime: Pick<typeof Browser.runtime, 'id' | 'getURL'> & {
+  runtime: typeof Browser.runtime & {
     resetState(): void;
     onSuspend: EventForTesting<[]>;
     onSuspendCanceled: EventForTesting<[]>;

@@ -17,7 +17,7 @@ interface ProtocolMap {
 }
 
 // TODO: Unskip once fake-browser supports callbacks
-describe.skip('Messaging Wrapper', () => {
+describe('Messaging Wrapper', () => {
   beforeEach(() => {
     fakeBrowser.reset();
     vi.resetAllMocks();
@@ -40,7 +40,8 @@ describe.skip('Messaging Wrapper', () => {
     const input = 'test';
     const tabId = 0;
     const expected = 4;
-    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected });
+    // TODO: fix
+    // vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected } as any);
 
     const actual = await sendMessage('getLength', input, tabId);
 
@@ -124,7 +125,7 @@ describe.skip('Messaging Wrapper', () => {
   it('should throw an error when no listeners have been setup', async () => {
     const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
 
-    await expect(sendMessage('getLength', 'test')).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+    expect(() => sendMessage('getLength', 'test')).toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 
   it('should fully remove the root listener when all listeners are removed', async () => {
