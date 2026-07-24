@@ -15,3 +15,4 @@ export function promiseOrCallback<T>(
 }
 
 export type EmptyCallback = () => void;
+export type AnyCallback = (v: any) => void;

@@ -16,25 +16,25 @@ describe('Fake Storage API', () => {
       await fakeBrowser.storage[area].set({ [key1]: value1 });
       await fakeBrowser.storage[area].set({ [key2]: value2 });
 
-      expect(await fakeBrowser.storage[area].get()).toEqual({
+      expect(await fakeBrowser.storage[area].get<any>()).toEqual({
         [key1]: value1,
         [key2]: value2,
       });
-      expect(await fakeBrowser.storage[area].get(key1)).toEqual({
+      expect(await fakeBrowser.storage[area].get<any>(key1)).toEqual({
         [key1]: value1,
       });
 
       await fakeBrowser.storage[area].remove(key1);
-      expect(await fakeBrowser.storage[area].get(key1)).toEqual({});
-      expect(await fakeBrowser.storage[area].get({ [key1]: 'fallback' })).toEqual({
+      expect(await fakeBrowser.storage[area].get<any>(key1)).toEqual({});
+      expect(await fakeBrowser.storage[area].get<any>({ [key1]: 'fallback' })).toEqual({
         [key1]: 'fallback',
       });
-      expect(await fakeBrowser.storage[area].get([key1, key2])).toEqual({
+      expect(await fakeBrowser.storage[area].get<any>([key1, key2])).toEqual({
         [key2]: value2,
       });
 
       await fakeBrowser.storage[area].clear();
-      expect(await fakeBrowser.storage[area].get()).toEqual({});
+      expect(await fakeBrowser.storage[area].get<any>()).toEqual({});
     },
   );
 
@@ -46,7 +46,7 @@ describe('Fake Storage API', () => {
 
       await fakeBrowser.storage[area].set({ [key]: value });
       await fakeBrowser.storage[area].set({ [key]: undefined });
-      expect(await fakeBrowser.storage[area].get(key)).toEqual({
+      expect(await fakeBrowser.storage[area].get<any>(key)).toEqual({
         [key]: value,
       });
     },
@@ -59,7 +59,7 @@ describe('Fake Storage API', () => {
     await fakeBrowser.storage.local.set({ [key]: value });
     await fakeBrowser.storage.local.set({ [key]: null });
 
-    expect(await fakeBrowser.storage.local.get(key)).toEqual({});
+    expect(await fakeBrowser.storage.local.get<any>(key)).toEqual({});
   });
 
   it('sync.getBytesInUse should throw an error', () => {
@@ -125,7 +125,7 @@ describe('Fake Storage API', () => {
   it('setting a nested object should not mutate the original object', async () => {
     const a = { a: { a: 1, b: [{ c: 1 }] } };
     await fakeBrowser.storage.local.set(a);
-    const b = await fakeBrowser.storage.local.get();
+    const b = await fakeBrowser.storage.local.get<any>();
     b.a.a = 2;
     b.a.b[0].c = 2;
     expect(a.a.a).toBe(1);
