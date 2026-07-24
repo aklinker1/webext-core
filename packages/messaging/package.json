@@ -64,11 +64,10 @@
     "prepack": "bun run build"
   },
   "dependencies": {
-    "@aklinker1/zero-serialize-error": "^1.0.2",
-    "webextension-polyfill": ">=0.10.0"
+    "@aklinker1/zero-serialize-error": "^1.0.2"
   },
   "devDependencies": {
-    "@types/webextension-polyfill": "^0.9.1",
+    "@types/chrome": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
     "publint": "^0.2.11",
     "tsconfig": "workspace:*",

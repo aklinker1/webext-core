@@ -30,14 +30,15 @@
   "nano-staged": {
     "*": "oxfmt --no-error-on-unmatched-pattern"
   },
-  "packageManager": "bun@1.3.14",
   "catalog": {
     "@aklinker1/buildc": "^1.1.5",
     "@aklinker1/check": "^2.4.0",
     "@happy-dom/global-registrator": "^20.9.0",
+    "@types/chrome": "^0.2.2",
     "publint": "^0.3.21",
     "tsdown": "^0.22.0",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "wxt": "^0.20.27"
   },
   "patchedDependencies": {
     "simple-git-hooks@2.13.1": "patches/simple-git-hooks@2.13.1.patch"
