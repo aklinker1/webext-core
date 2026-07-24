@@ -1,14 +1,12 @@
 import { beforeEach, describe, expect, it, vi } from 'bun:test';
 
-import { Runtime } from 'webextension-polyfill';
-
 import { fakeBrowser } from '..';
 
 describe('Fake Runtime API', () => {
   beforeEach(fakeBrowser.reset);
 
   describe('messaging', () => {
-    it('should allow sending and receieving messages', async () => {
+    it('should allow sending and receiving messages', async () => {
       fakeBrowser.runtime.onMessage.addListener((message) => message + 1);
       const actual = await fakeBrowser.runtime.sendMessage('', 1);
 

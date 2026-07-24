@@ -1,6 +1,6 @@
 # `@webext-core/fake-browser`
 
-An in-memory implementation of `webextension-polyfill` for testing.
+An in-memory implementation of web-extension APIs for testing.
 
 ```bash
 pnpm i -D @webext-core/fake-browser

@@ -1,5 +1,3 @@
-import { Tabs, Windows } from 'webextension-polyfill';
-
 import { BrowserOverrides } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { windows, DEFAULT_WINDOW } from './windows';

@@ -1,10 +1,16 @@
-import { Action, Tabs } from 'webextension-polyfill';
+import type { Browser } from '@wxt-dev/browser';
 
 import { BrowserOverrides } from '../types';
+import { callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
-const onClicked =
-  defineEventWithTrigger<(tab: Tabs.Tab, info: Action.OnClickData | undefined) => void>();
+const onClicked = defineEventWithTrigger<(tab: Browser.tabs.Tab) => void>();
+
+function withWindowId<T extends Browser.action.TabDetails>(
+  t: T,
+): T & { windowId: number | undefined } {
+  return t as any;
+}
 
 const DEFAULT_BADGE_BACKGROUND_COLOR = '#5F5D5B';
 const DEFAULT_BADGE_TEXT_COLOR = '#FFFFFF';
@@ -50,9 +56,12 @@ function hexToRgbaArray(hex: string): ColorArray {
   return [r, g, b, a];
 }
 
-function getScopedValue<T>(state: ScopedState<T>, details?: Action.Details): T | undefined {
+function getScopedValue<T>(
+  state: ScopedState<T>,
+  details?: Browser.action.TabDetails,
+): T | undefined {
   if (!details) return state.global;
-  const { tabId, windowId } = details;
+  const { tabId, windowId } = withWindowId(details);
   if (tabId !== undefined) return state.tabs.get(tabId);
   if (windowId !== undefined) return state.windows.get(windowId);
   return state.global;
@@ -78,8 +87,10 @@ export const action: BrowserOverrides['action'] = {
     titleState.windows.clear();
   },
 
-  setTitle(details: Action.SetTitleDetailsType) {
-    const { title, tabId, windowId } = details;
+  setTitle(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
+    const { title, tabId, windowId } = withWindowId(details);
     if (tabId !== undefined) {
       if (title === null || title === undefined) {
         titleState.tabs.delete(tabId);
@@ -95,16 +106,21 @@ export const action: BrowserOverrides['action'] = {
     } else {
       titleState.global = title ?? '';
     }
-    return Promise.resolve();
+
+    return promiseOrCallback(undefined, callback);
   },
 
-  getTitle(details: Action.Details): Promise<string> {
+  getTitle(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
     const value = getScopedValue(titleState, details);
-    return Promise.resolve(value ?? '');
+    return promiseOrCallback(value ?? '', callback);
   },
 
-  setBadgeText(details: Action.SetBadgeTextDetailsType) {
-    const { text, tabId, windowId } = details;
+  setBadgeText(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
+    const { text, tabId, windowId } = withWindowId(details);
     if (tabId !== undefined) {
       if (text === null || text === undefined) {
         badgeTextState.tabs.delete(tabId);
@@ -120,16 +136,21 @@ export const action: BrowserOverrides['action'] = {
     } else {
       badgeTextState.global = text ?? '';
     }
-    return Promise.resolve();
+
+    return promiseOrCallback(undefined, callback);
   },
 
-  getBadgeText(details: Action.Details): Promise<string> {
+  getBadgeText(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
     const value = getScopedValue(badgeTextState, details);
-    return Promise.resolve(value ?? '');
+    return promiseOrCallback(value ?? '', callback);
   },
 
-  setBadgeBackgroundColor(details: Action.SetBadgeBackgroundColorDetailsType) {
-    const { color, tabId, windowId } = details;
+  setBadgeBackgroundColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
+    const { color, tabId, windowId } = withWindowId(details);
     let rgbaColor: ColorArray;
 
     if (typeof color === 'string') {
@@ -148,16 +169,20 @@ export const action: BrowserOverrides['action'] = {
       badgeBackgroundColorState.global = rgbaColor;
     }
 
-    return Promise.resolve();
+    return promiseOrCallback(undefined, callback);
   },
 
-  getBadgeBackgroundColor(details: Action.Details): Promise<ColorArray> {
+  getBadgeBackgroundColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
     const value = getScopedValue(badgeBackgroundColorState, details);
-    return Promise.resolve(value ?? hexToRgbaArray(DEFAULT_BADGE_BACKGROUND_COLOR));
+    return promiseOrCallback(value ?? hexToRgbaArray(DEFAULT_BADGE_BACKGROUND_COLOR), callback);
   },
 
-  setBadgeTextColor(details: Action.SetBadgeTextColorDetailsType) {
-    const { color, tabId, windowId } = details;
+  setBadgeTextColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
+    const { color, tabId, windowId } = withWindowId(details);
 
     let normalizedColor = typeof color === 'string' ? color : DEFAULT_BADGE_TEXT_COLOR;
 
@@ -176,11 +201,18 @@ export const action: BrowserOverrides['action'] = {
     } else {
       badgeTextColorState.global = normalizedColor;
     }
+
+    return promiseOrCallback(undefined, callback);
   },
 
-  getBadgeTextColor(details: Action.Details, callback?: (value: string) => void): void {
+  getBadgeTextColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
     const value = getScopedValue(badgeTextColorState, details);
-    callback?.(value ?? DEFAULT_BADGE_TEXT_COLOR);
+    return promiseOrCallback(
+      (value ?? DEFAULT_BADGE_TEXT_COLOR) as any as Browser.extensionTypes.ColorArray,
+      callback,
+    );
   },
 
   onClicked,

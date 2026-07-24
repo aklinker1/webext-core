@@ -1,7 +1,7 @@
 {
   "name": "@webext-core/fake-browser",
   "version": "1.5.2",
-  "description": "An in-memory implementation of webextension-polyfill for testing. Supports all test frameworks (Vitest, Jest, etc)",
+  "description": "An in-memory implementation of web extension APIs for testing. Supports all test frameworks (Vitest, Jest, etc)",
   "keywords": [
     "browser",
     "browser-extension",
@@ -17,8 +17,7 @@
     "vite",
     "web-ext",
     "web-extension",
-    "webext",
-    "webextension-polyfill"
+    "webext"
   ],
   "homepage": "https://github.com/aklinker1/webext-core/tree/main/packages/fake-browser",
   "license": "MIT",
@@ -65,17 +64,13 @@
     "test": "buildc --deps-only -- bun test",
     "test:coverage": "buildc --deps-only -- bun test --coverage",
     "check": "bun run build && check",
-    "gen": "bun scripts/generate-base.ts && prettier --write src/base.gen.ts",
     "prepack": "bun run build"
   },
   "dependencies": {
-    "@types/webextension-polyfill": ">=0.10.5",
-    "lodash.merge": "^4.6.2"
+    "@wxt-dev/browser": "*"
   },
   "devDependencies": {
-    "@types/lodash.merge": "^4.6.7",
     "publint": "catalog:",
-    "ts-morph": "^23.0.0",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"

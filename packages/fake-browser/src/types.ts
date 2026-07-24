@@ -1,14 +1,4 @@
-import type {
-  Action,
-  Alarms,
-  Browser,
-  Notifications,
-  Runtime,
-  Storage,
-  Tabs,
-  WebNavigation,
-  Windows,
-} from 'webextension-polyfill';
+import { Browser } from '@wxt-dev/browser';
 
 interface EventForTesting<TParams extends any[], TReturn = void> {
   /** Trigger all listeners for an event and return all their responses. */
@@ -17,93 +7,114 @@ interface EventForTesting<TParams extends any[], TReturn = void> {
   removeAllListeners(): void;
 }
 
+export type StorageChanges = {
+  [key: string]: Browser.storage.StorageChange;
+};
+
 export interface BrowserOverrides {
   /**
-   * Reset the fake browser. Remove all listeners and clear all in-memort state, like storage,
+   * Reset the fake browser. Remove all listeners and clear all in-memory state, like storage,
    * windows, and tabs.
    *
    * This is often called before each test.
    */
   reset(): void;
 
-  alarms: Alarms.Static & {
+  alarms: typeof Browser.alarms & {
     resetState(): void;
-    onAlarm: EventForTesting<[name: Alarms.Alarm]>;
+    onAlarm: EventForTesting<[alarm: Browser.alarms.Alarm]>;
   };
-  notifications: Notifications.Static & {
+  notifications: typeof Browser.notifications & {
     resetState(): void;
     onClosed: EventForTesting<[notificationId: string, byUser: boolean]>;
     onClicked: EventForTesting<[notificationId: string]>;
     onButtonClicked: EventForTesting<[notificationId: string, buttonIndex: number]>;
     onShown: EventForTesting<[notificationId: string]>;
   };
-  runtime: Pick<Runtime.Static, 'id' | 'getURL'> & {
+  runtime: Pick<typeof Browser.runtime, 'id' | 'getURL'> & {
     resetState(): void;
     onSuspend: EventForTesting<[]>;
     onSuspendCanceled: EventForTesting<[]>;
     onStartup: EventForTesting<[]>;
-    onInstalled: EventForTesting<[details: Runtime.OnInstalledDetailsType]>;
-    onUpdateAvailable: EventForTesting<[details: Runtime.OnUpdateAvailableDetailsType]>;
-    onMessage: EventForTesting<[message: any, sender: Runtime.MessageSender], void | Promise<any>>;
+    onInstalled: EventForTesting<[details: Browser.runtime.InstalledDetails]>;
+    onUpdateAvailable: EventForTesting<[details: Browser.runtime.UpdateAvailableDetails]>;
+    onMessage: EventForTesting<
+      [message: any, sender: Browser.runtime.MessageSender],
+      void | Promise<any>
+    >;
   };
   storage: {
     /** Remove all listeners and clear in-memory storages. */
     resetState(): void;
     local: {
-      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
+      onChanged: EventForTesting<[changes: StorageChanges]>;
     };
     session: {
-      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
+      onChanged: EventForTesting<[changes: StorageChanges]>;
     };
     sync: {
-      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
+      onChanged: EventForTesting<[changes: StorageChanges]>;
     };
     managed: {
-      onChanged: EventForTesting<[changes: Storage.StorageAreaOnChangedChangesType]>;
+      onChanged: EventForTesting<[changes: StorageChanges]>;
     };
-    onChanged: EventForTesting<[changes: Record<string, Storage.StorageChange>, areaName: string]>;
+    onChanged: EventForTesting<
+      [changes: Record<string, Browser.storage.StorageChange>, areaName: string]
+    >;
   };
   tabs: Pick<
-    Tabs.Static,
+    typeof Browser.tabs,
     'get' | 'getCurrent' | 'create' | 'duplicate' | 'query' | 'highlight' | 'remove' | 'update'
   > & {
     resetState(): void;
-    onCreated: EventForTesting<[tab: Tabs.Tab]>;
+    onCreated: EventForTesting<[tab: Browser.tabs.Tab]>;
     onUpdated: EventForTesting<
-      [tabId: number, changeInfo: Tabs.OnUpdatedChangeInfoType, tab: Tabs.Tab]
+      [tabId: number, changeInfo: Browser.tabs.OnUpdatedInfo, tab: Browser.tabs.Tab]
     >;
-    onHighlighted: EventForTesting<[highlightInfo: Tabs.OnHighlightedHighlightInfoType]>;
-    onActivated: EventForTesting<[activeInfo: Tabs.OnActivatedActiveInfoType]>;
-    onRemoved: EventForTesting<[tabId: number, removeInfo: Tabs.OnRemovedRemoveInfoType]>;
+    onHighlighted: EventForTesting<[highlightInfo: Browser.tabs.OnHighlightedInfo]>;
+    onActivated: EventForTesting<[activeInfo: Browser.tabs.OnActivatedInfo]>;
+    onRemoved: EventForTesting<[tabId: number, removeInfo: Browser.tabs.OnRemovedInfo]>;
   };
   webNavigation: {
-    onBeforeNavigate: EventForTesting<[details: WebNavigation.OnBeforeNavigateDetailsType]>;
-    onCommitted: EventForTesting<[details: WebNavigation.OnCommittedDetailsType]>;
-    onDOMContentLoaded: EventForTesting<[details: WebNavigation.OnDOMContentLoadedDetailsType]>;
-    onCompleted: EventForTesting<[details: WebNavigation.OnCompletedDetailsType]>;
-    onErrorOccurred: EventForTesting<[details: WebNavigation.OnErrorOccurredDetailsType]>;
+    onBeforeNavigate: EventForTesting<
+      [details: Browser.webNavigation.WebNavigationBaseCallbackDetails]
+    >;
+    onCommitted: EventForTesting<
+      [details: Browser.webNavigation.WebNavigationTransitionCallbackDetails]
+    >;
+    onDOMContentLoaded: EventForTesting<
+      [details: Browser.webNavigation.WebNavigationFramedCallbackDetails]
+    >;
+    onCompleted: EventForTesting<
+      [details: Browser.webNavigation.WebNavigationFramedCallbackDetails]
+    >;
+    onErrorOccurred: EventForTesting<
+      [details: Browser.webNavigation.WebNavigationFramedErrorCallbackDetails]
+    >;
     onCreatedNavigationTarget: EventForTesting<
-      [details: WebNavigation.OnCreatedNavigationTargetDetailsType]
+      [details: Browser.webNavigation.WebNavigationSourceCallbackDetails]
     >;
     onReferenceFragmentUpdated: EventForTesting<
-      [details: WebNavigation.OnReferenceFragmentUpdatedDetailsType]
+      [details: Browser.webNavigation.WebNavigationTransitionCallbackDetails]
     >;
-    onTabReplaced: EventForTesting<[details: WebNavigation.OnTabReplacedDetailsType]>;
+    onTabReplaced: EventForTesting<
+      [details: Browser.webNavigation.WebNavigationReplacementCallbackDetails]
+    >;
     onHistoryStateUpdated: EventForTesting<
-      [details: WebNavigation.OnHistoryStateUpdatedDetailsType]
+      [details: Browser.webNavigation.WebNavigationTransitionCallbackDetails]
     >;
   };
   windows: Pick<
-    Windows.Static,
+    typeof Browser.windows,
     'get' | 'getAll' | 'create' | 'getCurrent' | 'getLastFocused' | 'remove' | 'update'
   > & {
     resetState(): void;
-    onCreated: EventForTesting<[window: Windows.Window]>;
+    onCreated: EventForTesting<[window: Browser.windows.Window]>;
     onRemoved: EventForTesting<[windowId: number]>;
     onFocusChanged: EventForTesting<[windowId: number]>;
   };
   action: Pick<
-    Action.Static,
+    typeof Browser.action,
     | 'setTitle'
     | 'getTitle'
     | 'getBadgeText'
@@ -114,12 +125,12 @@ export interface BrowserOverrides {
     | 'setBadgeBackgroundColor'
   > & {
     resetState(): void;
-    onClicked: EventForTesting<[tab: Tabs.Tab, info: Action.OnClickData | undefined]>;
+    onClicked: EventForTesting<[tab: Browser.tabs.Tab]>;
   };
 }
 
 /**
  * The standard `Browser` interface from `webextension-polyfill`, but with additional functions for
- * triggering events and reseting state.
+ * triggering events and resetting state.
  */
-export type FakeBrowser = BrowserOverrides & Browser;
+export type FakeBrowser = BrowserOverrides & typeof Browser;

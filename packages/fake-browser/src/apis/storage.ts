@@ -1,5 +1,3 @@
-import { Storage } from 'webextension-polyfill';
-
 import { BrowserOverrides } from '../types';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
