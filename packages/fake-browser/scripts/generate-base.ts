@@ -34,9 +34,7 @@ function generateType(parents: string[], name: string, type: Type<ts.Type> | und
   if (type.getCallSignatures().length > 0) {
     // Functions need mocked
     w.write(`() => `).block(() => {
-      w.writeLine(
-        `throw Error(\`${propertyChain} not implemented.\n\nMock the function yourself using your testing framework, or submit a PR with an in-memory implementation.\`)`,
-      );
+      w.writeLine(`throw new MockNotImplementedError("${propertyChain}")`);
     });
   } else if (type.isAnonymous()) {
     // Anonymous classes need mocked
@@ -72,6 +70,12 @@ function generateType(parents: string[], name: string, type: Type<ts.Type> | und
 
 w.write(`
 import type { Browser } from 'webextension-polyfill';
+
+class MockNotImplementedError extends Error {
+  constructor(chain: string) {
+    super(\`\${chain} not implemented: mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.\`)
+  }
+}
 
 export const GeneratedBrowser: Browser = `);
 

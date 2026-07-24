@@ -8,1212 +8,958 @@
 
 import type { Browser } from 'webextension-polyfill';
 
+class MockNotImplementedError extends Error {
+  constructor(chain: string) {
+    super(
+      `${chain} not implemented: mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`,
+    );
+  }
+}
+
 export const GeneratedBrowser: Browser = {
   activityLog: {
     onExtensionActivity: {
       addListener: () => {
-        throw Error(`Browser.activityLog.onExtensionActivity.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.activityLog.onExtensionActivity.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.activityLog.onExtensionActivity.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.activityLog.onExtensionActivity.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.activityLog.onExtensionActivity.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.activityLog.onExtensionActivity.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.activityLog.onExtensionActivity.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.activityLog.onExtensionActivity.hasListeners');
       },
     },
   },
   alarms: {
     create: () => {
-      throw Error(`Browser.alarms.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.alarms.create');
     },
     get: () => {
-      throw Error(`Browser.alarms.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.alarms.get');
     },
     getAll: () => {
-      throw Error(`Browser.alarms.getAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.alarms.getAll');
     },
     clear: () => {
-      throw Error(`Browser.alarms.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.alarms.clear');
     },
     clearAll: () => {
-      throw Error(`Browser.alarms.clearAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.alarms.clearAll');
     },
     onAlarm: {
       addListener: () => {
-        throw Error(`Browser.alarms.onAlarm.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.alarms.onAlarm.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.alarms.onAlarm.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.alarms.onAlarm.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.alarms.onAlarm.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.alarms.onAlarm.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.alarms.onAlarm.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.alarms.onAlarm.hasListeners');
       },
     },
   },
   bookmarks: {
     get: () => {
-      throw Error(`Browser.bookmarks.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.get');
     },
     getChildren: () => {
-      throw Error(`Browser.bookmarks.getChildren not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.getChildren');
     },
     getRecent: () => {
-      throw Error(`Browser.bookmarks.getRecent not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.getRecent');
     },
     getTree: () => {
-      throw Error(`Browser.bookmarks.getTree not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.getTree');
     },
     getSubTree: () => {
-      throw Error(`Browser.bookmarks.getSubTree not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.getSubTree');
     },
     search: () => {
-      throw Error(`Browser.bookmarks.search not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.search');
     },
     create: () => {
-      throw Error(`Browser.bookmarks.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.create');
     },
     move: () => {
-      throw Error(`Browser.bookmarks.move not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.move');
     },
     update: () => {
-      throw Error(`Browser.bookmarks.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.update');
     },
     remove: () => {
-      throw Error(`Browser.bookmarks.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.remove');
     },
     removeTree: () => {
-      throw Error(`Browser.bookmarks.removeTree not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.bookmarks.removeTree');
     },
     onCreated: {
       addListener: () => {
-        throw Error(`Browser.bookmarks.onCreated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onCreated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.bookmarks.onCreated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onCreated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.bookmarks.onCreated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onCreated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.bookmarks.onCreated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onCreated.hasListeners');
       },
     },
     onRemoved: {
       addListener: () => {
-        throw Error(`Browser.bookmarks.onRemoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onRemoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.bookmarks.onRemoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onRemoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.bookmarks.onRemoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onRemoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.bookmarks.onRemoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onRemoved.hasListeners');
       },
     },
     onChanged: {
       addListener: () => {
-        throw Error(`Browser.bookmarks.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.bookmarks.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.bookmarks.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.bookmarks.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onChanged.hasListeners');
       },
     },
     onMoved: {
       addListener: () => {
-        throw Error(`Browser.bookmarks.onMoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onMoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.bookmarks.onMoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onMoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.bookmarks.onMoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onMoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.bookmarks.onMoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.bookmarks.onMoved.hasListeners');
       },
     },
   },
   action: {
     setTitle: () => {
-      throw Error(`Browser.action.setTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.setTitle');
     },
     getTitle: () => {
-      throw Error(`Browser.action.getTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.getTitle');
     },
     getUserSettings: () => {
-      throw Error(`Browser.action.getUserSettings not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.getUserSettings');
     },
     setIcon: () => {
-      throw Error(`Browser.action.setIcon not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.setIcon');
     },
     setPopup: () => {
-      throw Error(`Browser.action.setPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.setPopup');
     },
     getPopup: () => {
-      throw Error(`Browser.action.getPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.getPopup');
     },
     setBadgeText: () => {
-      throw Error(`Browser.action.setBadgeText not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.setBadgeText');
     },
     getBadgeText: () => {
-      throw Error(`Browser.action.getBadgeText not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.getBadgeText');
     },
     setBadgeBackgroundColor: () => {
-      throw Error(`Browser.action.setBadgeBackgroundColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.setBadgeBackgroundColor');
     },
     getBadgeBackgroundColor: () => {
-      throw Error(`Browser.action.getBadgeBackgroundColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.getBadgeBackgroundColor');
     },
     setBadgeTextColor: () => {
-      throw Error(`Browser.action.setBadgeTextColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.setBadgeTextColor');
     },
     getBadgeTextColor: () => {
-      throw Error(`Browser.action.getBadgeTextColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.getBadgeTextColor');
     },
     enable: () => {
-      throw Error(`Browser.action.enable not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.enable');
     },
     disable: () => {
-      throw Error(`Browser.action.disable not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.disable');
     },
     isEnabled: () => {
-      throw Error(`Browser.action.isEnabled not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.isEnabled');
     },
     openPopup: () => {
-      throw Error(`Browser.action.openPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.action.openPopup');
     },
     onClicked: {
       addListener: () => {
-        throw Error(`Browser.action.onClicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.action.onClicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.action.onClicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.action.onClicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.action.onClicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.action.onClicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.action.onClicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.action.onClicked.hasListeners');
       },
     },
   },
   browserAction: {
     setTitle: () => {
-      throw Error(`Browser.browserAction.setTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.setTitle');
     },
     getTitle: () => {
-      throw Error(`Browser.browserAction.getTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.getTitle');
     },
     getUserSettings: () => {
-      throw Error(`Browser.browserAction.getUserSettings not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.getUserSettings');
     },
     setIcon: () => {
-      throw Error(`Browser.browserAction.setIcon not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.setIcon');
     },
     setPopup: () => {
-      throw Error(`Browser.browserAction.setPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.setPopup');
     },
     getPopup: () => {
-      throw Error(`Browser.browserAction.getPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.getPopup');
     },
     setBadgeText: () => {
-      throw Error(`Browser.browserAction.setBadgeText not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.setBadgeText');
     },
     getBadgeText: () => {
-      throw Error(`Browser.browserAction.getBadgeText not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.getBadgeText');
     },
     setBadgeBackgroundColor: () => {
-      throw Error(`Browser.browserAction.setBadgeBackgroundColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.setBadgeBackgroundColor');
     },
     getBadgeBackgroundColor: () => {
-      throw Error(`Browser.browserAction.getBadgeBackgroundColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.getBadgeBackgroundColor');
     },
     setBadgeTextColor: () => {
-      throw Error(`Browser.browserAction.setBadgeTextColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.setBadgeTextColor');
     },
     getBadgeTextColor: () => {
-      throw Error(`Browser.browserAction.getBadgeTextColor not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.getBadgeTextColor');
     },
     enable: () => {
-      throw Error(`Browser.browserAction.enable not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.enable');
     },
     disable: () => {
-      throw Error(`Browser.browserAction.disable not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.disable');
     },
     isEnabled: () => {
-      throw Error(`Browser.browserAction.isEnabled not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.isEnabled');
     },
     openPopup: () => {
-      throw Error(`Browser.browserAction.openPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browserAction.openPopup');
     },
     onClicked: {
       addListener: () => {
-        throw Error(`Browser.browserAction.onClicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserAction.onClicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.browserAction.onClicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserAction.onClicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.browserAction.onClicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserAction.onClicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.browserAction.onClicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserAction.onClicked.hasListeners');
       },
     },
   },
   browserSettings: {
     allowPopupsForUserEvents: {
       get: () => {
-        throw Error(`Browser.browserSettings.allowPopupsForUserEvents.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.allowPopupsForUserEvents.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.allowPopupsForUserEvents.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.allowPopupsForUserEvents.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.allowPopupsForUserEvents.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.allowPopupsForUserEvents.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.allowPopupsForUserEvents.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.allowPopupsForUserEvents.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.allowPopupsForUserEvents.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.allowPopupsForUserEvents.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.allowPopupsForUserEvents.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.allowPopupsForUserEvents.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.allowPopupsForUserEvents.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.allowPopupsForUserEvents.onChange.hasListeners',
+          );
         },
       },
     },
     cacheEnabled: {
       get: () => {
-        throw Error(`Browser.browserSettings.cacheEnabled.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.cacheEnabled.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.cacheEnabled.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.cacheEnabled.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.cacheEnabled.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.cacheEnabled.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.cacheEnabled.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.cacheEnabled.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.cacheEnabled.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.cacheEnabled.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.cacheEnabled.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.cacheEnabled.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.cacheEnabled.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.cacheEnabled.onChange.hasListeners',
+          );
         },
       },
     },
     closeTabsByDoubleClick: {
       get: () => {
-        throw Error(`Browser.browserSettings.closeTabsByDoubleClick.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.closeTabsByDoubleClick.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.closeTabsByDoubleClick.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.closeTabsByDoubleClick.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.closeTabsByDoubleClick.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.closeTabsByDoubleClick.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.closeTabsByDoubleClick.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.closeTabsByDoubleClick.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.closeTabsByDoubleClick.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.closeTabsByDoubleClick.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.closeTabsByDoubleClick.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.closeTabsByDoubleClick.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.closeTabsByDoubleClick.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.closeTabsByDoubleClick.onChange.hasListeners',
+          );
         },
       },
     },
     contextMenuShowEvent: {
       get: () => {
-        throw Error(`Browser.browserSettings.contextMenuShowEvent.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.contextMenuShowEvent.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.contextMenuShowEvent.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.contextMenuShowEvent.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.contextMenuShowEvent.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.contextMenuShowEvent.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.contextMenuShowEvent.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.contextMenuShowEvent.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.contextMenuShowEvent.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.contextMenuShowEvent.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.contextMenuShowEvent.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.contextMenuShowEvent.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.contextMenuShowEvent.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.contextMenuShowEvent.onChange.hasListeners',
+          );
         },
       },
     },
     homepageOverride: {
       get: () => {
-        throw Error(`Browser.browserSettings.homepageOverride.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.homepageOverride.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.homepageOverride.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.homepageOverride.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.homepageOverride.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.homepageOverride.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.homepageOverride.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.homepageOverride.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.homepageOverride.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.homepageOverride.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.homepageOverride.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.homepageOverride.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.homepageOverride.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.homepageOverride.onChange.hasListeners',
+          );
         },
       },
     },
     imageAnimationBehavior: {
       get: () => {
-        throw Error(`Browser.browserSettings.imageAnimationBehavior.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.imageAnimationBehavior.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.imageAnimationBehavior.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.imageAnimationBehavior.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.imageAnimationBehavior.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.imageAnimationBehavior.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.imageAnimationBehavior.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.imageAnimationBehavior.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.imageAnimationBehavior.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.imageAnimationBehavior.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.imageAnimationBehavior.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.imageAnimationBehavior.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.imageAnimationBehavior.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.imageAnimationBehavior.onChange.hasListeners',
+          );
         },
       },
     },
     newTabPageOverride: {
       get: () => {
-        throw Error(`Browser.browserSettings.newTabPageOverride.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.newTabPageOverride.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.newTabPageOverride.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.newTabPageOverride.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.newTabPageOverride.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.newTabPageOverride.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.newTabPageOverride.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPageOverride.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.newTabPageOverride.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPageOverride.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.newTabPageOverride.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPageOverride.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.newTabPageOverride.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPageOverride.onChange.hasListeners',
+          );
         },
       },
     },
     newTabPosition: {
       get: () => {
-        throw Error(`Browser.browserSettings.newTabPosition.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.newTabPosition.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.newTabPosition.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.newTabPosition.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.newTabPosition.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.newTabPosition.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.newTabPosition.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPosition.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.newTabPosition.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPosition.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.newTabPosition.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPosition.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.newTabPosition.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.newTabPosition.onChange.hasListeners',
+          );
         },
       },
     },
     openBookmarksInNewTabs: {
       get: () => {
-        throw Error(`Browser.browserSettings.openBookmarksInNewTabs.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.openBookmarksInNewTabs.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.openBookmarksInNewTabs.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.openBookmarksInNewTabs.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.openBookmarksInNewTabs.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.openBookmarksInNewTabs.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.openBookmarksInNewTabs.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openBookmarksInNewTabs.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.openBookmarksInNewTabs.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openBookmarksInNewTabs.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.openBookmarksInNewTabs.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openBookmarksInNewTabs.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.openBookmarksInNewTabs.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openBookmarksInNewTabs.onChange.hasListeners',
+          );
         },
       },
     },
     openSearchResultsInNewTabs: {
       get: () => {
-        throw Error(`Browser.browserSettings.openSearchResultsInNewTabs.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.openSearchResultsInNewTabs.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.openSearchResultsInNewTabs.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.openSearchResultsInNewTabs.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.openSearchResultsInNewTabs.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.browserSettings.openSearchResultsInNewTabs.clear',
+        );
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.openSearchResultsInNewTabs.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openSearchResultsInNewTabs.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.openSearchResultsInNewTabs.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openSearchResultsInNewTabs.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.openSearchResultsInNewTabs.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openSearchResultsInNewTabs.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.openSearchResultsInNewTabs.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openSearchResultsInNewTabs.onChange.hasListeners',
+          );
         },
       },
     },
     openUrlbarResultsInNewTabs: {
       get: () => {
-        throw Error(`Browser.browserSettings.openUrlbarResultsInNewTabs.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.openUrlbarResultsInNewTabs.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.openUrlbarResultsInNewTabs.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.openUrlbarResultsInNewTabs.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.openUrlbarResultsInNewTabs.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.browserSettings.openUrlbarResultsInNewTabs.clear',
+        );
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.openUrlbarResultsInNewTabs.onChange.hasListeners',
+          );
         },
       },
     },
     webNotificationsDisabled: {
       get: () => {
-        throw Error(`Browser.browserSettings.webNotificationsDisabled.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.webNotificationsDisabled.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.webNotificationsDisabled.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.webNotificationsDisabled.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.webNotificationsDisabled.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.webNotificationsDisabled.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.webNotificationsDisabled.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.webNotificationsDisabled.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.webNotificationsDisabled.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.webNotificationsDisabled.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.webNotificationsDisabled.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.webNotificationsDisabled.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.webNotificationsDisabled.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.webNotificationsDisabled.onChange.hasListeners',
+          );
         },
       },
     },
     overrideDocumentColors: {
       get: () => {
-        throw Error(`Browser.browserSettings.overrideDocumentColors.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.overrideDocumentColors.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.overrideDocumentColors.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.overrideDocumentColors.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.overrideDocumentColors.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.overrideDocumentColors.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.overrideDocumentColors.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideDocumentColors.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.overrideDocumentColors.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideDocumentColors.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.overrideDocumentColors.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideDocumentColors.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.overrideDocumentColors.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideDocumentColors.onChange.hasListeners',
+          );
         },
       },
     },
     overrideContentColorScheme: {
       get: () => {
-        throw Error(`Browser.browserSettings.overrideContentColorScheme.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.overrideContentColorScheme.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.overrideContentColorScheme.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.overrideContentColorScheme.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.overrideContentColorScheme.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.browserSettings.overrideContentColorScheme.clear',
+        );
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.overrideContentColorScheme.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideContentColorScheme.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.overrideContentColorScheme.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideContentColorScheme.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.overrideContentColorScheme.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideContentColorScheme.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.overrideContentColorScheme.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.overrideContentColorScheme.onChange.hasListeners',
+          );
         },
       },
     },
     useDocumentFonts: {
       get: () => {
-        throw Error(`Browser.browserSettings.useDocumentFonts.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.useDocumentFonts.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.useDocumentFonts.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.useDocumentFonts.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.useDocumentFonts.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.useDocumentFonts.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.useDocumentFonts.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.useDocumentFonts.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.useDocumentFonts.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.useDocumentFonts.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.useDocumentFonts.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.useDocumentFonts.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.useDocumentFonts.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.useDocumentFonts.onChange.hasListeners',
+          );
         },
       },
     },
     zoomFullPage: {
       get: () => {
-        throw Error(`Browser.browserSettings.zoomFullPage.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.zoomFullPage.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.zoomFullPage.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.zoomFullPage.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.zoomFullPage.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.zoomFullPage.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.zoomFullPage.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomFullPage.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.zoomFullPage.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomFullPage.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.zoomFullPage.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomFullPage.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.zoomFullPage.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomFullPage.onChange.hasListeners',
+          );
         },
       },
     },
     zoomSiteSpecific: {
       get: () => {
-        throw Error(`Browser.browserSettings.zoomSiteSpecific.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.zoomSiteSpecific.get');
       },
       set: () => {
-        throw Error(`Browser.browserSettings.zoomSiteSpecific.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.zoomSiteSpecific.set');
       },
       clear: () => {
-        throw Error(`Browser.browserSettings.zoomSiteSpecific.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.browserSettings.zoomSiteSpecific.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.browserSettings.zoomSiteSpecific.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomSiteSpecific.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.browserSettings.zoomSiteSpecific.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomSiteSpecific.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.browserSettings.zoomSiteSpecific.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomSiteSpecific.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.browserSettings.zoomSiteSpecific.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.zoomSiteSpecific.onChange.hasListeners',
+          );
         },
       },
     },
     colorManagement: {
       mode: {
         get: () => {
-          throw Error(`Browser.browserSettings.colorManagement.mode.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.browserSettings.colorManagement.mode.get');
         },
         set: () => {
-          throw Error(`Browser.browserSettings.colorManagement.mode.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.browserSettings.colorManagement.mode.set');
         },
         clear: () => {
-          throw Error(`Browser.browserSettings.colorManagement.mode.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.browserSettings.colorManagement.mode.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.mode.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.mode.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.mode.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.mode.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.mode.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.mode.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.browserSettings.colorManagement.mode.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.mode.onChange.hasListeners',
+            );
           },
         },
       },
       useNativeSRGB: {
         get: () => {
-          throw Error(`Browser.browserSettings.colorManagement.useNativeSRGB.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.colorManagement.useNativeSRGB.get',
+          );
         },
         set: () => {
-          throw Error(`Browser.browserSettings.colorManagement.useNativeSRGB.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.colorManagement.useNativeSRGB.set',
+          );
         },
         clear: () => {
-          throw Error(`Browser.browserSettings.colorManagement.useNativeSRGB.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.colorManagement.useNativeSRGB.clear',
+          );
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useNativeSRGB.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useNativeSRGB.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useNativeSRGB.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useNativeSRGB.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useNativeSRGB.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useNativeSRGB.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useNativeSRGB.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useNativeSRGB.onChange.hasListeners',
+            );
           },
         },
       },
       useWebRenderCompositor: {
         get: () => {
-          throw Error(`Browser.browserSettings.colorManagement.useWebRenderCompositor.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.colorManagement.useWebRenderCompositor.get',
+          );
         },
         set: () => {
-          throw Error(`Browser.browserSettings.colorManagement.useWebRenderCompositor.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.colorManagement.useWebRenderCompositor.set',
+          );
         },
         clear: () => {
-          throw Error(`Browser.browserSettings.colorManagement.useWebRenderCompositor.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.browserSettings.colorManagement.useWebRenderCompositor.clear',
+          );
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.browserSettings.colorManagement.useWebRenderCompositor.onChange.hasListeners',
+            );
           },
         },
       },
@@ -1221,413 +967,281 @@ Mock the function yourself using your testing framework, or submit a PR with an 
   },
   browsingData: {
     settings: () => {
-      throw Error(`Browser.browsingData.settings not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.settings');
     },
     remove: () => {
-      throw Error(`Browser.browsingData.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.remove');
     },
     removeCache: () => {
-      throw Error(`Browser.browsingData.removeCache not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removeCache');
     },
     removeCookies: () => {
-      throw Error(`Browser.browsingData.removeCookies not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removeCookies');
     },
     removeDownloads: () => {
-      throw Error(`Browser.browsingData.removeDownloads not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removeDownloads');
     },
     removeFormData: () => {
-      throw Error(`Browser.browsingData.removeFormData not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removeFormData');
     },
     removeHistory: () => {
-      throw Error(`Browser.browsingData.removeHistory not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removeHistory');
     },
     removeLocalStorage: () => {
-      throw Error(`Browser.browsingData.removeLocalStorage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removeLocalStorage');
     },
     removePluginData: () => {
-      throw Error(`Browser.browsingData.removePluginData not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removePluginData');
     },
     removePasswords: () => {
-      throw Error(`Browser.browsingData.removePasswords not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.browsingData.removePasswords');
     },
   },
   captivePortal: {
     getState: () => {
-      throw Error(`Browser.captivePortal.getState not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.captivePortal.getState');
     },
     getLastChecked: () => {
-      throw Error(`Browser.captivePortal.getLastChecked not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.captivePortal.getLastChecked');
     },
     onStateChanged: {
       addListener: () => {
-        throw Error(`Browser.captivePortal.onStateChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.captivePortal.onStateChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.captivePortal.onStateChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.captivePortal.onStateChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.captivePortal.onStateChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.captivePortal.onStateChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.captivePortal.onStateChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.captivePortal.onStateChanged.hasListeners');
       },
     },
     onConnectivityAvailable: {
       addListener: () => {
-        throw Error(`Browser.captivePortal.onConnectivityAvailable.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.captivePortal.onConnectivityAvailable.addListener',
+        );
       },
       removeListener: () => {
-        throw Error(`Browser.captivePortal.onConnectivityAvailable.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.captivePortal.onConnectivityAvailable.removeListener',
+        );
       },
       hasListener: () => {
-        throw Error(`Browser.captivePortal.onConnectivityAvailable.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.captivePortal.onConnectivityAvailable.hasListener',
+        );
       },
       hasListeners: () => {
-        throw Error(`Browser.captivePortal.onConnectivityAvailable.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.captivePortal.onConnectivityAvailable.hasListeners',
+        );
       },
     },
     canonicalURL: {
       get: () => {
-        throw Error(`Browser.captivePortal.canonicalURL.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.captivePortal.canonicalURL.get');
       },
       set: () => {
-        throw Error(`Browser.captivePortal.canonicalURL.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.captivePortal.canonicalURL.set');
       },
       clear: () => {
-        throw Error(`Browser.captivePortal.canonicalURL.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.captivePortal.canonicalURL.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.captivePortal.canonicalURL.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.captivePortal.canonicalURL.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.captivePortal.canonicalURL.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.captivePortal.canonicalURL.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.captivePortal.canonicalURL.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.captivePortal.canonicalURL.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.captivePortal.canonicalURL.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.captivePortal.canonicalURL.onChange.hasListeners',
+          );
         },
       },
     },
   },
   clipboard: {
     setImageData: () => {
-      throw Error(`Browser.clipboard.setImageData not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.clipboard.setImageData');
     },
   },
   commands: {
     update: () => {
-      throw Error(`Browser.commands.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.commands.update');
     },
     reset: () => {
-      throw Error(`Browser.commands.reset not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.commands.reset');
     },
     getAll: () => {
-      throw Error(`Browser.commands.getAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.commands.getAll');
     },
     onCommand: {
       addListener: () => {
-        throw Error(`Browser.commands.onCommand.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onCommand.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.commands.onCommand.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onCommand.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.commands.onCommand.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onCommand.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.commands.onCommand.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onCommand.hasListeners');
       },
     },
     onChanged: {
       addListener: () => {
-        throw Error(`Browser.commands.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.commands.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.commands.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.commands.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.commands.onChanged.hasListeners');
       },
     },
   },
   contentScripts: {
     register: () => {
-      throw Error(`Browser.contentScripts.register not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contentScripts.register');
     },
   },
   contextualIdentities: {
     get: () => {
-      throw Error(`Browser.contextualIdentities.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextualIdentities.get');
     },
     query: () => {
-      throw Error(`Browser.contextualIdentities.query not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextualIdentities.query');
     },
     create: () => {
-      throw Error(`Browser.contextualIdentities.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextualIdentities.create');
     },
     update: () => {
-      throw Error(`Browser.contextualIdentities.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextualIdentities.update');
     },
     remove: () => {
-      throw Error(`Browser.contextualIdentities.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextualIdentities.remove');
     },
     onUpdated: {
       addListener: () => {
-        throw Error(`Browser.contextualIdentities.onUpdated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onUpdated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.contextualIdentities.onUpdated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onUpdated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.contextualIdentities.onUpdated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onUpdated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.contextualIdentities.onUpdated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onUpdated.hasListeners');
       },
     },
     onCreated: {
       addListener: () => {
-        throw Error(`Browser.contextualIdentities.onCreated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onCreated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.contextualIdentities.onCreated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onCreated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.contextualIdentities.onCreated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onCreated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.contextualIdentities.onCreated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onCreated.hasListeners');
       },
     },
     onRemoved: {
       addListener: () => {
-        throw Error(`Browser.contextualIdentities.onRemoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onRemoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.contextualIdentities.onRemoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onRemoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.contextualIdentities.onRemoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onRemoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.contextualIdentities.onRemoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextualIdentities.onRemoved.hasListeners');
       },
     },
   },
   cookies: {
     get: () => {
-      throw Error(`Browser.cookies.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.cookies.get');
     },
     getAll: () => {
-      throw Error(`Browser.cookies.getAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.cookies.getAll');
     },
     set: () => {
-      throw Error(`Browser.cookies.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.cookies.set');
     },
     remove: () => {
-      throw Error(`Browser.cookies.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.cookies.remove');
     },
     getAllCookieStores: () => {
-      throw Error(`Browser.cookies.getAllCookieStores not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.cookies.getAllCookieStores');
     },
     onChanged: {
       addListener: () => {
-        throw Error(`Browser.cookies.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.cookies.onChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.cookies.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.cookies.onChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.cookies.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.cookies.onChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.cookies.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.cookies.onChanged.hasListeners');
       },
     },
   },
   declarativeNetRequest: {
     updateDynamicRules: () => {
-      throw Error(`Browser.declarativeNetRequest.updateDynamicRules not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.updateDynamicRules');
     },
     updateSessionRules: () => {
-      throw Error(`Browser.declarativeNetRequest.updateSessionRules not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.updateSessionRules');
     },
     getEnabledRulesets: () => {
-      throw Error(`Browser.declarativeNetRequest.getEnabledRulesets not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.getEnabledRulesets');
     },
     updateEnabledRulesets: () => {
-      throw Error(`Browser.declarativeNetRequest.updateEnabledRulesets not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.updateEnabledRulesets');
     },
     getAvailableStaticRuleCount: () => {
-      throw Error(`Browser.declarativeNetRequest.getAvailableStaticRuleCount not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError(
+        'Browser.declarativeNetRequest.getAvailableStaticRuleCount',
+      );
     },
     getDynamicRules: () => {
-      throw Error(`Browser.declarativeNetRequest.getDynamicRules not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.getDynamicRules');
     },
     getSessionRules: () => {
-      throw Error(`Browser.declarativeNetRequest.getSessionRules not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.getSessionRules');
     },
     isRegexSupported: () => {
-      throw Error(`Browser.declarativeNetRequest.isRegexSupported not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.isRegexSupported');
     },
     testMatchOutcome: () => {
-      throw Error(`Browser.declarativeNetRequest.testMatchOutcome not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.declarativeNetRequest.testMatchOutcome');
     },
     DYNAMIC_RULESET_ID: '_dynamic',
     GUARANTEED_MINIMUM_STATIC_RULES: 0,
@@ -1640,122 +1254,98 @@ Mock the function yourself using your testing framework, or submit a PR with an 
   devtools: {
     inspectedWindow: {
       eval: () => {
-        throw Error(`Browser.devtools.inspectedWindow.eval not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.devtools.inspectedWindow.eval');
       },
       reload: () => {
-        throw Error(`Browser.devtools.inspectedWindow.reload not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.devtools.inspectedWindow.reload');
       },
       tabId: 0,
     },
     network: {
       getHAR: () => {
-        throw Error(`Browser.devtools.network.getHAR not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.devtools.network.getHAR');
       },
       onRequestFinished: {
         addListener: () => {
-          throw Error(`Browser.devtools.network.onRequestFinished.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.devtools.network.onRequestFinished.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.devtools.network.onRequestFinished.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.devtools.network.onRequestFinished.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.devtools.network.onRequestFinished.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.devtools.network.onRequestFinished.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.devtools.network.onRequestFinished.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.devtools.network.onRequestFinished.hasListeners',
+          );
         },
       },
       onNavigated: {
         addListener: () => {
-          throw Error(`Browser.devtools.network.onNavigated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.network.onNavigated.addListener');
         },
         removeListener: () => {
-          throw Error(`Browser.devtools.network.onNavigated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.network.onNavigated.removeListener');
         },
         hasListener: () => {
-          throw Error(`Browser.devtools.network.onNavigated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.network.onNavigated.hasListener');
         },
         hasListeners: () => {
-          throw Error(`Browser.devtools.network.onNavigated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.network.onNavigated.hasListeners');
         },
       },
     },
     panels: {
       create: () => {
-        throw Error(`Browser.devtools.panels.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.devtools.panels.create');
       },
       onThemeChanged: {
         addListener: () => {
-          throw Error(`Browser.devtools.panels.onThemeChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.panels.onThemeChanged.addListener');
         },
         removeListener: () => {
-          throw Error(`Browser.devtools.panels.onThemeChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.devtools.panels.onThemeChanged.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.devtools.panels.onThemeChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.panels.onThemeChanged.hasListener');
         },
         hasListeners: () => {
-          throw Error(`Browser.devtools.panels.onThemeChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.panels.onThemeChanged.hasListeners');
         },
       },
       elements: {
         createSidebarPane: () => {
-          throw Error(`Browser.devtools.panels.elements.createSidebarPane not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.devtools.panels.elements.createSidebarPane');
         },
         onSelectionChanged: {
           addListener: () => {
-            throw Error(`Browser.devtools.panels.elements.onSelectionChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.devtools.panels.elements.onSelectionChanged.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.devtools.panels.elements.onSelectionChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.devtools.panels.elements.onSelectionChanged.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.devtools.panels.elements.onSelectionChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.devtools.panels.elements.onSelectionChanged.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.devtools.panels.elements.onSelectionChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.devtools.panels.elements.onSelectionChanged.hasListeners',
+            );
           },
         },
       },
@@ -1765,131 +1355,83 @@ Mock the function yourself using your testing framework, or submit a PR with an 
   },
   dns: {
     resolve: () => {
-      throw Error(`Browser.dns.resolve not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.dns.resolve');
     },
   },
   downloads: {
     download: () => {
-      throw Error(`Browser.downloads.download not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.download');
     },
     search: () => {
-      throw Error(`Browser.downloads.search not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.search');
     },
     pause: () => {
-      throw Error(`Browser.downloads.pause not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.pause');
     },
     resume: () => {
-      throw Error(`Browser.downloads.resume not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.resume');
     },
     cancel: () => {
-      throw Error(`Browser.downloads.cancel not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.cancel');
     },
     getFileIcon: () => {
-      throw Error(`Browser.downloads.getFileIcon not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.getFileIcon');
     },
     open: () => {
-      throw Error(`Browser.downloads.open not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.open');
     },
     show: () => {
-      throw Error(`Browser.downloads.show not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.show');
     },
     showDefaultFolder: () => {
-      throw Error(`Browser.downloads.showDefaultFolder not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.showDefaultFolder');
     },
     erase: () => {
-      throw Error(`Browser.downloads.erase not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.erase');
     },
     removeFile: () => {
-      throw Error(`Browser.downloads.removeFile not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.downloads.removeFile');
     },
     onCreated: {
       addListener: () => {
-        throw Error(`Browser.downloads.onCreated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onCreated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.downloads.onCreated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onCreated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.downloads.onCreated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onCreated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.downloads.onCreated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onCreated.hasListeners');
       },
     },
     onErased: {
       addListener: () => {
-        throw Error(`Browser.downloads.onErased.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onErased.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.downloads.onErased.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onErased.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.downloads.onErased.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onErased.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.downloads.onErased.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onErased.hasListeners');
       },
     },
     onChanged: {
       addListener: () => {
-        throw Error(`Browser.downloads.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.downloads.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.downloads.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.downloads.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.downloads.onChanged.hasListeners');
       },
     },
   },
@@ -1897,1289 +1439,875 @@ Mock the function yourself using your testing framework, or submit a PR with an 
   experiments: {},
   extension: {
     getViews: () => {
-      throw Error(`Browser.extension.getViews not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.extension.getViews');
     },
     getBackgroundPage: () => {
-      throw Error(`Browser.extension.getBackgroundPage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.extension.getBackgroundPage');
     },
     isAllowedIncognitoAccess: () => {
-      throw Error(`Browser.extension.isAllowedIncognitoAccess not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.extension.isAllowedIncognitoAccess');
     },
     isAllowedFileSchemeAccess: () => {
-      throw Error(`Browser.extension.isAllowedFileSchemeAccess not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.extension.isAllowedFileSchemeAccess');
     },
     inIncognitoContext: false,
   },
   extensionTypes: {},
   find: {
     find: () => {
-      throw Error(`Browser.find.find not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.find.find');
     },
     highlightResults: () => {
-      throw Error(`Browser.find.highlightResults not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.find.highlightResults');
     },
     removeHighlighting: () => {
-      throw Error(`Browser.find.removeHighlighting not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.find.removeHighlighting');
     },
   },
   geckoProfiler: {
     start: () => {
-      throw Error(`Browser.geckoProfiler.start not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.start');
     },
     stop: () => {
-      throw Error(`Browser.geckoProfiler.stop not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.stop');
     },
     pause: () => {
-      throw Error(`Browser.geckoProfiler.pause not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.pause');
     },
     resume: () => {
-      throw Error(`Browser.geckoProfiler.resume not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.resume');
     },
     dumpProfileToFile: () => {
-      throw Error(`Browser.geckoProfiler.dumpProfileToFile not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.dumpProfileToFile');
     },
     getProfile: () => {
-      throw Error(`Browser.geckoProfiler.getProfile not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.getProfile');
     },
     getProfileAsArrayBuffer: () => {
-      throw Error(`Browser.geckoProfiler.getProfileAsArrayBuffer not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.getProfileAsArrayBuffer');
     },
     getProfileAsGzippedArrayBuffer: () => {
-      throw Error(`Browser.geckoProfiler.getProfileAsGzippedArrayBuffer not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.getProfileAsGzippedArrayBuffer');
     },
     getSymbols: () => {
-      throw Error(`Browser.geckoProfiler.getSymbols not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.geckoProfiler.getSymbols');
     },
     onRunning: {
       addListener: () => {
-        throw Error(`Browser.geckoProfiler.onRunning.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.geckoProfiler.onRunning.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.geckoProfiler.onRunning.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.geckoProfiler.onRunning.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.geckoProfiler.onRunning.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.geckoProfiler.onRunning.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.geckoProfiler.onRunning.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.geckoProfiler.onRunning.hasListeners');
       },
     },
   },
   history: {
     search: () => {
-      throw Error(`Browser.history.search not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.history.search');
     },
     getVisits: () => {
-      throw Error(`Browser.history.getVisits not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.history.getVisits');
     },
     addUrl: () => {
-      throw Error(`Browser.history.addUrl not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.history.addUrl');
     },
     deleteUrl: () => {
-      throw Error(`Browser.history.deleteUrl not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.history.deleteUrl');
     },
     deleteRange: () => {
-      throw Error(`Browser.history.deleteRange not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.history.deleteRange');
     },
     deleteAll: () => {
-      throw Error(`Browser.history.deleteAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.history.deleteAll');
     },
     onVisited: {
       addListener: () => {
-        throw Error(`Browser.history.onVisited.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisited.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.history.onVisited.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisited.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.history.onVisited.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisited.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.history.onVisited.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisited.hasListeners');
       },
     },
     onVisitRemoved: {
       addListener: () => {
-        throw Error(`Browser.history.onVisitRemoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisitRemoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.history.onVisitRemoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisitRemoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.history.onVisitRemoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisitRemoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.history.onVisitRemoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onVisitRemoved.hasListeners');
       },
     },
     onTitleChanged: {
       addListener: () => {
-        throw Error(`Browser.history.onTitleChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onTitleChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.history.onTitleChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onTitleChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.history.onTitleChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onTitleChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.history.onTitleChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.history.onTitleChanged.hasListeners');
       },
     },
   },
   i18n: {
     getAcceptLanguages: () => {
-      throw Error(`Browser.i18n.getAcceptLanguages not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.i18n.getAcceptLanguages');
     },
     getMessage: () => {
-      throw Error(`Browser.i18n.getMessage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.i18n.getMessage');
     },
     getUILanguage: () => {
-      throw Error(`Browser.i18n.getUILanguage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.i18n.getUILanguage');
     },
     detectLanguage: () => {
-      throw Error(`Browser.i18n.detectLanguage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.i18n.detectLanguage');
     },
   },
   identity: {
     launchWebAuthFlow: () => {
-      throw Error(`Browser.identity.launchWebAuthFlow not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.identity.launchWebAuthFlow');
     },
     getRedirectURL: () => {
-      throw Error(`Browser.identity.getRedirectURL not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.identity.getRedirectURL');
     },
   },
   idle: {
     queryState: () => {
-      throw Error(`Browser.idle.queryState not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.idle.queryState');
     },
     setDetectionInterval: () => {
-      throw Error(`Browser.idle.setDetectionInterval not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.idle.setDetectionInterval');
     },
     onStateChanged: {
       addListener: () => {
-        throw Error(`Browser.idle.onStateChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.idle.onStateChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.idle.onStateChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.idle.onStateChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.idle.onStateChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.idle.onStateChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.idle.onStateChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.idle.onStateChanged.hasListeners');
       },
     },
   },
   management: {
     getAll: () => {
-      throw Error(`Browser.management.getAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.management.getAll');
     },
     get: () => {
-      throw Error(`Browser.management.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.management.get');
     },
     install: () => {
-      throw Error(`Browser.management.install not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.management.install');
     },
     getSelf: () => {
-      throw Error(`Browser.management.getSelf not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.management.getSelf');
     },
     uninstallSelf: () => {
-      throw Error(`Browser.management.uninstallSelf not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.management.uninstallSelf');
     },
     setEnabled: () => {
-      throw Error(`Browser.management.setEnabled not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.management.setEnabled');
     },
     onDisabled: {
       addListener: () => {
-        throw Error(`Browser.management.onDisabled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onDisabled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.management.onDisabled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onDisabled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.management.onDisabled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onDisabled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.management.onDisabled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onDisabled.hasListeners');
       },
     },
     onEnabled: {
       addListener: () => {
-        throw Error(`Browser.management.onEnabled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onEnabled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.management.onEnabled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onEnabled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.management.onEnabled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onEnabled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.management.onEnabled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onEnabled.hasListeners');
       },
     },
     onInstalled: {
       addListener: () => {
-        throw Error(`Browser.management.onInstalled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onInstalled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.management.onInstalled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onInstalled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.management.onInstalled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onInstalled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.management.onInstalled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onInstalled.hasListeners');
       },
     },
     onUninstalled: {
       addListener: () => {
-        throw Error(`Browser.management.onUninstalled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onUninstalled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.management.onUninstalled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onUninstalled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.management.onUninstalled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onUninstalled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.management.onUninstalled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.management.onUninstalled.hasListeners');
       },
     },
   },
   manifest: {},
   contextMenus: {
     create: () => {
-      throw Error(`Browser.contextMenus.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextMenus.create');
     },
     update: () => {
-      throw Error(`Browser.contextMenus.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextMenus.update');
     },
     remove: () => {
-      throw Error(`Browser.contextMenus.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextMenus.remove');
     },
     removeAll: () => {
-      throw Error(`Browser.contextMenus.removeAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextMenus.removeAll');
     },
     overrideContext: () => {
-      throw Error(`Browser.contextMenus.overrideContext not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextMenus.overrideContext');
     },
     refresh: () => {
-      throw Error(`Browser.contextMenus.refresh not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextMenus.refresh');
     },
     getTargetElement: () => {
-      throw Error(`Browser.contextMenus.getTargetElement not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.contextMenus.getTargetElement');
     },
     onClicked: {
       addListener: () => {
-        throw Error(`Browser.contextMenus.onClicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onClicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.contextMenus.onClicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onClicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.contextMenus.onClicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onClicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.contextMenus.onClicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onClicked.hasListeners');
       },
     },
     onShown: {
       addListener: () => {
-        throw Error(`Browser.contextMenus.onShown.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onShown.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.contextMenus.onShown.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onShown.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.contextMenus.onShown.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onShown.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.contextMenus.onShown.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onShown.hasListeners');
       },
     },
     onHidden: {
       addListener: () => {
-        throw Error(`Browser.contextMenus.onHidden.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onHidden.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.contextMenus.onHidden.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onHidden.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.contextMenus.onHidden.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onHidden.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.contextMenus.onHidden.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.contextMenus.onHidden.hasListeners');
       },
     },
     ACTION_MENU_TOP_LEVEL_LIMIT: 6,
   },
   menus: {
     create: () => {
-      throw Error(`Browser.menus.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.menus.create');
     },
     update: () => {
-      throw Error(`Browser.menus.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.menus.update');
     },
     remove: () => {
-      throw Error(`Browser.menus.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.menus.remove');
     },
     removeAll: () => {
-      throw Error(`Browser.menus.removeAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.menus.removeAll');
     },
     overrideContext: () => {
-      throw Error(`Browser.menus.overrideContext not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.menus.overrideContext');
     },
     refresh: () => {
-      throw Error(`Browser.menus.refresh not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.menus.refresh');
     },
     getTargetElement: () => {
-      throw Error(`Browser.menus.getTargetElement not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.menus.getTargetElement');
     },
     onClicked: {
       addListener: () => {
-        throw Error(`Browser.menus.onClicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onClicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.menus.onClicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onClicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.menus.onClicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onClicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.menus.onClicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onClicked.hasListeners');
       },
     },
     onShown: {
       addListener: () => {
-        throw Error(`Browser.menus.onShown.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onShown.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.menus.onShown.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onShown.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.menus.onShown.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onShown.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.menus.onShown.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onShown.hasListeners');
       },
     },
     onHidden: {
       addListener: () => {
-        throw Error(`Browser.menus.onHidden.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onHidden.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.menus.onHidden.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onHidden.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.menus.onHidden.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onHidden.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.menus.onHidden.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.menus.onHidden.hasListeners');
       },
     },
     ACTION_MENU_TOP_LEVEL_LIMIT: 6,
   },
   networkStatus: {
     getLinkInfo: () => {
-      throw Error(`Browser.networkStatus.getLinkInfo not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.networkStatus.getLinkInfo');
     },
     onConnectionChanged: {
       addListener: () => {
-        throw Error(`Browser.networkStatus.onConnectionChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.networkStatus.onConnectionChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.networkStatus.onConnectionChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.networkStatus.onConnectionChanged.removeListener',
+        );
       },
       hasListener: () => {
-        throw Error(`Browser.networkStatus.onConnectionChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.networkStatus.onConnectionChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.networkStatus.onConnectionChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.networkStatus.onConnectionChanged.hasListeners');
       },
     },
   },
   normandyAddonStudy: {
     getStudy: () => {
-      throw Error(`Browser.normandyAddonStudy.getStudy not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.normandyAddonStudy.getStudy');
     },
     endStudy: () => {
-      throw Error(`Browser.normandyAddonStudy.endStudy not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.normandyAddonStudy.endStudy');
     },
     getClientMetadata: () => {
-      throw Error(`Browser.normandyAddonStudy.getClientMetadata not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.normandyAddonStudy.getClientMetadata');
     },
     onUnenroll: {
       addListener: () => {
-        throw Error(`Browser.normandyAddonStudy.onUnenroll.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.normandyAddonStudy.onUnenroll.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.normandyAddonStudy.onUnenroll.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.normandyAddonStudy.onUnenroll.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.normandyAddonStudy.onUnenroll.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.normandyAddonStudy.onUnenroll.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.normandyAddonStudy.onUnenroll.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.normandyAddonStudy.onUnenroll.hasListeners');
       },
     },
   },
   notifications: {
     create: () => {
-      throw Error(`Browser.notifications.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.notifications.create');
     },
     clear: () => {
-      throw Error(`Browser.notifications.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.notifications.clear');
     },
     getAll: () => {
-      throw Error(`Browser.notifications.getAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.notifications.getAll');
     },
     onClosed: {
       addListener: () => {
-        throw Error(`Browser.notifications.onClosed.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClosed.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.notifications.onClosed.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClosed.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.notifications.onClosed.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClosed.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.notifications.onClosed.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClosed.hasListeners');
       },
     },
     onClicked: {
       addListener: () => {
-        throw Error(`Browser.notifications.onClicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.notifications.onClicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.notifications.onClicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.notifications.onClicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onClicked.hasListeners');
       },
     },
     onButtonClicked: {
       addListener: () => {
-        throw Error(`Browser.notifications.onButtonClicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onButtonClicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.notifications.onButtonClicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onButtonClicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.notifications.onButtonClicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onButtonClicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.notifications.onButtonClicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onButtonClicked.hasListeners');
       },
     },
     onShown: {
       addListener: () => {
-        throw Error(`Browser.notifications.onShown.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onShown.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.notifications.onShown.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onShown.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.notifications.onShown.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onShown.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.notifications.onShown.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.notifications.onShown.hasListeners');
       },
     },
   },
   omnibox: {
     setDefaultSuggestion: () => {
-      throw Error(`Browser.omnibox.setDefaultSuggestion not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.omnibox.setDefaultSuggestion');
     },
     onInputStarted: {
       addListener: () => {
-        throw Error(`Browser.omnibox.onInputStarted.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputStarted.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.omnibox.onInputStarted.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputStarted.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.omnibox.onInputStarted.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputStarted.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.omnibox.onInputStarted.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputStarted.hasListeners');
       },
     },
     onInputChanged: {
       addListener: () => {
-        throw Error(`Browser.omnibox.onInputChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.omnibox.onInputChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.omnibox.onInputChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.omnibox.onInputChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputChanged.hasListeners');
       },
     },
     onInputEntered: {
       addListener: () => {
-        throw Error(`Browser.omnibox.onInputEntered.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputEntered.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.omnibox.onInputEntered.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputEntered.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.omnibox.onInputEntered.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputEntered.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.omnibox.onInputEntered.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputEntered.hasListeners');
       },
     },
     onInputCancelled: {
       addListener: () => {
-        throw Error(`Browser.omnibox.onInputCancelled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputCancelled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.omnibox.onInputCancelled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputCancelled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.omnibox.onInputCancelled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputCancelled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.omnibox.onInputCancelled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onInputCancelled.hasListeners');
       },
     },
     onDeleteSuggestion: {
       addListener: () => {
-        throw Error(`Browser.omnibox.onDeleteSuggestion.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onDeleteSuggestion.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.omnibox.onDeleteSuggestion.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onDeleteSuggestion.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.omnibox.onDeleteSuggestion.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onDeleteSuggestion.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.omnibox.onDeleteSuggestion.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.omnibox.onDeleteSuggestion.hasListeners');
       },
     },
   },
   pageAction: {
     show: () => {
-      throw Error(`Browser.pageAction.show not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.show');
     },
     hide: () => {
-      throw Error(`Browser.pageAction.hide not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.hide');
     },
     isShown: () => {
-      throw Error(`Browser.pageAction.isShown not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.isShown');
     },
     setTitle: () => {
-      throw Error(`Browser.pageAction.setTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.setTitle');
     },
     getTitle: () => {
-      throw Error(`Browser.pageAction.getTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.getTitle');
     },
     setIcon: () => {
-      throw Error(`Browser.pageAction.setIcon not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.setIcon');
     },
     setPopup: () => {
-      throw Error(`Browser.pageAction.setPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.setPopup');
     },
     getPopup: () => {
-      throw Error(`Browser.pageAction.getPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.getPopup');
     },
     openPopup: () => {
-      throw Error(`Browser.pageAction.openPopup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pageAction.openPopup');
     },
     onClicked: {
       addListener: () => {
-        throw Error(`Browser.pageAction.onClicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.pageAction.onClicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.pageAction.onClicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.pageAction.onClicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.pageAction.onClicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.pageAction.onClicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.pageAction.onClicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.pageAction.onClicked.hasListeners');
       },
     },
   },
   permissions: {
     getAll: () => {
-      throw Error(`Browser.permissions.getAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.permissions.getAll');
     },
     contains: () => {
-      throw Error(`Browser.permissions.contains not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.permissions.contains');
     },
     request: () => {
-      throw Error(`Browser.permissions.request not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.permissions.request');
     },
     remove: () => {
-      throw Error(`Browser.permissions.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.permissions.remove');
     },
     onAdded: {
       addListener: () => {
-        throw Error(`Browser.permissions.onAdded.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onAdded.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.permissions.onAdded.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onAdded.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.permissions.onAdded.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onAdded.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.permissions.onAdded.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onAdded.hasListeners');
       },
     },
     onRemoved: {
       addListener: () => {
-        throw Error(`Browser.permissions.onRemoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onRemoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.permissions.onRemoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onRemoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.permissions.onRemoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onRemoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.permissions.onRemoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.permissions.onRemoved.hasListeners');
       },
     },
   },
   pkcs11: {
     isModuleInstalled: () => {
-      throw Error(`Browser.pkcs11.isModuleInstalled not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pkcs11.isModuleInstalled');
     },
     installModule: () => {
-      throw Error(`Browser.pkcs11.installModule not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pkcs11.installModule');
     },
     uninstallModule: () => {
-      throw Error(`Browser.pkcs11.uninstallModule not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pkcs11.uninstallModule');
     },
     getModuleSlots: () => {
-      throw Error(`Browser.pkcs11.getModuleSlots not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.pkcs11.getModuleSlots');
     },
   },
   privacy: {
     network: {
       networkPredictionEnabled: {
         get: () => {
-          throw Error(`Browser.privacy.network.networkPredictionEnabled.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.networkPredictionEnabled.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.network.networkPredictionEnabled.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.networkPredictionEnabled.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.network.networkPredictionEnabled.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.privacy.network.networkPredictionEnabled.clear',
+          );
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.network.networkPredictionEnabled.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.networkPredictionEnabled.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.network.networkPredictionEnabled.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.networkPredictionEnabled.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.network.networkPredictionEnabled.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.networkPredictionEnabled.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.network.networkPredictionEnabled.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.networkPredictionEnabled.onChange.hasListeners',
+            );
           },
         },
       },
       peerConnectionEnabled: {
         get: () => {
-          throw Error(`Browser.privacy.network.peerConnectionEnabled.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.peerConnectionEnabled.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.network.peerConnectionEnabled.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.peerConnectionEnabled.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.network.peerConnectionEnabled.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.peerConnectionEnabled.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.network.peerConnectionEnabled.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.peerConnectionEnabled.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.network.peerConnectionEnabled.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.peerConnectionEnabled.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.network.peerConnectionEnabled.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.peerConnectionEnabled.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.network.peerConnectionEnabled.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.peerConnectionEnabled.onChange.hasListeners',
+            );
           },
         },
       },
       webRTCIPHandlingPolicy: {
         get: () => {
-          throw Error(`Browser.privacy.network.webRTCIPHandlingPolicy.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.webRTCIPHandlingPolicy.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.network.webRTCIPHandlingPolicy.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.webRTCIPHandlingPolicy.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.network.webRTCIPHandlingPolicy.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.webRTCIPHandlingPolicy.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.network.webRTCIPHandlingPolicy.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.webRTCIPHandlingPolicy.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.network.webRTCIPHandlingPolicy.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.webRTCIPHandlingPolicy.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.network.webRTCIPHandlingPolicy.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.webRTCIPHandlingPolicy.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.network.webRTCIPHandlingPolicy.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.webRTCIPHandlingPolicy.onChange.hasListeners',
+            );
           },
         },
       },
       tlsVersionRestriction: {
         get: () => {
-          throw Error(`Browser.privacy.network.tlsVersionRestriction.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.tlsVersionRestriction.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.network.tlsVersionRestriction.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.tlsVersionRestriction.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.network.tlsVersionRestriction.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.tlsVersionRestriction.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.network.tlsVersionRestriction.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.tlsVersionRestriction.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.network.tlsVersionRestriction.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.tlsVersionRestriction.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.network.tlsVersionRestriction.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.tlsVersionRestriction.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.network.tlsVersionRestriction.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.tlsVersionRestriction.onChange.hasListeners',
+            );
           },
         },
       },
       httpsOnlyMode: {
         get: () => {
-          throw Error(`Browser.privacy.network.httpsOnlyMode.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.httpsOnlyMode.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.network.httpsOnlyMode.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.httpsOnlyMode.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.network.httpsOnlyMode.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.httpsOnlyMode.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.network.httpsOnlyMode.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.httpsOnlyMode.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.network.httpsOnlyMode.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.httpsOnlyMode.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.network.httpsOnlyMode.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.httpsOnlyMode.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.network.httpsOnlyMode.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.httpsOnlyMode.onChange.hasListeners',
+            );
           },
         },
       },
       globalPrivacyControl: {
         get: () => {
-          throw Error(`Browser.privacy.network.globalPrivacyControl.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.globalPrivacyControl.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.network.globalPrivacyControl.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.globalPrivacyControl.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.network.globalPrivacyControl.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.network.globalPrivacyControl.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.network.globalPrivacyControl.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.globalPrivacyControl.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.network.globalPrivacyControl.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.globalPrivacyControl.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.network.globalPrivacyControl.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.globalPrivacyControl.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.network.globalPrivacyControl.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.network.globalPrivacyControl.onChange.hasListeners',
+            );
           },
         },
       },
@@ -3187,40 +2315,34 @@ Mock the function yourself using your testing framework, or submit a PR with an 
     services: {
       passwordSavingEnabled: {
         get: () => {
-          throw Error(`Browser.privacy.services.passwordSavingEnabled.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.services.passwordSavingEnabled.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.services.passwordSavingEnabled.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.services.passwordSavingEnabled.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.services.passwordSavingEnabled.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.services.passwordSavingEnabled.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.services.passwordSavingEnabled.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.services.passwordSavingEnabled.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.services.passwordSavingEnabled.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.services.passwordSavingEnabled.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.services.passwordSavingEnabled.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.services.passwordSavingEnabled.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.services.passwordSavingEnabled.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.services.passwordSavingEnabled.onChange.hasListeners',
+            );
           },
         },
       },
@@ -3228,235 +2350,207 @@ Mock the function yourself using your testing framework, or submit a PR with an 
     websites: {
       hyperlinkAuditingEnabled: {
         get: () => {
-          throw Error(`Browser.privacy.websites.hyperlinkAuditingEnabled.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.privacy.websites.hyperlinkAuditingEnabled.get',
+          );
         },
         set: () => {
-          throw Error(`Browser.privacy.websites.hyperlinkAuditingEnabled.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.privacy.websites.hyperlinkAuditingEnabled.set',
+          );
         },
         clear: () => {
-          throw Error(`Browser.privacy.websites.hyperlinkAuditingEnabled.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.privacy.websites.hyperlinkAuditingEnabled.clear',
+          );
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.hyperlinkAuditingEnabled.onChange.hasListeners',
+            );
           },
         },
       },
       referrersEnabled: {
         get: () => {
-          throw Error(`Browser.privacy.websites.referrersEnabled.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.referrersEnabled.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.websites.referrersEnabled.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.referrersEnabled.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.websites.referrersEnabled.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.referrersEnabled.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.websites.referrersEnabled.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.referrersEnabled.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.websites.referrersEnabled.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.referrersEnabled.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.websites.referrersEnabled.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.referrersEnabled.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.websites.referrersEnabled.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.referrersEnabled.onChange.hasListeners',
+            );
           },
         },
       },
       resistFingerprinting: {
         get: () => {
-          throw Error(`Browser.privacy.websites.resistFingerprinting.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.resistFingerprinting.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.websites.resistFingerprinting.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.resistFingerprinting.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.websites.resistFingerprinting.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.resistFingerprinting.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.websites.resistFingerprinting.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.resistFingerprinting.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.websites.resistFingerprinting.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.resistFingerprinting.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.websites.resistFingerprinting.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.resistFingerprinting.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.websites.resistFingerprinting.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.resistFingerprinting.onChange.hasListeners',
+            );
           },
         },
       },
       firstPartyIsolate: {
         get: () => {
-          throw Error(`Browser.privacy.websites.firstPartyIsolate.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.firstPartyIsolate.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.websites.firstPartyIsolate.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.firstPartyIsolate.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.websites.firstPartyIsolate.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.firstPartyIsolate.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.websites.firstPartyIsolate.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.firstPartyIsolate.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.websites.firstPartyIsolate.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.firstPartyIsolate.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.websites.firstPartyIsolate.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.firstPartyIsolate.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.websites.firstPartyIsolate.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.firstPartyIsolate.onChange.hasListeners',
+            );
           },
         },
       },
       trackingProtectionMode: {
         get: () => {
-          throw Error(`Browser.privacy.websites.trackingProtectionMode.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.trackingProtectionMode.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.websites.trackingProtectionMode.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.trackingProtectionMode.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.websites.trackingProtectionMode.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.privacy.websites.trackingProtectionMode.clear',
+          );
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.websites.trackingProtectionMode.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.trackingProtectionMode.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.websites.trackingProtectionMode.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.trackingProtectionMode.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.websites.trackingProtectionMode.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.trackingProtectionMode.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.websites.trackingProtectionMode.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.trackingProtectionMode.onChange.hasListeners',
+            );
           },
         },
       },
       cookieConfig: {
         get: () => {
-          throw Error(`Browser.privacy.websites.cookieConfig.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.cookieConfig.get');
         },
         set: () => {
-          throw Error(`Browser.privacy.websites.cookieConfig.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.cookieConfig.set');
         },
         clear: () => {
-          throw Error(`Browser.privacy.websites.cookieConfig.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.privacy.websites.cookieConfig.clear');
         },
         onChange: {
           addListener: () => {
-            throw Error(`Browser.privacy.websites.cookieConfig.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.cookieConfig.onChange.addListener',
+            );
           },
           removeListener: () => {
-            throw Error(`Browser.privacy.websites.cookieConfig.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.cookieConfig.onChange.removeListener',
+            );
           },
           hasListener: () => {
-            throw Error(`Browser.privacy.websites.cookieConfig.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.cookieConfig.onChange.hasListener',
+            );
           },
           hasListeners: () => {
-            throw Error(`Browser.privacy.websites.cookieConfig.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+            throw new MockNotImplementedError(
+              'Browser.privacy.websites.cookieConfig.onChange.hasListeners',
+            );
           },
         },
       },
@@ -3465,355 +2559,225 @@ Mock the function yourself using your testing framework, or submit a PR with an 
   proxy: {
     onRequest: {
       addListener: () => {
-        throw Error(`Browser.proxy.onRequest.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onRequest.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.proxy.onRequest.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onRequest.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.proxy.onRequest.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onRequest.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.proxy.onRequest.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onRequest.hasListeners');
       },
     },
     onError: {
       addListener: () => {
-        throw Error(`Browser.proxy.onError.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onError.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.proxy.onError.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onError.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.proxy.onError.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onError.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.proxy.onError.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.onError.hasListeners');
       },
     },
     settings: {
       get: () => {
-        throw Error(`Browser.proxy.settings.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.settings.get');
       },
       set: () => {
-        throw Error(`Browser.proxy.settings.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.settings.set');
       },
       clear: () => {
-        throw Error(`Browser.proxy.settings.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.proxy.settings.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.proxy.settings.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.proxy.settings.onChange.addListener');
         },
         removeListener: () => {
-          throw Error(`Browser.proxy.settings.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.proxy.settings.onChange.removeListener');
         },
         hasListener: () => {
-          throw Error(`Browser.proxy.settings.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.proxy.settings.onChange.hasListener');
         },
         hasListeners: () => {
-          throw Error(`Browser.proxy.settings.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.proxy.settings.onChange.hasListeners');
         },
       },
     },
   },
   runtime: {
     getBackgroundPage: () => {
-      throw Error(`Browser.runtime.getBackgroundPage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.getBackgroundPage');
     },
     openOptionsPage: () => {
-      throw Error(`Browser.runtime.openOptionsPage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.openOptionsPage');
     },
     getManifest: () => {
-      throw Error(`Browser.runtime.getManifest not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.getManifest');
     },
     getURL: () => {
-      throw Error(`Browser.runtime.getURL not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.getURL');
     },
     getFrameId: () => {
-      throw Error(`Browser.runtime.getFrameId not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.getFrameId');
     },
     setUninstallURL: () => {
-      throw Error(`Browser.runtime.setUninstallURL not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.setUninstallURL');
     },
     reload: () => {
-      throw Error(`Browser.runtime.reload not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.reload');
     },
     requestUpdateCheck: () => {
-      throw Error(`Browser.runtime.requestUpdateCheck not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.requestUpdateCheck');
     },
     connect: () => {
-      throw Error(`Browser.runtime.connect not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.connect');
     },
     connectNative: () => {
-      throw Error(`Browser.runtime.connectNative not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.connectNative');
     },
     sendMessage: () => {
-      throw Error(`Browser.runtime.sendMessage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.sendMessage');
     },
     sendNativeMessage: () => {
-      throw Error(`Browser.runtime.sendNativeMessage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.sendNativeMessage');
     },
     getBrowserInfo: () => {
-      throw Error(`Browser.runtime.getBrowserInfo not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.getBrowserInfo');
     },
     getPlatformInfo: () => {
-      throw Error(`Browser.runtime.getPlatformInfo not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.runtime.getPlatformInfo');
     },
     onStartup: {
       addListener: () => {
-        throw Error(`Browser.runtime.onStartup.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onStartup.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onStartup.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onStartup.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onStartup.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onStartup.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onStartup.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onStartup.hasListeners');
       },
     },
     onInstalled: {
       addListener: () => {
-        throw Error(`Browser.runtime.onInstalled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onInstalled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onInstalled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onInstalled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onInstalled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onInstalled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onInstalled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onInstalled.hasListeners');
       },
     },
     onSuspend: {
       addListener: () => {
-        throw Error(`Browser.runtime.onSuspend.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspend.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onSuspend.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspend.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onSuspend.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspend.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onSuspend.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspend.hasListeners');
       },
     },
     onSuspendCanceled: {
       addListener: () => {
-        throw Error(`Browser.runtime.onSuspendCanceled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspendCanceled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onSuspendCanceled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspendCanceled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onSuspendCanceled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspendCanceled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onSuspendCanceled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onSuspendCanceled.hasListeners');
       },
     },
     onUpdateAvailable: {
       addListener: () => {
-        throw Error(`Browser.runtime.onUpdateAvailable.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onUpdateAvailable.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onUpdateAvailable.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onUpdateAvailable.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onUpdateAvailable.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onUpdateAvailable.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onUpdateAvailable.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onUpdateAvailable.hasListeners');
       },
     },
     onConnect: {
       addListener: () => {
-        throw Error(`Browser.runtime.onConnect.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnect.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onConnect.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnect.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onConnect.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnect.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onConnect.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnect.hasListeners');
       },
     },
     onConnectExternal: {
       addListener: () => {
-        throw Error(`Browser.runtime.onConnectExternal.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnectExternal.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onConnectExternal.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnectExternal.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onConnectExternal.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnectExternal.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onConnectExternal.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onConnectExternal.hasListeners');
       },
     },
     onMessage: {
       addListener: () => {
-        throw Error(`Browser.runtime.onMessage.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessage.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onMessage.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessage.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onMessage.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessage.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onMessage.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessage.hasListeners');
       },
     },
     onMessageExternal: {
       addListener: () => {
-        throw Error(`Browser.runtime.onMessageExternal.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessageExternal.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.runtime.onMessageExternal.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessageExternal.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.runtime.onMessageExternal.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessageExternal.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.runtime.onMessageExternal.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.runtime.onMessageExternal.hasListeners');
       },
     },
     lastError: {
@@ -3823,201 +2787,127 @@ Mock the function yourself using your testing framework, or submit a PR with an 
   },
   scripting: {
     executeScript: () => {
-      throw Error(`Browser.scripting.executeScript not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.scripting.executeScript');
     },
     insertCSS: () => {
-      throw Error(`Browser.scripting.insertCSS not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.scripting.insertCSS');
     },
     removeCSS: () => {
-      throw Error(`Browser.scripting.removeCSS not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.scripting.removeCSS');
     },
     registerContentScripts: () => {
-      throw Error(`Browser.scripting.registerContentScripts not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.scripting.registerContentScripts');
     },
     getRegisteredContentScripts: () => {
-      throw Error(`Browser.scripting.getRegisteredContentScripts not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.scripting.getRegisteredContentScripts');
     },
     unregisterContentScripts: () => {
-      throw Error(`Browser.scripting.unregisterContentScripts not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.scripting.unregisterContentScripts');
     },
     updateContentScripts: () => {
-      throw Error(`Browser.scripting.updateContentScripts not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.scripting.updateContentScripts');
     },
   },
   search: {
     get: () => {
-      throw Error(`Browser.search.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.search.get');
     },
     search: () => {
-      throw Error(`Browser.search.search not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.search.search');
     },
     query: () => {
-      throw Error(`Browser.search.query not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.search.query');
     },
   },
   sessions: {
     forgetClosedTab: () => {
-      throw Error(`Browser.sessions.forgetClosedTab not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.forgetClosedTab');
     },
     forgetClosedWindow: () => {
-      throw Error(`Browser.sessions.forgetClosedWindow not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.forgetClosedWindow');
     },
     getRecentlyClosed: () => {
-      throw Error(`Browser.sessions.getRecentlyClosed not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.getRecentlyClosed');
     },
     restore: () => {
-      throw Error(`Browser.sessions.restore not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.restore');
     },
     setTabValue: () => {
-      throw Error(`Browser.sessions.setTabValue not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.setTabValue');
     },
     getTabValue: () => {
-      throw Error(`Browser.sessions.getTabValue not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.getTabValue');
     },
     removeTabValue: () => {
-      throw Error(`Browser.sessions.removeTabValue not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.removeTabValue');
     },
     setWindowValue: () => {
-      throw Error(`Browser.sessions.setWindowValue not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.setWindowValue');
     },
     getWindowValue: () => {
-      throw Error(`Browser.sessions.getWindowValue not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.getWindowValue');
     },
     removeWindowValue: () => {
-      throw Error(`Browser.sessions.removeWindowValue not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sessions.removeWindowValue');
     },
     onChanged: {
       addListener: () => {
-        throw Error(`Browser.sessions.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.sessions.onChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.sessions.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.sessions.onChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.sessions.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.sessions.onChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.sessions.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.sessions.onChanged.hasListeners');
       },
     },
     MAX_SESSION_RESULTS: 25,
   },
   sidebarAction: {
     setTitle: () => {
-      throw Error(`Browser.sidebarAction.setTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.setTitle');
     },
     getTitle: () => {
-      throw Error(`Browser.sidebarAction.getTitle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.getTitle');
     },
     setIcon: () => {
-      throw Error(`Browser.sidebarAction.setIcon not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.setIcon');
     },
     setPanel: () => {
-      throw Error(`Browser.sidebarAction.setPanel not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.setPanel');
     },
     getPanel: () => {
-      throw Error(`Browser.sidebarAction.getPanel not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.getPanel');
     },
     open: () => {
-      throw Error(`Browser.sidebarAction.open not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.open');
     },
     close: () => {
-      throw Error(`Browser.sidebarAction.close not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.close');
     },
     toggle: () => {
-      throw Error(`Browser.sidebarAction.toggle not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.toggle');
     },
     isOpen: () => {
-      throw Error(`Browser.sidebarAction.isOpen not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.sidebarAction.isOpen');
     },
   },
   storage: {
     onChanged: {
       addListener: () => {
-        throw Error(`Browser.storage.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.onChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.storage.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.onChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.storage.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.onChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.storage.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.onChanged.hasListeners');
       },
     },
     sync: {
@@ -4027,1322 +2917,874 @@ Mock the function yourself using your testing framework, or submit a PR with an 
       MAX_WRITE_OPERATIONS_PER_HOUR: 1800,
       MAX_WRITE_OPERATIONS_PER_MINUTE: 120,
       get: () => {
-        throw Error(`Browser.storage.sync.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.sync.get');
       },
       getBytesInUse: () => {
-        throw Error(`Browser.storage.sync.getBytesInUse not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.sync.getBytesInUse');
       },
       set: () => {
-        throw Error(`Browser.storage.sync.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.sync.set');
       },
       remove: () => {
-        throw Error(`Browser.storage.sync.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.sync.remove');
       },
       clear: () => {
-        throw Error(`Browser.storage.sync.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.sync.clear');
       },
       onChanged: {
         addListener: () => {
-          throw Error(`Browser.storage.sync.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.sync.onChanged.addListener');
         },
         removeListener: () => {
-          throw Error(`Browser.storage.sync.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.sync.onChanged.removeListener');
         },
         hasListener: () => {
-          throw Error(`Browser.storage.sync.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.sync.onChanged.hasListener');
         },
         hasListeners: () => {
-          throw Error(`Browser.storage.sync.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.sync.onChanged.hasListeners');
         },
       },
     },
     local: {
       QUOTA_BYTES: 5242880,
       get: () => {
-        throw Error(`Browser.storage.local.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.local.get');
       },
       set: () => {
-        throw Error(`Browser.storage.local.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.local.set');
       },
       remove: () => {
-        throw Error(`Browser.storage.local.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.local.remove');
       },
       clear: () => {
-        throw Error(`Browser.storage.local.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.local.clear');
       },
       onChanged: {
         addListener: () => {
-          throw Error(`Browser.storage.local.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.local.onChanged.addListener');
         },
         removeListener: () => {
-          throw Error(`Browser.storage.local.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.local.onChanged.removeListener');
         },
         hasListener: () => {
-          throw Error(`Browser.storage.local.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.local.onChanged.hasListener');
         },
         hasListeners: () => {
-          throw Error(`Browser.storage.local.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.local.onChanged.hasListeners');
         },
       },
     },
     managed: {
       QUOTA_BYTES: 5242880,
       get: () => {
-        throw Error(`Browser.storage.managed.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.managed.get');
       },
       set: () => {
-        throw Error(`Browser.storage.managed.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.managed.set');
       },
       remove: () => {
-        throw Error(`Browser.storage.managed.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.managed.remove');
       },
       clear: () => {
-        throw Error(`Browser.storage.managed.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.managed.clear');
       },
       onChanged: {
         addListener: () => {
-          throw Error(`Browser.storage.managed.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.managed.onChanged.addListener');
         },
         removeListener: () => {
-          throw Error(`Browser.storage.managed.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.managed.onChanged.removeListener');
         },
         hasListener: () => {
-          throw Error(`Browser.storage.managed.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.managed.onChanged.hasListener');
         },
         hasListeners: () => {
-          throw Error(`Browser.storage.managed.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.managed.onChanged.hasListeners');
         },
       },
     },
     session: {
       get: () => {
-        throw Error(`Browser.storage.session.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.session.get');
       },
       set: () => {
-        throw Error(`Browser.storage.session.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.session.set');
       },
       remove: () => {
-        throw Error(`Browser.storage.session.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.session.remove');
       },
       clear: () => {
-        throw Error(`Browser.storage.session.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.storage.session.clear');
       },
       onChanged: {
         addListener: () => {
-          throw Error(`Browser.storage.session.onChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.session.onChanged.addListener');
         },
         removeListener: () => {
-          throw Error(`Browser.storage.session.onChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.session.onChanged.removeListener');
         },
         hasListener: () => {
-          throw Error(`Browser.storage.session.onChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.session.onChanged.hasListener');
         },
         hasListeners: () => {
-          throw Error(`Browser.storage.session.onChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError('Browser.storage.session.onChanged.hasListeners');
         },
       },
     },
   },
   tabs: {
     get: () => {
-      throw Error(`Browser.tabs.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.get');
     },
     getCurrent: () => {
-      throw Error(`Browser.tabs.getCurrent not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.getCurrent');
     },
     connect: () => {
-      throw Error(`Browser.tabs.connect not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.connect');
     },
     sendMessage: () => {
-      throw Error(`Browser.tabs.sendMessage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.sendMessage');
     },
     create: () => {
-      throw Error(`Browser.tabs.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.create');
     },
     duplicate: () => {
-      throw Error(`Browser.tabs.duplicate not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.duplicate');
     },
     query: () => {
-      throw Error(`Browser.tabs.query not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.query');
     },
     highlight: () => {
-      throw Error(`Browser.tabs.highlight not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.highlight');
     },
     update: () => {
-      throw Error(`Browser.tabs.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.update');
     },
     move: () => {
-      throw Error(`Browser.tabs.move not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.move');
     },
     reload: () => {
-      throw Error(`Browser.tabs.reload not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.reload');
     },
     warmup: () => {
-      throw Error(`Browser.tabs.warmup not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.warmup');
     },
     remove: () => {
-      throw Error(`Browser.tabs.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.remove');
     },
     discard: () => {
-      throw Error(`Browser.tabs.discard not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.discard');
     },
     detectLanguage: () => {
-      throw Error(`Browser.tabs.detectLanguage not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.detectLanguage');
     },
     toggleReaderMode: () => {
-      throw Error(`Browser.tabs.toggleReaderMode not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.toggleReaderMode');
     },
     captureTab: () => {
-      throw Error(`Browser.tabs.captureTab not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.captureTab');
     },
     captureVisibleTab: () => {
-      throw Error(`Browser.tabs.captureVisibleTab not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.captureVisibleTab');
     },
     executeScript: () => {
-      throw Error(`Browser.tabs.executeScript not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.executeScript');
     },
     insertCSS: () => {
-      throw Error(`Browser.tabs.insertCSS not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.insertCSS');
     },
     removeCSS: () => {
-      throw Error(`Browser.tabs.removeCSS not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.removeCSS');
     },
     setZoom: () => {
-      throw Error(`Browser.tabs.setZoom not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.setZoom');
     },
     getZoom: () => {
-      throw Error(`Browser.tabs.getZoom not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.getZoom');
     },
     setZoomSettings: () => {
-      throw Error(`Browser.tabs.setZoomSettings not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.setZoomSettings');
     },
     getZoomSettings: () => {
-      throw Error(`Browser.tabs.getZoomSettings not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.getZoomSettings');
     },
     print: () => {
-      throw Error(`Browser.tabs.print not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.print');
     },
     printPreview: () => {
-      throw Error(`Browser.tabs.printPreview not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.printPreview');
     },
     saveAsPDF: () => {
-      throw Error(`Browser.tabs.saveAsPDF not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.saveAsPDF');
     },
     show: () => {
-      throw Error(`Browser.tabs.show not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.show');
     },
     hide: () => {
-      throw Error(`Browser.tabs.hide not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.hide');
     },
     moveInSuccession: () => {
-      throw Error(`Browser.tabs.moveInSuccession not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.moveInSuccession');
     },
     goForward: () => {
-      throw Error(`Browser.tabs.goForward not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.goForward');
     },
     goBack: () => {
-      throw Error(`Browser.tabs.goBack not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.tabs.goBack');
     },
     onCreated: {
       addListener: () => {
-        throw Error(`Browser.tabs.onCreated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onCreated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onCreated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onCreated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onCreated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onCreated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onCreated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onCreated.hasListeners');
       },
     },
     onUpdated: {
       addListener: () => {
-        throw Error(`Browser.tabs.onUpdated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onUpdated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onUpdated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onUpdated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onUpdated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onUpdated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onUpdated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onUpdated.hasListeners');
       },
     },
     onMoved: {
       addListener: () => {
-        throw Error(`Browser.tabs.onMoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onMoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onMoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onMoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onMoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onMoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onMoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onMoved.hasListeners');
       },
     },
     onActivated: {
       addListener: () => {
-        throw Error(`Browser.tabs.onActivated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onActivated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onActivated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onActivated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onActivated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onActivated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onActivated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onActivated.hasListeners');
       },
     },
     onHighlighted: {
       addListener: () => {
-        throw Error(`Browser.tabs.onHighlighted.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onHighlighted.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onHighlighted.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onHighlighted.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onHighlighted.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onHighlighted.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onHighlighted.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onHighlighted.hasListeners');
       },
     },
     onDetached: {
       addListener: () => {
-        throw Error(`Browser.tabs.onDetached.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onDetached.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onDetached.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onDetached.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onDetached.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onDetached.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onDetached.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onDetached.hasListeners');
       },
     },
     onAttached: {
       addListener: () => {
-        throw Error(`Browser.tabs.onAttached.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onAttached.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onAttached.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onAttached.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onAttached.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onAttached.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onAttached.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onAttached.hasListeners');
       },
     },
     onRemoved: {
       addListener: () => {
-        throw Error(`Browser.tabs.onRemoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onRemoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onRemoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onRemoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onRemoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onRemoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onRemoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onRemoved.hasListeners');
       },
     },
     onReplaced: {
       addListener: () => {
-        throw Error(`Browser.tabs.onReplaced.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onReplaced.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onReplaced.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onReplaced.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onReplaced.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onReplaced.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onReplaced.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onReplaced.hasListeners');
       },
     },
     onZoomChange: {
       addListener: () => {
-        throw Error(`Browser.tabs.onZoomChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onZoomChange.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.tabs.onZoomChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onZoomChange.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.tabs.onZoomChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onZoomChange.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.tabs.onZoomChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.tabs.onZoomChange.hasListeners');
       },
     },
     TAB_ID_NONE: -1,
   },
   theme: {
     getCurrent: () => {
-      throw Error(`Browser.theme.getCurrent not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.theme.getCurrent');
     },
     update: () => {
-      throw Error(`Browser.theme.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.theme.update');
     },
     reset: () => {
-      throw Error(`Browser.theme.reset not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.theme.reset');
     },
     onUpdated: {
       addListener: () => {
-        throw Error(`Browser.theme.onUpdated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.theme.onUpdated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.theme.onUpdated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.theme.onUpdated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.theme.onUpdated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.theme.onUpdated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.theme.onUpdated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.theme.onUpdated.hasListeners');
       },
     },
   },
   topSites: {
     get: () => {
-      throw Error(`Browser.topSites.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.topSites.get');
     },
   },
   types: {},
   urlbar: {
     closeView: () => {
-      throw Error(`Browser.urlbar.closeView not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.urlbar.closeView');
     },
     focus: () => {
-      throw Error(`Browser.urlbar.focus not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.urlbar.focus');
     },
     search: () => {
-      throw Error(`Browser.urlbar.search not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.urlbar.search');
     },
     onBehaviorRequested: {
       addListener: () => {
-        throw Error(`Browser.urlbar.onBehaviorRequested.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onBehaviorRequested.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.urlbar.onBehaviorRequested.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onBehaviorRequested.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.urlbar.onBehaviorRequested.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onBehaviorRequested.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.urlbar.onBehaviorRequested.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onBehaviorRequested.hasListeners');
       },
     },
     onEngagement: {
       addListener: () => {
-        throw Error(`Browser.urlbar.onEngagement.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onEngagement.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.urlbar.onEngagement.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onEngagement.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.urlbar.onEngagement.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onEngagement.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.urlbar.onEngagement.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onEngagement.hasListeners');
       },
     },
     onQueryCanceled: {
       addListener: () => {
-        throw Error(`Browser.urlbar.onQueryCanceled.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onQueryCanceled.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.urlbar.onQueryCanceled.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onQueryCanceled.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.urlbar.onQueryCanceled.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onQueryCanceled.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.urlbar.onQueryCanceled.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onQueryCanceled.hasListeners');
       },
     },
     onResultsRequested: {
       addListener: () => {
-        throw Error(`Browser.urlbar.onResultsRequested.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultsRequested.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.urlbar.onResultsRequested.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultsRequested.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.urlbar.onResultsRequested.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultsRequested.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.urlbar.onResultsRequested.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultsRequested.hasListeners');
       },
     },
     onResultPicked: {
       addListener: () => {
-        throw Error(`Browser.urlbar.onResultPicked.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultPicked.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.urlbar.onResultPicked.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultPicked.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.urlbar.onResultPicked.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultPicked.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.urlbar.onResultPicked.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.onResultPicked.hasListeners');
       },
     },
     engagementTelemetry: {
       get: () => {
-        throw Error(`Browser.urlbar.engagementTelemetry.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.engagementTelemetry.get');
       },
       set: () => {
-        throw Error(`Browser.urlbar.engagementTelemetry.set not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.engagementTelemetry.set');
       },
       clear: () => {
-        throw Error(`Browser.urlbar.engagementTelemetry.clear not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.urlbar.engagementTelemetry.clear');
       },
       onChange: {
         addListener: () => {
-          throw Error(`Browser.urlbar.engagementTelemetry.onChange.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.urlbar.engagementTelemetry.onChange.addListener',
+          );
         },
         removeListener: () => {
-          throw Error(`Browser.urlbar.engagementTelemetry.onChange.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.urlbar.engagementTelemetry.onChange.removeListener',
+          );
         },
         hasListener: () => {
-          throw Error(`Browser.urlbar.engagementTelemetry.onChange.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.urlbar.engagementTelemetry.onChange.hasListener',
+          );
         },
         hasListeners: () => {
-          throw Error(`Browser.urlbar.engagementTelemetry.onChange.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+          throw new MockNotImplementedError(
+            'Browser.urlbar.engagementTelemetry.onChange.hasListeners',
+          );
         },
       },
     },
   },
   userScripts: {
     register: () => {
-      throw Error(`Browser.userScripts.register not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.userScripts.register');
     },
   },
   webNavigation: {
     getFrame: () => {
-      throw Error(`Browser.webNavigation.getFrame not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.webNavigation.getFrame');
     },
     getAllFrames: () => {
-      throw Error(`Browser.webNavigation.getAllFrames not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.webNavigation.getAllFrames');
     },
     onBeforeNavigate: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onBeforeNavigate.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onBeforeNavigate.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onBeforeNavigate.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onBeforeNavigate.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onBeforeNavigate.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onBeforeNavigate.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onBeforeNavigate.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onBeforeNavigate.hasListeners');
       },
     },
     onCommitted: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onCommitted.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCommitted.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onCommitted.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCommitted.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onCommitted.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCommitted.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onCommitted.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCommitted.hasListeners');
       },
     },
     onDOMContentLoaded: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onDOMContentLoaded.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onDOMContentLoaded.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onDOMContentLoaded.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onDOMContentLoaded.removeListener',
+        );
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onDOMContentLoaded.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onDOMContentLoaded.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onDOMContentLoaded.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onDOMContentLoaded.hasListeners');
       },
     },
     onCompleted: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onCompleted.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCompleted.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onCompleted.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCompleted.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onCompleted.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCompleted.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onCompleted.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onCompleted.hasListeners');
       },
     },
     onErrorOccurred: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onErrorOccurred.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onErrorOccurred.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onErrorOccurred.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onErrorOccurred.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onErrorOccurred.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onErrorOccurred.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onErrorOccurred.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onErrorOccurred.hasListeners');
       },
     },
     onCreatedNavigationTarget: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onCreatedNavigationTarget.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onCreatedNavigationTarget.addListener',
+        );
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onCreatedNavigationTarget.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onCreatedNavigationTarget.removeListener',
+        );
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onCreatedNavigationTarget.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onCreatedNavigationTarget.hasListener',
+        );
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onCreatedNavigationTarget.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onCreatedNavigationTarget.hasListeners',
+        );
       },
     },
     onReferenceFragmentUpdated: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onReferenceFragmentUpdated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onReferenceFragmentUpdated.addListener',
+        );
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onReferenceFragmentUpdated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onReferenceFragmentUpdated.removeListener',
+        );
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onReferenceFragmentUpdated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onReferenceFragmentUpdated.hasListener',
+        );
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onReferenceFragmentUpdated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onReferenceFragmentUpdated.hasListeners',
+        );
       },
     },
     onTabReplaced: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onTabReplaced.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onTabReplaced.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onTabReplaced.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onTabReplaced.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onTabReplaced.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onTabReplaced.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onTabReplaced.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webNavigation.onTabReplaced.hasListeners');
       },
     },
     onHistoryStateUpdated: {
       addListener: () => {
-        throw Error(`Browser.webNavigation.onHistoryStateUpdated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onHistoryStateUpdated.addListener',
+        );
       },
       removeListener: () => {
-        throw Error(`Browser.webNavigation.onHistoryStateUpdated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onHistoryStateUpdated.removeListener',
+        );
       },
       hasListener: () => {
-        throw Error(`Browser.webNavigation.onHistoryStateUpdated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onHistoryStateUpdated.hasListener',
+        );
       },
       hasListeners: () => {
-        throw Error(`Browser.webNavigation.onHistoryStateUpdated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError(
+          'Browser.webNavigation.onHistoryStateUpdated.hasListeners',
+        );
       },
     },
   },
   webRequest: {
     handlerBehaviorChanged: () => {
-      throw Error(`Browser.webRequest.handlerBehaviorChanged not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.webRequest.handlerBehaviorChanged');
     },
     filterResponseData: () => {
-      throw Error(`Browser.webRequest.filterResponseData not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.webRequest.filterResponseData');
     },
     getSecurityInfo: () => {
-      throw Error(`Browser.webRequest.getSecurityInfo not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.webRequest.getSecurityInfo');
     },
     onBeforeRequest: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onBeforeRequest.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRequest.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onBeforeRequest.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRequest.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onBeforeRequest.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRequest.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onBeforeRequest.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRequest.hasListeners');
       },
     },
     onBeforeSendHeaders: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onBeforeSendHeaders.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeSendHeaders.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onBeforeSendHeaders.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeSendHeaders.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onBeforeSendHeaders.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeSendHeaders.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onBeforeSendHeaders.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeSendHeaders.hasListeners');
       },
     },
     onSendHeaders: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onSendHeaders.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onSendHeaders.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onSendHeaders.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onSendHeaders.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onSendHeaders.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onSendHeaders.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onSendHeaders.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onSendHeaders.hasListeners');
       },
     },
     onHeadersReceived: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onHeadersReceived.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onHeadersReceived.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onHeadersReceived.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onHeadersReceived.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onHeadersReceived.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onHeadersReceived.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onHeadersReceived.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onHeadersReceived.hasListeners');
       },
     },
     onAuthRequired: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onAuthRequired.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onAuthRequired.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onAuthRequired.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onAuthRequired.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onAuthRequired.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onAuthRequired.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onAuthRequired.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onAuthRequired.hasListeners');
       },
     },
     onResponseStarted: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onResponseStarted.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onResponseStarted.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onResponseStarted.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onResponseStarted.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onResponseStarted.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onResponseStarted.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onResponseStarted.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onResponseStarted.hasListeners');
       },
     },
     onBeforeRedirect: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onBeforeRedirect.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRedirect.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onBeforeRedirect.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRedirect.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onBeforeRedirect.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRedirect.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onBeforeRedirect.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onBeforeRedirect.hasListeners');
       },
     },
     onCompleted: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onCompleted.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onCompleted.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onCompleted.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onCompleted.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onCompleted.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onCompleted.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onCompleted.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onCompleted.hasListeners');
       },
     },
     onErrorOccurred: {
       addListener: () => {
-        throw Error(`Browser.webRequest.onErrorOccurred.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onErrorOccurred.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.webRequest.onErrorOccurred.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onErrorOccurred.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.webRequest.onErrorOccurred.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onErrorOccurred.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.webRequest.onErrorOccurred.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.webRequest.onErrorOccurred.hasListeners');
       },
     },
     MAX_HANDLER_BEHAVIOR_CHANGED_CALLS_PER_10_MINUTES: 20,
   },
   windows: {
     get: () => {
-      throw Error(`Browser.windows.get not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.windows.get');
     },
     getCurrent: () => {
-      throw Error(`Browser.windows.getCurrent not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.windows.getCurrent');
     },
     getLastFocused: () => {
-      throw Error(`Browser.windows.getLastFocused not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.windows.getLastFocused');
     },
     getAll: () => {
-      throw Error(`Browser.windows.getAll not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.windows.getAll');
     },
     create: () => {
-      throw Error(`Browser.windows.create not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.windows.create');
     },
     update: () => {
-      throw Error(`Browser.windows.update not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.windows.update');
     },
     remove: () => {
-      throw Error(`Browser.windows.remove not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+      throw new MockNotImplementedError('Browser.windows.remove');
     },
     onCreated: {
       addListener: () => {
-        throw Error(`Browser.windows.onCreated.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onCreated.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.windows.onCreated.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onCreated.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.windows.onCreated.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onCreated.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.windows.onCreated.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onCreated.hasListeners');
       },
     },
     onRemoved: {
       addListener: () => {
-        throw Error(`Browser.windows.onRemoved.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onRemoved.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.windows.onRemoved.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onRemoved.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.windows.onRemoved.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onRemoved.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.windows.onRemoved.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onRemoved.hasListeners');
       },
     },
     onFocusChanged: {
       addListener: () => {
-        throw Error(`Browser.windows.onFocusChanged.addListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onFocusChanged.addListener');
       },
       removeListener: () => {
-        throw Error(`Browser.windows.onFocusChanged.removeListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onFocusChanged.removeListener');
       },
       hasListener: () => {
-        throw Error(`Browser.windows.onFocusChanged.hasListener not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onFocusChanged.hasListener');
       },
       hasListeners: () => {
-        throw Error(`Browser.windows.onFocusChanged.hasListeners not implemented.
-
-Mock the function yourself using your testing framework, or submit a PR with an in-memory implementation.`);
+        throw new MockNotImplementedError('Browser.windows.onFocusChanged.hasListeners');
       },
     },
     WINDOW_ID_NONE: -1,
