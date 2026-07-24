@@ -26,6 +26,11 @@ export interface BrowserOverrides {
   };
   notifications: typeof Browser.notifications & {
     resetState(): void;
+    /**
+     * Alternative to `getAll` that returns the objects used to create the notifications, not just
+     * true.
+     */
+    getAllCreateOptions(): { [id: string]: Browser.notifications.NotificationCreateOptions };
     onClosed: EventForTesting<[notificationId: string, byUser: boolean]>;
     onClicked: EventForTesting<[notificationId: string]>;
     onButtonClicked: EventForTesting<[notificationId: string, buttonIndex: number]>;

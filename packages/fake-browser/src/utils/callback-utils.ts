@@ -13,3 +13,5 @@ export function promiseOrCallback<T>(
   // where it's called from...
   return res instanceof Promise ? void res.then(callback) : callback(res);
 }
+
+export type EmptyCallback = () => void;
