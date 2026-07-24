@@ -74,7 +74,6 @@ export function defineExtensionMessaging<
         sendResponse: (response?: any) => void,
       ) => {
         const res = processMessage(typeof message === 'object' ? { ...message, sender } : message);
-        console.log(res);
         if (res instanceof Promise) {
           res.then(sendResponse);
           return true;
