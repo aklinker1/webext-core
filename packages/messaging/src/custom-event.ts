@@ -60,6 +60,15 @@ export function defineCustomEventMessaging<
 
   const sendCustomMessage = (requestEvent: CustomEvent) =>
     new Promise((res) => {
+      const cleanup = () => {
+        // Remove event listener
+        window.removeEventListener(RESPONSE_EVENT, responseListener);
+
+        // Remove cleanup callback
+        const index = removeAdditionalListeners.indexOf(cleanup);
+        if (index !== -1) removeAdditionalListeners.splice(index, 1);
+      };
+
       const responseListener = (e: Event) => {
         const { detail } = e as CustomEvent;
         if (
@@ -69,11 +78,11 @@ export function defineCustomEventMessaging<
           detail.message.id === requestEvent.detail.message.id
         ) {
           res(detail.response);
+          cleanup();
         }
       };
-      removeAdditionalListeners.push(() =>
-        window.removeEventListener(RESPONSE_EVENT, responseListener),
-      );
+
+      removeAdditionalListeners.push(cleanup);
       window.addEventListener(RESPONSE_EVENT, responseListener);
       window.dispatchEvent(requestEvent);
     });
