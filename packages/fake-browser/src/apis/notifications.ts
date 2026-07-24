@@ -1,7 +1,7 @@
 import type { Browser } from '@wxt-dev/browser';
 
 import { BrowserOverrides } from '../types';
-import { callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
+import { Callback, callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
 let notificationMap: { [id: string]: Browser.notifications.NotificationCreateOptions } = {};
@@ -15,8 +15,6 @@ function notificationExists(id: string): boolean {
   return !!notificationMap[id];
 }
 
-type StringCallback = (s: string) => void;
-
 export const notifications: BrowserOverrides['notifications'] = {
   resetState() {
     notificationMap = {};
@@ -28,18 +26,18 @@ export const notifications: BrowserOverrides['notifications'] = {
   create(arg1, arg2?, arg3?) {
     let id: string;
     let options: Browser.notifications.NotificationCreateOptions | undefined;
-    let callback: StringCallback | undefined;
+    let callback: Callback<string> | undefined;
     if (arg3 != null) {
       id = arg1 as string;
       options = arg2 as Browser.notifications.NotificationCreateOptions;
-      callback = arg3 as StringCallback;
+      callback = arg3 as Callback<string>;
     } else if (arg2 != null) {
       if (typeof arg1 === 'string') {
         id = arg1 as string;
         options = arg2 as Browser.notifications.NotificationCreateOptions;
       } else {
         options = arg1 as Browser.notifications.NotificationCreateOptions;
-        callback = arg2 as StringCallback;
+        callback = arg2 as Callback<string>;
       }
     } else {
       options = arg1 as Browser.notifications.NotificationCreateOptions;

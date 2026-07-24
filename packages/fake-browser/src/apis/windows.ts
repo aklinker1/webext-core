@@ -1,7 +1,7 @@
 import type { Browser } from '@wxt-dev/browser';
 
 import { BrowserOverrides } from '../types';
-import { promiseOrCallback } from '../utils/callback-utils';
+import { Callback, EmptyCallback, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { mapTab, tabList } from './tabs';
 
@@ -10,9 +10,6 @@ type InMemoryWindow = Omit<Browser.windows.Window, 'focused' | 'tabs'>;
 const onCreated = defineEventWithTrigger<(window: Browser.windows.Window) => void>();
 const onRemoved = defineEventWithTrigger<(windowId: number) => void>();
 const onFocusChanged = defineEventWithTrigger<(windowId: number) => void>();
-
-type WindowCallback = (w: Browser.windows.Window) => void;
-type WindowsCallback = (ws: Browser.windows.Window[]) => void;
 
 export const DEFAULT_WINDOW: InMemoryWindow = {
   id: 0,
@@ -68,7 +65,7 @@ export const windows: BrowserOverrides['windows'] = {
   },
   get(windowId, arg2?, arg3?) {
     const queryOptions = typeof arg2 === 'function' ? undefined : arg2;
-    const callback = typeof arg2 === 'function' ? arg2 : (arg3 as WindowCallback);
+    const callback = typeof arg2 === 'function' ? arg2 : (arg3 as Callback<Browser.windows.Window>);
 
     return promiseOrCallback(callback, async () => {
       const window = windowList.find((window) => window.id === windowId);
@@ -79,7 +76,7 @@ export const windows: BrowserOverrides['windows'] = {
   },
   getCurrent(arg1, arg2?) {
     const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
-    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowCallback);
+    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window>);
 
     return promiseOrCallback(callback, () => {
       if (focusedWindowId == null) return undefined!;
@@ -88,7 +85,7 @@ export const windows: BrowserOverrides['windows'] = {
   },
   getLastFocused(arg1, arg2?) {
     const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
-    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowCallback);
+    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window>);
 
     return promiseOrCallback(callback, () => {
       if (lastFocusedWindowId == null) return undefined!;
@@ -97,7 +94,8 @@ export const windows: BrowserOverrides['windows'] = {
   },
   getAll(arg1, arg2?) {
     const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
-    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowsCallback);
+    const callback =
+      typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window[]>);
 
     return promiseOrCallback(callback, () =>
       windowList.map((window) => mapWindow(window, queryOptions)),
@@ -105,7 +103,7 @@ export const windows: BrowserOverrides['windows'] = {
   },
   create(arg1, arg2?) {
     const createData = typeof arg1 === 'function' ? undefined : arg1;
-    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as WindowCallback);
+    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window>);
 
     return promiseOrCallback(callback, async () => {
       const newWindow: InMemoryWindow = {
@@ -131,7 +129,7 @@ export const windows: BrowserOverrides['windows'] = {
   },
   update(windowId, arg2, arg3?) {
     const _updateInfo = typeof arg2 === 'function' ? undefined : arg2;
-    const callback = typeof arg2 === 'function' ? arg2 : (arg3 as WindowCallback);
+    const callback = typeof arg2 === 'function' ? arg2 : (arg3 as Callback<Browser.windows.Window>);
 
     return promiseOrCallback(callback, () => {
       const window = windowList.find((window) => window.id === windowId);
@@ -142,7 +140,7 @@ export const windows: BrowserOverrides['windows'] = {
     });
   },
   remove(windowId, arg1?) {
-    const callback = typeof arg1 === 'function' ? (arg1 as () => void) : undefined;
+    const callback = typeof arg1 === 'function' ? (arg1 as EmptyCallback) : undefined;
 
     return promiseOrCallback(callback, async () => {
       const index = windowList.findIndex((window) => window.id === windowId);

@@ -1,15 +1,16 @@
 import type { Browser } from '@wxt-dev/browser';
 
 import { BrowserOverrides } from '../types';
-import { callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
+import {
+  Callback,
+  callbackOrUndefined,
+  EmptyCallback,
+  promiseOrCallback,
+} from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
 const alarmList: Browser.alarms.Alarm[] = [];
 const onAlarm = defineEventWithTrigger<(alarm: Browser.alarms.Alarm) => void>();
-
-type AlarmCallback = (alarm: Browser.alarms.Alarm) => void;
-type BooleanCallback = (b: boolean) => void;
-type EmptyCallback = () => void;
 
 export const alarms: BrowserOverrides['alarms'] = {
   resetState() {
@@ -18,14 +19,14 @@ export const alarms: BrowserOverrides['alarms'] = {
   },
   clear(arg1?, arg2?) {
     let name = '';
-    let callback: BooleanCallback | undefined;
+    let callback: Callback<boolean> | undefined;
     if (arg2 != null) {
       name = arg1 as string;
-      callback = arg2 as BooleanCallback;
+      callback = arg2 as Callback<boolean>;
     } else if (typeof arg1 === 'string') {
       name = arg1 as string;
     } else if (arg1 != null) {
-      callback = arg1 as BooleanCallback;
+      callback = arg1 as Callback<boolean>;
     }
 
     return promiseOrCallback(callback, () => {
@@ -81,14 +82,14 @@ export const alarms: BrowserOverrides['alarms'] = {
   },
   get(arg1?, arg2?) {
     let name = '';
-    let callback: AlarmCallback | undefined;
+    let callback: Callback<Browser.alarms.Alarm> | undefined;
     if (arg2 != null) {
       name = arg1 as string;
-      callback = arg2 as AlarmCallback;
+      callback = arg2 as Callback<Browser.alarms.Alarm>;
     } else if (typeof arg1 === 'string') {
       name = arg1 as string;
     } else if (arg1 != null) {
-      callback = arg1 as AlarmCallback;
+      callback = arg1 as Callback<Browser.alarms.Alarm>;
     }
 
     return promiseOrCallback(callback, () => alarmList.find((alarm) => alarm.name === name)!);
