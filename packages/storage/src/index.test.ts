@@ -1,7 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'bun:test';
 
 import { fakeBrowser } from '@webext-core/fake-browser';
-import Browser from 'webextension-polyfill';
 
 import { defineExtensionStorage } from './defineExtensionStorage';
 import { AnySchema, ExtensionStorage } from './types';
@@ -17,15 +16,15 @@ let typedStorage: ExtensionStorage<TestStorageSchema>;
 describe('Storage Wrappers', () => {
   beforeEach(() => {
     fakeBrowser.reset();
-    storage = defineExtensionStorage(Browser.storage.local);
-    typedStorage = defineExtensionStorage<TestStorageSchema>(Browser.storage.local);
+    storage = defineExtensionStorage(chrome.storage.local);
+    typedStorage = defineExtensionStorage<TestStorageSchema>(chrome.storage.local);
   });
 
   describe('getItem', () => {
     it('should return the value if present', async () => {
       const key = 'test';
       const expected = 'value';
-      await Browser.storage.local.set({ [key]: expected });
+      await chrome.storage.local.set({ [key]: expected });
 
       expect(await storage.getItem(key)).toBe(expected);
     });

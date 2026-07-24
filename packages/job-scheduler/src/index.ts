@@ -1,6 +1,5 @@
 import cron from 'cron-parser';
 import formatDuration from 'format-duration';
-import browser, { Alarms } from 'webextension-polyfill';
 
 /** Interface used to log text to the console when creating and executing jobs. */
 export interface Logger {
@@ -102,7 +101,7 @@ type RemoveListenerFn = () => void;
  */
 export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   const logger = options?.logger === undefined ? console : options.logger;
-  if (browser.alarms == null) {
+  if (chrome.alarms == null) {
     throw Error('alarms API is not available');
   }
 
@@ -149,7 +148,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
     });
   }
 
-  function jobToAlarm(job: Job): Alarms.Alarm | undefined {
+  function jobToAlarm(job: Job): Omit<chrome.alarms.Alarm, 'persistAcrossSessions'> | undefined {
     let scheduledTime: number;
     let periodInMinutes: number | undefined;
     switch (job.type) {
@@ -191,19 +190,19 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
 
     // Create the job if it's different
     jobs[job.id] = job;
-    const existing = (await browser.alarms.get(job.id)) as Alarms.Alarm | undefined;
+    const existing = (await chrome.alarms.get(job.id)) as chrome.alarms.Alarm | undefined;
     switch (job.type) {
       case 'cron':
       case 'once':
         if (alarm.scheduledTime !== existing?.scheduledTime) {
-          browser.alarms.create(alarm.name, { when: alarm.scheduledTime });
+          chrome.alarms.create(alarm.name, { when: alarm.scheduledTime });
         }
         break;
       case 'interval':
         if (!existing || alarm.periodInMinutes !== existing.periodInMinutes) {
-          browser.alarms.create(alarm.name, {
-            delayInMinutes: job.immediate && !existing ? 0 : alarm.periodInMinutes,
-            periodInMinutes: alarm.periodInMinutes,
+          chrome.alarms.create(alarm.name, {
+            delayInMinutes: job.immediate && !existing ? 0 : alarm.periodInMinutes!,
+            periodInMinutes: alarm.periodInMinutes!,
           });
         }
         break;
@@ -228,7 +227,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
   }
 
   // Listen for alarms and execute jobs
-  browser.alarms.onAlarm.addListener(async (alarm) => {
+  chrome.alarms.onAlarm.addListener(async (alarm) => {
     const job = jobs[alarm.name];
     if (job) await executeJob(job);
   });
@@ -238,7 +237,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
 
     async removeJob(jobId) {
       delete jobs[jobId];
-      await browser.alarms.clear(jobId);
+      await chrome.alarms.clear(jobId);
     },
 
     on(event, callback) {

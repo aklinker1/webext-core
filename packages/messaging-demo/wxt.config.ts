@@ -14,5 +14,5 @@ export default defineConfig({
       },
     ],
   },
-  runner: { startUrls: ['https://google.com/', 'https://duckduckgo.com/'] },
+  webExt: { startUrls: ['https://google.com/', 'https://duckduckgo.com/'] },
 });

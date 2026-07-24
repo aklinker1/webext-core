@@ -165,19 +165,18 @@ export function defineGenericMessanging<
           const listener = perTypeListeners[message.type];
           if (listener == null) return;
 
-          const res = listener(message);
-          return Promise.resolve(res)
-            .then((res) => {
-              return config.verifyMessageData?.(res) ?? res;
-            })
-            .then((res) => {
+          // Use an IIFE to run the listener so we only return a promise when there is a listener present.
+          return (async () => {
+            try {
+              const raw = await listener(message);
+              const res = config.verifyMessageData?.(raw) ?? raw;
               config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { res });
               return { res };
-            })
-            .catch((err) => {
+            } catch (err) {
               config?.logger?.debug(`[messaging] onMessage {id=${message.id}} ─ᐅ`, { err });
               return { err: serializeError(err) };
-            });
+            }
+          })();
         });
       }
 

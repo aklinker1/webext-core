@@ -15,7 +15,7 @@
   },
   "devDependencies": {
     "typescript": "catalog:",
-    "wxt": "^0.19.5"
+    "wxt": "catalog:"
   },
   "buildc": {
     "cachable": false

@@ -52,16 +52,21 @@
     "check": "bun run build && check",
     "prepack": "bun run build"
   },
-  "dependencies": {
-    "webextension-polyfill": ">=0.10.0"
-  },
   "devDependencies": {
-    "@types/webextension-polyfill": "^0.10.5",
+    "@types/chrome": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
     "publint": "catalog:",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",
     "typescript": "catalog:"
+  },
+  "peerDependencies": {
+    "@types/chrome": "*"
+  },
+  "peerDependenciesMeta": {
+    "@types/chrome": {
+      "optional": true
+    }
   },
   "engines": {
     "node": "*"
