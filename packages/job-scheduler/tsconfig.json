@@ -2,7 +2,7 @@
   "extends": "tsconfig/ts-library.json",
   "compilerOptions": {
     "lib": ["DOM", "ESNext"],
-    "types": ["chrome"]
+    "types": ["bun", "chrome"]
   },
   "exclude": ["lib"]
 }
