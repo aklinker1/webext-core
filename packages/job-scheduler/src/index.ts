@@ -148,7 +148,7 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
     });
   }
 
-  function jobToAlarm(job: Job): chrome.alarms.Alarm | undefined {
+  function jobToAlarm(job: Job): Omit<chrome.alarms.Alarm, 'persistAcrossSessions'> | undefined {
     let scheduledTime: number;
     let periodInMinutes: number | undefined;
     switch (job.type) {
@@ -175,8 +175,6 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
       name: job.id,
       scheduledTime,
       periodInMinutes,
-      // Added in Chrome 150, unclear if the behavior before matched true or false...
-      persistAcrossSessions: true,
     };
   }
 
@@ -205,7 +203,6 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
           chrome.alarms.create(alarm.name, {
             delayInMinutes: job.immediate && !existing ? 0 : alarm.periodInMinutes!,
             periodInMinutes: alarm.periodInMinutes!,
-            persistAcrossSessions: true,
           });
         }
         break;
