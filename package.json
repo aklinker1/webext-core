@@ -36,8 +36,8 @@
     "@happy-dom/global-registrator": "^20.9.0",
     "@types/chrome": "^0.2.2",
     "publint": "^0.3.21",
-    "tsdown": "^0.22.0",
-    "typescript": "^5.5.4",
+    "tsdown": "^0.22.14",
+    "typescript": "^7.0.2",
     "wxt": "^0.20.27"
   },
   "patchedDependencies": {
