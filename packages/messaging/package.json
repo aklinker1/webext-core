@@ -74,6 +74,14 @@
     "tsdown": "catalog:",
     "typescript": "catalog:"
   },
+  "peerDependencies": {
+    "@types/chrome": "*"
+  },
+  "peerDependenciesMeta": {
+    "@types/chrome": {
+      "optional": true
+    }
+  },
   "engines": {
     "node": "*"
   },
