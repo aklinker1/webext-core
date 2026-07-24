@@ -15,7 +15,6 @@ export default defineConfig([
     globalName: 'webExtCoreStorage',
     deps: {
       onlyBundle: false,
-      alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
     outputOptions: {
