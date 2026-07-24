@@ -1,5 +1,3 @@
-import Browser, { Runtime } from 'webextension-polyfill';
-
 import { GenericMessenger, defineGenericMessanging } from './generic';
 import { BaseMessagingConfig } from './types';
 
@@ -12,7 +10,7 @@ export interface ExtensionMessage {
    * Information about where the message came from. See
    * [`Runtime.MessageSender`](https://developer.mozilla.org/en-US/docs/Mozilla/Add-ons/WebExtensions/API/runtime/MessageSender).
    */
-  sender: Runtime.MessageSender;
+  sender: chrome.runtime.MessageSender;
 }
 
 /** Options for sending a message to a specific tab/frame */
@@ -54,28 +52,37 @@ export function defineExtensionMessaging<
     ...config,
     sendMessage(message, arg) {
       // No args - send to background
-      if (arg == null) {
-        return Browser.runtime.sendMessage(message);
-      }
+      if (arg == null) return new Promise((res) => chrome.runtime.sendMessage(message, res));
 
       // Handle both number and options object
       const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
 
-      return Browser.tabs.sendMessage(
-        options.tabId,
-        message,
-        // Pass frameId if specified
-        options.frameId != null ? { frameId: options.frameId } : undefined,
+      return new Promise((res) =>
+        chrome.tabs.sendMessage(
+          options.tabId,
+          message,
+          // Pass frameId if specified
+          options.frameId != null ? { frameId: options.frameId } : undefined,
+          res,
+        ),
       );
     },
     addRootListener(processMessage) {
-      const listener = (message: any, sender: Runtime.MessageSender) => {
-        if (typeof message === 'object') return processMessage({ ...message, sender });
-        else return processMessage(message);
+      const listener = (
+        message: any,
+        sender: chrome.runtime.MessageSender,
+        sendResponse: (response?: any) => void,
+      ) => {
+        const res = processMessage(typeof message === 'object' ? { ...message, sender } : message);
+        if (res instanceof Promise) {
+          res.then(sendResponse);
+          return true;
+        }
+        return false;
       };
 
-      Browser.runtime.onMessage.addListener(listener);
-      return () => Browser.runtime.onMessage.removeListener(listener);
+      chrome.runtime.onMessage.addListener(listener);
+      return () => chrome.runtime.onMessage.removeListener(listener);
     },
   });
 }

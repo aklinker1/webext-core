@@ -1,11 +1,13 @@
-import browser, { Storage } from 'webextension-polyfill';
-
 import { AnySchema, ExtensionStorage, OnChangeCallback } from './types';
 
 interface RegisteredChangeListener<TSchema extends AnySchema> {
   key: keyof TSchema;
   cb: OnChangeCallback<AnySchema, any>;
 }
+
+type StorageChanges = {
+  [key: string]: chrome.storage.StorageChange;
+};
 
 /**
  * Create a storage instance with an optional schema, `TSchema`, for type safety.
@@ -24,19 +26,17 @@ interface RegisteredChangeListener<TSchema extends AnySchema> {
  *   `Browser.storage.managed`.
  */
 export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
-  storage: Storage.StorageArea,
+  storage: chrome.storage.StorageArea,
 ): ExtensionStorage<TSchema> {
   /**
    * The singleton callback added and removed from the `browser.storage.onChanged` event. It calls
    * all the listeners added to this storage instance.
    */
-  const onStorageChanged = async (changes: browser.Storage.StorageAreaOnChangedChangesType) => {
+  const onStorageChanged = async (changes: StorageChanges) => {
     const work = listeners.map(({ key, cb }) => {
       if (!(key in changes)) return;
 
-      const { newValue, oldValue } = changes[
-        key as string
-      ] as browser.Storage.StorageAreaOnChangedChangesType;
+      const { newValue, oldValue } = changes[key as string] as StorageChanges;
       if (newValue === oldValue) return;
 
       return cb(newValue, oldValue);
@@ -68,7 +68,7 @@ export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
     if (i >= 0) listeners.splice(i, 1);
 
     if (listeners.length === 0) {
-      browser.storage.onChanged.removeListener(onStorageChanged);
+      chrome.storage.onChanged.removeListener(onStorageChanged);
     }
   }
 
@@ -76,8 +76,9 @@ export function defineExtensionStorage<TSchema extends AnySchema = AnySchema>(
     clear() {
       return storage.clear();
     },
-    getItem(key) {
-      return storage.get(key as string).then((res) => res[key as string] ?? null);
+    async getItem(key) {
+      const res = await storage.get(key as string);
+      return (res[key as string] ?? null) as Required<TSchema>[typeof key] | null;
     },
     setItem(key, value) {
       return storage.set({ [key]: value ?? null });

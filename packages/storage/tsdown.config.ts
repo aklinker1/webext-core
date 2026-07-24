@@ -1,7 +1,5 @@
 import { defineConfig } from 'tsdown';
 
-import pkgJson from './package.json' with { type: 'json' };
-
 export default defineConfig([
   {
     outDir: 'lib',
@@ -15,7 +13,6 @@ export default defineConfig([
     globalName: 'webExtCoreStorage',
     deps: {
       onlyBundle: false,
-      alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
     outputOptions: {

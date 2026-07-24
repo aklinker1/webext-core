@@ -1,4 +1,7 @@
 {
   "extends": "tsconfig/ts-library.json",
-  "exclude": ["lib"]
+  "exclude": ["lib"],
+  "compilerOptions": {
+    "types": ["bun", "chrome"]
+  }
 }
