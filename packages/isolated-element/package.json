@@ -26,16 +26,16 @@
     "directory": "packages/isolated-element"
   },
   "files": [
-    "lib"
+    "dist"
   ],
   "type": "module",
   "sideEffects": false,
-  "module": "lib/index.mjs",
-  "types": "lib/index.d.mts",
+  "module": "dist/index.mjs",
+  "types": "dist/index.d.mts",
   "exports": {
     ".": {
-      "types": "./lib/index.d.mts",
-      "default": "./lib/index.mjs"
+      "types": "./dist/index.d.mts",
+      "default": "./dist/index.mjs"
     }
   },
   "publishConfig": {
@@ -61,8 +61,5 @@
   },
   "engines": {
     "node": "*"
-  },
-  "buildc": {
-    "outDir": "lib"
   }
 }

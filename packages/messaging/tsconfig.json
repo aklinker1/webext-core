@@ -3,6 +3,5 @@
   "compilerOptions": {
     "lib": ["ESNext", "DOM"],
     "types": ["bun", "chrome"]
-  },
-  "exclude": ["lib"]
+  }
 }
