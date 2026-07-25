@@ -40,8 +40,13 @@ describe('Messaging Wrapper', () => {
     const input = 'test';
     const tabId = 0;
     const expected = 4;
-    // TODO: fix
-    // vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected } as any);
+    const spy = vi
+      .spyOn(fakeBrowser.tabs, 'sendMessage')
+      .mockImplementation((...args: any[]): any => {
+        console.log(args);
+        args[3]({ res: expected });
+      });
+    spy.test = 123;
 
     const actual = await sendMessage('getLength', input, tabId);
 
@@ -59,13 +64,13 @@ describe('Messaging Wrapper', () => {
     );
   });
 
-  it('should send messages to tabs with tabId and frameId', async () => {
+  it.only('should send messages to tabs with tabId and frameId', async () => {
     const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
     const input = 'test';
     const tabId = 0;
     const frameId = 0;
     const expected = 4;
-    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected });
+    vi.spyOn<any, any>(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected });
 
     const actual = await sendMessage('getLength', input, { tabId, frameId });
 

@@ -44,7 +44,7 @@ export interface BrowserOverrides {
     onInstalled: EventForTesting<[details: Browser.runtime.InstalledDetails]>;
     onUpdateAvailable: EventForTesting<[details: Browser.runtime.UpdateAvailableDetails]>;
     onMessage: EventForTesting<
-      [message: any, sender: Browser.runtime.MessageSender],
+      [message: any, sender: Browser.runtime.MessageSender, sendResponse: (res: any) => void],
       void | Promise<any>
     >;
   };

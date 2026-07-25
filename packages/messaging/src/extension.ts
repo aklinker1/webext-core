@@ -57,6 +57,9 @@ export function defineExtensionMessaging<
       // Handle both number and options object
       const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
 
+      console.log('Calling...', chrome.tabs.sendMessage.test);
+      chrome.tabs.sendMessage.test = 123;
+      console.log('Calling...', chrome.tabs.sendMessage.test);
       return new Promise((res) =>
         chrome.tabs.sendMessage(
           options.tabId,

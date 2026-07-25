@@ -277,7 +277,10 @@ describe('defineJobScheduler', () => {
       await jobs.scheduleJob(job);
       jobs.on('error', onError);
 
-      await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: job.date });
+      await fakeBrowser.alarms.onAlarm.trigger({
+        name: job.id,
+        scheduledTime: job.date,
+      });
 
       expect(onError).toBeCalledTimes(1);
       expect(onError).toBeCalledWith(job, expect.any(Error));
