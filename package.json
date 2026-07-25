@@ -31,7 +31,7 @@
     "*": "oxfmt --no-error-on-unmatched-pattern"
   },
   "catalog": {
-    "@aklinker1/buildc": "^1.1.5",
+    "@aklinker1/buildc": "^1.1.7",
     "@aklinker1/check": "^2.4.0",
     "@happy-dom/global-registrator": "^20.9.0",
     "@types/chrome": "^0.2.2",
