@@ -2,6 +2,5 @@
   "extends": "tsconfig/ts-library.json",
   "compilerOptions": {
     "lib": ["ESNext", "DOM"]
-  },
-  "exclude": ["lib"]
+  }
 }

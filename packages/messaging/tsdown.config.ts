@@ -4,12 +4,10 @@ import pkgJson from './package.json' with { type: 'json' };
 
 export default defineConfig([
   {
-    outDir: 'lib',
     entry: ['src/index.ts', 'src/page.ts'],
     format: 'esm',
   },
   {
-    outDir: 'lib',
     entry: 'src/index.ts',
     format: 'iife',
     globalName: 'webExtCoreMessaging',
@@ -18,12 +16,8 @@ export default defineConfig([
       alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'index.global.js',
-    },
   },
   {
-    outDir: 'lib',
     entry: 'src/page.ts',
     format: 'iife',
     globalName: 'webExtCorePageMessaging',
@@ -32,8 +26,5 @@ export default defineConfig([
       alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'page.global.js',
-    },
   },
 ]);

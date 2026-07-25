@@ -3,12 +3,10 @@ import { defineConfig } from 'tsdown';
 
 export default defineConfig([
   {
-    outDir: 'lib',
     entry: 'src/index.ts',
     format: 'esm',
   },
   {
-    outDir: 'lib',
     entry: 'src/index.ts',
     format: 'iife',
     globalName: 'webExtCoreMatchPatterns',
@@ -17,8 +15,5 @@ export default defineConfig([
       // alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'index.global.js',
-    },
   },
 ]);
