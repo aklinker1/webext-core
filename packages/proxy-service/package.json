@@ -32,16 +32,12 @@
   "types": "lib/index.d.mts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./lib/index.d.mts",
-        "default": "./lib/index.mjs"
-      }
+      "types": "./lib/index.d.mts",
+      "default": "./lib/index.mjs"
     },
     "./types": {
-      "import": {
-        "types": "./lib/types.d.mts",
-        "default": "./lib/types.mjs"
-      }
+      "types": "./lib/types.d.mts",
+      "default": "./lib/types.mjs"
     }
   },
   "publishConfig": {
