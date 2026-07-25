@@ -97,8 +97,10 @@ describe('Proxy Services', () => {
         };
       }
       class Two {
+        _three = 3 as const;
+
         async three(): Promise<3> {
-          return 3;
+          return this._three;
         }
 
         get four() {

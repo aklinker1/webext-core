@@ -45,7 +45,8 @@ export function registerService<T extends Service, K extends string = ProxyServi
 
   return messenger.onMessage(messenger.messageKey, ({ data }) => {
     const method = data.path == null ? realService : get(realService ?? {}, data.path);
-    if (method) return Promise.resolve(method.bind(realService)(...data.args));
+    const target = data.path == null ? realService : get(realService ?? {}, data.path.slice(0, -1));
+    if (method) return Promise.resolve(method.bind(target)(...data.args));
   });
 }
 
