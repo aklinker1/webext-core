@@ -1,5 +1,23 @@
 # Changelog
 
+## v2.0.0
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/match-patterns-v1.1.0...match-patterns-v2.0.0)
+
+### 🏡 Chore
+
+- Drop CJS support ([#164](https://github.com/aklinker1/webext-core/pull/164))
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js` ([#165](https://github.com/aklinker1/webext-core/pull/165))
+
+### ⚠️ Breaking Changes
+
+- Drop CJS support
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js`
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v1.1.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/match-patterns-v1.0.3...match-patterns-v1.1.0)
