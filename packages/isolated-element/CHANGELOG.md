@@ -1,5 +1,24 @@
 # Changelog
 
+## v3.0.0
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/isolated-element-v2.0.1...isolated-element-v3.0.0)
+
+### 🏡 Chore
+
+- Cleanup tests ([`782646d`](https://github.com/aklinker1/webext-core/commit/782646d7e54365c60dbe661d7541ac64222538d2))
+- Drop CJS support ([#164](https://github.com/aklinker1/webext-core/pull/164))
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js` ([#165](https://github.com/aklinker1/webext-core/pull/165))
+
+### ⚠️ Breaking Changes
+
+- Drop CJS support
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js`
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v2.0.1
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/isolated-element-v2.0.0...isolated-element-v2.0.1)
