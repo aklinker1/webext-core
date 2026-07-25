@@ -1,8 +1,8 @@
 import { describe, it, expect, vi, beforeEach } from 'bun:test';
 
-import { GenericMessenger } from '../../generic';
-import { defineWindowMessaging, defineCustomEventMessaging } from '../../page';
-import { NamespaceMessagingConfig } from '../../types';
+import { GenericMessenger } from './generic';
+import { defineWindowMessaging, defineCustomEventMessaging } from './page';
+import { NamespaceMessagingConfig } from './types';
 
 describe.each<
   [
