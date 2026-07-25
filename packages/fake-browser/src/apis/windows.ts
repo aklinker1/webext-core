@@ -1,12 +1,13 @@
-import { Windows } from 'webextension-polyfill';
+import type { Browser } from '@wxt-dev/browser';
 
 import { BrowserOverrides } from '../types';
+import { Callback, EmptyCallback, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { mapTab, tabList } from './tabs';
 
-type InMemoryWindow = Omit<Windows.Window, 'focused' | 'tabs'>;
+type InMemoryWindow = Omit<Browser.windows.Window, 'focused' | 'tabs'>;
 
-const onCreated = defineEventWithTrigger<(window: Windows.Window) => void>();
+const onCreated = defineEventWithTrigger<(window: Browser.windows.Window) => void>();
 const onRemoved = defineEventWithTrigger<(windowId: number) => void>();
 const onFocusChanged = defineEventWithTrigger<(windowId: number) => void>();
 
@@ -18,21 +19,24 @@ export const DEFAULT_WINDOW: InMemoryWindow = {
 const DEFAULT_NEXT_WINDOW_ID = 1;
 
 export const windowList: InMemoryWindow[] = [DEFAULT_WINDOW];
-export let focusedWindowId: Windows.Window['id'];
-export let lastFocusedWindowId: Windows.Window['id'];
+export let focusedWindowId: Browser.windows.Window['id'];
+export let lastFocusedWindowId: Browser.windows.Window['id'];
 let nextWindowId = DEFAULT_NEXT_WINDOW_ID;
 
-function setFocusedWindowId(id: Windows.Window['id']): void {
+function setFocusedWindowId(id: Browser.windows.Window['id']): void {
   lastFocusedWindowId = focusedWindowId;
   focusedWindowId = id;
 }
-function getNextWindowId(): Windows.Window['id'] {
+function getNextWindowId(): Browser.windows.Window['id'] {
   const id = nextWindowId;
   nextWindowId++;
   return id;
 }
 
-function mapWindow(window: InMemoryWindow, getInfo?: Windows.GetInfo): Windows.Window {
+function mapWindow(
+  window: InMemoryWindow,
+  getInfo?: Browser.windows.QueryOptions,
+): Browser.windows.Window {
   return {
     ...window,
     tabs: getInfo?.populate
@@ -42,10 +46,10 @@ function mapWindow(window: InMemoryWindow, getInfo?: Windows.GetInfo): Windows.W
   };
 }
 
-function mapCreateType(type: Windows.CreateType | undefined): Windows.WindowType | undefined {
+function mapCreateType(type: string | undefined): Browser.windows.WindowType | undefined {
   if (type == null) return undefined;
-  if (type == 'detached_panel') return 'panel';
-  return type;
+  if (type == 'detached_panel') return 'panel' as Browser.windows.WindowType;
+  return type as string as Browser.windows.WindowType;
 }
 
 export const windows: BrowserOverrides['windows'] = {
@@ -59,55 +63,92 @@ export const windows: BrowserOverrides['windows'] = {
     onRemoved.removeAllListeners();
     onFocusChanged.removeAllListeners();
   },
-  async get(windowId, getInfo?) {
-    const window = windowList.find((window) => window.id === windowId);
-    if (!window) return undefined!;
-    return mapWindow(window, getInfo);
-  },
-  getCurrent(getInfo?) {
-    if (focusedWindowId == null) return undefined!;
-    return windows.get(focusedWindowId, getInfo);
-  },
-  getLastFocused(getInfo?) {
-    if (lastFocusedWindowId == null) return undefined!;
-    return windows.get(lastFocusedWindowId, getInfo);
-  },
-  async getAll(getInfo?) {
-    return windowList.map((window) => mapWindow(window, getInfo));
-  },
-  async create(createData?) {
-    const newWindow: InMemoryWindow = {
-      id: getNextWindowId(),
-      alwaysOnTop: false,
-      incognito: createData?.incognito ?? false,
-      height: createData?.height,
-      left: createData?.left,
-      state: createData?.state,
-      top: createData?.top,
-      type: mapCreateType(createData?.type),
-      width: createData?.width,
-    };
-    windowList.push(newWindow);
-    if (createData?.focused) setFocusedWindowId(newWindow.id);
+  get(windowId, arg2?, arg3?) {
+    const queryOptions = typeof arg2 === 'function' ? undefined : arg2;
+    const callback = typeof arg2 === 'function' ? arg2 : (arg3 as Callback<Browser.windows.Window>);
 
-    const fullWindow = mapWindow(newWindow);
-    await onCreated.trigger(fullWindow);
-    if (createData?.focused) onFocusChanged.trigger(fullWindow.id!);
+    return promiseOrCallback(callback, async () => {
+      const window = windowList.find((window) => window.id === windowId);
+      if (!window) return undefined!;
 
-    return fullWindow;
+      return mapWindow(window, queryOptions);
+    });
   },
-  async update(windowId, _updateInfo) {
-    const window = windowList.find((window) => window.id === windowId);
-    // TODO: Verify this behavior
-    if (!window) return undefined!;
+  getCurrent(arg1, arg2?) {
+    const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
+    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window>);
 
-    return mapWindow(window);
+    return promiseOrCallback(callback, () => {
+      if (focusedWindowId == null) return undefined!;
+      return windows.get(focusedWindowId, queryOptions);
+    });
   },
-  async remove(windowId) {
-    const index = windowList.findIndex((window) => window.id === windowId);
-    if (index < 0) return;
-    windowList.splice(index, 1);
-    await onRemoved.trigger(windowId);
+  getLastFocused(arg1, arg2?) {
+    const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
+    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window>);
+
+    return promiseOrCallback(callback, () => {
+      if (lastFocusedWindowId == null) return undefined!;
+      return windows.get(lastFocusedWindowId, queryOptions);
+    });
+  },
+  getAll(arg1, arg2?) {
+    const queryOptions = typeof arg1 === 'function' ? undefined : arg1;
+    const callback =
+      typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window[]>);
+
+    return promiseOrCallback(callback, () =>
+      windowList.map((window) => mapWindow(window, queryOptions)),
+    );
+  },
+  create(arg1, arg2?) {
+    const createData = typeof arg1 === 'function' ? undefined : arg1;
+    const callback = typeof arg1 === 'function' ? arg1 : (arg2 as Callback<Browser.windows.Window>);
+
+    return promiseOrCallback(callback, async () => {
+      const newWindow: InMemoryWindow = {
+        id: getNextWindowId(),
+        alwaysOnTop: false,
+        incognito: createData?.incognito ?? false,
+        height: createData?.height,
+        left: createData?.left,
+        state: createData?.state,
+        top: createData?.top,
+        type: mapCreateType(createData?.type),
+        width: createData?.width,
+      };
+      windowList.push(newWindow);
+      if (createData?.focused) setFocusedWindowId(newWindow.id);
+
+      const fullWindow = mapWindow(newWindow);
+      await onCreated.trigger(fullWindow);
+      if (createData?.focused) onFocusChanged.trigger(fullWindow.id!);
+
+      return fullWindow;
+    });
+  },
+  update(windowId, arg2, arg3?) {
+    const _updateInfo = typeof arg2 === 'function' ? undefined : arg2;
+    const callback = typeof arg2 === 'function' ? arg2 : (arg3 as Callback<Browser.windows.Window>);
+
+    return promiseOrCallback(callback, () => {
+      const window = windowList.find((window) => window.id === windowId);
+      // TODO: Verify this behavior
+      if (!window) return undefined!;
+
+      return mapWindow(window);
+    });
+  },
+  remove(windowId, arg1?) {
+    const callback = typeof arg1 === 'function' ? (arg1 as EmptyCallback) : undefined;
+
+    return promiseOrCallback(callback, async () => {
+      const index = windowList.findIndex((window) => window.id === windowId);
+      if (index < 0) return;
+      windowList.splice(index, 1);
+
+      await onRemoved.trigger(windowId);
+    });
   },
   onCreated,
   onRemoved,

@@ -1,10 +1,16 @@
-import { Action, Tabs } from 'webextension-polyfill';
+import type { Browser } from '@wxt-dev/browser';
 
 import { BrowserOverrides } from '../types';
+import { callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
-const onClicked =
-  defineEventWithTrigger<(tab: Tabs.Tab, info: Action.OnClickData | undefined) => void>();
+const onClicked = defineEventWithTrigger<(tab: Browser.tabs.Tab) => void>();
+
+function withWindowId<T extends Browser.action.TabDetails>(
+  t: T,
+): T & { windowId: number | undefined } {
+  return t as any;
+}
 
 const DEFAULT_BADGE_BACKGROUND_COLOR = '#5F5D5B';
 const DEFAULT_BADGE_TEXT_COLOR = '#FFFFFF';
@@ -50,9 +56,12 @@ function hexToRgbaArray(hex: string): ColorArray {
   return [r, g, b, a];
 }
 
-function getScopedValue<T>(state: ScopedState<T>, details?: Action.Details): T | undefined {
+function getScopedValue<T>(
+  state: ScopedState<T>,
+  details?: Browser.action.TabDetails,
+): T | undefined {
   if (!details) return state.global;
-  const { tabId, windowId } = details;
+  const { tabId, windowId } = withWindowId(details);
   if (tabId !== undefined) return state.tabs.get(tabId);
   if (windowId !== undefined) return state.windows.get(windowId);
   return state.global;
@@ -77,111 +86,124 @@ export const action: BrowserOverrides['action'] = {
     titleState.tabs.clear();
     titleState.windows.clear();
   },
+  setTitle(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
 
-  setTitle(details: Action.SetTitleDetailsType) {
-    const { title, tabId, windowId } = details;
-    if (tabId !== undefined) {
-      if (title === null || title === undefined) {
-        titleState.tabs.delete(tabId);
+    return promiseOrCallback(callback, () => {
+      const { title, tabId, windowId } = withWindowId(details);
+      if (tabId !== undefined) {
+        if (title === null || title === undefined) {
+          titleState.tabs.delete(tabId);
+        } else {
+          titleState.tabs.set(tabId, title);
+        }
+      } else if (windowId !== undefined) {
+        if (title === null || title === undefined) {
+          titleState.windows.delete(windowId);
+        } else {
+          titleState.windows.set(windowId, title);
+        }
       } else {
-        titleState.tabs.set(tabId, title);
+        titleState.global = title ?? '';
       }
-    } else if (windowId !== undefined) {
-      if (title === null || title === undefined) {
-        titleState.windows.delete(windowId);
+    });
+  },
+  getTitle(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
+    return promiseOrCallback(callback, () => getScopedValue(titleState, details) ?? '');
+  },
+  setBadgeText(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
+
+    return promiseOrCallback(callback, () => {
+      const { text, tabId, windowId } = withWindowId(details);
+      if (tabId !== undefined) {
+        if (text === null || text === undefined) {
+          badgeTextState.tabs.delete(tabId);
+        } else {
+          badgeTextState.tabs.set(tabId, text);
+        }
+      } else if (windowId !== undefined) {
+        if (text === null || text === undefined) {
+          badgeTextState.windows.delete(windowId);
+        } else {
+          badgeTextState.windows.set(windowId, text);
+        }
       } else {
-        titleState.windows.set(windowId, title);
+        badgeTextState.global = text ?? '';
       }
-    } else {
-      titleState.global = title ?? '';
-    }
-    return Promise.resolve();
+    });
   },
+  getBadgeText(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
 
-  getTitle(details: Action.Details): Promise<string> {
-    const value = getScopedValue(titleState, details);
-    return Promise.resolve(value ?? '');
+    return promiseOrCallback(callback, () => getScopedValue(badgeTextState, details) ?? '');
   },
+  setBadgeBackgroundColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
 
-  setBadgeText(details: Action.SetBadgeTextDetailsType) {
-    const { text, tabId, windowId } = details;
-    if (tabId !== undefined) {
-      if (text === null || text === undefined) {
-        badgeTextState.tabs.delete(tabId);
+    return promiseOrCallback(callback, () => {
+      const { color, tabId, windowId } = withWindowId(details);
+      let rgbaColor: ColorArray;
+
+      if (typeof color === 'string') {
+        rgbaColor = hexToRgbaArray(color);
+      } else if (Array.isArray(color)) {
+        rgbaColor = [...color] as ColorArray;
       } else {
-        badgeTextState.tabs.set(tabId, text);
+        rgbaColor = hexToRgbaArray(DEFAULT_BADGE_BACKGROUND_COLOR);
       }
-    } else if (windowId !== undefined) {
-      if (text === null || text === undefined) {
-        badgeTextState.windows.delete(windowId);
+
+      if (tabId !== undefined) {
+        badgeBackgroundColorState.tabs.set(tabId, rgbaColor);
+      } else if (windowId !== undefined) {
+        badgeBackgroundColorState.windows.set(windowId, rgbaColor);
       } else {
-        badgeTextState.windows.set(windowId, text);
+        badgeBackgroundColorState.global = rgbaColor;
       }
-    } else {
-      badgeTextState.global = text ?? '';
-    }
-    return Promise.resolve();
+    });
   },
+  getBadgeBackgroundColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
 
-  getBadgeText(details: Action.Details): Promise<string> {
-    const value = getScopedValue(badgeTextState, details);
-    return Promise.resolve(value ?? '');
+    return promiseOrCallback(callback, () => {
+      const value = getScopedValue(badgeBackgroundColorState, details);
+      return value ?? hexToRgbaArray(DEFAULT_BADGE_BACKGROUND_COLOR);
+    });
   },
+  setBadgeTextColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
 
-  setBadgeBackgroundColor(details: Action.SetBadgeBackgroundColorDetailsType) {
-    const { color, tabId, windowId } = details;
-    let rgbaColor: ColorArray;
+    return promiseOrCallback(callback, () => {
+      const { color, tabId, windowId } = withWindowId(details);
 
-    if (typeof color === 'string') {
-      rgbaColor = hexToRgbaArray(color);
-    } else if (Array.isArray(color)) {
-      rgbaColor = [...color] as ColorArray;
-    } else {
-      rgbaColor = hexToRgbaArray(DEFAULT_BADGE_BACKGROUND_COLOR);
-    }
+      let normalizedColor = typeof color === 'string' ? color : DEFAULT_BADGE_TEXT_COLOR;
 
-    if (tabId !== undefined) {
-      badgeBackgroundColorState.tabs.set(tabId, rgbaColor);
-    } else if (windowId !== undefined) {
-      badgeBackgroundColorState.windows.set(windowId, rgbaColor);
-    } else {
-      badgeBackgroundColorState.global = rgbaColor;
-    }
-
-    return Promise.resolve();
-  },
-
-  getBadgeBackgroundColor(details: Action.Details): Promise<ColorArray> {
-    const value = getScopedValue(badgeBackgroundColorState, details);
-    return Promise.resolve(value ?? hexToRgbaArray(DEFAULT_BADGE_BACKGROUND_COLOR));
-  },
-
-  setBadgeTextColor(details: Action.SetBadgeTextColorDetailsType) {
-    const { color, tabId, windowId } = details;
-
-    let normalizedColor = typeof color === 'string' ? color : DEFAULT_BADGE_TEXT_COLOR;
-
-    if (tabId !== undefined) {
-      if (color === null || color === undefined) {
-        badgeTextColorState.tabs.delete(tabId);
+      if (tabId !== undefined) {
+        if (color === null || color === undefined) {
+          badgeTextColorState.tabs.delete(tabId);
+        } else {
+          badgeTextColorState.tabs.set(tabId, normalizedColor);
+        }
+      } else if (windowId !== undefined) {
+        if (color === null || color === undefined) {
+          badgeTextColorState.windows.delete(windowId);
+        } else {
+          badgeTextColorState.windows.set(windowId, normalizedColor);
+        }
       } else {
-        badgeTextColorState.tabs.set(tabId, normalizedColor);
+        badgeTextColorState.global = normalizedColor;
       }
-    } else if (windowId !== undefined) {
-      if (color === null || color === undefined) {
-        badgeTextColorState.windows.delete(windowId);
-      } else {
-        badgeTextColorState.windows.set(windowId, normalizedColor);
-      }
-    } else {
-      badgeTextColorState.global = normalizedColor;
-    }
+    });
   },
+  getBadgeTextColor(details, arg2?) {
+    const callback = callbackOrUndefined(arg2);
 
-  getBadgeTextColor(details: Action.Details, callback?: (value: string) => void): void {
-    const value = getScopedValue(badgeTextColorState, details);
-    callback?.(value ?? DEFAULT_BADGE_TEXT_COLOR);
+    return promiseOrCallback(callback, () => {
+      const value = getScopedValue(badgeTextColorState, details);
+      return (value ?? DEFAULT_BADGE_TEXT_COLOR) as any as Browser.extensionTypes.ColorArray;
+    });
   },
-
   onClicked,
 };

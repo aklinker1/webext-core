@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from 'bun:test';
 
-import { Runtime } from 'webextension-polyfill';
+import { Browser } from '@wxt-dev/browser';
 
 import { fakeBrowser } from '..';
 
@@ -8,16 +8,25 @@ describe('Fake Runtime API', () => {
   beforeEach(fakeBrowser.reset);
 
   describe('messaging', () => {
-    it('should allow sending and receieving messages', async () => {
-      fakeBrowser.runtime.onMessage.addListener((message) => message + 1);
-      const actual = await fakeBrowser.runtime.sendMessage('', 1);
+    it('should allow sending and receiving messages', async () => {
+      fakeBrowser.runtime.onMessage.addListener((message, _, sendResponse) => {
+        sendResponse(message + 1);
+        return true;
+      });
+      const actual = await fakeBrowser.runtime.sendMessage(1);
 
       expect(actual).toEqual(2);
     });
 
     it("should return the first responder's response", async () => {
-      fakeBrowser.runtime.onMessage.addListener((message) => message + 1);
-      fakeBrowser.runtime.onMessage.addListener((message) => message + 2);
+      fakeBrowser.runtime.onMessage.addListener((message, _, sendResponse) => {
+        sendResponse(message + 1);
+        return true;
+      });
+      fakeBrowser.runtime.onMessage.addListener((message, _, sendResponse) => {
+        sendResponse(message + 2);
+        return true;
+      });
 
       const actual = await fakeBrowser.runtime.sendMessage('', 1);
 
@@ -25,8 +34,14 @@ describe('Fake Runtime API', () => {
     });
 
     it('should call all the ', async () => {
-      const listener1 = vi.fn().mockReturnValue(1);
-      const listener2 = vi.fn().mockReturnValue(2);
+      const listener1 = vi.fn((_1, _2, sendResponse) => {
+        sendResponse(1);
+        return true;
+      });
+      const listener2 = vi.fn((_1, _2, sendResponse) => {
+        sendResponse(2);
+        return true;
+      });
       fakeBrowser.runtime.onMessage.addListener(listener1);
       fakeBrowser.runtime.onMessage.addListener(listener2);
       const sender = {};
@@ -36,9 +51,9 @@ describe('Fake Runtime API', () => {
 
       expect(actual).toEqual(1);
       expect(listener1).toBeCalledTimes(1);
-      expect(listener1).toBeCalledWith(message, sender);
+      expect(listener1).toBeCalledWith(message, sender, expect.any(Function));
       expect(listener2).toBeCalledTimes(1);
-      expect(listener2).toBeCalledWith(message, sender);
+      expect(listener2).toBeCalledWith(message, sender, expect.any(Function));
     });
 
     it('should throw an error if there are no listeners setup', async () => {
@@ -80,7 +95,7 @@ describe('Fake Runtime API', () => {
 
   it('should trigger onUpdateAvailable listeners', async () => {
     const listener = vi.fn();
-    const input: Runtime.OnUpdateAvailableDetailsType = {
+    const input: Browser.runtime.UpdateAvailableDetails = {
       version: '1.0.2',
     };
 
@@ -93,9 +108,8 @@ describe('Fake Runtime API', () => {
 
   it('should trigger onInstalled listeners', async () => {
     const listener = vi.fn();
-    const input: Runtime.OnInstalledDetailsType = {
-      reason: 'browser_update',
-      temporary: true,
+    const input: Browser.runtime.InstalledDetails = {
+      reason: 'browser_update' as Browser.runtime.OnInstalledReason,
       previousVersion: '1.0.1',
     };
 
