@@ -11,7 +11,7 @@ A set of core libraries and tools for building web extensions for all browsers.
 - [`@webext-core/job-scheduler`](https://webext-core.aklinker1.io/job-scheduler/installation):
   Schedule reoccurring jobs using the Alarms API
 - [`@webext-core/fake-browser`](https://webext-core.aklinker1.io/fake-browser/installation):
-  An in-memory implementation of `webextension-polyfill` for testing
+  An in-memory implementation of the web extension APIs for testing
 - [`@webext-core/proxy-service`](https://webext-core.aklinker1.io/proxy-service/installation):
   Write services that can be called from any JS context, but run in the
   background service worker

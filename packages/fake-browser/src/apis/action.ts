@@ -1,8 +1,23 @@
 import type { Browser } from '@wxt-dev/browser';
 
-import { BrowserOverrides } from '../types';
+import { EventForTesting } from '../types';
 import { callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+
+export type ActionOverrides = Pick<
+  typeof Browser.action,
+  | 'setTitle'
+  | 'getTitle'
+  | 'getBadgeText'
+  | 'setBadgeText'
+  | 'setBadgeTextColor'
+  | 'getBadgeTextColor'
+  | 'getBadgeBackgroundColor'
+  | 'setBadgeBackgroundColor'
+> & {
+  resetState(): void;
+  onClicked: EventForTesting<[tab: Browser.tabs.Tab]>;
+};
 
 const onClicked = defineEventWithTrigger<(tab: Browser.tabs.Tab) => void>();
 
@@ -67,7 +82,7 @@ function getScopedValue<T>(
   return state.global;
 }
 
-export const action: BrowserOverrides['action'] = {
+export const action: ActionOverrides = {
   resetState() {
     onClicked.removeAllListeners();
     badgeTextState.global = '';

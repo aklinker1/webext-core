@@ -1,8 +1,24 @@
 import type { Browser } from '@wxt-dev/browser';
 
-import { BrowserOverrides } from '../types';
+import { EventForTesting } from '../types';
 import { Callback, callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+
+export type NotificationsOverrides = Pick<
+  typeof Browser.notifications,
+  'clear' | 'create' | 'getAll'
+> & {
+  resetState(): void;
+  /**
+   * Alternative to `getAll` that returns the objects used to create the notifications, not just
+   * true.
+   */
+  getAllCreateOptions(): { [id: string]: Browser.notifications.NotificationCreateOptions };
+  onClosed: EventForTesting<[notificationId: string, byUser: boolean]>;
+  onClicked: EventForTesting<[notificationId: string]>;
+  onButtonClicked: EventForTesting<[notificationId: string, buttonIndex: number]>;
+  onShown: EventForTesting<[notificationId: string]>;
+};
 
 let notificationMap: { [id: string]: Browser.notifications.NotificationCreateOptions } = {};
 const onClosed = defineEventWithTrigger<(notificationId: string, byUser: boolean) => void>();
@@ -15,7 +31,7 @@ function notificationExists(id: string): boolean {
   return !!notificationMap[id];
 }
 
-export const notifications: BrowserOverrides['notifications'] = {
+export const notifications: NotificationsOverrides = {
   resetState() {
     notificationMap = {};
     onClosed.removeAllListeners();
@@ -71,11 +87,8 @@ export const notifications: BrowserOverrides['notifications'] = {
       Object.fromEntries<true>(Object.keys(notificationMap).map((k) => [k, true])),
     );
   },
-  // @ts-expect-error: Does not implement "rule" functions
   onClosed,
-  // @ts-expect-error: Does not implement "rule" functions
   onClicked,
-  // @ts-expect-error: Does not implement "rule" functions
   onButtonClicked,
   onShown,
 };

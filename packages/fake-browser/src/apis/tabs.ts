@@ -1,9 +1,23 @@
 import { Browser } from '@wxt-dev/browser';
 
-import { BrowserOverrides } from '../types';
+import { EventForTesting } from '../types';
 import { Callback, callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { windows, DEFAULT_WINDOW } from './windows';
+
+export type TabsOverrides = Pick<
+  typeof Browser.tabs,
+  'get' | 'getCurrent' | 'create' | 'duplicate' | 'query' | 'highlight' | 'remove' | 'update'
+> & {
+  resetState(): void;
+  onCreated: EventForTesting<[tab: Browser.tabs.Tab]>;
+  onUpdated: EventForTesting<
+    [tabId: number, changeInfo: Browser.tabs.OnUpdatedInfo, tab: Browser.tabs.Tab]
+  >;
+  onHighlighted: EventForTesting<[highlightInfo: Browser.tabs.OnHighlightedInfo]>;
+  onActivated: EventForTesting<[activeInfo: Browser.tabs.OnActivatedInfo]>;
+  onRemoved: EventForTesting<[tabId: number, removeInfo: Browser.tabs.OnRemovedInfo]>;
+};
 
 type InMemoryTab = Omit<Browser.tabs.Tab, 'active'>;
 
@@ -54,7 +68,7 @@ export function mapTab(tab: InMemoryTab): Browser.tabs.Tab {
   };
 }
 
-export const tabs: BrowserOverrides['tabs'] = {
+export const tabs: TabsOverrides = {
   resetState() {
     tabList.length = 1;
     tabList[0] = DEFAULT_TAB;

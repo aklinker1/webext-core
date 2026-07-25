@@ -1,21 +1,31 @@
 import { Browser } from '@wxt-dev/browser';
 
-import { BrowserOverrides } from '../types';
+import { EventForTesting, StorageChanges } from '../types';
 import { AnyCallback, callbackOrUndefined, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
-type StorageChanges = Record<string, Browser.storage.StorageChange>;
+type StorageAreaOverrides = Pick<
+  Browser.storage.StorageArea,
+  'clear' | 'get' | 'remove' | 'set'
+> & {
+  resetState(): void;
+  onChanged: EventForTesting<[changes: StorageChanges]>;
+};
+
+export type StorageOverrides = {
+  /** Remove all listeners and clear in-memory storages. */
+  resetState(): void;
+  local: StorageAreaOverrides;
+  session: StorageAreaOverrides;
+  sync: StorageAreaOverrides;
+  managed: StorageAreaOverrides;
+  onChanged: EventForTesting<
+    [changes: Record<string, Browser.storage.StorageChange>, areaName: string]
+  >;
+};
 
 const globalOnChanged =
   defineEventWithTrigger<(changes: StorageChanges, areaName: string) => void>();
-
-type StorageAreaWithTrigger = Browser.storage.StorageArea & {
-  resetState(): void;
-  onChanged: {
-    trigger(changes: StorageChanges): Promise<void[]>;
-    removeAllListeners(): void;
-  };
-};
 
 function keysAndCallback(
   arg1?: unknown,
@@ -36,7 +46,8 @@ function keysAndCallback(
 }
 
 type StorageArea = 'local' | 'managed' | 'session' | 'sync';
-function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
+
+function defineStorageArea(area: StorageArea): StorageAreaOverrides {
   const data: Record<string, any> = {};
   const onChanged = defineEventWithTrigger<(changes: StorageChanges) => void>();
 
@@ -116,36 +127,21 @@ function defineStorageArea(area: StorageArea): StorageAreaWithTrigger {
         await globalOnChanged.trigger(changes, area);
       });
     },
-    // @ts-expect-error: Does not implement "rule" functions
     onChanged,
   };
 }
 
-const localStorage = {
-  ...defineStorageArea('local'),
-  QUOTA_BYTES: 5242880 as const,
-};
-const managedStorage = {
-  ...defineStorageArea('managed'),
-  QUOTA_BYTES: 5242880 as const,
-};
-const sessionStorage = {
-  ...defineStorageArea('session'),
-  QUOTA_BYTES: 10485760 as const,
-};
+const localStorage = defineStorageArea('local');
+const managedStorage = defineStorageArea('managed');
+const sessionStorage = defineStorageArea('session');
 const syncStorage = {
   ...defineStorageArea('sync'),
-  MAX_ITEMS: 512 as const,
-  MAX_WRITE_OPERATIONS_PER_HOUR: 1800 as const,
-  MAX_WRITE_OPERATIONS_PER_MINUTE: 120 as const,
-  QUOTA_BYTES: 102400 as const,
-  QUOTA_BYTES_PER_ITEM: 8192 as const,
   getBytesInUse: () => {
     throw Error('Browser.storage.sync.getBytesInUse not implemented.');
   },
 };
 
-export const storage: BrowserOverrides['storage'] = {
+export const storage: StorageOverrides = {
   resetState() {
     localStorage.resetState();
     managedStorage.resetState();

@@ -1,8 +1,21 @@
 import { Browser } from '@wxt-dev/browser';
 
-import { BrowserOverrides } from '../types';
+import { EventForTesting } from '../types';
 import { AnyCallback, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
+
+export type RuntimeOverrides = Pick<typeof Browser.runtime, 'id' | 'getURL' | 'sendMessage'> & {
+  resetState(): void;
+  onSuspend: EventForTesting<[]>;
+  onSuspendCanceled: EventForTesting<[]>;
+  onStartup: EventForTesting<[]>;
+  onInstalled: EventForTesting<[details: Browser.runtime.InstalledDetails]>;
+  onUpdateAvailable: EventForTesting<[details: Browser.runtime.UpdateAvailableDetails]>;
+  onMessage: EventForTesting<
+    [message: any, sender: Browser.runtime.MessageSender, sendResponse: (res: any) => void],
+    void | Promise<any>
+  >;
+};
 
 const onMessage =
   defineEventWithTrigger<
@@ -10,7 +23,7 @@ const onMessage =
       message: any,
       sender: Browser.runtime.MessageSender,
       sendResponse: (value: any) => void,
-    ) => void | true
+    ) => void
   >();
 const onInstalled = defineEventWithTrigger<(details: Browser.runtime.InstalledDetails) => void>();
 const onStartup = defineEventWithTrigger<() => void>();
@@ -21,7 +34,7 @@ const onUpdateAvailable =
 
 const TEST_ID = 'test-extension-id';
 
-export const runtime: BrowserOverrides['runtime'] = {
+export const runtime: RuntimeOverrides = {
   resetState() {
     onMessage.removeAllListeners();
     onInstalled.removeAllListeners();
@@ -86,23 +99,19 @@ export const runtime: BrowserOverrides['runtime'] = {
         sendResponse = resolve;
       });
 
-      const willRespond = await onMessage.trigger(message, sender, sendResponse!);
+      const willRespond = (await onMessage.trigger(message, sender, sendResponse!)) as Array<
+        void | true
+      >;
       if (willRespond.some((res) => res === true)) {
         // Return the value of the first callback to call `sendResponse`
         return await responsePromise;
       }
     });
   },
-  // @ts-expect-error: Does not implement "rule" functions
   onInstalled,
-  // @ts-expect-error: Does not implement "rule" functions
   onMessage,
-  // @ts-expect-error: Does not implement "rule" functions
   onStartup,
-  // @ts-expect-error: Does not implement "rule" functions
   onSuspend,
-  // @ts-expect-error: Does not implement "rule" functions
   onSuspendCanceled,
-  // @ts-expect-error: Does not implement "rule" functions
   onUpdateAvailable,
 };

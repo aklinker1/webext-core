@@ -105,7 +105,8 @@ describe('Storage Wrappers', () => {
 
       await storage.removeItem(key);
 
-      expect(await fakeBrowser.storage.local.get()).toEqual({});
+      const storageAfterRemove = await fakeBrowser.storage.local.get(null);
+      expect(storageAfterRemove).toEqual({});
     });
 
     it('should do nothing if the key is not in storage', async () => {
@@ -113,7 +114,8 @@ describe('Storage Wrappers', () => {
 
       await storage.removeItem('key');
 
-      expect(await fakeBrowser.storage.local.get()).toEqual({ 'another-key': 'some-value' });
+      const storageAfterNoop = await fakeBrowser.storage.local.get(null);
+      expect(storageAfterNoop).toEqual({ 'another-key': 'some-value' });
     });
 
     it('should type the key correctly', async () => {
@@ -133,7 +135,8 @@ describe('Storage Wrappers', () => {
 
       await storage.clear();
 
-      expect(await fakeBrowser.storage.local.get()).toEqual({});
+      const storageAfterClear = await fakeBrowser.storage.local.get(null);
+      expect(storageAfterClear).toEqual({});
     });
   });
 

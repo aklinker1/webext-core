@@ -1,8 +1,8 @@
-import { Events } from 'webextension-polyfill';
+import { Browser } from '@wxt-dev/browser';
 
 type EventCallback = (...args: any[]) => any;
 
-type EventWithTrigger<TCallback extends EventCallback> = Events.Event<TCallback> & {
+type EventWithTrigger<TCallback extends EventCallback> = Browser.events.Event<TCallback> & {
   /** Manually trigger the event and return the results from all the active listeners. */
   trigger(...args: Parameters<TCallback>): Promise<ReturnType<TCallback>[]>;
   /** Remove all listeners from the event. */
@@ -31,6 +31,15 @@ export function defineEventWithTrigger<T extends EventCallback>(): EventWithTrig
     },
     async trigger(...args) {
       return await Promise.all(listeners.map((l) => l(...args)));
+    },
+    addRules() {
+      throw Error('Not implemented');
+    },
+    getRules() {
+      throw Error('Not implemented');
+    },
+    removeRules() {
+      throw Error('Not implemented');
     },
   };
 }
