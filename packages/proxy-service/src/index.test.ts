@@ -10,8 +10,7 @@ import {
   registerService,
 } from '.';
 
-// TODO: Unskip once fake-browser supports callbacks
-describe.skip('Proxy Services', () => {
+describe('Proxy Services', () => {
   beforeEach(fakeBrowser.reset);
 
   describe('RPC', () => {
