@@ -112,9 +112,14 @@ export const tabs: TabsOverrides = {
         id: getNextTabId(),
         url: createProperties.url,
       };
+      if (createProperties.active) setActiveTabId(newTab.id);
+
       tabList.push(newTab);
       const fullTab = mapTab(newTab);
       await onCreated.trigger(fullTab);
+
+      if (createProperties.active)
+        await onActivated.trigger({ tabId: newTab.id!, windowId: newTab.windowId });
 
       return fullTab;
     });
