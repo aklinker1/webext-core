@@ -31,29 +31,16 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.mts",
   "exports": {
     ".": {
-      "import": {
-        "types": "./lib/index.d.mts",
-        "default": "./lib/index.mjs"
-      },
-      "require": {
-        "types": "./lib/index.d.cts",
-        "default": "./lib/index.cjs"
-      }
+      "types": "./lib/index.d.mts",
+      "default": "./lib/index.mjs"
     },
     "./auto": {
-      "import": {
-        "types": "./lib/auto.d.mts",
-        "default": "./lib/auto.mjs"
-      },
-      "require": {
-        "types": "./lib/auto.d.cts",
-        "default": "./lib/auto.cjs"
-      }
+      "types": "./lib/auto.d.mts",
+      "default": "./lib/auto.mjs"
     }
   },
   "publishConfig": {
