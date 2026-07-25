@@ -1,5 +1,17 @@
 # Changelog
 
+## v3.0.2
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/proxy-service-v3.0.1...proxy-service-v3.0.2)
+
+### 🩹 Fixes
+
+- Properly bind `this` for nested classes and objects ([#166](https://github.com/aklinker1/webext-core/pull/166))
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v3.0.1
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/proxy-service-v2.0.1...proxy-service-v3.0.1)
