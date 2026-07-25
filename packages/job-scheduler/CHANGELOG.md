@@ -1,5 +1,30 @@
 # Changelog
 
+## v2.0.0
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/job-scheduler-v1.1.0...job-scheduler-v2.0.0)
+
+### 🩹 Fixes
+
+- Drop `webextension-polyfill`, use `chrome` global instead ([#160](https://github.com/aklinker1/webext-core/pull/160))
+
+### 🏡 Chore
+
+- Cleanup tests ([`782646d`](https://github.com/aklinker1/webext-core/commit/782646d7e54365c60dbe661d7541ac64222538d2))
+- Cleanup types, update docs ([`0ed8fa2`](https://github.com/aklinker1/webext-core/commit/0ed8fa25c60145fc2e8cd32093897b0caee70514))
+- Drop CJS support ([#164](https://github.com/aklinker1/webext-core/pull/164))
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js` ([#165](https://github.com/aklinker1/webext-core/pull/165))
+
+### ⚠️ Breaking Changes
+
+- Drop `webextension-polyfill`, use `chrome` global instead
+- Drop CJS support
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js`
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v1.1.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/job-scheduler-v1.0.0...job-scheduler-v1.1.0)
