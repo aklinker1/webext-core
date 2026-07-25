@@ -214,7 +214,7 @@ describe('defineJobScheduler', () => {
 
         const actual = jobs.scheduleJob(job);
 
-        await expect(actual).rejects.toThrowError();
+        expect(actual).rejects.toThrowError();
       });
     });
   });

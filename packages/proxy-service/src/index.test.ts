@@ -36,8 +36,8 @@ describe('Proxy Services', () => {
         registerService(key, testService);
         const proxy = createProxyService(key);
 
-        await expect(proxy.getVersion()).resolves.toBe(version);
-        await expect(proxy.getNextVersion()).resolves.toBe(nextVersion);
+        expect(proxy.getVersion()).resolves.toBe(version);
+        expect(proxy.getNextVersion()).resolves.toBe(nextVersion);
       });
     });
 
@@ -64,8 +64,8 @@ describe('Proxy Services', () => {
         registerService(key, testService);
         const proxy = createProxyService(key);
 
-        await expect(proxy.getVersion()).resolves.toBe(version);
-        await expect(proxy.getNextVersion()).resolves.toBe(nextVersion);
+        expect(proxy.getVersion()).resolves.toBe(version);
+        expect(proxy.getNextVersion()).resolves.toBe(nextVersion);
       });
     });
 
@@ -82,7 +82,7 @@ describe('Proxy Services', () => {
         registerService(key, sayHello);
         const proxy = createProxyService(key);
 
-        await expect(proxy(name)).resolves.toBe(expected);
+        expect(proxy(name)).resolves.toBe(expected);
       });
     });
 
@@ -118,9 +118,9 @@ describe('Proxy Services', () => {
         registerService(key, api);
         const proxy = createProxyService(key);
 
-        await expect(proxy.one()).resolves.toBe(1);
-        await expect(proxy.two.three()).resolves.toBe(3);
-        await expect(proxy.two.four.five()).resolves.toBe(5);
+        expect(proxy.one()).resolves.toBe(1);
+        expect(proxy.two.three()).resolves.toBe(3);
+        expect(proxy.two.four.five()).resolves.toBe(5);
       });
     });
   });

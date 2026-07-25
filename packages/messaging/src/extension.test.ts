@@ -122,7 +122,7 @@ describe('Messaging Wrapper', () => {
         });
         const res = fakeBrowser.runtime.sendMessage('hello');
 
-        await expect(res).rejects.toThrowError(
+        expect(res).rejects.toThrowError(
           "[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: \"hello\"",
         );
       });
@@ -132,7 +132,7 @@ describe('Messaging Wrapper', () => {
   it('should throw an error when no listeners have been setup', async () => {
     const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
 
-    expect(() => sendMessage('getLength', 'test')).toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+    expect(sendMessage('getLength', 'test')).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 
   it('should fully remove the root listener when all listeners are removed', async () => {
@@ -167,7 +167,7 @@ describe('Messaging Wrapper', () => {
     const res = sendMessage('getLength', input);
 
     expect(actual).toBe(expected);
-    await expect(res).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+    expect(res).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 
   it('should support multiple listeners at the same time, neither interacting with the other', async () => {
