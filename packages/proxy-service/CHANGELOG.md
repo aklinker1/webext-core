@@ -4,6 +4,8 @@
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/proxy-service-v2.0.1...proxy-service-v3.0.1)
 
+> Note: v3.0.0 was skipped because that version was already released due to a CI bug in the past. This is the first, true published version of v3.
+
 ### 🩹 Fixes
 
 - Drop `webextension-polyfill`, use `chrome` global instead ([#160](https://github.com/aklinker1/webext-core/pull/160))
