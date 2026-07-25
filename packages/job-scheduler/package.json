@@ -31,7 +31,6 @@
   ],
   "type": "module",
   "sideEffects": false,
-  "main": "lib/index.cjs",
   "module": "lib/index.mjs",
   "types": "lib/index.d.mts",
   "exports": {
@@ -39,10 +38,6 @@
       "import": {
         "types": "./lib/index.d.mts",
         "default": "./lib/index.mjs"
-      },
-      "require": {
-        "types": "./lib/index.d.cts",
-        "default": "./lib/index.cjs"
       }
     }
   },

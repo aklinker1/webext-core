@@ -6,7 +6,7 @@ export default defineConfig([
   {
     outDir: 'lib',
     entry: ['src/index.ts', 'src/types.ts'],
-    format: ['esm', 'cjs'],
+    format: 'esm',
   },
   {
     outDir: 'lib',
