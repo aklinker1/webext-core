@@ -4,12 +4,10 @@ import pkgJson from './package.json' with { type: 'json' };
 
 export default defineConfig([
   {
-    outDir: 'lib',
     entry: 'src/index.ts',
     format: 'esm',
   },
   {
-    outDir: 'lib',
     entry: 'src/index.ts',
     format: 'iife',
     globalName: 'webExtCoreIsolatedElement',
@@ -18,8 +16,5 @@ export default defineConfig([
       alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'index.global.js',
-    },
   },
 ]);

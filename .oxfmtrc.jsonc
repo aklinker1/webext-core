@@ -3,7 +3,6 @@
   "ignorePatterns": [
     "node_modules/",
     "dist/",
-    "lib/",
     "/docs/.vitepress/cache",
     "/docs/api/*",
     ".nuxt",
