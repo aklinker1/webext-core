@@ -10,7 +10,7 @@ describe('createIsolatedElement', () => {
   it('should not allow invalid custom element names', async () => {
     const invalidName = 'test';
 
-    await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
+    expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
       `"${invalidName}" cannot have a shadow root attached to it`,
     );
   });
@@ -18,7 +18,7 @@ describe('createIsolatedElement', () => {
   it('should not allow certain built-in elements', async () => {
     const invalidName = 'a';
 
-    await expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
+    expect(createIsolatedElement({ name: invalidName })).rejects.toThrow(
       `"${invalidName}" cannot have a shadow root attached to it`,
     );
   });
@@ -26,7 +26,7 @@ describe('createIsolatedElement', () => {
   it('should allow certain built-in elements', async () => {
     const validName = 'div';
 
-    await expect(createIsolatedElement({ name: validName })).resolves.toBeDefined();
+    expect(createIsolatedElement({ name: validName })).resolves.toBeDefined();
   });
 
   it('should insert an app into the UI', async () => {

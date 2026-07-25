@@ -40,7 +40,9 @@ describe.skip('Messaging Wrapper', () => {
     const input = 'test';
     const tabId = 0;
     const expected = 4;
-    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected });
+    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockImplementation((...args: any[]): any => {
+      args[3]({ res: expected });
+    });
 
     const actual = await sendMessage('getLength', input, tabId);
 
@@ -55,6 +57,7 @@ describe.skip('Messaging Wrapper', () => {
         data: input,
       },
       undefined,
+      expect.any(Function),
     );
   });
 
@@ -64,7 +67,11 @@ describe.skip('Messaging Wrapper', () => {
     const tabId = 0;
     const frameId = 0;
     const expected = 4;
-    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockResolvedValueOnce({ res: expected });
+    vi.spyOn<any, any>(fakeBrowser.tabs, 'sendMessage').mockImplementation(
+      (...args: any[]): any => {
+        args[3]({ res: expected });
+      },
+    );
 
     const actual = await sendMessage('getLength', input, { tabId, frameId });
 
@@ -79,6 +86,7 @@ describe.skip('Messaging Wrapper', () => {
         data: input,
       },
       { frameId },
+      expect.any(Function),
     );
   });
 
@@ -114,7 +122,7 @@ describe.skip('Messaging Wrapper', () => {
         });
         const res = fakeBrowser.runtime.sendMessage('hello');
 
-        await expect(res).rejects.toThrowError(
+        expect(res).rejects.toThrowError(
           "[messaging] Unknown message format, must include the 'type' & 'timestamp' fields, received: \"hello\"",
         );
       });
@@ -124,7 +132,7 @@ describe.skip('Messaging Wrapper', () => {
   it('should throw an error when no listeners have been setup', async () => {
     const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
 
-    await expect(sendMessage('getLength', 'test')).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+    expect(sendMessage('getLength', 'test')).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 
   it('should fully remove the root listener when all listeners are removed', async () => {
@@ -159,7 +167,7 @@ describe.skip('Messaging Wrapper', () => {
     const res = sendMessage('getLength', input);
 
     expect(actual).toBe(expected);
-    await expect(res).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
+    expect(res).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 
   it('should support multiple listeners at the same time, neither interacting with the other', async () => {
