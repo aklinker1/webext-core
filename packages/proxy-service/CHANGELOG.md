@@ -1,5 +1,30 @@
 # Changelog
 
+## v3.0.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/proxy-service-v2.0.1...proxy-service-v3.0.1)
+
+### 🩹 Fixes
+
+- Drop `webextension-polyfill`, use `chrome` global instead ([#160](https://github.com/aklinker1/webext-core/pull/160))
+
+### 🏡 Chore
+
+- Cleanup tests ([`782646d`](https://github.com/aklinker1/webext-core/commit/782646d7e54365c60dbe661d7541ac64222538d2))
+- Re-enable tests ([`d9e2594`](https://github.com/aklinker1/webext-core/commit/d9e2594950362a8ce606dd00cce4d3b4195c3665))
+- Drop CJS support ([#164](https://github.com/aklinker1/webext-core/pull/164))
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js` ([#165](https://github.com/aklinker1/webext-core/pull/165))
+
+### ⚠️ Breaking Changes
+
+- Drop `webextension-polyfill`, use `chrome` global instead
+- Drop CJS support
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js`
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v2.0.1
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/proxy-service-v2.0.0...proxy-service-v2.0.1)
