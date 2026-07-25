@@ -17,7 +17,9 @@
 
 ### ⚠️ Breaking Changes
 
-- Add callback support for implementing the `chrome` API
+- Migrating from the `webextension-polyfill` API to `@types/chrome` has a few gotchas:
+  1.  Messaging has changed - use `sendResponse` instead of returning a promise in the `onMessage` callback. If you use `@webext-core/messaging`, update to v4 you don't need to worry about this. If you mocked any of the messaging APIs, convert to using callbacks in the mocks as well.
+  2.  API types have changed - they're now based on `@wxt-dev/browser` (based on `@types/chrome`), so firefox APIs present in the polyfill are missing. Mock them or [extend the shape of the `browser` variable manually](https://wxt.dev/guide/essentials/extension-apis.html#add-firefox-types)
 - Drop CJS support
 - Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js`
 
