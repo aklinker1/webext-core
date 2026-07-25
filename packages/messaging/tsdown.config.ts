@@ -18,9 +18,6 @@ export default defineConfig([
       alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'index.global.js',
-    },
   },
   {
     outDir: 'lib',
@@ -32,8 +29,5 @@ export default defineConfig([
       alwaysBundle: Object.keys(pkgJson.dependencies),
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'page.global.js',
-    },
   },
 ]);

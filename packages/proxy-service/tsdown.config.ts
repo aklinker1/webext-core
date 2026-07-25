@@ -18,8 +18,5 @@ export default defineConfig([
       alwaysBundle: Object.keys(pkgJson.peerDependencies),
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'index.global.js',
-    },
   },
 ]);

@@ -15,8 +15,5 @@ export default defineConfig([
       onlyBundle: false,
     },
     minify: true,
-    outputOptions: {
-      entryFileNames: () => 'index.global.js',
-    },
   },
 ]);
