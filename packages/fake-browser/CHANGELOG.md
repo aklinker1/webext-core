@@ -1,5 +1,30 @@
 # Changelog
 
+## v2.0.0
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.5.2...fake-browser-v2.0.0)
+
+### 🚀 Features
+
+- Add callback support for implementing the `chrome` API ([#163](https://github.com/aklinker1/webext-core/pull/163))
+
+### 🏡 Chore
+
+- Reduce size of generated code (ESM: 253 -> 138 kB) ([`5a4a617`](https://github.com/aklinker1/webext-core/commit/5a4a617be6464aed9e8d448aa390dab2ec0432cb))
+- Cleanup types, update docs ([`0ed8fa2`](https://github.com/aklinker1/webext-core/commit/0ed8fa25c60145fc2e8cd32093897b0caee70514))
+- Drop CJS support ([#164](https://github.com/aklinker1/webext-core/pull/164))
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js` ([#165](https://github.com/aklinker1/webext-core/pull/165))
+
+### ⚠️ Breaking Changes
+
+- Add callback support for implementing the `chrome` API
+- Drop CJS support
+- Standardize `IIFE` filenames `lib/index.global.js` -> `dist/index.iife.js`
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v1.5.2
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.5.1...fake-browser-v1.5.2)
