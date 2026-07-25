@@ -1,6 +1,6 @@
 import type { Browser } from '@wxt-dev/browser';
 
-import { BrowserOverrides } from '../types';
+import { EventForTesting } from '../types';
 import {
   Callback,
   callbackOrUndefined,
@@ -9,10 +9,15 @@ import {
 } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
+export type AlarmsOverrides = typeof Browser.alarms & {
+  resetState(): void;
+  onAlarm: EventForTesting<[alarm: Browser.alarms.Alarm]>;
+};
+
 const alarmList: Browser.alarms.Alarm[] = [];
 const onAlarm = defineEventWithTrigger<(alarm: Browser.alarms.Alarm) => void>();
 
-export const alarms: BrowserOverrides['alarms'] = {
+export const alarms: AlarmsOverrides = {
   resetState() {
     alarmList.length = 0;
     onAlarm.removeAllListeners();
@@ -98,6 +103,5 @@ export const alarms: BrowserOverrides['alarms'] = {
     const callback = callbackOrUndefined(arg1);
     return promiseOrCallback(callback, () => [...alarmList]);
   },
-  // @ts-expect-error: Does not implement "rule" functions
   onAlarm,
 };

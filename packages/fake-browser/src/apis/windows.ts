@@ -1,9 +1,19 @@
 import type { Browser } from '@wxt-dev/browser';
 
-import { BrowserOverrides } from '../types';
+import { EventForTesting } from '../types';
 import { Callback, EmptyCallback, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 import { mapTab, tabList } from './tabs';
+
+export type WindowOverrides = Pick<
+  typeof Browser.windows,
+  'get' | 'getAll' | 'create' | 'getCurrent' | 'getLastFocused' | 'remove' | 'update'
+> & {
+  resetState(): void;
+  onCreated: EventForTesting<[window: Browser.windows.Window]>;
+  onRemoved: EventForTesting<[windowId: number]>;
+  onFocusChanged: EventForTesting<[windowId: number]>;
+};
 
 type InMemoryWindow = Omit<Browser.windows.Window, 'focused' | 'tabs'>;
 
@@ -27,6 +37,7 @@ function setFocusedWindowId(id: Browser.windows.Window['id']): void {
   lastFocusedWindowId = focusedWindowId;
   focusedWindowId = id;
 }
+
 function getNextWindowId(): Browser.windows.Window['id'] {
   const id = nextWindowId;
   nextWindowId++;
@@ -52,7 +63,7 @@ function mapCreateType(type: string | undefined): Browser.windows.WindowType | u
   return type as string as Browser.windows.WindowType;
 }
 
-export const windows: BrowserOverrides['windows'] = {
+export const windows: WindowOverrides = {
   resetState() {
     windowList.length = 1;
     windowList[0] = DEFAULT_WINDOW;

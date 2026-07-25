@@ -1,7 +1,6 @@
 import { describe, it, expect, vi, beforeEach, setSystemTime } from 'bun:test';
 
 import { fakeBrowser } from '@webext-core/fake-browser';
-import { Alarms } from 'webextension-polyfill';
 
 import { defineJobScheduler } from './index';
 
@@ -20,9 +19,10 @@ describe('defineJobScheduler', () => {
           date: Date.now() + 60e3,
           execute: vi.fn(),
         };
-        const expected: Alarms.Alarm = {
+        const expected: chrome.alarms.Alarm = {
           name: job.id,
           scheduledTime: job.date,
+          persistAcrossSessions: undefined!,
         };
         const jobs = defineJobScheduler({ logger: null });
         await jobs.scheduleJob(job);
@@ -45,7 +45,11 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm = await fakeBrowser.alarms.get(job.id);
-        await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: Math.random() });
+        await fakeBrowser.alarms.onAlarm.trigger({
+          name: job.id,
+          scheduledTime: Math.random(),
+          persistAcrossSessions: false,
+        });
 
         expect(job.execute).not.toBeCalled();
         expect(alarm).toBeUndefined();
@@ -62,10 +66,11 @@ describe('defineJobScheduler', () => {
           immediate: true,
           execute: vi.fn(),
         };
-        const expected: Alarms.Alarm = {
+        const expected: chrome.alarms.Alarm = {
           name: job.id,
           scheduledTime: Date.now(),
           periodInMinutes: minutes,
+          persistAcrossSessions: undefined!,
         };
         const jobs = defineJobScheduler({ logger: null });
         await jobs.scheduleJob(job);
@@ -113,10 +118,11 @@ describe('defineJobScheduler', () => {
             immediate,
             execute: vi.fn(),
           };
-          const expected: Alarms.Alarm = {
+          const expected: chrome.alarms.Alarm = {
             name: job.id,
             scheduledTime: Date.now() + job.duration,
             periodInMinutes: minutes,
+            persistAcrossSessions: undefined!,
           };
           const jobs = defineJobScheduler({ logger: null });
           await jobs.scheduleJob(job);
@@ -138,9 +144,10 @@ describe('defineJobScheduler', () => {
           expression: '0 0/2 * * *', // every 2 hours on the 0th minute of the hour
           execute: vi.fn(),
         };
-        const expected: Alarms.Alarm = {
+        const expected: chrome.alarms.Alarm = {
           name: job.id,
           scheduledTime: new Date('2023-01-30T12:00:00.000Z').getTime(),
+          persistAcrossSessions: undefined!,
         };
 
         const jobs = defineJobScheduler({ logger: null });
@@ -165,7 +172,11 @@ describe('defineJobScheduler', () => {
         await jobs.scheduleJob(job);
 
         const alarm = await fakeBrowser.alarms.get(job.id);
-        await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: Math.random() });
+        await fakeBrowser.alarms.onAlarm.trigger({
+          name: job.id,
+          scheduledTime: Math.random(),
+          persistAcrossSessions: false,
+        });
 
         expect(job.execute).not.toBeCalled();
         expect(alarm).toBeUndefined();
@@ -181,13 +192,15 @@ describe('defineJobScheduler', () => {
           expression: '0 0/2 * * *', // every 2 hours on the 0th minute of the hour
           execute,
         };
-        const expected1: Alarms.Alarm = {
+        const expected1: chrome.alarms.Alarm = {
           name: job.id,
           scheduledTime: new Date('2023-01-30T12:00:00.000Z').getTime(),
+          persistAcrossSessions: undefined!,
         };
-        const expected2: Alarms.Alarm = {
+        const expected2: chrome.alarms.Alarm = {
           name: job.id,
           scheduledTime: new Date('2023-01-30T14:00:00.000Z').getTime(),
+          persistAcrossSessions: undefined!,
         };
 
         const jobs = defineJobScheduler({ logger: null });
@@ -229,9 +242,17 @@ describe('defineJobScheduler', () => {
       };
       const jobs = defineJobScheduler({ logger: null });
       await jobs.scheduleJob(job);
-      await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: job.date });
+      await fakeBrowser.alarms.onAlarm.trigger({
+        name: job.id,
+        scheduledTime: job.date,
+        persistAcrossSessions: undefined!,
+      });
       await jobs.removeJob(job.id);
-      await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: job.date });
+      await fakeBrowser.alarms.onAlarm.trigger({
+        name: job.id,
+        scheduledTime: job.date,
+        persistAcrossSessions: false,
+      });
       const alarm = await fakeBrowser.alarms.get(job.id);
 
       expect(job.execute).toBeCalledTimes(1);
@@ -254,7 +275,11 @@ describe('defineJobScheduler', () => {
       await jobs.scheduleJob(job);
       jobs.on('success', onSuccess);
 
-      await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: job.date });
+      await fakeBrowser.alarms.onAlarm.trigger({
+        name: job.id,
+        scheduledTime: job.date,
+        persistAcrossSessions: false,
+      });
 
       expect(onSuccess).toBeCalledTimes(1);
       expect(onSuccess).toBeCalledWith(job, result);
@@ -277,7 +302,11 @@ describe('defineJobScheduler', () => {
       await jobs.scheduleJob(job);
       jobs.on('error', onError);
 
-      await fakeBrowser.alarms.onAlarm.trigger({ name: job.id, scheduledTime: job.date });
+      await fakeBrowser.alarms.onAlarm.trigger({
+        name: job.id,
+        scheduledTime: job.date,
+        persistAcrossSessions: false,
+      });
 
       expect(onError).toBeCalledTimes(1);
       expect(onError).toBeCalledWith(job, expect.any(Error));

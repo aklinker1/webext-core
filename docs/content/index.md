@@ -125,7 +125,7 @@ Packages
   `@webext-core/fake-browser`
 
   #description
-  An in-memory implementation of webextension-polyfill for testing.
+  An in-memory implementation of the web extension APIs for testing.
 
   [Go to docs →](/fake-browser/installation)
   :::
