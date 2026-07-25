@@ -16,8 +16,7 @@ interface ProtocolMap {
   getHalfLength: ProtocolWithReturn<string, number>;
 }
 
-// TODO: Unskip once fake-browser supports callbacks
-describe.skip('Messaging Wrapper', () => {
+describe('Messaging Wrapper', () => {
   beforeEach(() => {
     fakeBrowser.reset();
     vi.resetAllMocks();
