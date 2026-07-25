@@ -52,7 +52,16 @@ export function defineExtensionMessaging<
     ...config,
     sendMessage(message, arg) {
       // No args - send to background
-      if (arg == null) return new Promise((res) => chrome.runtime.sendMessage(message, res));
+      if (arg == null)
+        return new Promise((resolve, reject) =>
+          chrome.runtime.sendMessage(message, (response) => {
+            if (chrome.runtime.lastError) {
+              reject(new Error(chrome.runtime.lastError.message));
+            } else {
+              resolve(response);
+            }
+          }),
+        );
 
       // Handle both number and options object
       const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
