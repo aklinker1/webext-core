@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/fake-browser",
-  "version": "2.0.0",
+  "version": "2.0.1",
   "description": "An in-memory implementation of web extension APIs for testing. Supports all test frameworks (Vitest, Jest, etc)",
   "keywords": [
     "browser",

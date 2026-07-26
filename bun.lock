@@ -19,7 +19,7 @@
     },
     "packages/fake-browser": {
       "name": "@webext-core/fake-browser",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "dependencies": {
         "@wxt-dev/browser": "*",
         "lodash.merge": "^4.6.2",

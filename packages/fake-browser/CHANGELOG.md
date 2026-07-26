@@ -1,5 +1,18 @@
 # Changelog
 
+## v2.0.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v2.0.0...fake-browser-v2.0.1)
+
+### 🩹 Fixes
+
+- Respect `active: true` in `tabs.create` ([`4d7bde0`](https://github.com/aklinker1/webext-core/commit/4d7bde0e24226147b9689436a462d7f5282a6533))
+- Make `runtime.id` writable ([`004b120`](https://github.com/aklinker1/webext-core/commit/004b12029f4ca06b09c98a9155bb297d6c063649))
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v2.0.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/fake-browser-v1.5.2...fake-browser-v2.0.0)
