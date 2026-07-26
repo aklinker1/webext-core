@@ -4,7 +4,9 @@ import { EventForTesting } from '../types';
 import { AnyCallback, promiseOrCallback } from '../utils/callback-utils';
 import { defineEventWithTrigger } from '../utils/defineEventWithTrigger';
 
-export type RuntimeOverrides = Pick<typeof Browser.runtime, 'id' | 'getURL' | 'sendMessage'> & {
+export type RuntimeOverrides = Pick<typeof Browser.runtime, 'getURL' | 'sendMessage'> & {
+  // Override ID here so it's not readonly.
+  id: string;
   resetState(): void;
   onSuspend: EventForTesting<[]>;
   onSuspendCanceled: EventForTesting<[]>;
@@ -42,7 +44,6 @@ export const runtime: RuntimeOverrides = {
     onSuspend.removeAllListeners();
     onSuspendCanceled.removeAllListeners();
     onUpdateAvailable.removeAllListeners();
-    // @ts-expect-error: Typed as readonly - but not readonly in the fake browser.
     runtime.id = TEST_ID;
   },
   id: TEST_ID,
