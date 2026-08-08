@@ -54,11 +54,9 @@
     "prepack": "bun run build"
   },
   "dependencies": {
-    "@wxt-dev/browser": "*",
-    "lodash.merge": "^4.6.2"
+    "@wxt-dev/browser": "*"
   },
   "devDependencies": {
-    "@types/lodash.merge": "^4.6.9",
     "publint": "catalog:",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",

@@ -1,5 +1,4 @@
 import { Browser } from '@wxt-dev/browser';
-import merge from 'lodash.merge';
 
 import { action, ActionOverrides } from './apis/action';
 import { alarms, AlarmsOverrides } from './apis/alarms';
@@ -9,7 +8,7 @@ import { storage, StorageOverrides } from './apis/storage';
 import { tabs, TabsOverrides } from './apis/tabs';
 import { webNavigation, WebNavigationOverrides } from './apis/webNavigation';
 import { WindowOverrides, windows } from './apis/windows';
-import { base } from './base';
+import { createFakeBrowser } from './base';
 
 export interface BrowserOverrides {
   /**
@@ -38,8 +37,9 @@ export type FakeBrowser = BrowserOverrides & typeof Browser;
 
 const overrides: BrowserOverrides = {
   reset() {
-    for (const [name, api] of Object.entries(fakeBrowser)) {
-      if (name !== 'reset' && typeof api?.resetState === 'function') api.resetState();
+    for (const [name, api] of Object.entries(overrides)) {
+      if (name !== 'reset' && typeof (api as any).resetState === 'function')
+        (api as any).resetState();
     }
   },
 
@@ -55,4 +55,4 @@ const overrides: BrowserOverrides = {
 };
 
 /** An in-memory implementation of the `browser` global. */
-export const fakeBrowser: FakeBrowser = merge(base, overrides);
+export const fakeBrowser: FakeBrowser = createFakeBrowser(overrides);
