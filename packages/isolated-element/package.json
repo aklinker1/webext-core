@@ -48,12 +48,10 @@
     "check": "bun run build && check",
     "prepack": "bun run build"
   },
-  "dependencies": {
-    "is-potential-custom-element-name": "^1.0.1"
-  },
   "devDependencies": {
     "@happy-dom/global-registrator": "catalog:",
     "@types/is-potential-custom-element-name": "^1.0.0",
+    "is-potential-custom-element-name": "^1.0.1",
     "publint": "catalog:",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",

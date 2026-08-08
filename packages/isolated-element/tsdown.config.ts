@@ -1,20 +1,20 @@
 import { defineConfig } from 'tsdown';
 
-import pkgJson from './package.json' with { type: 'json' };
+const deps = {
+  onlyBundle: ['is-potential-custom-element-name'],
+};
 
 export default defineConfig([
   {
     entry: 'src/index.ts',
     format: 'esm',
+    deps,
   },
   {
     entry: 'src/index.ts',
     format: 'iife',
     globalName: 'webExtCoreIsolatedElement',
-    deps: {
-      onlyBundle: false,
-      alwaysBundle: Object.keys(pkgJson.dependencies),
-    },
+    deps,
     minify: true,
   },
 ]);
