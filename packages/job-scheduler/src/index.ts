@@ -1,4 +1,4 @@
-import cron from 'cron-parser';
+import { Cron, type CronOptions } from 'croner';
 import formatDuration from 'format-duration';
 
 /** Interface used to log text to the console when creating and executing jobs. */
@@ -45,18 +45,17 @@ export interface IntervalJob {
 }
 
 /**
- * A job that is executed based on a CRON expression. Backed by `cron-parser`.
+ * A job that is executed based on a CRON expression. Backed by `croner`.
  *
- * [`cron.ParserOptions`](https://github.com/harrisiirak/cron-parser#options) includes options like
- * timezone.
+ * [`CronOptions`](https://github.com/Hexagon/croner#configuration) includes options like timezone.
  */
-export interface CronJob extends cron.ParserOptions<false> {
+export interface CronJob extends Pick<
+  CronOptions,
+  'timezone' | 'startAt' | 'stopAt' | 'legacyMode'
+> {
   id: string;
   type: 'cron';
-  /**
-   * See `cron-parser`'s [supported
-   * expressions](https://github.com/harrisiirak/cron-parser#supported-format)
-   */
+  /** See `croner`'s [supported expressions](https://github.com/Hexagon/croner#pattern) */
   expression: string;
   execute: ExecuteFn;
 }
@@ -162,13 +161,14 @@ export function defineJobScheduler(options?: JobSchedulerConfig): JobScheduler {
         periodInMinutes = job.duration / 60e3;
         break;
       case 'cron':
-        const expression = cron.parseExpression(job.expression, {
-          ...job,
-          currentDate: Date.now(),
-          startDate: Date.now(),
-        });
-        if (!expression.hasNext()) return;
-        scheduledTime = expression.next().getTime();
+        const nextRun = new Cron(job.expression, {
+          timezone: job.timezone,
+          startAt: job.startAt,
+          stopAt: job.stopAt,
+          legacyMode: job.legacyMode,
+        }).nextRun(new Date());
+        if (!nextRun) return;
+        scheduledTime = nextRun.getTime();
         break;
     }
     return {

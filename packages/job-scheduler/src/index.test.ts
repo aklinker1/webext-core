@@ -165,7 +165,7 @@ describe('defineJobScheduler', () => {
           id: 'cron',
           type: 'cron' as const,
           expression: '0 */2 * * *',
-          endDate: Date.now() - 1,
+          stopAt: new Date(Date.now() - 1),
           execute: vi.fn(),
         };
         const jobs = defineJobScheduler({ logger: null });
@@ -220,7 +220,6 @@ describe('defineJobScheduler', () => {
           id: 'cron',
           type: 'cron' as const,
           expression: '60 */2 * * *',
-          endDate: Date.now() - 1,
           execute: vi.fn(),
         };
         const jobs = defineJobScheduler({ logger: null });
