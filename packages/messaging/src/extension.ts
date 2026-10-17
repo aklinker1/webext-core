@@ -66,13 +66,19 @@ export function defineExtensionMessaging<
       // Handle both number and options object
       const options: SendMessageOptions = typeof arg === 'number' ? { tabId: arg } : arg;
 
-      return new Promise((res) =>
+      return new Promise((resolve, reject) =>
         chrome.tabs.sendMessage(
           options.tabId,
           message,
           // Pass frameId if specified
           options.frameId != null ? { frameId: options.frameId } : undefined,
-          res,
+          (response) => {
+            if (chrome.runtime.lastError) {
+              reject(new Error(chrome.runtime.lastError.message));
+            } else {
+              resolve(response);
+            }
+          },
         ),
       );
     },

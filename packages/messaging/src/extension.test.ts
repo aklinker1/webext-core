@@ -134,6 +134,18 @@ describe('Messaging Wrapper', () => {
     expect(sendMessage('getLength', 'test')).rejects.toThrowError(NO_RUNTIME_LISTENERS_ERROR);
   });
 
+  it('should throw an error when the tab has no listeners', async () => {
+    const { sendMessage } = defineExtensionMessaging<ProtocolMap>();
+    const error = 'Could not establish connection. Receiving end does not exist.';
+    vi.spyOn(fakeBrowser.tabs, 'sendMessage').mockImplementation((...args: any[]): any => {
+      (fakeBrowser.runtime as any).lastError = { message: error };
+      args[3]();
+      (fakeBrowser.runtime as any).lastError = undefined;
+    });
+
+    await expect(sendMessage('getLength', 'test', 0)).rejects.toThrowError(error);
+  });
+
   it('should fully remove the root listener when all listeners are removed', async () => {
     const { onMessage, sendMessage } = defineExtensionMessaging<ProtocolMap>();
     const input = 'test';
