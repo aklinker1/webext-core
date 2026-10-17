@@ -1,6 +1,6 @@
 {
   "name": "@webext-core/job-scheduler",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "description": "Schedule and run jobs in your background script",
   "keywords": [
     "browser",
@@ -49,13 +49,11 @@
     "check": "bun run build && check",
     "prepack": "bun run build"
   },
-  "dependencies": {
-    "cron-parser": "^4.8.1",
-    "format-duration": "^3.0.2"
-  },
   "devDependencies": {
     "@types/chrome": "catalog:",
     "@webext-core/fake-browser": "workspace:*",
+    "croner": "^9.1.0",
+    "format-duration": "^4.0.0",
     "publint": "catalog:",
     "tsconfig": "workspace:*",
     "tsdown": "catalog:",

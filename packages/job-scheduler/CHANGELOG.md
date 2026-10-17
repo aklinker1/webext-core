@@ -1,5 +1,21 @@
 # Changelog
 
+## v3.0.0
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/job-scheduler-v2.0.0...job-scheduler-v3.0.0)
+
+### 🏡 Chore
+
+- **deps**: Inline and minimize deps ([`99bc266`](https://github.com/aklinker1/webext-core/commit/99bc26639187d8cc638a34923fd6bbc0d0c30d77))
+
+### ⚠️ Breaking Changes
+
+- [`99bc266`](https://github.com/aklinker1/webext-core/commit/99bc26639187d8cc638a34923fd6bbc0d0c30d77): Replaced `cron-parser` with `croner`. If you're using CRON features, make sure the expression and options are valid.
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v2.0.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/job-scheduler-v1.1.0...job-scheduler-v2.0.0)

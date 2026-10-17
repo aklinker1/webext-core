@@ -1,7 +1,5 @@
 import { defineConfig } from 'tsdown';
 
-import pkgJson from './package.json' with { type: 'json' };
-
 export default defineConfig([
   {
     entry: 'src/index.ts',
@@ -13,7 +11,7 @@ export default defineConfig([
     globalName: 'webExtCoreJobScheduler',
     deps: {
       onlyBundle: false,
-      alwaysBundle: Object.keys(pkgJson.dependencies),
+      alwaysBundle: ['croner', 'format-duration'],
     },
     minify: true,
   },
