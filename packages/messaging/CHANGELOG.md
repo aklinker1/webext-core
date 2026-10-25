@@ -1,5 +1,17 @@
 # Changelog
 
+## v4.0.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/messaging-v4.0.0...messaging-v4.0.1)
+
+### 🩹 Fixes
+
+- Reject with `chrome.runtime.lastError` when messaging a tab ([#170](https://github.com/aklinker1/webext-core/pull/170))
+
+### ❤️ Contributors
+
+- [@stupside](https://github.com/stupside)
+
 ## v4.0.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/messaging-v3.0.3...messaging-v4.0.0)
