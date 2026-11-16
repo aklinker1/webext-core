@@ -45,8 +45,8 @@
   },
   "scripts": {
     "build": "buildc -- tsdown",
-    "test": "buildc --deps-only -- bun test",
-    "test:coverage": "buildc --deps-only -- bun  test --coverage",
+    "test": "buildc deps && bun test",
+    "test:coverage": "buildc deps && bun  test --coverage",
     "check": "bun run build && check",
     "prepack": "bun run build"
   },

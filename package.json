@@ -31,7 +31,7 @@
     "*": "oxfmt --no-error-on-unmatched-pattern"
   },
   "catalog": {
-    "@aklinker1/buildc": "^1.1.7",
+    "@aklinker1/buildc": "^2.0.0",
     "@aklinker1/check": "^2.4.0",
     "@happy-dom/global-registrator": "^20.9.0",
     "@types/chrome": "^0.2.2",
@@ -42,5 +42,8 @@
   },
   "patchedDependencies": {
     "simple-git-hooks@2.13.1": "patches/simple-git-hooks@2.13.1.patch"
-  }
+  },
+  "trustedDependencies": [
+    "@aklinker1/buildc"
+  ]
 }

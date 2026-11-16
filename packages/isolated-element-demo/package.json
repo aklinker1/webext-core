@@ -4,7 +4,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "buildc --deps-only -- vite",
+    "dev": "buildc deps && vite",
     "build": "buildc -- vite build",
     "check": "echo 'noop'",
     "test": "echo 'noop'",
@@ -18,6 +18,6 @@
     "vite": "^4.0.0"
   },
   "buildc": {
-    "cachable": false
+    "cache": false
   }
 }

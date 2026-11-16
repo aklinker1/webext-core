@@ -3,7 +3,7 @@
   "private": true,
   "type": "module",
   "scripts": {
-    "dev": "buildc --deps-only -- wxt",
+    "dev": "buildc deps && wxt",
     "build": "buildc -- wxt build",
     "check": "echo 'noop'",
     "test": "echo 'noop'",
@@ -17,6 +17,6 @@
     "wxt": "catalog:"
   },
   "buildc": {
-    "cachable": false
+    "cache": false
   }
 }

@@ -19,6 +19,6 @@
     "ts-morph": "^23.0.0"
   },
   "buildc": {
-    "cachable": false
+    "cache": false
   }
 }
