@@ -8,5 +8,8 @@
     "build": "echo 'noop'",
     "test": "echo 'noop'",
     "test:coverage": "echo 'noop'"
+  },
+  "buildc": {
+    "cache": false
   }
 }
