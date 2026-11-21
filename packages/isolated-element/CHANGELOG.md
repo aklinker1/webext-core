@@ -1,5 +1,21 @@
 # Changelog
 
+## v3.0.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/isolated-element-v3.0.0...isolated-element-v3.0.1)
+
+### 🩹 Fixes
+
+- Inline `is-potential-custom-element-name` ([`eff4212`](https://github.com/aklinker1/webext-core/commit/eff4212433fbd2fd01f5656ae513102d5300b189))
+
+### 🏡 Chore
+
+- **deps**: Upgrade `@aklinker1/buildc` to v2 ([`57e3745`](https://github.com/aklinker1/webext-core/commit/57e3745a649fa78cf84bd4f6fa8d3fda8c1531fe))
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v3.0.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/isolated-element-v2.0.1...isolated-element-v3.0.0)

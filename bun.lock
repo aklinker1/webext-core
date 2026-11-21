@@ -34,7 +34,7 @@
     },
     "packages/isolated-element": {
       "name": "@webext-core/isolated-element",
-      "version": "3.0.0",
+      "version": "3.0.1",
       "devDependencies": {
         "@happy-dom/global-registrator": "catalog:",
         "@types/is-potential-custom-element-name": "^1.0.0",
