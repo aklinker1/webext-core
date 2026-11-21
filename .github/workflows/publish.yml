@@ -57,8 +57,10 @@ jobs:
           preCommitCommands: |-
             bun i
           publishCommands: |-
+            cp ../../LICENSE .
             npm publish
           dryRun: ${{ inputs.dryRun }}
           dryRunPublishCommands: |-
+            cp ../../LICENSE .
             npm publish --dry-run
           githubToken: ${{ secrets.GITHUB_TOKEN }}

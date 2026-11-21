@@ -13,3 +13,5 @@ coverage
 .wxt
 .idea
 docs/content/*/api.md
+# Copied from the root before publishing in publish.yml
+/packages/*/LICENSE
