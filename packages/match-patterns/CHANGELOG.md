@@ -1,5 +1,17 @@
 # Changelog
 
+## v2.0.1
+
+[compare changes](https://github.com/aklinker1/webext-core/compare/match-patterns-v2.0.0...match-patterns-v2.0.1)
+
+### 🏡 Chore
+
+- **deps**: Upgrade `@aklinker1/buildc` to v2 ([`57e3745`](https://github.com/aklinker1/webext-core/commit/57e3745a649fa78cf84bd4f6fa8d3fda8c1531fe))
+
+### ❤️ Contributors
+
+- [@aklinker1](https://github.com/aklinker1)
+
 ## v2.0.0
 
 [compare changes](https://github.com/aklinker1/webext-core/compare/match-patterns-v1.1.0...match-patterns-v2.0.0)
