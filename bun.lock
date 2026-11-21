@@ -141,7 +141,7 @@
     },
     "packages/storage": {
       "name": "@webext-core/storage",
-      "version": "2.0.0",
+      "version": "2.0.1",
       "devDependencies": {
         "@types/chrome": "catalog:",
         "@webext-core/fake-browser": "workspace:*",
